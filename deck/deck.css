@@ -86,15 +86,15 @@ p { margin: 0; }
 .s-title .slide-footer span:first-child { visibility: hidden; }
 .byline { position: absolute; left: 96px; bottom: 96px; font-size: 15px; color: var(--ink-2); }
 .byline span { color: var(--ink-3); }
-/* Boundaries: inside the rules the agent acts, at the edge it asks, beyond a person takes over. */
-.bounds { position: absolute; right: 96px; top: 50%; width: 440px; height: 440px; transform: translateY(-50%); overflow: visible; }
-.bounds .inner { fill: var(--person-soft); }
-.bounds .edge { fill: none; stroke: var(--red); stroke-width: 1.5; }
-.bounds .lab { font: 500 15px var(--font); fill: var(--ink); text-anchor: middle; }
-.bounds .lab.muted { fill: var(--ink-2); }
-.bounds .dot { fill: var(--ink); }
-.bounds .dot.red { fill: var(--red); }
-.bounds .dot.open { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
+/* Beats: what the agent does, with "Stops" as the pivot (the only red). */
+.beats { position: relative; width: 800px; list-style: none; padding: 0; margin: 84px 0 0; display: grid; grid-template-columns: repeat(4, 200px); }
+.beats::before { content: ""; position: absolute; left: 5px; right: 195px; top: 5px; height: 1px; background: var(--ink-3); opacity: .6; }
+.beats li { position: relative; display: flex; flex-direction: column; gap: 4px; padding-top: 28px; }
+.beats li::before { content: ""; position: absolute; left: 0; top: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--ink); }
+.beats b { font-size: 17px; font-weight: 600; color: var(--ink); }
+.beats span { font-size: 14px; color: var(--ink-3); }
+.beats .pivot::before { background: var(--red); width: 15px; height: 15px; top: -2px; left: -2px; }
+.beats .pivot b { color: var(--red); }
 
 /* ---------- 2 · Problem ---------- */
 .big-stat { font-family: var(--font-display); font-size: 150px; line-height: .9; letter-spacing: -.04em; color: var(--ink); }
