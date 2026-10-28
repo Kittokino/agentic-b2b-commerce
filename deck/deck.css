@@ -68,7 +68,9 @@ p { margin: 0; }
 /* Faces */
 .face { width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); overflow: hidden; flex: none; display: grid; place-items: center; }
 .face img { width: 100%; height: 100%; object-fit: cover; }
-.face.agent { background: var(--ink); border-color: var(--ink); color: #fff; font-size: 26px; }
+/* The agent: navy with a red ring, drawn about 10% smaller so it balances
+   against the lighter, white human faces. */
+.face.agent { background: var(--ink); border: 3px solid var(--red); color: #fff; font-size: 26px; transform: scale(.9); }
 .face.sm { width: 36px; height: 36px; }
 .face.sm.agent { font-size: 17px; }
 .face.xs { width: 28px; height: 28px; }
@@ -189,8 +191,6 @@ p { margin: 0; }
 .phase dt { display: flex; justify-content: space-between; gap: 16px; font-size: 16px; font-weight: 600; }
 .phase dt span { font-size: 13px; font-weight: 400; color: var(--ink-3); white-space: nowrap; }
 .phase dd { margin: 4px 0 20px; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
-.heard { margin-top: auto; display: flex; gap: 14px; font-size: 15px; color: var(--ink-3); }
-.heard b { color: var(--ink); font-weight: 600; }
 
 /* ---------- Chrome (outside the scaled deck) ---------- */
 .progress { position: fixed; left: 0; top: 0; height: 3px; background: var(--red); transition: width .25s ease; z-index: 5; }
