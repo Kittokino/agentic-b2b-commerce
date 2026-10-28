@@ -9,7 +9,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 | Place | What it is |
 |---|---|
 | **The Olive Tree** | A restaurant chain in Rotterdam: a head office (Priya) and 3 outlets: **Harbour** (Nigel's kitchen), Old Town, Riverside |
-| **Kade Foodservice** ("Kade" = quay in Dutch) | A food & beverage wholesaler running on Sana: the agent, Tom's service desk, Ravi's admin |
+| **Kade Foodservice** ("Kade" = quay in Dutch) | A food & beverage wholesaler running on Sana: the agent, Tom's service desk, Maheep's admin |
 | **Sana** | The platform under Kade; it serves many wholesalers in many industries |
 
 ## Cast (5)
@@ -19,7 +19,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 | **Chef Nigel**, head chef, Harbour | The Olive Tree | **WhatsApp** (voice note, replies) |
 | **Kade agent** | Kade | Reads WhatsApp, posts to Teams |
 | **Tom**, service rep | Kade | Service desk on his desktop |
-| **Ravi**, commerce admin | Kade | Sana admin (sets the rules) |
+| **Maheep**, commerce admin | Kade | Sana admin (sets the rules) |
 
 ## Rules (set at Kade, limits from Priya)
 1. **Category budgets per outlet:** a line that takes Harbour over its budget for that category (e.g. fish) needs **Priya's** approval.
@@ -48,7 +48,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 
 ## Small additions to consider
 - **Agent unsure what it heard:** *"18 kg, not 80?"*, shows how mistakes are handled.
-- **Behind the scenes:** Ravi's rules view, and the same rules set up for a medical supplier.
+- **Behind the scenes:** Maheep's rules view, and the same rules set up for a medical supplier.
 
 ## Parked
 Delivery delay · damaged crate · waste insight · month-end summary · drifting account.

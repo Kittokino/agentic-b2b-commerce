@@ -19,7 +19,7 @@
 | Nigel | WhatsApp voice note in, WhatsApp text out |
 | Kade agent | WhatsApp, the portal |
 | Priya | Kade portal on desktop (plus a notification by email or WhatsApp) |
-| Ravi (in the background) | The rules he set in Sana admin |
+| Maheep (in the background) | The rules he set in Sana admin |
 
 ## 3. What the agent does
 - **Acts on its own:** transcribes the note, matches items to the product list, prices the order, and reads it back.
