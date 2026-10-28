@@ -3,12 +3,12 @@
 > Concept for a Team Lead Research & Design case. Set in **Rotterdam**. All companies, people and figures are fictional.
 
 ## In one line
-Nigel orders three things in one voice note. **Cheese just happens, the salmon goes to Priya (money), the wine goes back to Nigel (taste)**, and when he declines the alternative, the agent hands over to Tom.
+Nigel orders three things in one voice note. **Cheese just happens, the salmon goes to Priya (money), the wine goes back to Nigel (taste)**. When he declines the alternative, Priya finds 10 bottles at another outlet, and the agent hands the remaining 14 to Tom.
 
 ## Places
 | Place | What it is |
 |---|---|
-| **The Olive Tree** | A restaurant chain in Rotterdam: a head office (Priya) and 3 outlets: **Harbour** (Nigel's kitchen), Old Town, Riverside |
+| **The Olive Tree** | A restaurant chain in Rotterdam: a head office (Priya) and 3 outlets: **Harbour** (Nigel's kitchen), **Old Town** (spares 10 bottles of wine), Riverside |
 | **Kade Foodservice** ("Kade" = quay in Dutch) | A food & beverage wholesaler running on Sana: the agent, Tom's service desk, Maheep's admin |
 | **Sana** | The platform under Kade; it serves many wholesalers in many industries |
 
@@ -34,10 +34,15 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
    - **Sauvignon Blanc:** low stock → **suggests Pinot Grigio** (in stock, within budget) → *Accept / Decline.*
 3. **Priya gets one card in Teams** showing all three lines and their status. The salmon *needs her*; the others are for information. She can open the full order in the **webshop**.
 4. **Nigel declines the Pinot Grigio** (he needs a Sauvignon Blanc for the pairing). The agent has nothing else it's allowed to offer → **hands over to Tom.**
-5. **Priya's Teams card updates quietly:** *"Wine: with Tom at Kade."*
-6. **Tom**, on his desktop, sees the whole case, finds a Sauvignon Blanc at a partner supplier and sends a **one-off quote** (not a contract change).
-7. **Nigel confirms** the wine; if it takes the wine budget over, **Priya approves** it. **Priya approves the salmon.**
-8. **Confirmation:** one order, shown in WhatsApp (Nigel), Teams (Priya) and the webshop.
+5. **Priya's Teams card updates quietly:** *"Wine: with Tom at Kade from 08:00."*
+6. **Thu 07:45 · Priya acts before Kade's service desk opens.** She checks stock across her outlets in The Olive Tree's own tools (off-screen, not Sana's product) and calls Old Town, which can spare **10 bottles**. In her Teams card she adjusts the wine line: *"10 from Old Town. Source 14."* The agent updates the order, tells Nigel, and Tom's case now says **14, not 24**. Because she acts before Tom starts, nothing is over-ordered and nothing needs refunding.
+7. **08:05 · Tom**, on his desktop, sees the whole case, including Priya's adjustment, finds **14 bottles** of Sauvignon Blanc at a partner supplier and sends a **one-off quote** (not a contract change).
+8. **08:30 · Nigel confirms** the wine; if it takes the wine budget over, **Priya approves** it. **Priya approves the salmon.**
+9. **Confirmation:** one order, shown in WhatsApp (Nigel), Teams (Priya) and the webshop.
+
+**Why the twist matters:** a person changes the plan mid-flight, and the agent keeps everyone in step: the quiet update was useful, Priya stays in control, and the agent coordinates instead of competing with her.
+
+**Edge case to design for:** if Tom has already started sourcing when Priya adjusts, the agent flags the clash to both of them instead of silently changing his case.
 
 **Two branches in the prototype:** Nigel accepts the Pinot Grigio (done, no hand-over) or declines (→ Tom).
 

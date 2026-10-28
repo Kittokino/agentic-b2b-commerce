@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="deck.css?v=20261028q">
+  <link rel="stylesheet" href="deck.css?v=20261028r">
 </head>
 <body>
 
@@ -75,7 +75,7 @@
     <div class="places">
     <div class="place">
       <img class="scene" src="../assets/places/olive-tree.jpg?v=2" alt="The Olive Tree restaurant, line drawing">
-      <h3>The Olive Tree</h3>
+      <h3>The Olive Tree <span class="runs">Restaurant chain</span></h3>
       <div class="cast">
         <figure><div class="face"><img src="../assets/personas/priya.png" alt=""></div><figcaption>Priya<span>Buyer</span></figcaption></figure>
         <figure><div class="face"><img src="../assets/personas/nigel.png" alt=""></div><figcaption>Nigel<span>Head chef</span></figcaption></figure>
@@ -83,7 +83,7 @@
     </div>
     <div class="place">
       <img class="scene" src="../assets/places/kade.jpg?v=2" alt="Kade Foodservice warehouse, line drawing">
-      <h3>Kade Foodservice <span class="runs">runs on Sana</span></h3>
+      <h3>Kade Foodservice <span class="runs">Wholesaler · Runs on Sana</span></h3>
       <div class="cast">
         <figure><div class="face"><img src="../assets/personas/tom.png" alt=""></div><figcaption>Tom<span>Service rep</span></figcaption></figure>
         <figure><div class="face"><img src="../assets/personas/maheep.png" alt=""></div><figcaption>Maheep<span>Admin</span></figcaption></figure>
@@ -175,22 +175,22 @@
         <span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span>
       </li>
       <li>
-        <span class="time">Thu 08:05</span><i class="dot"></i>
+        <span class="time">Thu 07:45</span><i class="dot"></i>
+        <div class="face xs"><img src="../assets/personas/priya.png" alt=""></div>
+        <h3>Priya adjusts</h3>
+        <p class="thought">“Old Town can spare ten. Source the rest.”</p>
+        <span class="chan"><svg class="ico"><use href="#i-teams"/></svg>Teams</span>
+      </li>
+      <li>
+        <span class="time">08:05</span><i class="dot"></i>
         <div class="face xs"><img src="../assets/personas/tom.png" alt=""></div>
         <h3>Hand-over</h3>
-        <p class="thought">“Give me the whole story, not just the problem.”</p>
+        <p class="thought">“Fourteen to find, and I know why.”</p>
         <span class="chan"><svg class="ico"><use href="#i-desk"/></svg>Service desk</span>
       </li>
       <li>
         <span class="time">08:30</span><i class="dot"></i>
         <div class="face xs"><img src="../assets/personas/priya.png" alt=""></div>
-        <h3>Decisions</h3>
-        <p class="thought">“Worth it for a 120-cover dinner.”</p>
-        <span class="chan"><svg class="ico"><use href="#i-teams"/></svg>Teams</span>
-      </li>
-      <li>
-        <span class="time">08:31</span><i class="dot"></i>
-        <div class="face xs"><img src="../assets/personas/nigel.png" alt=""></div>
         <h3>Confirmed</h3>
         <p class="thought">“Saturday is covered.”</p>
         <span class="chan"><svg class="ico"><use href="#i-screen"/></svg>Every channel</span>
@@ -199,8 +199,9 @@
     <p class="branch"><svg class="ico"><use href="#i-swap"/></svg><span><b>The other branch:</b> if Nigel accepts the Pinot Grigio, the order is done with no hand-over. The prototype lets you choose.</span></p>
     <aside class="notes">
       <p>The same order over two days and three channels: WhatsApp for Nigel, Teams for Priya, and Kade's service desk for Tom. Each step shows who is involved and what they want at that moment. The agent has a rule instead of a thought: it confirms what it may, and asks about what it may not. The red dot marks the moment it stops.</p>
-      <p>Priya gets one card in Teams showing all three lines. Only the salmon needs her decision; the rest is for information. While Tom sources the wine at a partner supplier, her card updates quietly ("Wine: with Tom at Kade"). Tom's solution is a one-off quote, not a contract change.</p>
-      <p>Once Priya approves the salmon and Nigel confirms the wine, the order is confirmed and looks the same in WhatsApp, Teams and Kade's webshop. In the other branch, Nigel accepts the Pinot Grigio and no hand-over is needed; the prototype lets you try both.</p>
+      <p>Priya gets one card in Teams showing all three lines. Only the salmon needs her decision; the rest is for information. When Nigel declines the substitute, her card updates quietly: "Wine: with Tom at Kade from 08:00."</p>
+      <p>Early on Thursday, Priya checks stock across her outlets (in The Olive Tree's own tools) and calls Old Town, which can spare ten bottles. She adjusts the wine line in her Teams card: "10 from Old Town. Source 14." She does this before Kade's service desk opens, so the agent updates the order and Tom's case says 14, not 24. Nothing is over-ordered, and nothing needs refunding.</p>
+      <p>Tom finds the 14 bottles at a partner supplier and sends a one-off quote, not a contract change. Priya approves the salmon, Nigel confirms the wine, and the order is confirmed: the same in WhatsApp, Teams and Kade's webshop. In the other branch, Nigel accepts the Pinot Grigio and no hand-over is needed; the prototype lets you try both.</p>
     </aside>
   </section>
 
@@ -280,6 +281,6 @@
   <button type="button" data-nav="notes">Notes (N)</button>
 </nav>
 
-<script src="deck.js?v=20261028q"></script>
+<script src="deck.js?v=20261028r"></script>
 </body>
 </html>
