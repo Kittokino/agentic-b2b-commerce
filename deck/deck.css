@@ -34,7 +34,7 @@ body { font-family: var(--font); color: var(--ink); overflow: hidden; -webkit-fo
 .slide { position: absolute; inset: 0; display: none; flex-direction: column; background: var(--bg); padding: 64px 96px 80px; overflow: hidden; }
 .slide.active { display: flex; }
 .slide > .notes { display: none; }
-.s-title .slide-footer span:last-child, .s-outcomes .slide-footer span:first-child { color: rgba(255,255,255,.75); }
+.s-outcomes .slide-footer span:first-child { color: rgba(255,255,255,.75); }
 .slide-footer { position: absolute; left: 96px; right: 96px; bottom: 30px; display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); letter-spacing: .02em; }
 
 /* Type */
@@ -79,30 +79,19 @@ p { margin: 0; }
 .panel-red { background: var(--red); position: relative; }
 
 /* ---------- 1 · Title ---------- */
-.s-title { padding: 0; flex-direction: row; }
-.s-title .left { flex: 1; padding: 64px 72px 80px 96px; display: flex; flex-direction: column; justify-content: center; }
-.s-title h1 { font-size: 80px; }
-.s-title .sub { font-family: var(--font-display); font-size: 30px; color: var(--ink-2); margin-top: 22px; letter-spacing: -.01em; }
-.s-title .meta { margin-top: 56px; display: flex; gap: 10px; flex-wrap: wrap; }
-.s-title .panel-red { width: 500px; flex: none; }
-.float { position: absolute; background: var(--surface); border-radius: 18px; box-shadow: 0 24px 60px rgba(60, 0, 20, .25); }
-.float.chat { left: 52px; top: 120px; width: 300px; padding: 18px; }
-.float.teams { right: 40px; top: 330px; width: 300px; padding: 18px 20px; }
-.float .who { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; }
-.float .who span { color: var(--ink-3); font-weight: 400; }
-.voice { margin-top: 14px; background: var(--bg); border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
-.voice .play { width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: 12px; flex: none; }
-.wave { display: flex; align-items: center; gap: 3px; height: 26px; flex: 1; }
-.wave i { display: block; width: 3px; border-radius: 2px; background: var(--ink-3); }
-.voice .len { font-size: 12px; color: var(--ink-3); }
-.float .line-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); font-size: 13.5px; }
-.float .line-item:first-of-type { border-top: 0; }
-.float h4 { margin: 12px 0 4px; font-size: 15px; font-weight: 600; }
-.steps-mini { position: absolute; left: 52px; right: 40px; bottom: 56px; display: flex; justify-content: space-between; color: rgba(255,255,255,.75); font-size: 12px; }
-.steps-mini::before { content: ""; position: absolute; left: 6px; right: 6px; top: 6px; height: 1px; background: rgba(255,255,255,.6); }
-.steps-mini span { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.steps-mini span::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: #fff; }
-.steps-mini span:last-child { color: #fff; font-weight: 600; }
+.s-title { justify-content: center; }
+.s-title .mark { display: block; width: 48px; height: 6px; background: var(--red); margin-bottom: 36px; }
+.s-title h1 { font-size: 80px; max-width: 980px; }
+.s-title .sub { font-family: var(--font-display); font-size: 30px; color: var(--ink-3); margin-top: 18px; letter-spacing: -.01em; }
+.beats { position: relative; width: 520px; height: 40px; margin-top: 80px; font-size: 13px; color: var(--ink-2); }
+.beats::before { content: ""; position: absolute; left: 5px; right: 5px; top: 5px; height: 1px; background: var(--ink-3); opacity: .6; }
+.beats span { position: absolute; top: 0; white-space: nowrap; display: flex; flex-direction: column; align-items: center; gap: 12px; transform: translateX(-50%); }
+.beats span:nth-child(1) { left: 0; transform: none; align-items: flex-start; }
+.beats span:nth-child(2) { left: 33.33%; }
+.beats span:nth-child(3) { left: 66.66%; }
+.beats span:nth-child(4) { left: 100%; transform: translateX(-100%); align-items: flex-end; }
+.beats span::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--ink); }
+.s-title .slide-footer span:first-child { visibility: hidden; }
 
 /* ---------- 2 · Problem ---------- */
 .s-problem .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; flex: 1; }
