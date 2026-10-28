@@ -114,7 +114,8 @@ p { margin: 0; }
 .s-actors figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .s-actors .face { width: 72px; height: 72px; }
 .s-actors .face.agent { font-size: 32px; }
-.s-actors figcaption { font-size: 15px; font-weight: 500; color: var(--ink); }
+.s-actors figcaption { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 15px; font-weight: 500; color: var(--ink); }
+.s-actors figcaption span { font-size: 13px; font-weight: 400; color: var(--ink-3); }
 
 /* ---------- 4 · Three outcomes ---------- */
 .s-outcomes { padding: 0; flex-direction: row; }
