@@ -116,7 +116,24 @@ p { margin: 0; }
 .s-actors figcaption { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 15px; font-weight: 500; color: var(--ink); }
 .s-actors figcaption span { font-size: 13px; font-weight: 400; color: var(--ink-3); }
 
-/* ---------- 4 · The opportunity ---------- */
+/* ---------- 4 · A day in their lives ---------- */
+.s-day .days { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; margin-top: 8px; }
+.s-day .who { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+.s-day .who .face { width: 64px; height: 64px; }
+.s-day .who h3 { font-family: var(--font-display); font-size: 30px; font-weight: 400; letter-spacing: -.02em; }
+.s-day .who span { font-size: 14px; color: var(--ink-3); }
+.s-day ol { position: relative; list-style: none; margin: 0; padding: 0 0 0 26px; display: flex; flex-direction: column; gap: 18px; }
+/* Each moment draws the line down to the next dot, so it ends at the last one. */
+.s-day li:not(:last-child)::after { content: ""; position: absolute; left: -21px; top: 12px; height: calc(100% + 18px); width: 1px; background: var(--ink-3); opacity: .6; }
+.s-day li { position: relative; display: grid; grid-template-columns: 80px 1fr 170px; gap: 16px; align-items: baseline; }
+.s-day li::before { content: ""; position: absolute; z-index: 1; left: -26px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--ink); }
+.s-day .time { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); }
+.s-day li p { font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+.s-day .chan { justify-self: start; }
+.s-day .muted-chan { color: var(--ink-3); font-style: italic; }
+.s-day .caveat { margin-top: auto; font-size: 14px; color: var(--ink-3); }
+
+/* ---------- 5 · The opportunity ---------- */
 .s-opportunity { flex-direction: row; align-items: center; gap: 64px; }
 .s-opportunity .text { flex: 1; }
 .s-opportunity .eyebrow { position: absolute; left: 96px; top: 64px; }
@@ -126,7 +143,7 @@ p { margin: 0; }
 .s-opportunity blockquote { margin: 16px 0 0; max-width: 560px; font-size: 20px; line-height: 1.5; color: var(--ink-2); }
 .s-opportunity .scene { width: 440px; height: 520px; object-fit: cover; object-position: 38% 50%; border: 2px solid var(--ink); mix-blend-mode: multiply; flex: none; }
 
-/* ---------- 5 · Three outcomes ---------- */
+/* ---------- 6 · Three outcomes ---------- */
 .s-outcomes h2 { margin-bottom: 44px; }
 .outcomes { display: flex; flex-direction: column; gap: 34px; }
 .outcome { display: grid; grid-template-columns: 300px 1fr 220px; gap: 32px; align-items: start; }
@@ -141,7 +158,7 @@ p { margin: 0; }
 .beat .face { margin-left: 4px; }
 .motto { margin-top: auto; font-family: var(--font-voice); font-style: italic; font-size: 34px; line-height: 1.25; color: var(--ink); }
 
-/* ---------- 6 · Journey ---------- */
+/* ---------- 7 · Journey ---------- */
 /* time → dot → face → title → thought → channel; faces line up as one row. */
 .track { position: relative; list-style: none; padding: 0; margin: 6px 0 0; display: grid; grid-template-columns: repeat(7, 1fr); gap: 18px; }
 .track::before { content: ""; position: absolute; left: 5px; right: calc((100% - 6 * 18px) / 7 - 5px); top: 33px; height: 1px; background: var(--ink-3); opacity: .6; }
@@ -158,11 +175,8 @@ p { margin: 0; }
 .track .agent-rule { font-size: 14px; line-height: 1.45; color: var(--ink-2); min-height: 72px; }
 .chan { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--ink-3); }
 .chan .ico { font-size: 14px; }
-.branch { margin-top: auto; display: flex; gap: 12px; align-items: center; font-size: 15px; color: var(--ink-2); }
-.branch b { color: var(--ink); font-weight: 600; }
-.branch .ico { font-size: 20px; color: var(--ink-3); }
 
-/* ---------- 7 · Assumptions ---------- */
+/* ---------- 8 · Assumptions ---------- */
 .s-assume .grid { display: grid; grid-template-columns: 400px 1fr; gap: 72px; flex: 1; min-height: 0; }
 .matrix { position: relative; height: 400px; margin-left: 24px; border-left: 1px solid var(--ink-3); border-bottom: 1px solid var(--ink-3); }
 .matrix::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed var(--line); }
@@ -183,7 +197,7 @@ p { margin: 0; }
 .assumptions b { display: block; font-size: 16px; font-weight: 600; }
 .assumptions span { display: block; margin-top: 3px; font-size: 14px; color: var(--ink-2); }
 
-/* ---------- 8 · Research ---------- */
+/* ---------- 9 · Research ---------- */
 .s-research .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
 .phase h3 { font-family: var(--font-display); font-size: 28px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 24px; }
 .phase h3 span { font-family: var(--font); font-size: 14px; letter-spacing: 0; color: var(--ink-3); margin-left: 10px; }

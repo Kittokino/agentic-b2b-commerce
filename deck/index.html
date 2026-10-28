@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="deck.css?v=20261028r">
+  <link rel="stylesheet" href="deck.css?v=20261028s">
 </head>
 <body>
 
@@ -98,7 +98,40 @@
     </aside>
   </section>
 
-  <!-- 4 · The opportunity -->
+  <!-- 4 · A day for Priya and Nigel -->
+  <section class="slide s-day">
+    <p class="eyebrow">A day in their lives</p>
+    <div class="days">
+      <div class="day">
+        <div class="who"><div class="face"><img src="../assets/personas/priya.png" alt=""></div><div><h3>Priya</h3><span>Buyer · head office · laptop and phone</span></div></div>
+        <ol>
+          <li><span class="time">08:00</span><p>At her desk. Teams first: approvals, today's deliveries.</p><span class="chan"><svg class="ico"><use href="#i-teams"/></svg>Teams</span></li>
+          <li><span class="time">10:00</span><p>Calls with the outlet managers about stock and events.</p><span class="chan"><svg class="ico"><use href="#i-phone"/></svg>Calls · Teams</span></li>
+          <li><span class="time">13:00</span><p>Supplier emails: quotes, invoices, changed deliveries.</p><span class="chan"><svg class="ico"><use href="#i-mail"/></svg>Email</span></li>
+          <li><span class="time">15:00</span><p>Checks spend against each outlet's budget.</p><span class="chan"><svg class="ico"><use href="#i-screen"/></svg>Laptop</span></li>
+          <li><span class="time">Evening</span><p>Off. Only urgent things reach her phone.</p><span class="chan"><svg class="ico"><use href="#i-teams"/></svg>Teams on phone</span></li>
+        </ol>
+      </div>
+      <div class="day">
+        <div class="who"><div class="face"><img src="../assets/personas/nigel.png" alt=""></div><div><h3>Nigel</h3><span>Head chef · Harbour kitchen · phone</span></div></div>
+        <ol>
+          <li><span class="time">09:00</span><p>Deliveries arrive. Checks what came in, and what didn't.</p><span class="chan muted-chan">In the kitchen</span></li>
+          <li><span class="time">11:00</span><p>Prep. Hands busy, phone in the locker.</p><span class="chan muted-chan">No phone</span></li>
+          <li><span class="time">15:00</span><p>Break. Quick replies to messages.</p><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></li>
+          <li><span class="time">17:30</span><p>Service. No phone, no screens.</p><span class="chan muted-chan">No phone</span></li>
+          <li><span class="time">22:30</span><p>Clean-down, then orders for tomorrow and the weekend.</p><span class="chan"><svg class="ico"><use href="#i-mic"/></svg>WhatsApp voice note</span></li>
+        </ol>
+      </div>
+    </div>
+    <p class="caveat">What we believe today, to be tested in the kitchen visit and the interviews.</p>
+    <aside class="notes">
+      <p>Why each of them gets the channel they do. Priya works at a desk all day and lives in Teams, with calls and email around it; she rarely uses WhatsApp for work. So the agent reaches her in Teams, and she can open the full order in Kade's webshop.</p>
+      <p>Nigel is never at a desk. During prep and service his hands are busy and his phone is put away, for hygiene and focus. He orders before and after service, often by WhatsApp voice note because it is quickest. So the agent meets him in WhatsApp and accepts voice. Some kitchens also have a shared tablet for ordering; that would work the same way.</p>
+      <p>These are assumptions, not research findings yet. The research slide shows how they would be tested.</p>
+    </aside>
+  </section>
+
+  <!-- 5 · The opportunity -->
   <section class="slide s-opportunity">
     <div class="text">
       <p class="eyebrow">The scenario · Wednesday, 22:47</p>
@@ -113,7 +146,7 @@
     </aside>
   </section>
 
-  <!-- 5 · Three outcomes -->
+  <!-- 6 · Three outcomes -->
   <section class="slide s-outcomes">
     <p class="eyebrow">What the agent does</p>
     <h2>One voice note, three outcomes</h2>
@@ -141,7 +174,7 @@
     </aside>
   </section>
 
-  <!-- 6 · Journey -->
+  <!-- 7 · Journey -->
   <section class="slide s-journey">
     <p class="eyebrow">The journey</p>
     <h2>From a voice note to a confirmed order</h2>
@@ -196,16 +229,15 @@
         <span class="chan"><svg class="ico"><use href="#i-screen"/></svg>Every channel</span>
       </li>
     </ol>
-    <p class="branch"><svg class="ico"><use href="#i-swap"/></svg><span><b>The other branch:</b> if Nigel accepts the Pinot Grigio, the order is done with no hand-over. The prototype lets you choose.</span></p>
     <aside class="notes">
       <p>The same order over two days and three channels: WhatsApp for Nigel, Teams for Priya, and Kade's service desk for Tom. Each step shows who is involved and what they want at that moment. The agent has a rule instead of a thought: it confirms what it may, and asks about what it may not. The red dot marks the moment it stops.</p>
       <p>Priya gets one card in Teams showing all three lines. Only the salmon needs her decision; the rest is for information. When Nigel declines the substitute, her card updates quietly: "Wine: with Tom at Kade from 08:00."</p>
       <p>Early on Thursday, Priya checks stock across her outlets (in The Olive Tree's own tools) and calls Old Town, which can spare ten bottles. She adjusts the wine line in her Teams card: "10 from Old Town. Source 14." She does this before Kade's service desk opens, so the agent updates the order and Tom's case says 14, not 24. Nothing is over-ordered, and nothing needs refunding.</p>
-      <p>Tom finds the 14 bottles at a partner supplier and sends a one-off quote, not a contract change. Priya approves the salmon, Nigel confirms the wine, and the order is confirmed: the same in WhatsApp, Teams and Kade's webshop. In the other branch, Nigel accepts the Pinot Grigio and no hand-over is needed; the prototype lets you try both.</p>
+      <p>Tom finds the 14 bottles at a partner supplier and sends a one-off quote, not a contract change. Priya approves the salmon, Nigel confirms the wine, and the order is confirmed: the same in WhatsApp, Teams and Kade's webshop. In the other branch, Nigel accepts the Pinot Grigio and no hand-over is needed; the prototype lets you try both paths.</p>
     </aside>
   </section>
 
-  <!-- 7 · Assumptions -->
+  <!-- 8 · Assumptions -->
   <section class="slide s-assume">
     <p class="eyebrow">Assumptions</p>
     <h2>What we're assuming, ranked by risk</h2>
@@ -240,7 +272,7 @@
     </aside>
   </section>
 
-  <!-- 8 · Research -->
+  <!-- 9 · Research -->
   <section class="slide s-research">
     <p class="eyebrow">Research</p>
     <h2>How we'd learn, before and after launch</h2>
@@ -281,6 +313,6 @@
   <button type="button" data-nav="notes">Notes (N)</button>
 </nav>
 
-<script src="deck.js?v=20261028r"></script>
+<script src="deck.js?v=20261028s"></script>
 </body>
 </html>
