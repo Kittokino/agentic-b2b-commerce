@@ -102,7 +102,7 @@ p { margin: 0; }
 .hmw em { font-style: italic; color: var(--red); white-space: nowrap; }
 
 /* ---------- 3 · Actors ---------- */
-.s-actors { flex-direction: row; align-items: center; gap: 48px; }
+.s-actors .places { flex: 1; display: flex; align-items: center; gap: 48px; }
 .s-actors .place { flex: 1; display: flex; flex-direction: column; }
 /* Line drawings: multiply lets the white paper take the slide's off-white. */
 .s-actors .scene { width: 100%; aspect-ratio: 2.4; object-fit: cover; mix-blend-mode: multiply; border: 2px solid var(--ink); }
@@ -115,26 +115,32 @@ p { margin: 0; }
 .s-actors figcaption { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 15px; font-weight: 500; color: var(--ink); }
 .s-actors figcaption span { font-size: 13px; font-weight: 400; color: var(--ink-3); }
 
-/* ---------- 4 · Three outcomes ---------- */
-.s-outcomes h2 { margin-bottom: 36px; }
-.s-outcomes .grid { display: grid; grid-template-columns: 340px 1fr; gap: 72px; align-items: start; }
-.voice-note .who { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ink-3); }
-.voice-note .who b { color: var(--ink); font-weight: 600; }
-.voice-note blockquote { margin: 18px 0 0; font-family: var(--font-voice); font-style: italic; font-size: 30px; line-height: 1.25; color: var(--ink); }
-.outcomes { display: flex; flex-direction: column; gap: 30px; }
-.outcome { display: grid; grid-template-columns: 200px 1fr 150px; gap: 24px; align-items: start; }
-.outcome .item { font-family: var(--font-display); font-size: 24px; letter-spacing: -.01em; line-height: 1.2; }
-.outcome .item small { display: block; font-family: var(--font); font-size: 13px; color: var(--ink-3); letter-spacing: 0; margin-top: 4px; }
-.outcome .what { font-size: 15px; line-height: 1.5; color: var(--ink-2); padding-top: 4px; }
+/* ---------- 4 · The opportunity ---------- */
+.s-opportunity { flex-direction: row; align-items: center; gap: 64px; }
+.s-opportunity .text { flex: 1; }
+.s-opportunity .eyebrow { position: absolute; left: 96px; top: 64px; }
+.s-opportunity h2.voice { font-family: var(--font-voice); font-style: italic; font-size: 60px; line-height: 1.1; letter-spacing: -.01em; margin-bottom: 48px; }
+.s-opportunity .who { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ink-3); }
+.s-opportunity .who b { color: var(--ink); font-weight: 600; }
+.s-opportunity blockquote { margin: 16px 0 0; max-width: 560px; font-size: 20px; line-height: 1.5; color: var(--ink-2); }
+.s-opportunity .scene { width: 440px; height: 520px; object-fit: cover; object-position: 38% 50%; border: 2px solid var(--ink); mix-blend-mode: multiply; flex: none; }
+
+/* ---------- 5 · Three outcomes ---------- */
+.s-outcomes h2 { margin-bottom: 44px; }
+.outcomes { display: flex; flex-direction: column; gap: 34px; }
+.outcome { display: grid; grid-template-columns: 300px 1fr 220px; gap: 32px; align-items: start; }
+.outcome .item { font-family: var(--font-display); font-size: 28px; letter-spacing: -.01em; line-height: 1.15; }
+.outcome .item small { display: block; font-family: var(--font); font-size: 14px; color: var(--ink-3); letter-spacing: 0; margin-top: 4px; }
+.outcome .what { font-size: 17px; line-height: 1.5; color: var(--ink-2); padding-top: 6px; }
 /* Same verbs and dots as the title slide; red only for the stop. */
-.beat { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--ink); padding-top: 6px; }
+.beat { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: var(--ink); padding-top: 8px; }
 .beat .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--ink); flex: none; }
 .beat.stop { color: var(--red); }
 .beat.stop .dot { background: var(--red); }
 .beat .face { margin-left: 4px; }
-.motto { margin-top: auto; font-family: var(--font-voice); font-style: italic; font-size: 32px; line-height: 1.25; color: var(--ink); }
+.motto { margin-top: auto; font-family: var(--font-voice); font-style: italic; font-size: 34px; line-height: 1.25; color: var(--ink); }
 
-/* ---------- 5 · Journey ---------- */
+/* ---------- 6 · Journey ---------- */
 .track { position: relative; list-style: none; padding: 0; margin: 6px 0 0; display: grid; grid-template-columns: repeat(7, 1fr); gap: 18px; }
 .track::before { content: ""; position: absolute; left: 5px; right: calc((100% - 6 * 18px) / 7 - 5px); top: 33px; height: 1px; background: var(--ink-3); opacity: .6; }
 .track li { display: flex; flex-direction: column; gap: 8px; }
@@ -151,7 +157,7 @@ p { margin: 0; }
 .branch b { color: var(--ink); font-weight: 600; }
 .branch .ico { font-size: 20px; color: var(--ink-3); }
 
-/* ---------- 6 · Assumptions ---------- */
+/* ---------- 7 · Assumptions ---------- */
 .s-assume .grid { display: grid; grid-template-columns: 400px 1fr; gap: 72px; flex: 1; min-height: 0; }
 .matrix { position: relative; height: 400px; margin-left: 24px; border-left: 1px solid var(--ink-3); border-bottom: 1px solid var(--ink-3); }
 .matrix::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed var(--line); }
@@ -172,7 +178,7 @@ p { margin: 0; }
 .assumptions b { display: block; font-size: 16px; font-weight: 600; }
 .assumptions span { display: block; margin-top: 3px; font-size: 14px; color: var(--ink-2); }
 
-/* ---------- 7 · Research ---------- */
+/* ---------- 8 · Research ---------- */
 .s-research .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
 .phase h3 { font-family: var(--font-display); font-size: 28px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 24px; }
 .phase h3 span { font-family: var(--font); font-size: 14px; letter-spacing: 0; color: var(--ink-3); margin-left: 10px; }

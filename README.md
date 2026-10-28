@@ -9,7 +9,7 @@ Prepared as a concept for a Team Lead Research & Design case. All companies, peo
 | Path | What it is |
 |---|---|
 | [`docs/01-story.md`](docs/01-story.md) | The one-page story: places, cast, rules, journey |
-| [`deck/`](deck/) | Slide deck (slides 1–7: title, problem, actors, three outcomes, journey, assumptions, research). Keys: ←/→, N for notes, F for fullscreen |
+| [`deck/`](deck/) | Slide deck (slides 1–8: title, problem, places & people, the opportunity, three outcomes, journey, assumptions, research). Keys: ←/→, N for notes, F for fullscreen |
 | `index.html` | Entry point for the hosted demo (GitHub Pages) |
 
 ## Live demo

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="deck.css?v=20261028m">
+  <link rel="stylesheet" href="deck.css?v=20261028n">
 </head>
 <body>
 
@@ -70,6 +70,8 @@
 
   <!-- 3 · Actors -->
   <section class="slide s-actors">
+    <p class="eyebrow">The places &amp; the people</p>
+    <div class="places">
     <div class="place">
       <img class="scene" src="../assets/places/olive-tree.jpg?v=2" alt="The Olive Tree restaurant, line drawing">
       <h3>The Olive Tree</h3>
@@ -87,6 +89,7 @@
         <figure><div class="face"><img src="../assets/personas/ravi.png" alt=""></div><figcaption>Ravi<span>Admin</span></figcaption></figure>
       </div>
     </div>
+    </div>
     <aside class="notes">
       <p>The Olive Tree: a restaurant chain in Rotterdam with three outlets. Priya is the central buyer; Nigel is head chef at Harbour and orders by voice note after service.</p>
       <p>Kade Foodservice ("kade" is Dutch for quay): a wholesaler running on Sana. The agent takes orders on every channel within the rules Ravi sets; Tom takes over when it runs out of options.</p>
@@ -94,31 +97,39 @@
     </aside>
   </section>
 
-  <!-- 4 · Three outcomes -->
+  <!-- 4 · The opportunity -->
+  <section class="slide s-opportunity">
+    <div class="text">
+      <p class="eyebrow">The scenario · Wednesday, 22:47</p>
+      <h2 class="voice">“We've got a big order coming up.”</h2>
+      <div class="who"><div class="face sm"><img src="../assets/personas/nigel.png" alt=""></div><span><b>Nigel</b> · voice note to Kade · 0:14</span></div>
+      <blockquote>“Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.”</blockquote>
+    </div>
+    <img class="scene" src="../assets/places/olive-tree-full.jpg?v=1" alt="The Olive Tree restaurant, line drawing">
+    <aside class="notes">
+      <p>Saturday's private dinner is a big opportunity for The Olive Tree, and everything has to arrive right. Nigel closes the kitchen and sends one voice note to Kade on WhatsApp.</p>
+    </aside>
+  </section>
+
+  <!-- 5 · Three outcomes -->
   <section class="slide s-outcomes">
-    <p class="eyebrow">The scenario · Wednesday, 22:47</p>
+    <p class="eyebrow">What the agent does</p>
     <h2>One voice note, three outcomes</h2>
-    <div class="grid">
-      <div class="voice-note">
-        <div class="who"><div class="face sm"><img src="../assets/personas/nigel.png" alt=""></div><span><b>Nigel</b> · voice note · 0:14</span></div>
-        <blockquote>“Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.”</blockquote>
+    <div class="outcomes">
+      <div class="outcome">
+        <div class="item">Cheese board<small>within budget</small></div>
+        <p class="what">The agent confirms it on its own.</p>
+        <div class="beat"><i class="dot"></i>Acts</div>
       </div>
-      <div class="outcomes">
-        <div class="outcome">
-          <div class="item">Cheese board<small>within budget</small></div>
-          <p class="what">The agent confirms it on its own.</p>
-          <div class="beat"><i class="dot"></i>Acts</div>
-        </div>
-        <div class="outcome">
-          <div class="item">Salmon, 18 kg<small>over the fish budget</small></div>
-          <p class="what">The agent stops and asks Priya. It doesn't change the order.</p>
-          <div class="beat stop"><i class="dot"></i>Stops<div class="face xs"><img src="../assets/personas/priya.png" alt="Priya"></div></div>
-        </div>
-        <div class="outcome">
-          <div class="item">Sauvignon Blanc<small>low on stock</small></div>
-          <p class="what">The agent suggests a Pinot Grigio. Nigel declines, so Tom takes over.</p>
-          <div class="beat"><i class="dot"></i>Hands over<div class="face xs"><img src="../assets/personas/tom.png" alt="Tom"></div></div>
-        </div>
+      <div class="outcome">
+        <div class="item">Salmon, 18 kg<small>over the fish budget</small></div>
+        <p class="what">The agent stops and asks Priya. It doesn't change the order.</p>
+        <div class="beat stop"><i class="dot"></i>Stops<div class="face xs"><img src="../assets/personas/priya.png" alt="Priya"></div></div>
+      </div>
+      <div class="outcome">
+        <div class="item">Sauvignon Blanc<small>low on stock</small></div>
+        <p class="what">The agent suggests a Pinot Grigio. Nigel declines, so Tom takes over.</p>
+        <div class="beat"><i class="dot"></i>Hands over<div class="face xs"><img src="../assets/personas/tom.png" alt="Tom"></div></div>
       </div>
     </div>
     <p class="motto">Money goes to Priya. Taste goes to Nigel. Everything else just happens.</p>
@@ -128,7 +139,7 @@
     </aside>
   </section>
 
-  <!-- 5 · Journey -->
+  <!-- 6 · Journey -->
   <section class="slide s-journey">
     <p class="eyebrow">The journey</p>
     <h2>From a voice note to a confirmed order</h2>
@@ -183,7 +194,7 @@
     </aside>
   </section>
 
-  <!-- 6 · Assumptions -->
+  <!-- 7 · Assumptions -->
   <section class="slide s-assume">
     <p class="eyebrow">Assumptions</p>
     <h2>What we're assuming, ranked by risk</h2>
@@ -217,7 +228,7 @@
     </aside>
   </section>
 
-  <!-- 7 · Research -->
+  <!-- 8 · Research -->
   <section class="slide s-research">
     <p class="eyebrow">Research</p>
     <h2>How we'd learn, before and after launch</h2>
@@ -258,6 +269,6 @@
   <button type="button" data-nav="notes">Notes (N)</button>
 </nav>
 
-<script src="deck.js?v=20261028m"></script>
+<script src="deck.js?v=20261028n"></script>
 </body>
 </html>
