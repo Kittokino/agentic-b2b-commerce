@@ -182,11 +182,14 @@ p { margin: 0; }
 
 /* ---------- Chrome (outside the scaled deck) ---------- */
 .progress { position: fixed; left: 0; top: 0; height: 3px; background: var(--red); transition: width .25s ease; z-index: 5; }
-.controls { position: fixed; right: 16px; top: 14px; display: flex; gap: 6px; z-index: 5; opacity: 0; transition: opacity .2s; }
+.controls { position: fixed; right: 16px; bottom: 14px; display: flex; align-items: center; gap: 6px; z-index: 5; opacity: 0; transition: opacity .2s; }
+.controls .counter { min-width: 48px; text-align: center; font: 500 13px var(--font); color: var(--ink-3); }
+/* The controls carry the page number on screen; the slide footer keeps it for print. */
+.slide-footer .page-no { visibility: hidden; }
 body:hover .controls, .controls:focus-within { opacity: .55; }
 .controls:hover { opacity: 1 !important; }
 .controls button { font: 500 13px var(--font); background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px; cursor: pointer; }
-.notes-panel { position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%); width: min(760px, calc(100vw - 32px)); max-height: 40vh; overflow: auto; background: var(--ink); color: #eee; border-radius: 14px; padding: 16px 22px; font-size: 16px; line-height: 1.5; z-index: 6; display: none; box-shadow: 0 10px 40px rgba(0,0,0,.4); }
+.notes-panel { position: fixed; left: 50%; bottom: 60px; transform: translateX(-50%); width: min(760px, calc(100vw - 32px)); max-height: 40vh; overflow: auto; background: var(--ink); color: #eee; border-radius: 14px; padding: 16px 22px; font-size: 16px; line-height: 1.5; z-index: 6; display: none; box-shadow: 0 10px 40px rgba(0,0,0,.4); }
 .notes-panel.open { display: block; }
 .notes-panel h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #9d9ab0; }
 .notes-panel p + p { margin-top: 8px; }
@@ -198,4 +201,5 @@ body:hover .controls, .controls:focus-within { opacity: .55; }
   .deck { transform: none !important; height: auto; }
   .slide { display: flex !important; position: relative; width: 1280px; height: 720px; break-after: page; }
   .progress, .controls, .notes-panel { display: none !important; }
+  .slide-footer .page-no { visibility: visible; }
 }

@@ -5,12 +5,13 @@
   const total = slides.length;
   const progress = document.querySelector('.progress');
   const notesPanel = document.querySelector('.notes-panel');
+  const counter = document.querySelector('.controls .counter');
   let current = 0;
 
   slides.forEach((slide, n) => {
     const footer = document.createElement('footer');
     footer.className = 'slide-footer';
-    footer.innerHTML = `<span>B2B Commerce with Agentic AI · a design exploration</span><span>${n + 1} / ${total}</span>`;
+    footer.innerHTML = `<span>B2B Commerce with Agentic AI · a design exploration</span><span class="page-no">${n + 1} / ${total}</span>`;
     slide.appendChild(footer);
   });
 
@@ -23,6 +24,7 @@
     current = Math.max(0, Math.min(total - 1, n));
     slides.forEach((slide, k) => slide.classList.toggle('active', k === current));
     progress.style.width = `${((current + 1) / total) * 100}%`;
+    counter.textContent = `${current + 1} / ${total}`;
     const notes = slides[current].querySelector('.notes');
     notesPanel.innerHTML = `<h4>Notes · slide ${current + 1}</h4>${notes ? notes.innerHTML : '<p>No notes.</p>'}`;
     history.replaceState(null, '', `#${current + 1}`);
