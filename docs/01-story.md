@@ -21,6 +21,8 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 | **Tom**, service rep | Kade | Service desk on his desktop |
 | **Maheep**, commerce admin | Kade | Sana admin (sets the rules) |
 
+**Priya's assistant (a tool, not a cast member):** The Olive Tree's own AI assistant, not Sana's. It summarises supplier updates for Priya and finds things for her (e.g. stock across outlets). It reads Kade's order data through an API / MCP server that Sana offers. It does **not** order or negotiate. Shown as an outlined sparkle without the red ring that marks Kade's agent.
+
 ## Rules (set at Kade, limits from Priya)
 1. **Category budgets per outlet:** a line that takes Harbour over its budget for that category (e.g. fish) needs **Priya's** approval.
 2. **Substitutions:** the agent may *suggest* an in-stock alternative within budget; the **requester (Nigel)** accepts or declines.
@@ -35,7 +37,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 3. **Priya gets one card in Teams** showing all three lines and their status. The salmon *needs her*; the others are for information. She can open the full order in the **webshop**.
 4. **Nigel declines the Pinot Grigio** (he needs a Sauvignon Blanc for the pairing). The agent has nothing else it's allowed to offer → **hands over to Tom.**
 5. **Priya's Teams card updates quietly:** *"Wine: with Tom at Kade from 08:00."*
-6. **Thu 07:45 · Priya acts before Kade's service desk opens.** She checks stock across her outlets in The Olive Tree's own tools (off-screen, not Sana's product) and calls Old Town, which can spare **10 bottles**. In her Teams card she adjusts the wine line: *"10 from Old Town. Source 14."* The agent updates the order, tells Nigel, and Tom's case now says **14, not 24**. Because she acts before Tom starts, nothing is over-ordered and nothing needs refunding.
+6. **Thu 07:45 · Priya acts before Kade's service desk opens.** Her own assistant checks stock across her outlets and finds **10 bottles** at Old Town. Priya calls Old Town to check they can spare them: asking a colleague to give up stock is a conversation between people. In her Teams card she adjusts the wine line: *"10 from Old Town. Source 14."* The agent updates the order, tells Nigel, and Tom's case now says **14, not 24**. Because she acts before Tom starts, nothing is over-ordered and nothing needs refunding.
 7. **08:05 · Tom**, on his desktop, sees the whole case, including Priya's adjustment, finds **14 bottles** of Sauvignon Blanc at a partner supplier and sends a **one-off quote** (not a contract change).
 8. **08:30 · Nigel confirms** the wine; if it takes the wine budget over, **Priya approves** it. **Priya approves the salmon.**
 9. **Confirmation:** one order, shown in WhatsApp (Nigel), Teams (Priya) and the webshop.
@@ -54,6 +56,11 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 ## Small additions to consider
 - **Agent unsure what it heard:** *"18 kg, not 80?"*, shows how mistakes are handled.
 - **Behind the scenes:** Maheep's rules view, and the same rules set up for a medical supplier.
+
+## Where this is heading (vision slide, not the prototype)
+- **Today:** Kade's agent takes orders, stops and hands over; people decide the exceptions.
+- **Next:** buyers' assistants (like Priya's) summarise and find, reading suppliers' data.
+- **Later:** buyers' agents order within mandates; people set the mandates and handle disputes and relationships. Risk for merchants: competing on price alone. Sana's role: help merchants win in agent-mediated buying.
 
 ## Parked
 Delivery delay · damaged crate · waste insight · month-end summary · drifting account.

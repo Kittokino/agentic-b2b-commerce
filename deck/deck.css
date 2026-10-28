@@ -206,6 +206,27 @@ p { margin: 0; }
 .phase dt span { font-size: 13px; font-weight: 400; color: var(--ink-3); white-space: nowrap; }
 .phase dd { margin: 4px 0 20px; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
 
+/* Priya's own assistant: outlined sparkle, no red ring (not Sana's agent). */
+.assistant { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--ink); color: var(--ink); font-size: 11px; flex: none; }
+.track .pair { display: flex; align-items: center; gap: 6px; }
+.track .pair .assistant { width: 28px; height: 28px; font-size: 14px; }
+
+/* ---------- 8 · Assumptions & research (merged) ---------- */
+.learn { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 56px; }
+.learn h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 22px; }
+.learn h3 span { font-family: var(--font); font-size: 13px; letter-spacing: 0; color: var(--ink-3); margin-left: 8px; }
+.assumptions.compact { gap: 16px; }
+.assumptions.compact b { font-size: 15px; font-weight: 500; line-height: 1.4; }
+.learn .key { margin-top: 24px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-3); }
+.learn .k { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--ink); }
+.learn .k.hot { background: var(--ink); }
+.learn .phase dt { font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 16px; padding-left: 18px; position: relative; }
+.learn .phase dt::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); }
+
+/* ---------- Appendix divider ---------- */
+.s-appendix { justify-content: center; }
+.s-appendix h2 { color: var(--ink-3); }
+
 /* ---------- Chrome (outside the scaled deck) ---------- */
 .progress { position: fixed; left: 0; top: 0; height: 3px; background: var(--red); transition: width .25s ease; z-index: 5; }
 .controls { position: fixed; right: 16px; bottom: 14px; display: flex; align-items: center; gap: 6px; z-index: 5; opacity: 0; transition: opacity .2s; }
