@@ -9,6 +9,7 @@ Prepared as a concept for a Team Lead Research & Design case. All companies, peo
 | Path | What it is |
 |---|---|
 | [`docs/01-story.md`](docs/01-story.md) | Cast, the week in the life, and the storyboard for the prototype thread |
+| [`deck/`](deck/) | Slide deck: problem, places, cast, journey, rules. Keys: ←/→, N for notes, F for fullscreen |
 | `index.html` | Entry point for the hosted demo (GitHub Pages) |
 
 ## Live demo
@@ -18,6 +19,7 @@ https://kittokino.github.io/agentic-b2b-commerce/ (once GitHub Pages is enabled:
 ## Status
 
 - [x] Personas and story
+- [x] Deck: people & places
 - [ ] Research framing (assumptions vs. evidence, research agenda)
 - [ ] Design-system foundation (one order model, several channels)
 - [ ] Working prototype
