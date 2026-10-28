@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="deck.css?v=20261028d">
+  <link rel="stylesheet" href="deck.css?v=20261028e">
 </head>
 <body>
 
@@ -70,41 +70,27 @@
 
   <!-- 3 · Actors -->
   <section class="slide s-actors">
-    <p class="eyebrow">Actors &amp; establishments</p>
-    <h2>Two companies in Rotterdam, five actors</h2>
-    <div class="orgs">
-      <div class="card org">
-        <div class="org-head"><h3>The Olive Tree</h3><span class="small muted">Restaurant chain · the buyer</span></div>
-        <div class="places"><span class="pill">Head office</span><span class="pill outline-red">Harbour</span><span class="pill">Old Town</span><span class="pill">Riverside</span></div>
-        <div class="person">
-          <div class="face"><img src="../assets/personas/priya.png" alt="Priya"></div>
-          <div><div class="name">Priya <span class="role">Central buyer</span></div><p>Buys for all three outlets. Never run out, waste less, stay in budget.</p></div>
-        </div>
-        <div class="person">
-          <div class="face"><img src="../assets/personas/nigel.png" alt="Nigel"></div>
-          <div><div class="name">Nigel <span class="role">Head chef, Harbour</span></div><p>Orders after service, by voice note. Never at a desk.</p></div>
-        </div>
-      </div>
-      <div class="card org">
-        <div class="org-head"><h3>Kade Foodservice</h3><span class="small muted">Wholesaler on Sana · the seller</span></div>
-        <div class="places"><span class="pill">Warehouse</span><span class="pill">Service desk</span><span class="pill">Admin</span></div>
-        <div class="person">
-          <div class="face agent"><svg class="ico"><use href="#i-agent"/></svg></div>
-          <div><div class="name">The agent <span class="role">Acts for Kade</span></div><p>Takes orders on every channel. Acts within the rules; stops when it should.</p></div>
-        </div>
-        <div class="person">
-          <div class="face"><img src="../assets/personas/tom.png" alt="Tom"></div>
-          <div><div class="name">Tom <span class="role">Service rep</span></div><p>Takes over when the agent runs out of options.</p></div>
-        </div>
-        <div class="person">
-          <div class="face"><img src="../assets/personas/ravi.png" alt="Ravi"></div>
-          <div><div class="name">Ravi <span class="role">Commerce admin</span></div><p>Sets the rules the agent works within.</p></div>
-        </div>
+    <div class="place">
+      <img class="scene" src="../assets/places/olive-tree.jpg" alt="The Olive Tree restaurant, line drawing">
+      <h3>The Olive Tree</h3>
+      <div class="cast">
+        <figure><div class="face"><img src="../assets/personas/priya.png" alt=""></div><figcaption>Priya</figcaption></figure>
+        <figure><div class="face"><img src="../assets/personas/nigel.png" alt=""></div><figcaption>Nigel</figcaption></figure>
       </div>
     </div>
-    <div class="platform-band"><strong>Sana</strong><span>The platform under Kade, serving many wholesalers and manufacturers, in many industries.</span></div>
+    <div class="place">
+      <img class="scene" src="../assets/places/kade.jpg" alt="Kade Foodservice warehouse, line drawing">
+      <h3>Kade Foodservice</h3>
+      <div class="cast">
+        <figure><div class="face agent"><svg class="ico"><use href="#i-agent"/></svg></div><figcaption>The agent</figcaption></figure>
+        <figure><div class="face"><img src="../assets/personas/tom.png" alt=""></div><figcaption>Tom</figcaption></figure>
+        <figure><div class="face"><img src="../assets/personas/ravi.png" alt=""></div><figcaption>Ravi</figcaption></figure>
+      </div>
+    </div>
     <aside class="notes">
-      <p>"Kade" is Dutch for quay: a Rotterdam name. The agent has a symbol, not a face, on purpose: it never pretends to be a person.</p>
+      <p>The Olive Tree: a restaurant chain in Rotterdam with three outlets. Priya is the central buyer; Nigel is head chef at Harbour and orders by voice note after service.</p>
+      <p>Kade Foodservice ("kade" is Dutch for quay): a wholesaler running on Sana. The agent takes orders on every channel within the rules Ravi sets; Tom takes over when it runs out of options.</p>
+      <p>Sana is the platform under Kade, serving many wholesalers and manufacturers. The agent has a symbol, not a face: it never pretends to be a person.</p>
     </aside>
   </section>
 
@@ -266,6 +252,6 @@
   <button type="button" data-nav="next" aria-label="Next slide">→</button>
 </nav>
 
-<script src="deck.js?v=20261028d"></script>
+<script src="deck.js?v=20261028e"></script>
 </body>
 </html>
