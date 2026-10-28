@@ -1,6 +1,6 @@
 # Agentic B2B commerce
 
-A concept prototype exploring how agentic AI changes B2B buying and selling. It is set at a food & beverage wholesaler, **FreshSupply**, and its customer, the restaurant chain **The Olive Tree**.
+A concept prototype exploring how agentic AI changes B2B buying and selling. It is set at a food & beverage wholesaler, **Kade**, and its customer, the restaurant chain **The Olive Tree**.
 
 Prepared as a concept for a Team Lead Research & Design case. All companies, people and figures are fictional.
 
@@ -8,8 +8,8 @@ Prepared as a concept for a Team Lead Research & Design case. All companies, peo
 
 | Path | What it is |
 |---|---|
-| [`docs/01-story.md`](docs/01-story.md) | Cast, the week in the life, and the storyboard for the prototype thread |
-| [`deck/`](deck/) | Slide deck: problem, places, cast, journey, rules. Keys: ←/→, N for notes, F for fullscreen |
+| [`docs/01-story.md`](docs/01-story.md) | The one-page story: places, cast, rules, journey |
+| [`deck/`](deck/) | Slide deck (slides 1–7: title, problem, actors, three outcomes, journey, assumptions, research). Keys: ←/→, N for notes, F for fullscreen |
 | `index.html` | Entry point for the hosted demo (GitHub Pages) |
 
 ## Live demo

@@ -10,7 +10,7 @@
   slides.forEach((slide, n) => {
     const footer = document.createElement('footer');
     footer.className = 'slide-footer';
-    footer.innerHTML = `<span>The Olive Tree × FreshSupply · a concept</span><span>${n + 1} / ${total}</span>`;
+    footer.innerHTML = `<span>B2B Commerce with Agentic AI · a design exploration</span><span>${n + 1} / ${total}</span>`;
     slide.appendChild(footer);
   });
 
