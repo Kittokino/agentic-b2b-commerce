@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="deck.css?v=20261028l">
+  <link rel="stylesheet" href="deck.css?v=20261028m">
 </head>
 <body>
 
@@ -96,34 +96,35 @@
 
   <!-- 4 · Three outcomes -->
   <section class="slide s-outcomes">
-    <div class="panel-red">
-      <p class="eyebrow">The scenario · Wednesday 22:47</p>
-      <div class="note-card">
-        <div class="who" style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600"><div class="face xs"><img src="../assets/personas/nigel.png" alt=""></div>Nigel <span class="muted" style="font-weight:400">· voice note · 0:14</span></div>
-        <p class="transcript">“Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.”</p>
+    <p class="eyebrow">The scenario · Wednesday, 22:47</p>
+    <h2>One voice note, three outcomes</h2>
+    <div class="grid">
+      <div class="voice-note">
+        <div class="who"><div class="face sm"><img src="../assets/personas/nigel.png" alt=""></div><span><b>Nigel</b> · voice note · 0:14</span></div>
+        <blockquote>“Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.”</blockquote>
+      </div>
+      <div class="outcomes">
+        <div class="outcome">
+          <div class="item">Cheese board<small>within budget</small></div>
+          <p class="what">The agent confirms it on its own.</p>
+          <div class="beat"><i class="dot"></i>Acts</div>
+        </div>
+        <div class="outcome">
+          <div class="item">Salmon, 18 kg<small>over the fish budget</small></div>
+          <p class="what">The agent stops and asks Priya. It doesn't change the order.</p>
+          <div class="beat stop"><i class="dot"></i>Stops<div class="face xs"><img src="../assets/personas/priya.png" alt="Priya"></div></div>
+        </div>
+        <div class="outcome">
+          <div class="item">Sauvignon Blanc<small>low on stock</small></div>
+          <p class="what">The agent suggests a Pinot Grigio. Nigel declines, so Tom takes over.</p>
+          <div class="beat"><i class="dot"></i>Hands over<div class="face xs"><img src="../assets/personas/tom.png" alt="Tom"></div></div>
+        </div>
       </div>
     </div>
-    <div class="right">
-      <h2>One voice note, <span class="red">three outcomes</span></h2>
-      <div class="outcome">
-        <div class="item">Cheese board<small>within budget</small></div>
-        <div class="what">The agent confirms it on its own.</div>
-        <div class="decides"><span class="status done"><svg class="ico"><use href="#i-check"/></svg>Done</span></div>
-      </div>
-      <div class="outcome">
-        <div class="item">Salmon, 18 kg<small>over the fish budget</small></div>
-        <div class="what">The agent stops, and asks Priya. It doesn't change the order.</div>
-        <div class="decides"><span>Money:</span><b>Priya</b><div class="face sm"><img src="../assets/personas/priya.png" alt=""></div></div>
-      </div>
-      <div class="outcome">
-        <div class="item">Sauvignon Blanc<small>low on stock</small></div>
-        <div class="what">The agent suggests a Pinot Grigio. Nigel declines, so it hands over to Tom.</div>
-        <div class="decides"><span>Taste:</span><b>Nigel</b><div class="face sm"><img src="../assets/personas/nigel.png" alt=""></div><span>→</span><div class="face sm"><img src="../assets/personas/tom.png" alt=""></div></div>
-      </div>
-      <p class="motto">Money goes to <span class="red">Priya</span>. Taste goes to <span class="red">Nigel</span>. Everything else just happens.</p>
-    </div>
+    <p class="motto">Money goes to Priya. Taste goes to Nigel. Everything else just happens.</p>
     <aside class="notes">
-      <p>This is the slide to remember. Three lines, three levels of autonomy: act, ask, suggest and hand over.</p>
+      <p>This is the slide to remember. The three lines use the same verbs as the title slide: the cheese is where the agent acts, the salmon is where it stops, and the wine is where it hands over.</p>
+      <p>Priya decides on money, Nigel on taste. The agent doesn't change the order; it asks.</p>
     </aside>
   </section>
 
@@ -131,53 +132,53 @@
   <section class="slide s-journey">
     <p class="eyebrow">The journey</p>
     <h2>From a voice note to a confirmed order</h2>
-    <div class="track">
-      <div class="stop key">
-        <span class="time">WED 22:47</span><span class="dot"></span>
+    <ol class="track">
+      <li>
+        <span class="time">Wed 22:47</span><i class="dot"></i>
         <h3>Voice note</h3>
         <p>Nigel orders three items after service.</p>
-        <div class="foot"><div class="face xs"><img src="../assets/personas/nigel.png" alt=""></div><span class="pill"><svg class="ico"><use href="#i-mic"/></svg>WhatsApp</span></div>
-      </div>
-      <div class="stop">
-        <span class="time">22:48</span><span class="dot"></span>
+        <div class="foot"><div class="face xs"><img src="../assets/personas/nigel.png" alt=""></div><span class="chan"><svg class="ico"><use href="#i-mic"/></svg>WhatsApp</span></div>
+      </li>
+      <li class="stop">
+        <span class="time">22:48</span><i class="dot"></i>
         <h3>Read-back</h3>
-        <p>Line by line: cheese done, salmon to Priya, wine swap suggested.</p>
-        <div class="foot"><div class="face xs agent"><svg class="ico"><use href="#i-agent"/></svg></div><span class="pill"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
-      </div>
-      <div class="stop key">
-        <span class="time">22:48</span><span class="dot"></span>
+        <p>Cheese done. Salmon: stops and asks Priya. Wine: suggests a swap.</p>
+        <div class="foot"><div class="face xs agent"><svg class="ico"><use href="#i-agent"/></svg></div><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      </li>
+      <li>
+        <span class="time">22:48</span><i class="dot"></i>
         <h3>One card for Priya</h3>
         <p>All three lines and their status. Only the salmon needs her.</p>
-        <div class="foot"><div class="face xs"><img src="../assets/personas/priya.png" alt=""></div><span class="pill"><svg class="ico"><use href="#i-teams"/></svg>Teams</span></div>
-      </div>
-      <div class="stop">
-        <span class="time">22:51</span><span class="dot"></span>
+        <div class="foot"><div class="face xs"><img src="../assets/personas/priya.png" alt=""></div><span class="chan"><svg class="ico"><use href="#i-teams"/></svg>Teams</span></div>
+      </li>
+      <li>
+        <span class="time">22:51</span><i class="dot"></i>
         <h3>Swap declined</h3>
         <p>Nigel needs a Sauvignon Blanc for the pairing.</p>
-        <div class="foot"><div class="face xs"><img src="../assets/personas/nigel.png" alt=""></div><span class="pill"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
-      </div>
-      <div class="stop key">
-        <span class="time">THU 08:05</span><span class="dot"></span>
+        <div class="foot"><div class="face xs"><img src="../assets/personas/nigel.png" alt=""></div><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      </li>
+      <li>
+        <span class="time">Thu 08:05</span><i class="dot"></i>
         <h3>Hand-over</h3>
         <p>Tom gets the full case and finds the wine at a partner supplier.</p>
-        <div class="foot"><div class="face xs"><img src="../assets/personas/tom.png" alt=""></div><span class="pill"><svg class="ico"><use href="#i-desk"/></svg>Service desk</span></div>
-      </div>
-      <div class="stop">
-        <span class="time">08:30</span><span class="dot"></span>
+        <div class="foot"><div class="face xs"><img src="../assets/personas/tom.png" alt=""></div><span class="chan"><svg class="ico"><use href="#i-desk"/></svg>Service desk</span></div>
+      </li>
+      <li>
+        <span class="time">08:30</span><i class="dot"></i>
         <h3>Decisions</h3>
         <p>Priya approves the salmon. Nigel confirms the wine quote.</p>
-        <div class="foot"><div class="face xs"><img src="../assets/personas/priya.png" alt=""></div><span class="pill"><svg class="ico"><use href="#i-teams"/></svg>Teams</span></div>
-      </div>
-      <div class="stop">
-        <span class="time">08:31</span><span class="dot"></span>
+        <div class="foot"><div class="face xs"><img src="../assets/personas/priya.png" alt=""></div><span class="chan"><svg class="ico"><use href="#i-teams"/></svg>Teams</span></div>
+      </li>
+      <li>
+        <span class="time">08:31</span><i class="dot"></i>
         <h3>Confirmed</h3>
-        <p>One order, the same in every channel.</p>
-        <div class="foot"><span class="pill"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span><span class="pill"><svg class="ico"><use href="#i-teams"/></svg>Teams</span><span class="pill"><svg class="ico"><use href="#i-screen"/></svg>Webshop</span></div>
-      </div>
-    </div>
-    <div class="branch"><svg class="ico" style="font-size:20px"><use href="#i-swap"/></svg><span><strong>The other branch:</strong> if Nigel accepts the Pinot Grigio, the order is done with no hand-over. The prototype lets you choose.</span></div>
+        <p>One order, the same in WhatsApp, Teams and the webshop.</p>
+        <div class="foot"><span class="chan"><svg class="ico"><use href="#i-screen"/></svg>Every channel</span></div>
+      </li>
+    </ol>
+    <p class="branch"><svg class="ico"><use href="#i-swap"/></svg><span><b>The other branch:</b> if Nigel accepts the Pinot Grigio, the order is done with no hand-over. The prototype lets you choose.</span></p>
     <aside class="notes">
-      <p>Red dots are the moments that matter: the request, the stop for Priya, the hand-over to Tom.</p>
+      <p>The red dot is the stop: the moment the agent pauses for Priya. Everything else flows.</p>
       <p>While Tom works on the wine, Priya's Teams card updates quietly: "Wine: with Tom at Kade."</p>
     </aside>
   </section>
@@ -188,30 +189,30 @@
     <h2>What we're assuming, ranked by risk</h2>
     <div class="grid">
       <div class="matrix">
-        <div class="q tl">Test first</div>
-        <div class="q tr">Watch</div>
-        <div class="q bl">Learn as we go</div>
-        <div class="q br">Fine for now</div>
+        <span class="q tl">Test first</span>
+        <span class="q tr">Watch</span>
+        <span class="q bl">Learn as we go</span>
+        <span class="q br">Fine for now</span>
         <span class="pt hot" style="left:16%;top:14%">1</span>
-        <span class="pt hot" style="left:36%;top:22%">2</span>
+        <span class="pt hot" style="left:36%;top:24%">2</span>
         <span class="pt hot" style="left:22%;top:38%">3</span>
-        <span class="pt" style="left:62%;top:34%">4</span>
-        <span class="pt" style="left:30%;top:70%">5</span>
-        <span class="pt" style="left:74%;top:66%">6</span>
-        <div class="axis-x"><span>Little evidence</span><span>Strong evidence</span></div>
-        <div class="axis-y"><span>Low impact if wrong</span><span>High impact if wrong</span></div>
+        <span class="pt" style="left:64%;top:34%">4</span>
+        <span class="pt" style="left:30%;top:72%">5</span>
+        <span class="pt" style="left:76%;top:68%">6</span>
+        <span class="axis-x"><span>Little evidence</span><span>Strong evidence</span></span>
+        <span class="axis-y"><span>Low impact if wrong</span><span>High impact if wrong</span></span>
       </div>
-      <div class="assumptions">
-        <div class="assumption"><span class="n hot">1</span><div><b>Buyers will let the agent confirm orders within their rules</b><span>If not, every line waits for Priya and nothing is gained.</span></div></div>
-        <div class="assumption"><span class="n hot">2</span><div><b>Chefs order by voice note and WhatsApp</b><span>The whole journey starts there.</span></div></div>
-        <div class="assumption"><span class="n hot">3</span><div><b>Chefs accept a suggested swap for taste items</b><span>Or they always want a person, and the agent only adds a step.</span></div></div>
-        <div class="assumption"><span class="n">4</span><div><b>Spend is controlled by category budgets per outlet</b><span>This decides what "over budget" means.</span></div></div>
-        <div class="assumption"><span class="n">5</span><div><b>Buyers want quiet updates, not alerts, for things they don't decide</b><span>Gets the notification levels right.</span></div></div>
-        <div class="assumption"><span class="n">6</span><div><b>Buyers are happy to approve in Teams</b><span>Approval tools like Teams are already common.</span></div></div>
-      </div>
+      <ol class="assumptions">
+        <li class="hot"><b>Buyers will let the agent confirm orders within their rules</b><span>If not, every line waits for Priya and nothing is gained.</span></li>
+        <li class="hot"><b>Chefs order by voice note and WhatsApp</b><span>The whole journey starts there.</span></li>
+        <li class="hot"><b>Chefs accept a suggested swap for taste items</b><span>Or they always want a person, and the agent only adds a step.</span></li>
+        <li><b>Spend is controlled by category budgets per outlet</b><span>This decides what "over budget" means.</span></li>
+        <li><b>Buyers want quiet updates, not alerts, for things they don't decide</b><span>Gets the notification levels right.</span></li>
+        <li><b>Buyers are happy to approve in Teams</b><span>Approval tools like Teams are already common.</span></li>
+      </ol>
     </div>
     <aside class="notes">
-      <p>Top-left is where research starts: high impact if we're wrong, and little evidence today.</p>
+      <p>Top-left is where research starts: high impact if we're wrong, and little evidence today. Filled dots are the three to test first.</p>
       <p>Technical assumptions (order system data, WhatsApp rules, Teams app) get their own slide later.</p>
     </aside>
   </section>
@@ -221,22 +222,26 @@
     <p class="eyebrow">Research</p>
     <h2>How we'd learn, before and after launch</h2>
     <div class="cols">
-      <div class="card phase">
-        <div class="phase-head"><h3>Before launch</h3><span class="status wait">Tests 1–3 first</span></div>
-        <div class="method"><b>An evening in a kitchen</b><span class="when">2 evenings</span><span>Watch how chefs order after service: channel, timing, words used.</span></div>
-        <div class="method"><b>Where do Kade's orders come from?</b><span class="when">1 week</span><span>Analyse incoming orders by channel and time of day.</span></div>
-        <div class="method"><b>Interviews</b><span class="when">6–8 people</span><span>Central buyers, chefs and service reps: who decides, and how spend is controlled.</span></div>
-        <div class="method"><b>Wizard of Oz on WhatsApp</b><span class="when">2 weeks, 3 outlets</span><span>A person plays the agent. Do people accept, decline or work around it?</span></div>
+      <div class="phase">
+        <h3>Before launch <span>tests assumptions 1–3</span></h3>
+        <dl>
+          <dt>An evening in a kitchen <span>2 evenings</span></dt><dd>Watch how chefs order after service: channel, timing, words used.</dd>
+          <dt>Where Kade's orders come from <span>1 week</span></dt><dd>Analyse incoming orders by channel and time of day.</dd>
+          <dt>Interviews <span>6–8 people</span></dt><dd>Central buyers, chefs and service reps: who decides, and how spend is controlled.</dd>
+          <dt>Wizard of Oz on WhatsApp <span>2 weeks, 3 outlets</span></dt><dd>A person plays the agent. Do people accept, decline or work around it?</dd>
+        </dl>
       </div>
-      <div class="card phase">
-        <div class="phase-head"><h3>After launch</h3><span class="status handed">Measure &amp; listen</span></div>
-        <div class="method"><b>Handled by the agent</b><span class="when">Metric</span><span>Share of lines confirmed with no person involved.</span></div>
-        <div class="method"><b>Overrides and hand-overs</b><span class="when">Metric</span><span>How often people change the agent's decision, and how fast hand-overs resolve.</span></div>
-        <div class="method"><b>Trust, in the moment</b><span class="when">In-chat pulse</span><span>One tap after a decision: "Was this right?"</span></div>
-        <div class="method"><b>Diary study</b><span class="when">4 weeks</span><span>Three buyers record when the agent helped, and when it got in the way.</span></div>
+      <div class="phase">
+        <h3>After launch <span>measure and listen</span></h3>
+        <dl>
+          <dt>Handled by the agent <span>metric</span></dt><dd>Share of lines confirmed with no person involved.</dd>
+          <dt>Overrides and hand-overs <span>metric</span></dt><dd>How often people change the agent's decision, and how fast hand-overs resolve.</dd>
+          <dt>Trust, in the moment <span>in-chat pulse</span></dt><dd>One tap after a decision: “Was this right?”</dd>
+          <dt>Diary study <span>4 weeks</span></dt><dd>Three buyers record when the agent helped, and when it got in the way.</dd>
+        </dl>
       </div>
     </div>
-    <div class="heard"><strong>What I heard</strong><span>To add: 2–3 conversations with a chef, a restaurant buyer and a supplier.</span></div>
+    <p class="heard"><b>What I heard</b><span>To add: 2–3 conversations with a chef, a restaurant buyer and a supplier.</span></p>
     <aside class="notes">
       <p>Before launch tests the riskiest assumptions; after launch keeps the agent honest. The Wizard of Oz test is the cheapest way to learn about trust before building anything.</p>
     </aside>
@@ -253,6 +258,6 @@
   <button type="button" data-nav="notes">Notes (N)</button>
 </nav>
 
-<script src="deck.js?v=20261028l"></script>
+<script src="deck.js?v=20261028m"></script>
 </body>
 </html>
