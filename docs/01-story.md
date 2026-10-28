@@ -7,8 +7,8 @@
 | Who | Side | Role in the story | Main channels |
 |---|---|---|---|
 | **Priya** | Buyer: The Olive Tree | Buys all ingredients and drinks for 3 outlets. Goals: never run out, keep waste down, stay within budget. | Desktop dashboard, WhatsApp, email, calls / Teams |
-| **Chef Arjun** | Buyer: Outlet 2 (Harbour) | Where demand comes from: bookings, events, menu changes. Never at a desk. | Voice notes, WhatsApp |
-| **Lina** | Buyer: Outlet 3 (Old Town) | Outlet manager; receives deliveries. | Phone, WhatsApp, photos |
+| **Chef Nigel** | Buyer: head chef, Harbour outlet only | Where demand comes from: bookings, events, menu changes. Orders day to day within Priya's rules. Never at a desk. | Voice notes, WhatsApp |
+| **Lina** | Buyer: outlet manager (not a chef), Old Town | Runs the outlet; receives deliveries. | Phone, WhatsApp, photos |
 | **Owner** | Buyer | Sets Priya's monthly budget; approves overspends. | Email summary |
 | **FreshSupply agent** | Seller: FreshSupply on Sana | Takes orders, drafts them, explains, stops when it should. Acts for FreshSupply within rules the admin sets. | Every channel |
 | **Tom** | Seller: customer service rep | Takes over when the agent stops; resolves exceptions with full context. | Sana service desk |
@@ -24,6 +24,8 @@
 - Price change > **5%** vs. contract → ask the buyer.
 - Next-day delivery cut-off: **22:00**.
 - Priya's limit (set up when The Olive Tree was onboarded): monthly budget **€42,000**; anything that takes the forecast above budget needs her approval.
+
+**Ordering model at The Olive Tree:** each outlet has its own head chef. Chefs order day to day from their outlet's approved product list, at contract prices, within the outlet's budget. Anything over budget, not on the list, or above contract price goes to Priya for approval.
 
 ---
 
@@ -47,23 +49,23 @@
 ## Storyboard: the prototype thread
 
 ### Scene 1: Wednesday 22:47 · voice note (no screen)
-Arjun is closing up at Harbour. He sends a WhatsApp voice note to FreshSupply:
+Nigel is closing up at Harbour. He sends a WhatsApp voice note to FreshSupply:
 
-> "Hey, it's Arjun from Olive Tree Harbour. We've got a private dinner Saturday, 120 covers. Add the usual for that, plus salmon for the main — about 18 kilos. Thanks."
+> "Hey, it's Nigel from Olive Tree Harbour. We've got a private dinner Saturday, 120 covers. Add the usual for that, plus salmon for the main — about 18 kilos. Thanks."
 
 **FreshSupply agent (WhatsApp, text + short voice reply):**
-> Got it, Arjun. For Saturday's 120-cover dinner at **Harbour** I've added your usual event set plus **18 kg salmon fillet**.
+> Got it, Nigel. For Saturday's 120-cover dinner at **Harbour** I've added your usual event set plus **18 kg salmon fillet**.
 > This takes The Olive Tree **€640 over this month's budget**, so I've sent it to **Priya** to approve. You'll hear back here.
 > ⏱ It's past today's 22:00 cut-off, so the earliest delivery is **Friday 07:00–09:00**.
 
-*Why it matters:* it works with no screen, it knows who Arjun is and which outlet, and it **does not go over the budget on Arjun's say-so**.
+*Why it matters:* it works with no screen, it knows who Nigel is and which outlet, and it **does not go over the budget on Nigel's say-so**.
 
 ### Scene 2: Thursday 07:30 · Priya's desktop
 Priya opens her FreshSupply portal (the Sana webshop). A card at the top:
 
 > **Needs your decision** · Harbour event order · €2,180 · **+€640 over budget**
-> Requested by Arjun (voice note, Wed 22:47) · [Listen] [Transcript]
-> [Approve] [Adjust quantities] [Ask Arjun]
+> Requested by Nigel (voice note, Wed 22:47) · [Listen] [Transcript]
+> [Approve] [Adjust quantities] [Ask Nigel]
 
 Her **local assistant** adds a line in its sidebar: *"Harbour's covers this month are 18% above forecast; the overspend is offset if Old Town's Monday dairy order is cut back as suggested."*
 Priya approves.
@@ -93,7 +95,7 @@ Tom finds 10 kg of Norwegian salmon at the partner depot, +€1.10/kg (within th
 
 ### Scene 5: Thursday 07:45 · one confirmation, shown in 3 channels
 The *same* order object, shown three ways from the same design system:
-- **WhatsApp** (Arjun): short text, "Saturday dinner order is confirmed ✅, arrives Fri 07–09".
+- **WhatsApp** (Nigel): short text, "Saturday dinner order is confirmed ✅, arrives Fri 07–09".
 - **Email** (Priya + accounts): full summary of lines, cost against budget, delivery window, PDF.
 - **Webshop order page**: status timeline, an undo / change window until Thu 20:00, an audit trail of who decided what (agent → Priya → Tom).
 
@@ -125,7 +127,7 @@ Each rule shows how often it fired, how often the agent's suggestion was accepte
 | A journey that crosses channels | Voice → WhatsApp → webshop → service desk → email → driver app |
 | Agent stops, asks, explains, hands over | Scenes 1, 3, 4, 6 |
 | The user stays in control | Approve / adjust / ask, undo window, audit trail |
-| No-screen moments | Arjun's voice note; driver update |
+| No-screen moments | Nigel's voice note; driver update |
 | Where agents should *not* be used | Allergen swaps, overspend, relationship (Maria) |
 | Platform / many merchants | Ravi's rules (scene 7) |
 | Design system across channels | Scene 5: the same order shown 3 ways |
