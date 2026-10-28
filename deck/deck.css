@@ -64,7 +64,6 @@ p { margin: 0; }
 .status.handed { background: var(--person-soft); color: var(--person); }
 
 .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line); }
-.rule { height: 1px; background: var(--line); }
 
 /* Faces */
 .face { width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); overflow: hidden; flex: none; display: grid; place-items: center; }
@@ -141,16 +140,20 @@ p { margin: 0; }
 .motto { margin-top: auto; font-family: var(--font-voice); font-style: italic; font-size: 34px; line-height: 1.25; color: var(--ink); }
 
 /* ---------- 6 · Journey ---------- */
+/* time → dot → face → title → thought → channel; faces line up as one row. */
 .track { position: relative; list-style: none; padding: 0; margin: 6px 0 0; display: grid; grid-template-columns: repeat(7, 1fr); gap: 18px; }
 .track::before { content: ""; position: absolute; left: 5px; right: calc((100% - 6 * 18px) / 7 - 5px); top: 33px; height: 1px; background: var(--ink-3); opacity: .6; }
-.track li { display: flex; flex-direction: column; gap: 8px; }
+.track li { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .track .time { font-size: 12px; font-weight: 600; color: var(--ink-3); letter-spacing: .04em; text-transform: uppercase; height: 18px; }
-.track .dot { position: relative; z-index: 1; width: 11px; height: 11px; border-radius: 50%; background: var(--ink); margin: 2px 0 14px; }
-.track .stop .dot { background: var(--red); width: 15px; height: 15px; margin: 0 0 12px -2px; }
+.track .dot { position: relative; z-index: 1; width: 11px; height: 11px; border-radius: 50%; background: var(--ink); margin: 2px 0 10px; }
+.track .stop .dot { background: var(--red); width: 15px; height: 15px; margin: 0 0 8px -2px; }
+.track .face { width: 40px; height: 40px; }
+.track .face.agent { font-size: 18px; }
+.track h3 { font-size: 17px; font-weight: 600; margin-top: 6px; }
 .track .stop h3 { color: var(--red); }
-.track h3 { font-size: 17px; font-weight: 600; }
-.track p { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
-.track .foot { margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+/* Voices in serif italic; the agent's rule stays in plain sans. */
+.track .thought { font-family: var(--font-voice); font-style: italic; font-size: 19px; line-height: 1.25; color: var(--ink); min-height: 72px; }
+.track .agent-rule { font-size: 14px; line-height: 1.45; color: var(--ink-2); min-height: 72px; }
 .chan { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--ink-3); }
 .chan .ico { font-size: 14px; }
 .branch { margin-top: auto; display: flex; gap: 12px; align-items: center; font-size: 15px; color: var(--ink-2); }
