@@ -80,18 +80,20 @@ p { margin: 0; }
 
 /* ---------- 1 · Title ---------- */
 .s-title { justify-content: center; }
-.s-title .mark { display: block; width: 48px; height: 6px; background: var(--red); margin-bottom: 36px; }
-.s-title h1 { font-size: 80px; max-width: 980px; }
+.s-title h1 { font-size: 80px; }
 .s-title .sub { font-family: var(--font-display); font-size: 30px; color: var(--ink-3); margin-top: 18px; letter-spacing: -.01em; }
-.beats { position: relative; width: 520px; height: 40px; margin-top: 80px; font-size: 13px; color: var(--ink-2); }
-.beats::before { content: ""; position: absolute; left: 5px; right: 5px; top: 5px; height: 1px; background: var(--ink-3); opacity: .6; }
-.beats span { position: absolute; top: 0; white-space: nowrap; display: flex; flex-direction: column; align-items: center; gap: 12px; transform: translateX(-50%); }
-.beats span:nth-child(1) { left: 0; transform: none; align-items: flex-start; }
-.beats span:nth-child(2) { left: 33.33%; }
-.beats span:nth-child(3) { left: 66.66%; }
-.beats span:nth-child(4) { left: 100%; transform: translateX(-100%); align-items: flex-end; }
-.beats span::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--ink); }
 .s-title .slide-footer span:first-child { visibility: hidden; }
+.byline { position: absolute; left: 96px; bottom: 96px; font-size: 15px; color: var(--ink-2); }
+.byline span { color: var(--ink-3); }
+/* Boundaries: inside the rules the agent acts, at the edge it asks, beyond a person takes over. */
+.bounds { position: absolute; right: 96px; top: 50%; width: 440px; height: 440px; transform: translateY(-50%); overflow: visible; }
+.bounds .inner { fill: var(--person-soft); }
+.bounds .edge { fill: none; stroke: var(--red); stroke-width: 1.5; }
+.bounds .lab { font: 500 15px var(--font); fill: var(--ink); text-anchor: middle; }
+.bounds .lab.muted { fill: var(--ink-2); }
+.bounds .dot { fill: var(--ink); }
+.bounds .dot.red { fill: var(--red); }
+.bounds .dot.open { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
 
 /* ---------- 2 · Problem ---------- */
 .s-problem .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; flex: 1; }
