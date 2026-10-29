@@ -138,6 +138,7 @@ p { margin: 0; }
 .s-day .chan { justify-self: start; }
 .s-day .muted-chan { color: var(--ink-3); font-style: italic; }
 .s-day .caveat { margin-top: auto; font-size: 14px; color: var(--ink-3); }
+.s-day .caveat b { color: var(--ink-2); font-weight: 600; }
 
 /* ---------- 5 · The opportunity ---------- */
 .s-opportunity { flex-direction: row; align-items: center; gap: 64px; }
