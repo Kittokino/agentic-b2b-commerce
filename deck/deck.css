@@ -68,9 +68,15 @@ p { margin: 0; }
 /* Faces */
 .face { width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); overflow: hidden; flex: none; display: grid; place-items: center; }
 .face img { width: 100%; height: 100%; object-fit: cover; }
-/* The agent: navy with a red ring, drawn about 10% smaller so it balances
-   against the lighter, white human faces. */
-.face.agent { background: var(--ink); border: 3px solid var(--red); color: #fff; font-size: 26px; transform: scale(.9); }
+/* The agent: navy warming into red from the top right (our two colours), no ring.
+   Drawn slightly smaller so it balances against the white human faces. */
+.face.agent {
+  border: 0; color: #fff; font-size: 26px; transform: scale(.92);
+  background:
+    radial-gradient(90% 90% at 88% 10%, rgba(226, 16, 60, .95) 0%, rgba(226, 16, 60, .45) 38%, rgba(226, 16, 60, 0) 70%),
+    radial-gradient(70% 70% at 12% 95%, rgba(92, 82, 150, .55) 0%, rgba(92, 82, 150, 0) 70%),
+    var(--ink);
+}
 .face.sm { width: 36px; height: 36px; }
 .face.sm.agent { font-size: 17px; }
 .face.xs { width: 28px; height: 28px; }

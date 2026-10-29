@@ -21,7 +21,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 | **Tom**, service rep | Kade | Service desk on his desktop |
 | **Maheep**, commerce admin | Kade | Sana admin (sets the rules) |
 
-**Priya's assistant (a tool, not a cast member):** The Olive Tree's own AI assistant, not Sana's. It summarises supplier updates for Priya and finds things for her (e.g. stock across outlets). It reads Kade's order data through an API / MCP server that Sana offers. It does **not** order or negotiate. Shown as an outlined sparkle without the red ring that marks Kade's agent.
+**Priya's assistant (a tool, not a cast member):** The Olive Tree's own AI assistant, not Sana's. It summarises supplier updates for Priya and finds things for her (e.g. stock across outlets). It reads Kade's order data through an API / MCP server that Sana offers. It does **not** order or negotiate. Shown as an outlined sparkle, unlike Kade's agent, which is a filled navy-to-red circle.
 
 ## Rules (set at Kade, limits from Priya)
 1. **Category budgets per outlet:** a line that takes Harbour over its budget for that category (e.g. fish) needs **Priya's** approval.
