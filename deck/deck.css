@@ -148,6 +148,7 @@ p { margin: 0; }
 .s-opportunity .who { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ink-3); }
 .s-opportunity .who b { color: var(--ink); font-weight: 600; }
 .s-opportunity blockquote { margin: 16px 0 0; max-width: 560px; font-size: 20px; line-height: 1.5; color: var(--ink-2); }
+.s-opportunity .caveat { margin-top: 28px; font-size: 14px; color: var(--ink-3); }
 .s-opportunity .scene { width: 440px; height: 520px; object-fit: cover; object-position: 38% 50%; border: 2px solid var(--ink); mix-blend-mode: multiply; flex: none; }
 
 /* ---------- 6 · Three outcomes ---------- */
