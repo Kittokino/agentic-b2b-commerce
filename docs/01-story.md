@@ -24,6 +24,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 **Priya's assistant (a tool, not a cast member):** The Olive Tree's own AI assistant, not Sana's. It summarises supplier updates for Priya and finds things for her (e.g. stock across outlets). It reads Kade's order data through an API / MCP server that Sana offers. It does **not** order or negotiate. Shown as an outlined sparkle, unlike Kade's agent, which is a filled navy-to-red circle.
 
 ## Rules (set at Kade, limits from Priya)
+0. **The contract comes first:** the agent only works with the products and prices agreed in each buyer's contract. It never steps outside it.
 1. **Category budgets per outlet:** a line that takes Harbour over its budget for that category (e.g. fish) needs **Priya's** approval.
 2. **Substitutions:** the agent may *suggest* an in-stock alternative within budget; the **requester (Nigel)** accepts or declines.
 3. **Hand-over:** when the agent has nothing left it's allowed to offer (e.g. sourcing from a partner supplier), it hands over to **Tom** with full context.
