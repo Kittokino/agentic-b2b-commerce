@@ -30,8 +30,8 @@ html, body { margin: 0; height: 100%; background: #0e0b22; }
 body { font-family: var(--font); color: var(--ink); overflow: hidden; -webkit-font-smoothing: antialiased; }
 
 /* Stage: a fixed 1280×720 deck, scaled to the window by deck.js. */
-.viewport { position: fixed; inset: 0; display: grid; place-items: center; }
-.deck { width: 1280px; height: 720px; position: relative; transform-origin: center center; flex: none; }
+.viewport { position: fixed; inset: 0; overflow: hidden; }
+.deck { width: 1280px; height: 720px; position: absolute; left: 50%; top: 50%; transform-origin: center center; }
 .slide { position: absolute; inset: 0; display: none; flex-direction: column; background: var(--bg); padding: 64px 96px 80px; overflow: hidden; }
 .slide.active { display: flex; }
 .slide > .notes { display: none; }
@@ -245,7 +245,7 @@ body:hover .controls, .controls:focus-within { opacity: .55; }
   @page { size: 1280px 720px; margin: 0; }
   html, body { background: none; overflow: visible; height: auto; }
   .viewport { position: static; display: block; }
-  .deck { transform: none !important; height: auto; }
+  .deck { transform: none !important; position: static; height: auto; }
   .slide { display: flex !important; position: relative; width: 1280px; height: 720px; break-after: page; }
   .progress, .controls, .notes-panel { display: none !important; }
   .slide-footer .page-no { visibility: visible; }

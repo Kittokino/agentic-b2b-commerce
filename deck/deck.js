@@ -17,7 +17,7 @@
 
   function fit() {
     const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
-    deck.style.transform = `scale(${scale})`;
+    deck.style.transform = `translate(-50%, -50%) scale(${scale})`;
   }
 
   function show(n) {
