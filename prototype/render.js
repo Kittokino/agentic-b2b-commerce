@@ -160,7 +160,7 @@
         <div class="lock-time"><span>Wednesday</span><b>22:48</b></div>
         ${n ? `
         <button class="notification ${ctx.live.includes('open') ? 'live' : ''}" data-action="open">
-          <span class="app">${icon('chat')}${esc(n.app)} · now</span>
+          <span class="n-top"><img class="n-icon" src="../assets/whatsapp-icon.svg" alt=""><span>${esc(n.app)} · now</span>${icon('down')}</span>
           <b>${esc(n.from)}</b>
           <p>${esc(n.text)}</p>
         </button>` : ''}
