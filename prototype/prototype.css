@@ -132,7 +132,7 @@ ul, ol { padding: 0; list-style: none; }
 .entry > .face { margin-top: 16px; }
 .entry .t { padding-top: 20px; font-size: var(--t-body); color: var(--ink-3); text-align: right; }
 .entry p b { font-size: var(--t-body); font-weight: 600; line-height: 1.35; }
-.entry q { display: block; margin-top: 4px; font-size: var(--t-body); line-height: 1.45; color: var(--ink-2); }
+.entry q { display: block; margin-top: 4px; font-size: var(--t-body); font-style: italic; line-height: 1.45; color: var(--ink-2); }
 .entry .detail { margin-top: 2px; font-size: var(--t-body); color: var(--ink-2); }
 .rule { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 4px 10px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); font-size: var(--t-small); color: var(--ink-2); }
 /* The agent stopped here: the only red on the screen. */
@@ -291,7 +291,7 @@ ul, ol { padding: 0; list-style: none; }
 .m-meta { font-size: var(--t-small); color: var(--ink-3); }
 .m-label { margin-top: 18px; font-size: var(--t-label); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
 .m-text { margin-top: 8px; font-size: var(--t-body); line-height: 1.5; color: var(--ink-2); }
-.m-quote { display: block; margin-top: 6px; font-size: var(--t-body); line-height: 1.5; }
+.m-quote { display: block; margin-top: 6px; font-size: var(--t-body); font-style: italic; line-height: 1.5; }
 .m-case { margin-top: 12px; font-size: var(--t-body); font-weight: 600; }
 .m-note { margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: var(--person-soft); font-size: var(--t-body); line-height: 1.45; }
 .m-chat { margin-top: 12px; border-radius: 12px; flex: none; overflow: visible; }
@@ -341,6 +341,6 @@ ul, ol { padding: 0; list-style: none; }
 /* The actor line carries the source; the link to it sits at the right. */
 .actor-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .actor-row .open-link { flex: none; font-size: var(--t-small); }
-.filters .select { display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; padding: 4px 10px 4px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); }
+.filters .select { display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; padding: 4px 10px 4px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); }
 .filters .select .ico { font-size: 14px; }
 .tally + .sum-facts { border-top: 0; padding-top: 12px; }
