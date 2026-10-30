@@ -30,7 +30,7 @@
       stopped: ['wait', mine ? 'Needs you' : `Waiting on ${PEOPLE[line.owner]}`],
       suggested: ['suggest', mine ? 'Your call' : `Waiting on ${PEOPLE[line.owner]}`],
       handed: ['handed', 'With Tom'],
-      quote: ['suggest', mine ? 'Your call' : `Quote with ${PEOPLE[line.owner]}`],
+      quote: ['suggest', mine ? 'Your call' : `Waiting on ${PEOPLE[line.owner]}`],
     };
     const [cls, label] = map[line.status];
     return `<span class="status ${cls}">${line.status === 'confirmed' ? icon('check') : ''}${esc(label)}</span>`;
@@ -142,7 +142,7 @@
             <p class="case-task">${esc(c.task)}</p>
             ${c.changed ? `<div class="changed">${icon('rule')}<p>${esc(c.changed)}</p></div>` : ''}
             ${c.found ? `<div class="found"><span class="muted">What Tom found</span><p>${esc(c.found)}</p></div>` : ''}
-            <div class="case-actions">${act({ action: 'quote', label: 'Send Nigel a one-off quote' }, ctx, 'btn')}</div>
+            <div class="case-actions">${act({ action: 'quote', label: 'Send Nigel the one-time price' }, ctx, 'btn')}</div>
           </section>
           <aside class="summary history">
             <h3>Latest activity on the order</h3>
