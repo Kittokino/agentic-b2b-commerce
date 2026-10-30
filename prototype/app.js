@@ -5,7 +5,7 @@
   const stage = document.querySelector('.stage');
   const el = (sel) => document.querySelector(sel);
   const flyout = el('#flyout');
-  const handle = el('#handle');
+  const cue = el('#cue');
 
   // Illustration placeholders, one per person's device.
   const ILLO = {
@@ -17,7 +17,6 @@
   let chosen = false;   // has the viewer (or a deep link) picked a path at the read-back yet?
   let index = 0;
   let slide = 0;
-  let timer = null;
 
   const steps = () => window.STORY.paths[path];
 
@@ -82,7 +81,8 @@
       return { lead: `${V.PEOPLE[d.who]} decides this step.`, btns: other >= 0 ? btn(`data-slide="${other}"`, `See ${V.PEOPLE[d.who]}'s screen`, 'ghost') : '' };
     }
     if (last) return { lead: 'The same confirmed order, in every channel.', btns: btn('data-nav="restart"', 'Start again', 'ghost') };
-    return { lead: `Next: ${steps()[index + 1].label.toLowerCase()}.`, btns: btn('data-nav="next"', 'Continue') };
+    const n = steps()[index + 1];
+    return { kicker: `Up next · ${n.time}`, lead: n.caption, btns: btn('data-nav="next"', 'Continue') };
   }
 
   function renderFlyout(s) {
@@ -108,6 +108,7 @@
         <div class="screen">${V[info.view](s)}</div>
       </div>
       <div class="choice">
+        ${c.kicker ? `<p class="kicker">${V.esc(c.kicker)}</p>` : ''}
         <p class="lead">${V.esc(c.lead)}</p>
         <div class="choice-btns">${c.btns}</div>
       </div>`;
@@ -121,11 +122,14 @@
     const isOpen = open && list.length > 0;
     flyout.classList.toggle('open', isOpen);
     flyout.setAttribute('aria-hidden', String(!isOpen));
-    handle.hidden = isOpen || list.length === 0;
-    if (!handle.hidden) {
-      const names = list.map(p => V.PEOPLE[p]).join(' and ');
-      handle.innerHTML = `<svg class="ico"><use href="#i-left"/></svg><span>What ${names} ${list.length > 1 ? 'see' : 'sees'}</span>`;
-    }
+    // The pill gives the cue while the flyout is closed, and moves beside it to close it again.
+    cue.hidden = list.length === 0;
+    cue.classList.toggle('open', isOpen);
+    const waiting = /^Waiting/.test(steps()[index].cue || '');
+    cue.classList.toggle('waiting', waiting && !isOpen);
+    cue.innerHTML = isOpen
+      ? `<svg class="ico"><use href="#i-right"/></svg><span>Back to Kade's screen</span>`
+      : `<span class="faces">${list.map(p => V.avatar(p)).join('')}</span><span>${V.esc(steps()[index].cue || '')}</span><svg class="ico"><use href="#i-left"/></svg>`;
   }
 
   // ---------- Render a step ----------
@@ -141,21 +145,17 @@
     history.replaceState(null, '', `#${path}-${index + 1}`);
   }
 
-  // Sana updates first; a moment later, the person's screen slides in.
-  // When the next move is Tom's, it happens in Sana, so the flyout stays closed.
+  // Sana updates; the pill gives the cue, and the viewer opens the person's screen.
   function go(n) {
-    clearTimeout(timer);
     index = Math.max(0, Math.min(steps().length - 1, n));
     if (index >= 2) chosen = true;
     setFlyout(false);
     render();
-    const d = steps()[index].decision;
-    if (!(d && d.where === 'kade')) timer = setTimeout(() => setFlyout(true), 900);
   }
 
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-action], [data-nav], [data-slide], [data-jump], [data-fly], #handle');
+    const t = e.target.closest('[data-action], [data-nav], [data-slide], [data-jump], [data-fly], #cue');
     if (!t) return;
     if (t.dataset.action) {
       const a = t.dataset.action;
@@ -166,15 +166,15 @@
     else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; go(0); }
     else if (t.dataset.slide !== undefined) { slide = +t.dataset.slide; renderFlyout(stateAt(index)); }
     else if (t.dataset.jump !== undefined) go(+t.dataset.jump);
-    else if (t.dataset.fly === 'close') { clearTimeout(timer); setFlyout(false); }
-    else if (t === handle) setFlyout(true);
+    else if (t.dataset.fly === 'close') setFlyout(false);
+    else if (t === cue) setFlyout(!flyout.classList.contains('open'));
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (['ArrowRight', 'PageDown'].includes(e.key)) { e.preventDefault(); go(index + 1); }
     if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(index - 1); }
-    if (e.key === 'Escape') { clearTimeout(timer); setFlyout(false); }
+    if (e.key === 'Escape') setFlyout(false);
   });
 
   function fit() {

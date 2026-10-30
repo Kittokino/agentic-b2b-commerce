@@ -39,6 +39,7 @@
   const shared = [
     {
       time: 'Wed 22:47', label: 'Voice note', actor: 'nigel',
+      cue: "Nigel's voice note, on his phone",
       caption: 'After service, Nigel sends Kade one voice note with three items.',
       seen: ['nigel'],
       apply(s) {
@@ -48,6 +49,7 @@
     },
     {
       time: '22:48', label: 'Read-back', actor: 'agent', stop: true,
+      cue: "Waiting for Nigel's call on the wine",
       caption: 'The agent checks each line against the contract, stock and budgets, and reads the order back.',
       seen: ['nigel', 'priya'],
       decision: {
@@ -72,6 +74,7 @@
   const decline = [
     {
       time: '22:51', label: 'Swap declined', actor: 'nigel',
+      cue: "Nigel and Priya see the hand-over",
       caption: 'Nigel declines the Pinot Grigio. The agent has nothing else it may offer, so it hands the wine to Tom.',
       seen: ['nigel', 'priya'],
       apply(s) {
@@ -85,6 +88,7 @@
     },
     {
       time: 'Thu 07:40', label: 'Stock at Old Town', actor: 'priya',
+      cue: "Priya's assistant has a tip for her",
       caption: 'Early on Thursday, Priya\'s own AI assistant tells her that Old Town has 10 bottles of the same wine.',
       seen: ['priya'],
       decision: {
@@ -98,6 +102,7 @@
     },
     {
       time: '07:45', label: 'Priya adjusts', actor: 'priya',
+      cue: "Priya and Nigel see the change",
       caption: 'Priya\'s change reaches Kade before Tom starts. His case now says 14 bottles, not 24.',
       seen: ['priya', 'nigel'],
       decision: {
@@ -116,6 +121,7 @@
     },
     {
       time: '08:05', label: 'Tom sends a quote', actor: 'tom',
+      cue: "Waiting for Nigel and Priya",
       caption: 'Tom finds 14 bottles at a partner supplier and sends a one-off quote. The contract stays as it is.',
       seen: ['nigel', 'priya'],
       decision: {
@@ -132,6 +138,7 @@
     },
     {
       time: '08:30', label: 'Decisions', actor: 'priya',
+      cue: "Nigel and Priya decide",
       caption: 'Nigel confirms the wine quote, and Priya approves the salmon.',
       seen: ['nigel', 'priya'],
       apply(s) {
@@ -145,6 +152,7 @@
 
   const done = {
     time: '08:31', label: 'Confirmed', actor: 'agent',
+      cue: "The confirmation, on every screen",
     caption: 'The order is confirmed, the same in every channel, and sent to Kade\'s ERP for delivery.',
     seen: ['nigel', 'priya'],
     apply(s) {
@@ -160,6 +168,7 @@
   const accept = [
     {
       time: '22:50', label: 'Swap accepted', actor: 'nigel',
+      cue: "Waiting for Priya's approval",
       caption: 'Nigel accepts the Pinot Grigio. No hand-over is needed.',
       seen: ['nigel', 'priya'],
       decision: {
@@ -176,6 +185,7 @@
     },
     {
       time: 'Thu 08:30', label: 'Priya approves', actor: 'priya',
+      cue: "Priya approves the salmon",
       caption: 'Priya approves the salmon.',
       seen: ['priya'],
       apply(s) {

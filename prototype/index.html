@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=1">
   <link rel="stylesheet" href="../shared/components.css?v=2">
-  <link rel="stylesheet" href="prototype.css?v=2">
+  <link rel="stylesheet" href="prototype.css?v=4">
 </head>
 <body>
 
@@ -47,22 +47,23 @@
     </div>
   </aside>
 
-  <!-- Right: Kade's order screen in Sana. -->
-  <section class="sana" id="sana"></section>
+  <!-- Right: Kade's order screen in Sana, as if watched on a large screen. -->
+  <div class="watch">
+    <div class="frame"><section class="sana" id="sana"></section></div>
+  </div>
 
-  <!-- What a person sees, sliding in from the right edge. -->
-  <button class="tab-handle" id="handle" hidden></button>
+  <!-- What a person sees, sliding in from the right edge. The pill opens and closes it. -->
+  <button class="cue" id="cue" hidden></button>
   <aside class="flyout" id="flyout" aria-hidden="true">
     <header class="fly-head">
       <div class="carousel" id="carousel"></div>
-      <button class="close" data-fly="close" aria-label="Close"><svg class="ico"><use href="#i-close"/></svg></button>
     </header>
     <div class="fly-body" id="fly-body"></div>
   </aside>
 </main>
 
-<script src="order.js?v=2"></script>
+<script src="order.js?v=3"></script>
 <script src="render.js?v=2"></script>
-<script src="app.js?v=2"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
