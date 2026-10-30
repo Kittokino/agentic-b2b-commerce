@@ -1,188 +1,150 @@
-// Steps through the story: the state at step n is the initial record with steps 0..n applied.
-// Each step first updates Kade's Sana screen, then slides in what the people saw.
+// Steps through the story: the state at scene n is the initial record with scenes 0..n applied.
+// A new actor's screen swipes in; the same screen updates in place.
 (() => {
   const V = window.VIEWS;
+  const S = window.STORY;
   const stage = document.querySelector('.stage');
   const el = (sel) => document.querySelector(sel);
-  const flyout = el('#flyout');
+  const screen = el('#screen');
   const cue = el('#cue');
-
-  // Illustration placeholders, one per person's device.
-  const ILLO = {
-    nigel: { prompt: 'Prompt 1 illustration goes here', device: 'phone', view: 'whatsapp', channel: 'WhatsApp' },
-    priya: { prompt: 'Prompt 2 illustration goes here', device: 'laptop', view: 'teams', channel: 'Teams' },
-  };
+  const intro = el('#intro');
 
   let path = 'decline';
-  let chosen = false;   // has the viewer (or a deep link) picked a path at the read-back yet?
+  let chosen = false;   // has a reply been picked at Nigel's choice yet?
   let index = 0;
-  let slide = 0;
+  let shown = null;     // the screen on view: its element and what it shows
 
-  const steps = () => window.STORY.paths[path];
+  const steps = () => S.paths[path];
 
   function stateAt(n) {
-    const s = window.STORY.initial();
-    steps().slice(0, n + 1).forEach(step => { s.time = step.time; step.apply(s); });
+    const s = S.initial();
+    steps().slice(0, n + 1).forEach(sc => { if (sc.day) s.day = sc.day; sc.apply(s); });
     return s;
   }
 
-  // What the current step changed, so the Sana screen can highlight it.
-  function freshness(n) {
-    const now = stateAt(n);
-    const before = n > 0 ? stateAt(n - 1) : window.STORY.initial();
-    const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-    return {
-      lines: now.order.lines.filter((l, i) => !same(l, before.order.lines[i])).map(l => l.id),
-      thread: before.thread.length,
-      activity: before.activity.length,
-      caseFile: !same(now.caseFile, before.caseFile),
-      erp: now.order.erp !== before.order.erp,
-    };
-  }
-
-  // ---------- Left rail: the timeline ----------
-  function timeline() {
+  // ---------- Left rail: the moments of the story ----------
+  function rail() {
     const list = steps();
-    const known = chosen || index >= 2 ? list : list.slice(0, 2);
-    const items = known.map((st, i) => {
-      const state = i < index ? 'done' : i === index ? 'now' : 'next';
-      return `
-        <li class="${state} ${st.stop ? 'stop' : ''}" data-jump="${i}">
-          <span class="time">${V.esc(st.time)}</span>
-          ${V.avatar(st.actor)}
-          <div><b>${V.esc(st.label)}</b>${i === index ? `<p>${V.esc(st.caption)}</p>` : ''}</div>
-        </li>`;
-    }).join('');
-    const pending = known.length < list.length
-      ? '<li class="pending"><span class="time"></span><span class="gap"></span><div><b>The rest depends on Nigel\'s choice</b></div></li>' : '';
-    el('#timeline').innerHTML = items + pending;
-    el('.path').textContent = !chosen && index < 2 ? 'Wednesday night, after service'
-      : path === 'decline' ? 'Nigel declines the swap' : 'Nigel accepts the swap';
+    const known = chosen || index > S.choiceAt ? list : list.slice(0, S.choiceAt + 1);
+    const moments = [];
+    known.forEach((sc, i) => { if (!moments.length || moments[moments.length - 1].key !== sc.moment) moments.push({ key: sc.moment, first: i }); });
+    const nowAt = moments.findIndex(m => m.key === list[index].moment);
+    el('#moments').innerHTML = moments.map((m, i) => {
+      const [time, label, actor] = S.moments[m.key];
+      const state = i < nowAt ? 'done' : i === nowAt ? 'now' : 'next';
+      return `<li class="${state}" data-jump="${m.first}"><span class="time">${time}</span>${V.avatar(actor)}<b>${label}</b></li>`;
+    }).join('') + (known.length < list.length ? '<li class="pending"><span class="time"></span><span class="gap"></span><b>The rest depends on Nigel’s reply</b></li>' : '');
+    el('.path').textContent = chosen || index > S.choiceAt ? S.labels[path] : 'Wednesday night, after service';
     el('.counter').textContent = `${index + 1} / ${list.length}`;
     el('[data-nav="prev"]').disabled = index === 0;
     el('[data-nav="next"]').disabled = index === list.length - 1;
   }
 
-  // ---------- Flyout: what each person sees ----------
-  const people = () => (steps()[index].seen || []).filter(p => ILLO[p]);
+  // ---------- The screen ----------
+  // Scenes on the same surface update in place; a new surface swipes in.
+  const surface = (sc) => ['trail', 'desk'].includes(sc.screen) ? 'kade' : `${sc.screen}:${sc.actor || ''}`;
 
-  function choiceFor(p, step) {
-    const d = step.decision;
-    const last = index === steps().length - 1;
-    const btn = (attrs, label, kind = '') => `<button class="btn ${kind}" ${attrs}>${V.esc(label)}</button>`;
-    if (d && d.where === 'kade') {
-      return { lead: `Tom picks this up in Kade's screen. ${d.text}`, btns: btn('data-fly="close"', 'Go to Tom\'s case') };
-    }
-    if (d && (d.who === p || d.who === 'both')) {
-      return { lead: d.text, btns: d.actions.map(a => btn(`data-action="${a.action}"`, a.label)).join('') };
-    }
-    if (d) {
-      const other = people().indexOf(d.who);
-      return { lead: `${V.PEOPLE[d.who]} decides this step.`, btns: other >= 0 ? btn(`data-slide="${other}"`, `See ${V.PEOPLE[d.who]}'s screen`, 'ghost') : '' };
-    }
-    if (last) return { lead: 'The same confirmed order, in every channel.', btns: btn('data-nav="restart"', 'Start again', 'ghost') };
-    const n = steps()[index + 1];
-    return { kicker: `Up next · ${n.time}`, lead: n.caption, btns: btn('data-nav="next"', 'Continue') };
-  }
-
-  function renderFlyout(s) {
-    const list = people();
-    const step = steps()[index];
-    slide = Math.max(0, Math.min(list.length - 1, slide));
-    const p = list[slide];
-    if (!p) return;
-    const info = ILLO[p];
-
-    el('#carousel').innerHTML = `
-      ${list.length > 1 ? `<button class="arrow" data-slide="${(slide + list.length - 1) % list.length}" aria-label="Previous person"><svg class="ico"><use href="#i-left"/></svg></button>` : ''}
-      <div class="people">${list.map((q, i) => `
-        <button class="person ${i === slide ? 'on' : ''}" data-slide="${i}">${V.avatar(q, 'sm')}<span><b>${V.PEOPLE[q]}</b><i>${ILLO[q].channel}</i></span></button>`).join('')}
-      </div>
-      ${list.length > 1 ? `<button class="arrow" data-slide="${(slide + 1) % list.length}" aria-label="Next person"><svg class="ico"><use href="#i-right"/></svg></button>` : ''}`;
-
-    const c = choiceFor(p, step);
-    el('#fly-body').innerHTML = `
-      <p class="fly-kicker">What ${V.PEOPLE[p]} sees · ${V.esc(V.ROLES[p])}</p>
-      <div class="illo dev-${info.device}">
-        <span class="illo-label">${info.prompt}</span>
-        <div class="screen">${V[info.view](s)}</div>
-      </div>
-      <div class="choice">
-        ${c.kicker ? `<p class="kicker">${V.esc(c.kicker)}</p>` : ''}
-        <p class="lead">${V.esc(c.lead)}</p>
-        <div class="choice-btns">${c.btns}</div>
-      </div>`;
-
-    const chat = el('#fly-body .chat');
-    if (chat) chat.scrollTop = chat.scrollHeight;
-  }
-
-  function setFlyout(open) {
-    const list = people();
-    const isOpen = open && list.length > 0;
-    flyout.classList.toggle('open', isOpen);
-    flyout.setAttribute('aria-hidden', String(!isOpen));
-    // The pill gives the cue while the flyout is closed, and moves beside it to close it again.
-    cue.hidden = list.length === 0;
-    cue.classList.toggle('open', isOpen);
-    const waiting = /^Waiting/.test(steps()[index].cue || '');
-    cue.classList.toggle('waiting', waiting && !isOpen);
-    cue.innerHTML = isOpen
-      ? `<svg class="ico"><use href="#i-right"/></svg><span>Back to Kade's screen</span>`
-      : `<span class="faces">${list.map(p => V.avatar(p)).join('')}</span><span>${V.esc(steps()[index].cue || '')}</span><svg class="ico"><use href="#i-left"/></svg>`;
-  }
-
-  // ---------- Render a step ----------
-  function render() {
-    const step = steps()[index];
+  function render(dir) {
+    const sc = steps()[index];
     const s = stateAt(index);
-    el('#sana').innerHTML = V.sana(s, { fresh: freshness(index), decision: step.decision });
-    timeline();
-    const list = people();
-    const who = step.decision && list.indexOf(step.decision.who);
-    slide = who > 0 ? who : 0;
-    renderFlyout(s);
+    // What this scene added animates in. Going back, the screen shows as it was, without replaying.
+    const before = dir >= 0 && index > 0 ? stateAt(index - 1) : null;
+    const count = (k) => (dir < 0 ? 1e9 : before ? before[k].length : 0);
+    const fresh = { trail: count('trail'), wa: count('wa'), assistant: count('assistant'), kade: count('kade') };
+    const ctx = { fresh, live: (sc.choices || []).map(c => c.action), time: `${s.day} ${sc.time || ''}` };
+    const html = V.SCREENS[sc.screen](s, sc, ctx);
+
+    const key = surface(sc);
+    if (shown && shown.key === key && sc.screen === shown.screen) {
+      shown.el.innerHTML = html;
+    } else {
+      const next = document.createElement('div');
+      next.className = `scene ${dir < 0 ? 'from-left' : 'from-right'}`;
+      next.innerHTML = html;
+      screen.appendChild(next);
+      if (shown) {
+        const old = shown.el;
+        old.classList.add(dir < 0 ? 'to-right' : 'to-left');
+        setTimeout(() => old.remove(), 800);
+      }
+      next.getBoundingClientRect();
+      next.classList.remove('from-left', 'from-right');
+      shown = { el: next };
+    }
+    Object.assign(shown, { key, screen: sc.screen });
+
+    follow(shown.el);
+    rail();
+    renderCue(sc);
     history.replaceState(null, '', `#${path}-${index + 1}`);
   }
 
-  // Sana updates; the pill gives the cue, and the viewer opens the person's screen.
-  function go(n) {
+  // Lists start at the first new entry, then follow each one as it comes in.
+  let followers = [];
+  function follow(root) {
+    followers.forEach(clearTimeout);
+    followers = [];
+    root.querySelectorAll('.trail-main, .chat, .tlist').forEach(list => {
+      const fresh = [...list.querySelectorAll('.new')];
+      if (!fresh.length) { list.scrollTop = list.scrollHeight; return; }
+      list.scrollTop = Math.max(0, fresh[0].offsetTop - list.offsetTop - 60);
+      fresh.forEach(item => {
+        const delay = parseFloat(item.style.animationDelay) * 1000 || 0;
+        followers.push(setTimeout(() => item.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), delay + 150));
+      });
+    });
+  }
+
+  // The pill, bottom right: the way on when nothing needs choosing, a hint when something does.
+  function renderCue(sc) {
+    cue.hidden = sc.screen === 'end';
+    cue.classList.toggle('hint', !!sc.choices);
+    cue.innerHTML = sc.choices
+      ? `<svg class="ico"><use href="#i-tap"/></svg><span>${V.esc(sc.prompt)}</span>`
+      : `<span>${V.esc(sc.next || 'Continue')}</span><svg class="ico"><use href="#i-right"/></svg>`;
+  }
+
+  function go(n, dir = 1) {
     index = Math.max(0, Math.min(steps().length - 1, n));
-    if (index >= 2) chosen = true;
-    setFlyout(false);
-    render();
+    if (index > S.choiceAt) chosen = true;
+    render(dir);
+  }
+
+  function choose(action) {
+    if (['accept', 'decline', 'more'].includes(action)) { path = action; chosen = true; }
+    go(index + 1);
+  }
+
+  // Next on a choice takes the story's own path (Nigel declines).
+  function advance() {
+    const sc = steps()[index];
+    if (sc.choices) choose(sc.def || sc.choices[0].action); else go(index + 1);
   }
 
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-action], [data-nav], [data-slide], [data-jump], [data-fly], [data-intro], #cue');
-    if (!t) return;
-    if (t.dataset.intro) showIntro(false);
-    else if (t.dataset.action) {
-      const a = t.dataset.action;
-      if (a === 'accept' || a === 'decline') { path = a; chosen = true; }
-      go(index + 1);
-    } else if (t.dataset.nav === 'next') go(index + 1);
-    else if (t.dataset.nav === 'prev') go(index - 1);
-    else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; go(0); showIntro(true); }
-    else if (t.dataset.slide !== undefined) { slide = +t.dataset.slide; renderFlyout(stateAt(index)); }
-    else if (t.dataset.jump !== undefined) go(+t.dataset.jump);
-    else if (t.dataset.fly === 'close') setFlyout(false);
-    else if (t === cue) setFlyout(!flyout.classList.contains('open'));
+    const t = e.target.closest('[data-action], [data-nav], [data-jump], [data-go], [data-intro], #cue');
+    if (!t || t.disabled) return;
+    if (t.dataset.intro) intro.classList.add('gone');
+    else if (t === cue) { if (!steps()[index].choices) go(index + 1); }
+    else if (t.dataset.action) choose(t.dataset.action);
+    else if (t.dataset.nav === 'next') advance();
+    else if (t.dataset.nav === 'prev') go(index - 1, -1);
+    else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; go(0, -1); intro.classList.remove('gone'); }
+    else if (t.dataset.jump !== undefined) go(+t.dataset.jump, +t.dataset.jump < index ? -1 : 1);
+    else if (t.dataset.go === 'accept') { path = 'accept'; chosen = true; go(S.choiceAt + 1); }
+    else if (t.dataset.go === 'decline') { path = 'decline'; chosen = false; go(S.choiceAt, -1); }
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
-    if (introOpen()) { if (['ArrowRight', 'PageDown', 'Enter', ' '].includes(e.key)) { e.preventDefault(); showIntro(false); } return; }
-    if (['ArrowRight', 'PageDown'].includes(e.key)) { e.preventDefault(); go(index + 1); }
-    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(index - 1); }
-    if (e.key === 'Escape') setFlyout(false);
+    if (!intro.classList.contains('gone')) {
+      if (['ArrowRight', 'PageDown', 'Enter', ' '].includes(e.key)) { e.preventDefault(); intro.classList.add('gone'); }
+      return;
+    }
+    if (['ArrowRight', 'PageDown'].includes(e.key)) { e.preventDefault(); advance(); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(index - 1, -1); }
   });
-
-  // The opening screen shows on first load and on Start again; deep links skip it.
-  const intro = el('#intro');
-  const introOpen = () => !intro.classList.contains('gone');
-  function showIntro(show) { intro.classList.toggle('gone', !show); }
 
   function fit() {
     const scale = Math.min(window.innerWidth / 1440, window.innerHeight / 810);
@@ -190,17 +152,17 @@
   }
   window.addEventListener('resize', fit);
 
-  // Deep links like #decline-5 open a given step; they also work when only the hash changes.
+  // Deep links like #decline-5 open a given scene and skip the opening.
   function fromHash() {
-    const m = location.hash.match(/^#(decline|accept)-(\d+)$/);
+    const m = location.hash.match(/^#(decline|more|accept)-(\d+)$/);
     if (!m) return false;
     path = m[1];
     index = Math.max(0, Math.min(steps().length - 1, +m[2] - 1));
-    if (index >= 2) chosen = true;
+    chosen = index > S.choiceAt;
     return true;
   }
-  window.addEventListener('hashchange', () => { if (location.hash !== `#${path}-${index + 1}` && fromHash()) go(index); });
-  if (fromHash()) showIntro(false);
+  window.addEventListener('hashchange', () => { if (location.hash !== `#${path}-${index + 1}` && fromHash()) render(1); });
+  if (fromHash()) intro.classList.add('gone');
   fit();
-  go(index);
+  render(1);
 })();

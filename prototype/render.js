@@ -1,172 +1,269 @@
-// Components and views. Kade's Sana screen and the people's screens (WhatsApp, Teams)
-// are all drawn from the same order record, using the same small set of components.
+// Screens and components. Every screen is drawn from the same order record,
+// using the same small set of components (status chip, order line, avatar).
 (() => {
   const esc = (t) => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const icon = (id) => `<svg class="ico"><use href="#i-${id}"/></svg>`;
-  const clock = (t) => t.replace(/^(Wed|Thu) /, '');
 
-  const PEOPLE = { nigel: 'Nigel', priya: 'Priya', tom: 'Tom', agent: 'Kade agent' };
-  const ROLES = { nigel: 'Head chef, Harbour', priya: 'Buyer, The Olive Tree', tom: 'Service rep, Kade', agent: 'Works for Kade' };
-  const CHANNELS = { whatsapp: ['chat', 'WhatsApp'], teams: ['teams', 'Teams'], desk: ['desk', 'Service desk'] };
+  const PEOPLE = { nigel: 'Nigel', priya: 'Priya', tom: 'Tom', agent: 'Kade agent', system: 'Sana' };
+  const ROLES = { nigel: 'Head chef, Harbour', priya: 'Buyer, The Olive Tree', tom: 'Service rep, Kade' };
+  const CHANNEL = { nigel: 'WhatsApp', priya: 'Teams', tom: 'Kade on Sana' };
 
   // ---------- Components ----------
   const avatar = (who, size = 'xs') =>
-    who === 'agent'
-      ? `<span class="face ${size} agent">${icon('agent')}</span>`
-      : `<span class="face ${size}"><img src="../assets/personas/${who}.png" alt=""></span>`;
+    who === 'agent' ? `<span class="face ${size} agent">${icon('agent')}</span>`
+      : who === 'system' ? `<span class="face ${size} system">${icon('db')}</span>`
+        : `<span class="face ${size}"><img src="../assets/personas/${who}.png" alt=""></span>`;
 
   // One status vocabulary; the label adapts to who is looking.
   function statusChip(line, viewer) {
     const mine = line.owner && line.owner === viewer;
     const map = {
-      received: ['', 'Received'],
-      confirmed: ['done', viewer === 'priya' ? 'Done' : 'Confirmed'],
-      stopped: ['wait', mine ? 'Needs you' : `Needs ${PEOPLE[line.owner] || 'a person'}`],
-      suggested: ['suggest', mine ? 'Your call' : 'Swap suggested'],
+      received: ['plain', 'Received'],
+      confirmed: ['done', 'Confirmed'],
+      stopped: ['wait', mine ? 'Needs you' : `Needs ${PEOPLE[line.owner]}`],
+      suggested: ['suggest', mine ? 'Your call' : `Asked ${PEOPLE[line.owner]}`],
       handed: ['handed', 'With Tom'],
-      quote: ['suggest', mine ? 'Your call' : `Quote for ${PEOPLE[line.owner] || 'buyer'}`],
+      quote: ['suggest', mine ? 'Your call' : `Quote for ${PEOPLE[line.owner]}`],
     };
-    const [cls, label] = map[line.status] || ['', line.status];
-    const ic = line.status === 'confirmed' ? icon('check') : '';
-    return `<span class="status ${cls || 'plain'}">${ic}${esc(label)}</span>`;
+    const [cls, label] = map[line.status];
+    return `<span class="status ${cls}">${line.status === 'confirmed' ? icon('check') : ''}${esc(label)}</span>`;
   }
 
-  const lineRow = (line, viewer) => `
-    <div class="o-line">
-      <div class="o-main"><b>${esc(line.name)}</b><span>${esc(line.qty)}</span>${line.note ? `<em>${esc(line.note)}</em>` : ''}</div>
-      <div class="o-side">${statusChip(line, viewer)}</div>
-    </div>`;
+  // A button inside a screen: live when it is the move the story is waiting for.
+  const act = (b, ctx, cls = '') => {
+    const live = ctx.live.includes(b.action);
+    return `<button class="${cls} ${live ? 'live' : ''}" ${live ? `data-action="${b.action}"` : 'disabled'}>${esc(b.label)}</button>`;
+  };
 
-  // ---------- Kade's view of the order, in Sana ----------
-  // `fresh` says what the current step changed, so it can be highlighted.
-  function sana(s, ctx) {
+  // Things the current scene added animate in, one after another.
+  const enter = (i, from, step = .45) => i >= from ? ` class="new" style="animation-delay:${((i - from) * step).toFixed(2)}s"` : '';
+
+  // ---------- Kade's audit trail, in Sana ----------
+  const sanaTop = (on) => `
+    <header class="sana-top">
+      <div class="brand"><span class="mark">K</span><b>Kade Foodservice</b><span class="on">on Sana</span></div>
+      <nav>${['Orders', 'Cases', 'Customers', 'Agent rules'].map(n => `<span class="${n === on ? 'on' : ''}">${n}</span>`).join('')}</nav>
+    </header>`;
+
+  function summary(s) {
     const o = s.order;
-    const { fresh } = ctx;
-    const statusCls = o.status === 'Confirmed' ? 'done' : o.status === 'Draft' ? 'plain' : 'handed';
-
-    const rows = o.lines.map(l => `
-      <tr class="${fresh.lines.includes(l.id) ? 'fresh' : ''} ${l.status === 'stopped' ? 'is-stop' : ''}">
-        <td><b>${esc(l.name)}</b><span>${esc(l.qty)}</span></td>
-        <td>${statusChip(l, 'kade')}</td>
-        <td>${l.owner ? `<span class="owner">${avatar(l.owner)}${esc(PEOPLE[l.owner])}</span>` : '<span class="muted">–</span>'}</td>
-        <td class="why">${l.why ? esc(l.why) : '<span class="muted">Not checked yet</span>'}</td>
-      </tr>`).join('');
-
-    const thread = s.thread.map((m, i) => {
-      const [ic, ch] = CHANNELS[m.channel];
-      let text = esc(m.text);
-      if (m.kind === 'voice') text = `<span class="voice-tag">${icon('mic')} Voice note, 0:14</span> <q>${esc(m.text)}</q>`;
-      if (m.kind === 'readback') text = `${esc(m.text)} <span class="muted">(${m.lines.length} lines)</span>`;
-      return `
-        <li class="${i >= fresh.thread ? 'fresh' : ''}">
-          ${avatar(m.who)}
-          <div><span class="meta">${esc(PEOPLE[m.who])} <i>${icon(ic)}${ch}</i> ${esc(clock(m.time))}</span><p>${text}</p></div>
-        </li>`;
-    }).reverse().join('');
-
-    const activity = s.activity.map((a, i) => `
-      <li class="${i >= fresh.activity ? 'fresh' : ''}">
-        <span class="t">${esc(clock(a.time))}</span>
-        <div><p>${esc(a.text)}</p><span class="rule">${icon('rule')}${esc(a.rule)}</span></div>
-      </li>`).reverse().join('');
-
+    const cls = o.status === 'Confirmed' ? 'done' : 'handed';
     const c = s.caseFile;
-    const decision = ctx.decision && ctx.decision.where === 'kade' ? ctx.decision : null;
-    const caseCard = c ? `
-      <section class="card case ${fresh.caseFile ? 'fresh' : ''} ${decision ? 'live' : ''}">
-        <header><h3>Case ${esc(c.id)}</h3><span class="status handed">${esc(c.status)}</span></header>
-        <div class="case-who">${avatar('tom')}<div><b>Tom</b><span>Service rep · has the full thread</span></div></div>
-        <p class="task">${esc(c.task)}</p>
-        ${decision ? `
-          <div class="choice in-sana">
-            <p class="lead">${esc(decision.text)}</p>
-            <div class="choice-btns">${decision.actions.map(a => `<button class="btn" data-action="${a.action}">${esc(a.label)}</button>`).join('')}</div>
-          </div>` : ''}
-      </section>` : '';
-
     return `
-      <header class="sana-top">
-        <div class="brand"><span class="mark">K</span><b>Kade Foodservice</b><span class="on">on Sana</span></div>
-        <nav><span class="on">Orders</span><span>Customers</span><span>Cases</span><span>Agent rules</span></nav>
-        <div class="me">${avatar('tom')}<span>Tom</span></div>
-      </header>
-      <div class="sana-page">
-        <div class="sana-main">
-          <div class="crumb">Orders <span>/</span> ${esc(o.id)}</div>
-          <div class="title-row">
-            <h1>${esc(o.purpose)}</h1>
-            <span class="status ${statusCls} big">${o.status === 'Confirmed' ? icon('check') : ''}${esc(o.status)}</span>
-          </div>
-          <dl class="facts">
-            <div><dt>Customer</dt><dd>${esc(o.customer)}</dd></div>
-            <div><dt>Came in by</dt><dd>${esc(o.via)}</dd></div>
-            <div><dt>Handled by</dt><dd class="agent-dd">${avatar('agent')}Kade agent</dd></div>
-            <div class="${fresh.erp ? 'fresh' : ''}"><dt>ERP</dt><dd>${esc(o.erp)}</dd></div>
-          </dl>
-          <section class="card lines">
-            <table>
-              <thead><tr><th>Line</th><th>Status</th><th>Decision with</th><th>Why</th></tr></thead>
-              <tbody>${rows}</tbody>
-            </table>
-          </section>
-          <section class="card thread">
-            <header><h3>Conversation</h3><span class="muted">${s.thread.length} messages · every channel, one thread</span></header>
-            <ul>${thread || '<li class="empty">No messages yet.</li>'}</ul>
-          </section>
+      <aside class="summary">
+        <div class="sum-head">
+          <span class="muted">${esc(o.id)}</span>
+          <span class="status ${cls}">${o.status === 'Confirmed' ? icon('check') : ''}${esc(o.status)}</span>
         </div>
-        <aside class="sana-side">
-          ${caseCard}
-          <section class="card activity">
-            <header><h3>${avatar('agent')}What the agent did</h3></header>
-            <ul>${activity || '<li class="empty">Nothing yet.</li>'}</ul>
+        <h3>${esc(o.customer)}</h3>
+        <p class="muted">${esc(o.purpose)}</p>
+        <ul class="sum-lines">${o.lines.map(l => `
+          <li class="${l.status === 'stopped' ? 'is-stop' : ''}">
+            <div><b>${esc(l.name)}</b><span>${esc(l.qty)}</span></div>
+            ${statusChip(l, 'kade')}
+          </li>`).join('')}
+        </ul>
+        <dl class="sum-facts">
+          <div><dt>ERP</dt><dd>${esc(o.erp)}</dd></div>
+          ${c ? `<div><dt>Case</dt><dd>${avatar('tom')}${esc(c.id)} · ${esc(c.status)}</dd></div>` : ''}
+        </dl>
+      </aside>`;
+  }
+
+  function trail(s, scene, ctx) {
+    let day = '';
+    const rows = s.trail.map((e, i) => {
+      const divider = e.day !== day ? `<li class="day">${esc((day = e.day))}</li>` : '';
+      return `${divider}
+        <li${enter(i, ctx.fresh.trail)}>
+          <div class="entry ${e.stop ? 'is-stop' : ''} by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}">
+            <span class="t">${esc(e.time)}</span>
+            ${avatar(e.who)}
+            <div>
+              <p><b>${esc(e.text)}</b></p>
+              ${e.quote ? `<q>${esc(e.quote)}</q>` : ''}
+              ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
+              ${e.rule ? `<span class="rule">${icon('rule')}Rule: ${esc(e.rule)}</span>` : ''}
+            </div>
+          </div>
+        </li>`;
+    }).join('');
+    return `
+      <div class="frame">
+        ${sanaTop('Orders')}
+        <div class="trail-page">
+          <section class="trail-main">
+            <div class="crumb">Orders <span>/</span> ${esc(s.order.id)} <span>/</span> Audit trail</div>
+            <ol class="trail">${rows}</ol>
           </section>
-        </aside>
+          ${summary(s)}
+        </div>
       </div>`;
   }
 
-  // ---------- WhatsApp (Nigel's phone) ----------
-  function whatsapp(s) {
-    const msgs = s.thread.filter(m => m.channel === 'whatsapp').map(m => {
+  // ---------- Tom's case, in Sana ----------
+  function desk(s, scene, ctx) {
+    const c = s.caseFile;
+    const recent = s.trail.slice(-5).map(e => `<li><span class="t">${esc(e.time)}</span>${avatar(e.who)}<p>${esc(e.text)}</p></li>`).join('');
+    return `
+      <div class="frame">
+        ${sanaTop('Cases')}
+        <div class="trail-page">
+          <section class="case-main">
+            <div class="crumb">Cases <span>/</span> ${esc(c.id)}</div>
+            <div class="case-title"><h1>${esc(c.title)}</h1><span class="status handed">${esc(c.status)}</span></div>
+            <p class="case-for">${avatar('tom')} Assigned to Tom · for ${esc(s.order.customer)} · order ${esc(s.order.id)}</p>
+            <p class="case-task">${esc(c.task)}</p>
+            ${c.changed ? `<div class="changed">${icon('rule')}<p>${esc(c.changed)}</p></div>` : ''}
+            ${c.found ? `<div class="found"><span class="muted">What Tom found</span><p>${esc(c.found)}</p></div>` : ''}
+            <div class="case-actions">${act({ action: 'quote', label: 'Send Nigel a one-off quote' }, ctx, 'btn')}</div>
+          </section>
+          <aside class="summary history">
+            <h3>Latest in the audit trail</h3>
+            <ul>${recent}</ul>
+          </aside>
+        </div>
+      </div>`;
+  }
+
+  // ---------- Nigel's phone ----------
+  function lock(s, scene, ctx) {
+    const n = s.notify;
+    return `
+      <div class="phone lockscreen">
+        <div class="lock-time"><span>Wednesday</span><b>22:48</b></div>
+        ${n ? `
+        <button class="notification ${ctx.live.includes('open') ? 'live' : ''}" data-action="open">
+          <span class="app">${icon('chat')}${esc(n.app)} · now</span>
+          <b>${esc(n.from)}</b>
+          <p>${esc(n.text)}</p>
+        </button>` : ''}
+      </div>`;
+  }
+
+  function whatsapp(s, scene, ctx) {
+    const msgs = s.wa.map((m, i) => {
       const out = m.who === 'nigel';
-      let body = esc(m.text);
-      if (m.kind === 'voice') {
-        body = `<div class="voice"><span class="play">${icon('play')}</span><span class="wave">${'<i></i>'.repeat(22)}</span><span class="len">0:14</span></div>`;
-      }
-      if (m.kind === 'readback') body = `<p>${esc(m.text)}</p><div class="rb">${m.lines.map(l => lineRow(l, 'nigel')).join('')}</div>`;
-      if (m.kind === 'done') body = `<p class="done-msg">${icon('check')} ${esc(m.text)}</p>`;
-      return `<div class="msg ${out ? 'out' : 'in'} k-${m.kind}"><div class="bubble">${body}<span class="ts">${esc(clock(m.time))}</span></div></div>`;
+      let body = esc(m.text).replace(/\n/g, '<br>');
+      if (m.kind === 'voice') body = `<div class="voice"><span class="play">${icon('play')}</span><span class="wave">${'<i></i>'.repeat(24)}</span><span class="len">0:14</span></div>`;
+      if (m.kind === 'done') body = `<p class="done-msg">${icon('check')} ${body}</p>`;
+      const buttons = m.buttons ? `<div class="wa-buttons">${m.buttons.map(b => act(b, ctx)).join('')}</div>` : '';
+      return `<div${enter(i, ctx.fresh.wa, .6)}><div class="msg ${out ? 'out' : 'in'} k-${m.kind}"><div class="bubble">${body}<span class="ts">${esc(m.time)}</span></div></div>${buttons}</div>`;
     }).join('');
     return `
       <div class="phone">
-        <div class="phone-top">${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>business account</span></div></div>
-        <div class="chat">${msgs || '<p class="empty">No messages yet.</p>'}</div>
+        <div class="phone-top">${icon('back')}${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>Business account</span></div></div>
+        <div class="chat">${msgs}</div>
         <div class="phone-bar"><span>Message</span>${icon('mic')}</div>
       </div>`;
   }
 
-  // ---------- Teams (Priya's laptop) ----------
-  function teams(s) {
-    const mine = s.thread.filter(m => m.channel === 'teams');
-    const hasCard = mine.some(m => m.kind === 'card');
-    const updates = mine.filter(m => m.kind !== 'card').map(m => m.who === 'priya'
-      ? `<li class="you"><span>${esc(clock(m.time))}</span>You: ${esc(m.text)}</li>`
-      : `<li><span>${esc(clock(m.time))}</span>${esc(m.text)}</li>`).join('');
-    const assistant = s.assistant
-      ? `<div class="assist"><span class="assistant">${icon('agent')}</span><div><b>Your AI assistant</b><p>${esc(s.assistant)}</p></div></div>` : '';
+  // ---------- Priya's laptop: Teams ----------
+  function orderCard(s, ctx) {
+    return `
+      <div class="tcard">
+        <div class="tcard-head">${avatar('agent', 'sm')}<div><b>Harbour · Saturday dinner</b><span>${esc(s.order.id)} · ${esc(s.order.status)}</span></div></div>
+        ${s.order.lines.map(l => `
+          <div class="o-line">
+            <div class="o-main"><b>${esc(l.name)}</b><span>${esc(l.qty)}</span>${l.note ? `<em>${esc(l.note)}</em>` : ''}</div>
+            <div class="o-side">${statusChip(l, 'priya')}${l.status === 'stopped' ? act({ action: 'approve', label: 'Approve' }, ctx, 'btn sm') : ''}</div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function teams(s, scene, ctx) {
+    const chatAssistant = s.assistant.map((m, i) => {
+      let body;
+      if (m.kind === 'card') body = `<div class="acard"><p>${esc(m.text)}</p><div class="acard-btns">${m.buttons.map(b => act(b, ctx, 'btn sm ghost')).join('')}</div></div>`;
+      else if (m.kind === 'note') body = `<p class="call">${icon('phone')}${esc(m.text)}</p>`;
+      else body = `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
+      return `<li${enter(i, ctx.fresh.assistant)}>${m.who === 'priya' ? '' : `<span class="assistant">${icon('agent')}</span>`}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Your assistant'} · ${esc(m.time)}</span>${body}</div></li>`;
+    }).join('');
+
+    const chatKade = s.kade.map((m, i) => {
+      const body = m.kind === 'card' ? orderCard(s, ctx) : `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
+      return `<li${enter(i, ctx.fresh.kade)}>${m.who === 'priya' ? '' : avatar('agent')}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Kade Foodservice'} · ${esc(m.time)}</span>${body}</div></li>`;
+    }).join('');
+
+    const onAssistant = scene.chat === 'assistant';
+    const last = (list) => { const m = list[list.length - 1]; return m ? (m.kind === 'card' && !m.text ? 'Harbour · Saturday dinner' : m.text) : ''; };
     return `
       <div class="teams">
-        <div class="teams-top"><span class="dot"></span><b>Teams</b><span>Kade Foodservice app</span></div>
-        <div class="teams-body">
-          ${assistant}
-          ${hasCard ? `
-          <div class="tcard">
-            <div class="tcard-head">${avatar('agent', 'sm')}<div><b>Harbour · Saturday dinner</b><span>${esc(s.order.id)} · ${esc(s.order.status)}</span></div></div>
-            ${s.order.lines.map(l => lineRow(l, 'priya')).join('')}
-          </div>
-          ${updates ? `<ul class="quiet">${updates}</ul>` : ''}` : '<p class="empty">Nothing needs you right now.</p>'}
+        <div class="teams-top"><span class="dot"></span><b>Teams</b><span class="search">Search</span></div>
+        <div class="teams-main">
+          <aside class="chats">
+            <div class="chat-item ${onAssistant ? 'on' : ''}"><span class="assistant">${icon('agent')}</span><div><b>Your assistant</b><span>${esc(last(s.assistant))}</span></div></div>
+            <div class="chat-item ${onAssistant ? '' : 'on'}">${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>${esc(last(s.kade))}</span></div></div>
+          </aside>
+          <section class="conv">
+            <header>${onAssistant ? `<span class="assistant">${icon('agent')}</span><b>Your assistant</b><span class="muted">The Olive Tree</span>` : `${avatar('agent', 'sm')}<b>Kade Foodservice</b><span class="muted">Order thread · ${esc(s.order.id)}</span>`}</header>
+            <ul class="tlist">${onAssistant ? chatAssistant : chatKade}</ul>
+            <div class="composer ${s.compose ? 'typing' : ''}">
+              <span>${s.compose ? esc(s.compose) : 'Type a message'}</span>
+              ${s.compose ? act({ action: 'send', label: 'Send' }, ctx, 'btn sm') : ''}
+            </div>
+          </section>
         </div>
       </div>`;
   }
 
-  window.VIEWS = { sana, whatsapp, teams, avatar, esc, icon, PEOPLE, ROLES };
+  // ---------- Cards between the screens ----------
+  function brk(s, scene) {
+    return `
+      <div class="card-scene">
+        ${avatar(scene.actor, 'lg')}
+        <span class="kicker">${esc(scene.kicker)}</span>
+        <h2>${esc(scene.title)}</h2>
+        <p>${esc(scene.body)}</p>
+      </div>`;
+  }
+
+  function end(s, scene) {
+    return `
+      <div class="card-scene end">
+        ${avatar('agent', 'lg')}
+        <h2>${esc(scene.title)}</h2>
+        ${scene.body ? `<p>${esc(scene.body)}</p>` : ''}
+        ${scene.outcomes ? `<ul class="outcomes">${scene.outcomes.map(([k, v], i) => `<li class="${i === 1 ? 'is-stop' : ''}"><b>${k}</b><p>${esc(v)}</p></li>`).join('')}</ul>` : ''}
+        <div class="end-btns">
+          ${scene.links.map(l => `<button class="btn" data-go="${l.go}">${esc(l.label)}</button>`).join('')}
+          <button class="btn ghost" data-nav="restart">Start again</button>
+        </div>
+      </div>`;
+  }
+
+  // A person's screen sits beside who they are and what is happening.
+  function personScene(s, scene, ctx, device) {
+    const who = scene.actor;
+    return `
+      <div class="person-scene dev-${scene.screen}">
+        <div class="device">${device}</div>
+        <div class="about">
+          <div class="who">${avatar(who, 'md')}<div><b>${PEOPLE[who]}</b><span>${esc(ROLES[who])} · ${esc(CHANNEL[who])}</span></div></div>
+          <p class="time">${esc(ctx.time)}</p>
+          <h2>${esc(scene.title)}</h2>
+          ${scene.prompt ? `<p class="prompt">${icon('tap')}${esc(scene.prompt)}</p>` : ''}
+        </div>
+      </div>`;
+  }
+
+  function wide(s, scene, ctx, body) {
+    return `
+      <div class="wide-scene">
+        <div class="caption"><span class="time">${esc(ctx.time)}</span><h2>${esc(scene.title)}</h2></div>
+        ${body}
+      </div>`;
+  }
+
+  const SCREENS = {
+    trail: (s, sc, ctx) => wide(s, sc, ctx, trail(s, sc, ctx)),
+    desk: (s, sc, ctx) => wide(s, sc, ctx, desk(s, sc, ctx)),
+    lock: (s, sc, ctx) => personScene(s, sc, ctx, lock(s, sc, ctx)),
+    whatsapp: (s, sc, ctx) => personScene(s, sc, ctx, whatsapp(s, sc, ctx)),
+    teams: (s, sc, ctx) => personScene(s, sc, ctx, teams(s, sc, ctx)),
+    break: brk,
+    end,
+  };
+
+  window.VIEWS = { SCREENS, avatar, esc, icon, PEOPLE };
 })();

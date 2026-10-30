@@ -1,202 +1,326 @@
-// One order record, and the story as a series of changes to it.
-// Every view (Kade's Sana screen, WhatsApp, Teams) is drawn from this record;
-// none of them keeps its own copy.
+// One order record, and the story as a series of scenes that change it.
+// Every screen (Kade's audit trail, Nigel's WhatsApp, Priya's Teams, Tom's case) is drawn
+// from this record; none of them keeps its own copy.
 (() => {
-  // Line statuses: one vocabulary, used by every view.
+  // Line statuses: one vocabulary, used by every screen.
   //   received   · the agent has the line, nothing decided yet
-  //   confirmed  · within the contract and budget; done
+  //   confirmed  · within the contract and budget, or approved; done
   //   stopped    · the agent stopped and asked the person who owns the decision
   //   suggested  · a substitute is offered; the requester decides
   //   handed     · a person at Kade has taken it over
   //   quote      · a one-off quote waits for the requester
   const initial = () => ({
-    time: '',
+    day: 'Wednesday',
     order: {
       id: 'KD-24817',
       customer: 'The Olive Tree · Harbour',
       purpose: 'Private dinner, Saturday · 120 covers',
-      via: 'WhatsApp voice note from Nigel',
-      status: 'Draft',
+      status: 'Not created',
       erp: 'Not sent',
       lines: [
-        { id: 'salmon', name: 'Salmon fillet', qty: '18 kg', status: 'received', note: '', why: '' },
-        { id: 'cheese', name: 'Cheese board, house selection', qty: '1 board', status: 'received', note: '', why: '' },
-        { id: 'wine', name: 'Sauvignon Blanc', qty: '24 bottles', status: 'received', note: '', why: '' },
+        { id: 'cheese', name: 'Cheese board, house selection', qty: '1 board', status: 'received' },
+        { id: 'salmon', name: 'Salmon fillet', qty: '18 kg', status: 'received' },
+        { id: 'wine', name: 'Sauvignon Blanc', qty: '24 bottles', status: 'received' },
       ],
     },
-    thread: [],    // every message, on every channel, attached to the order
-    activity: [],  // what the agent did, and the rule behind it
-    caseFile: null,
-    assistant: null,
+    trail: [],      // Kade's audit trail: append only
+    wa: [],         // Nigel's WhatsApp chat with Kade
+    assistant: [],  // Priya's chat with her own AI assistant (Teams)
+    kade: [],       // Priya's chat with Kade's app (Teams)
+    notify: null,   // the lock-screen notification on Nigel's phone
+    compose: '',    // what Priya is typing
+    caseFile: null, // Tom's case
   });
 
   const line = (s, id) => s.order.lines.find(l => l.id === id);
-  const say = (s, entry) => s.thread.push({ time: s.time, ...entry });
-  const act = (s, text, rule) => s.activity.push({ time: s.time, text, rule });
-  const snapshot = (s) => JSON.parse(JSON.stringify(s.order.lines));
+  const set = (s, id, props) => Object.assign(line(s, id), props);
+  // who: 'system' | 'agent' | a person. Optional: detail (the evidence), rule, stop.
+  const log = (s, time, who, text, extra = {}) => s.trail.push({ day: s.day, time, who, text, ...extra });
+  const wa = (s, time, who, text, extra = {}) => s.wa.push({ time, who, text, kind: 'text', ...extra });
 
-  // Steps for the story the deck tells (Nigel declines the swap).
-  const shared = [
-    {
-      time: 'Wed 22:47', label: 'Voice note', actor: 'nigel',
-      cue: "Nigel's voice note, on his phone",
-      caption: 'After service, Nigel sends Kade one voice note with three items.',
-      seen: ['nigel'],
-      apply(s) {
-        say(s, { who: 'nigel', channel: 'whatsapp', kind: 'voice', text: 'Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.' });
-        act(s, 'Transcribed the voice note and created a draft order with three lines.', 'Orders from WhatsApp are accepted for The Olive Tree');
-      },
-    },
-    {
-      time: '22:48', label: 'Read-back', actor: 'agent', stop: true,
-      cue: "Waiting for Nigel's call on the wine",
-      caption: 'The agent checks each line against the contract, stock and budgets, and reads the order back.',
-      seen: ['nigel', 'priya'],
-      decision: {
-        who: 'nigel',
-        text: 'The Pinot Grigio is in stock and within budget. Nigel needs Sauvignon Blanc for the food pairing. What does he do?',
-        actions: [{ action: 'accept', label: 'Accept the Pinot Grigio' }, { action: 'decline', label: 'Decline it' }],
-      },
-      apply(s) {
-        s.order.status = 'In progress';
-        Object.assign(line(s, 'cheese'), { status: 'confirmed', note: 'Within contract and budget', why: 'In the contract, in stock, within budget: confirmed on its own.' });
-        Object.assign(line(s, 'salmon'), { status: 'stopped', owner: 'priya', note: '€180 over Harbour\'s fish budget', why: 'Over the outlet\'s fish budget, so it stopped and asked Priya. The order itself is unchanged.' });
-        Object.assign(line(s, 'wine'), { status: 'suggested', owner: 'nigel', note: 'Low stock · Pinot Grigio suggested', why: 'Low on stock. A substitute within budget is allowed as a suggestion; Nigel decides.' });
-        act(s, 'Confirmed the cheese board.', 'Within contract and budget');
-        act(s, 'Stopped on the salmon and asked Priya.', 'Category budget per outlet · set by Maheep');
-        act(s, 'Suggested Pinot Grigio for the wine and asked Nigel.', 'Substitutes: suggest only, requester decides');
-        say(s, { who: 'agent', channel: 'whatsapp', kind: 'readback', text: 'Here is your order for Saturday, line by line.', lines: snapshot(s) });
-        say(s, { who: 'agent', channel: 'teams', kind: 'card', text: 'Harbour · Saturday dinner: one line needs your approval.' });
-      },
-    },
-  ];
-
-  const decline = [
-    {
-      time: '22:51', label: 'Swap declined', actor: 'nigel',
-      cue: "Nigel and Priya see the hand-over",
-      caption: 'Nigel declines the Pinot Grigio. The agent has nothing else it may offer, so it hands the wine to Tom.',
-      seen: ['nigel', 'priya'],
-      apply(s) {
-        say(s, { who: 'nigel', channel: 'whatsapp', kind: 'text', text: 'Has to be Sauvignon Blanc, it\'s for the pairing.' });
-        Object.assign(line(s, 'wine'), { status: 'handed', owner: 'tom', note: 'With Tom from 08:00', why: 'No other allowed option, so it handed the wine to Tom with the full thread.' });
-        s.caseFile = { id: 'CS-3391', title: 'Source 24 × Sauvignon Blanc', status: 'Queued for 08:00', task: 'Find 24 bottles of Sauvignon Blanc for Saturday.' };
-        act(s, 'Handed the wine to Tom, with the full thread.', 'Hand over when no allowed option is left');
-        say(s, { who: 'agent', channel: 'whatsapp', kind: 'text', text: 'Understood. Our team will look for Sauvignon Blanc from 08:00, and I\'ll keep you posted.' });
-        say(s, { who: 'agent', channel: 'teams', kind: 'quiet', text: 'Wine: with Tom at Kade from 08:00.' });
-      },
-    },
-    {
-      time: 'Thu 07:40', label: 'Stock at Old Town', actor: 'priya',
-      cue: "Priya's assistant has a tip for her",
-      caption: 'Early on Thursday, Priya\'s own AI assistant tells her that Old Town has 10 bottles of the same wine.',
-      seen: ['priya'],
-      decision: {
-        who: 'priya',
-        text: 'Priya calls Old Town. They can spare all 10 bottles. She updates the wine line before Kade opens.',
-        actions: [{ action: 'adjust', label: 'Take 10 from Old Town, source 14' }],
-      },
-      apply(s) {
-        s.assistant = 'Old Town has 10 bottles of this Sauvignon Blanc in stock.';
-      },
-    },
-    {
-      time: '07:45', label: 'Priya adjusts', actor: 'priya',
-      cue: "Priya and Nigel see the change",
-      caption: 'Priya\'s change reaches Kade before Tom starts. His case now says 14 bottles, not 24.',
-      seen: ['priya', 'nigel'],
-      decision: {
-        who: 'tom', where: 'kade',
-        text: 'At 08:05 Tom opens the case. He finds 14 bottles at a partner supplier.',
-        actions: [{ action: 'quote', label: 'Send Nigel a one-off quote' }],
-      },
-      apply(s) {
-        s.assistant = 'Old Town has 10 bottles of this Sauvignon Blanc. Priya called them: they can spare all 10.';
-        Object.assign(line(s, 'wine'), { qty: '24 bottles · 10 from Old Town, 14 to source', note: 'Priya arranged 10 from Old Town', why: 'Priya changed the line before Tom started, so nothing is ordered twice.' });
-        s.caseFile = { ...s.caseFile, title: 'Source 14 × Sauvignon Blanc', task: 'Find 14 bottles of Sauvignon Blanc for Saturday. Priya has arranged the other 10 from Old Town.' };
-        act(s, 'Updated the wine line and Tom\'s case to 14 bottles.', 'Changes from the buyer are applied before work starts');
-        say(s, { who: 'priya', channel: 'teams', kind: 'text', text: '10 from Old Town. Source 14.' });
-        say(s, { who: 'agent', channel: 'whatsapp', kind: 'text', text: 'Priya arranged 10 bottles from Old Town. Kade will source the other 14.' });
-      },
-    },
-    {
-      time: '08:05', label: 'Tom sends a quote', actor: 'tom',
-      cue: "Waiting for Nigel and Priya",
-      caption: 'Tom finds 14 bottles at a partner supplier and sends a one-off quote. The contract stays as it is.',
-      seen: ['nigel', 'priya'],
-      decision: {
-        who: 'both',
-        text: 'Nigel checks the quote. Priya still has the salmon waiting for her approval.',
-        actions: [{ action: 'confirm', label: 'Nigel confirms, Priya approves' }],
-      },
-      apply(s) {
-        s.caseFile = { ...s.caseFile, status: 'Quote sent' };
-        Object.assign(line(s, 'wine'), { status: 'quote', owner: 'nigel', note: 'One-off quote · 14 × €11.80', why: 'A one-off price from a partner supplier needs Nigel\'s OK. The contract is unchanged.' });
-        say(s, { who: 'tom', channel: 'desk', kind: 'text', text: 'Found 14 at a partner supplier. Sending a one-off quote; the contract stays as it is.' });
-        say(s, { who: 'agent', channel: 'whatsapp', kind: 'quote', text: 'Tom found 14 bottles: one-off price €11.80 a bottle. Confirm?' });
-      },
-    },
-    {
-      time: '08:30', label: 'Decisions', actor: 'priya',
-      cue: "Nigel and Priya decide",
-      caption: 'Nigel confirms the wine quote, and Priya approves the salmon.',
-      seen: ['nigel', 'priya'],
-      apply(s) {
-        Object.assign(line(s, 'wine'), { status: 'confirmed', owner: null, qty: '24 bottles', note: '10 from Old Town · 14 via one-off quote', why: 'Confirmed by Nigel.' });
-        Object.assign(line(s, 'salmon'), { status: 'confirmed', owner: null, note: 'Approved by Priya', why: 'Approved by Priya.' });
-        say(s, { who: 'nigel', channel: 'whatsapp', kind: 'text', text: 'Confirmed.' });
-        say(s, { who: 'priya', channel: 'teams', kind: 'text', text: 'Approved.' });
-      },
-    },
-  ];
-
-  const done = {
-    time: '08:31', label: 'Confirmed', actor: 'agent',
-      cue: "The confirmation, on every screen",
-    caption: 'The order is confirmed, the same in every channel, and sent to Kade\'s ERP for delivery.',
-    seen: ['nigel', 'priya'],
+  // ---------- Wednesday night ----------
+  const intake = {
+    time: '22:47',
+    moment: 'intake', screen: 'trail',
+    title: 'Kade’s agent picks up the voice note and works through it, line by line.',
+    next: 'Nigel’s phone buzzes',
     apply(s) {
-      s.order.status = 'Confirmed';
-      s.order.erp = 'Booked · delivery Fri 07:00–09:00';
-      act(s, 'Sent the confirmed order to Kade\'s ERP.', 'All lines confirmed by their owners');
-      say(s, { who: 'agent', channel: 'whatsapp', kind: 'done', text: 'Order confirmed. Delivery Friday, 07:00–09:00.' });
-      say(s, { who: 'agent', channel: 'teams', kind: 'done', text: 'Order confirmed. Delivery Friday, 07:00–09:00.' });
+      wa(s, '22:47', 'nigel', 'Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.', { kind: 'voice' });
+      log(s, '22:47', 'system', 'New order request received', { detail: 'Channel: WhatsApp · Type: voice message, 0:14 · From: Nigel, head chef' });
+      log(s, '22:47', 'agent', 'Transcribed the voice note', { quote: 'Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.' });
+      log(s, '22:47', 'agent', 'Matched to The Olive Tree · Harbour', { detail: 'Nigel’s number is on the Harbour account' });
+      s.order.status = 'Draft';
+      log(s, '22:47', 'agent', 'Created draft order KD-24817 with 3 lines');
+      set(s, 'cheese', { status: 'confirmed' });
+      log(s, '22:48', 'agent', 'Cheese board: confirmed', { rule: 'In the contract, in stock, within budget' });
+      set(s, 'salmon', { status: 'stopped', owner: 'priya', note: '€180 over Harbour’s fish budget' });
+      log(s, '22:48', 'agent', 'Salmon: stopped, approval requested from Priya', { detail: '€180 over Harbour’s fish budget', rule: 'Category budget per outlet · set by Maheep', stop: true });
+      set(s, 'wine', { status: 'suggested', owner: 'nigel', note: 'Not enough in stock · Pinot Grigio suggested' });
+      log(s, '22:48', 'agent', 'Sauvignon Blanc: not enough in stock, Pinot Grigio suggested', { rule: 'Substitutes are suggested; the requester decides' });
+      s.order.status = 'Awaiting replies';
+      log(s, '22:48', 'agent', 'Message sent to Nigel to confirm the order', { detail: 'WhatsApp · approval request also sent to Priya in Teams' });
+      s.kade.push({ time: '22:48', kind: 'card' });
     },
   };
 
-  // The other branch: Nigel accepts the Pinot Grigio, so there is no hand-over.
-  const accept = [
-    {
-      time: '22:50', label: 'Swap accepted', actor: 'nigel',
-      cue: "Waiting for Priya's approval",
-      caption: 'Nigel accepts the Pinot Grigio. No hand-over is needed.',
-      seen: ['nigel', 'priya'],
-      decision: {
-        who: 'priya',
-        text: 'In the morning, Priya sees the salmon waiting for her.',
-        actions: [{ action: 'confirm', label: 'Priya approves the salmon' }],
-      },
-      apply(s) {
-        say(s, { who: 'nigel', channel: 'whatsapp', kind: 'text', text: 'Pinot Grigio is fine.' });
-        Object.assign(line(s, 'wine'), { name: 'Pinot Grigio', status: 'confirmed', owner: null, note: 'Swap accepted by Nigel', why: 'Nigel accepted the suggested substitute.' });
-        act(s, 'Confirmed Pinot Grigio after Nigel accepted.', 'Substitutes: suggest only, requester decides');
-        say(s, { who: 'agent', channel: 'teams', kind: 'quiet', text: 'Wine: Pinot Grigio, accepted by Nigel.' });
-      },
+  const lock = {
+    time: '22:48',
+    moment: 'nigel', screen: 'lock', actor: 'nigel',
+    title: 'Nigel is closing up the kitchen when his phone buzzes.',
+    prompt: 'Open the message on Nigel’s phone.',
+    choices: [{ action: 'open', label: 'Open' }],
+    apply(s) {
+      s.notify = { app: 'WhatsApp', from: 'Kade Foodservice', text: 'Your order for Saturday: the cheese is confirmed, and two lines need a look.' };
     },
-    {
-      time: 'Thu 08:30', label: 'Priya approves', actor: 'priya',
-      cue: "Priya approves the salmon",
-      caption: 'Priya approves the salmon.',
-      seen: ['priya'],
-      apply(s) {
-        Object.assign(line(s, 'salmon'), { status: 'confirmed', owner: null, note: 'Approved by Priya', why: 'Approved by Priya.' });
-        say(s, { who: 'priya', channel: 'teams', kind: 'text', text: 'Approved.' });
-      },
-    },
-  ];
+  };
 
+  const readback = {
+    time: '22:48',
+    moment: 'nigel', screen: 'whatsapp', actor: 'nigel',
+    title: 'The agent confirms what it may, and asks about what it may not.',
+    prompt: 'Which reply does Nigel choose?',
+    choices: [{ action: 'accept' }, { action: 'decline' }, { action: 'more' }],
+    def: 'decline',
+    apply(s) {
+      s.notify = null;
+      wa(s, '22:48', 'agent', 'Thanks, Nigel. Your order for Saturday is KD-24817.\n✓ Cheese board, house selection: confirmed.');
+      wa(s, '22:48', 'agent', 'Salmon, 18 kg: this is €180 over Harbour’s fish budget, so I’ve asked Priya to approve it.');
+      wa(s, '22:48', 'agent', 'Sauvignon Blanc, 24 bottles: we don’t have enough in stock. Pinot Grigio is a close match at the same price. Would that work?', {
+        buttons: [{ action: 'accept', label: 'Accept Pinot Grigio' }, { action: 'decline', label: 'Decline' }, { action: 'more', label: 'More options' }],
+      });
+    },
+  };
+
+  const handToTom = (s) => {
+    set(s, 'wine', { status: 'handed', owner: 'tom', note: 'With Tom from 08:00' });
+    s.caseFile = { id: 'CS-3391', title: 'Source 24 × Sauvignon Blanc', status: 'Queued for 08:00', task: 'Find 24 bottles of Sauvignon Blanc for Harbour’s private dinner on Saturday.' };
+    wa(s, '22:51', 'agent', s.more
+      ? 'There’s no other Sauvignon Blanc in your contract, so I’ve passed the wine to Tom in our team. He starts on it at 08:00, and you’ll hear from us here.'
+      : 'Understood. I’ve passed the wine to Tom in our team. He starts on it at 08:00, and you’ll hear from us here.');
+  };
+
+  const declined = {
+    time: '22:51',
+    moment: 'nigel', screen: 'whatsapp', actor: 'nigel',
+    title: 'Nigel declines. The agent has nothing else it may offer, so it passes the wine to a person.',
+    next: 'Back to Kade’s audit trail',
+    apply(s) {
+      wa(s, '22:51', 'nigel', 'Decline', { kind: 'reply' });
+      handToTom(s);
+    },
+  };
+
+  const more = {
+    ...declined,
+    title: 'Nigel asks for more options. There are none within his contract, so the agent passes the wine to a person.',
+    apply(s) {
+      s.more = true;
+      wa(s, '22:51', 'nigel', 'More options', { kind: 'reply' });
+      handToTom(s);
+    },
+  };
+
+  const handover = {
+    time: '22:51',
+    moment: 'handover', screen: 'trail',
+    title: 'Back at Kade, the hand-over is logged, and Tom has a case waiting for the morning.',
+    next: 'Thursday morning',
+    apply(s) {
+      log(s, '22:51', 'nigel', s.more ? 'Nigel asked for more options' : 'Nigel declined Pinot Grigio', { detail: s.more ? 'No other Sauvignon Blanc in the contract' : 'Needs Sauvignon Blanc for the food pairing' });
+      log(s, '22:51', 'agent', 'Wine: handed over to Tom', { rule: 'Hand over when no allowed option is left' });
+      log(s, '22:51', 'system', 'Case CS-3391 created for Tom', { detail: 'Source 24 × Sauvignon Blanc · queued for 08:00 · full thread attached' });
+      log(s, '22:51', 'agent', 'Told Nigel who has the wine, and when', { detail: 'WhatsApp' });
+    },
+  };
+
+  // ---------- Thursday morning ----------
+  const morning = {
+    moment: 'priya', screen: 'break', actor: 'priya', day: 'Thursday',
+    kicker: 'Thursday, 07:40',
+    title: 'Let’s start at Priya’s end.',
+    body: 'Priya has her own AI assistant, a separate tool The Olive Tree uses. It can see their orders and the stock in all three restaurants.',
+    next: 'Priya’s laptop',
+    apply() {},
+  };
+
+  const tip = {
+    time: '07:40',
+    moment: 'priya', screen: 'teams', actor: 'priya', chat: 'assistant',
+    title: 'Her assistant has read Kade’s update and checked the other restaurants.',
+    prompt: 'Priya calls Old Town.',
+    choices: [{ action: 'call' }],
+    apply(s) {
+      s.assistant.push({ time: '07:40', kind: 'card', text: 'Kade couldn’t fill 24 bottles of Sauvignon Blanc for Harbour’s Saturday dinner. Old Town has 10 of the same wine in stock.', buttons: [{ action: 'call', label: 'Call Old Town' }, { action: 'not-now', label: 'Not now' }] });
+    },
+  };
+
+  const called = {
+    time: '07:43',
+    moment: 'priya', screen: 'teams', actor: 'priya', chat: 'assistant',
+    title: 'Priya calls Old Town. They can send all 10 bottles. Her assistant only knows once she tells it.',
+    prompt: 'Priya tells her assistant.',
+    choices: [{ action: 'confirmed' }],
+    apply(s) {
+      s.assistant.push({ time: '07:43', kind: 'note', text: 'Call with Old Town · 2 min' });
+      s.assistant.push({ time: '07:43', kind: 'card', text: 'Did Old Town confirm the 10 bottles?', buttons: [{ action: 'confirmed', label: 'Old Town confirmed' }, { action: 'not-available', label: 'Not available' }] });
+    },
+  };
+
+  const compose = {
+    time: '07:44',
+    moment: 'priya', screen: 'teams', actor: 'priya', chat: 'kade',
+    title: 'Priya replies in Kade’s order thread, not in a private chat, so the change lands on the order itself.',
+    prompt: 'Priya sends the change.',
+    choices: [{ action: 'send' }],
+    apply(s) {
+      s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
+      s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Noted. Let Kade know, so they only source 14.' });
+      s.compose = '10 from Old Town. Source 14.';
+    },
+  };
+
+  const sent = {
+    time: '07:45',
+    moment: 'priya', screen: 'teams', actor: 'priya', chat: 'kade',
+    title: 'Kade’s agent updates the order and Tom’s case. While she’s here, Priya approves the salmon.',
+    prompt: 'Priya approves the salmon.',
+    choices: [{ action: 'approve' }],
+    apply(s) {
+      s.compose = '';
+      s.kade.push({ time: '07:45', kind: 'text', who: 'priya', text: '10 from Old Town. Source 14.' });
+      set(s, 'wine', { qty: '24 bottles · 10 from Old Town, 14 to source', note: 'Priya arranged 10 from Old Town' });
+      s.caseFile = { ...s.caseFile, title: 'Source 14 × Sauvignon Blanc', task: 'Find 14 bottles of Sauvignon Blanc for Harbour’s private dinner on Saturday.', changed: 'Changed by Priya at 07:45: 10 bottles come from Old Town, so Kade sources 14.' };
+      s.kade.push({ time: '07:45', kind: 'text', who: 'agent', text: 'Updated: Kade will source 14 bottles. Tom has the change.' });
+      wa(s, '07:45', 'agent', 'Priya arranged 10 bottles from Old Town. Kade will source the other 14.');
+    },
+  };
+
+  const priyaLogged = {
+    time: '07:46',
+    moment: 'priya', screen: 'trail',
+    title: 'The audit trail shows who changed what, and why, before Tom starts.',
+    next: 'Tom opens his case',
+    apply(s) {
+      set(s, 'salmon', { status: 'confirmed', owner: null, note: 'Approved by Priya' });
+      log(s, '07:45', 'priya', 'Priya changed the wine: 10 from Old Town, source 14', { detail: 'Teams · Kade order thread' });
+      log(s, '07:45', 'agent', 'Applied the change before work started', { rule: 'Changes from the buyer apply before work starts' });
+      log(s, '07:45', 'system', 'Case CS-3391 updated: source 14 × Sauvignon Blanc');
+      log(s, '07:45', 'agent', 'Told Nigel about the change', { detail: 'WhatsApp' });
+      log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'Teams · €180 over budget, approved' });
+      log(s, '07:46', 'agent', 'Salmon: confirmed');
+    },
+  };
+
+  const tom = {
+    time: '08:05',
+    moment: 'tom', screen: 'desk', actor: 'tom',
+    title: 'Tom opens his case. It already says 14, with the reason.',
+    prompt: 'Tom sends Nigel a quote.',
+    choices: [{ action: 'quote' }],
+    apply(s) {
+      s.caseFile = { ...s.caseFile, status: 'In progress', found: '14 bottles in stock at a partner supplier · €11.80 a bottle' };
+    },
+  };
+
+  const quote = {
+    time: '08:05',
+    moment: 'tom', screen: 'whatsapp', actor: 'nigel',
+    title: 'Nigel gets a one-off quote on WhatsApp. His contract stays as it is.',
+    prompt: 'Nigel confirms the quote.',
+    choices: [{ action: 'confirm' }],
+    apply(s) {
+      s.caseFile = { ...s.caseFile, status: 'Quote sent' };
+      set(s, 'wine', { status: 'quote', owner: 'nigel', note: 'One-off quote · 14 × €11.80' });
+      log(s, '08:05', 'tom', 'Tom sent Nigel a one-off quote: 14 × €11.80', { detail: 'Partner supplier · the contract is unchanged' });
+      wa(s, '08:05', 'agent', 'Tom found 14 bottles of Sauvignon Blanc at a partner supplier: a one-off price of €11.80 a bottle. Your contract stays as it is. Confirm?', {
+        buttons: [{ action: 'confirm', label: 'Confirm' }, { action: 'no-thanks', label: 'No, thanks' }],
+      });
+    },
+  };
+
+  const done = {
+    time: '08:31',
+    moment: 'done', screen: 'trail',
+    title: 'Every line has its owner’s answer. The order is confirmed and sent to Kade’s ERP.',
+    next: 'Wrap up',
+    apply(s) {
+      wa(s, '08:30', 'nigel', 'Confirm', { kind: 'reply' });
+      set(s, 'wine', { status: 'confirmed', owner: null, qty: '24 bottles', note: '10 from Old Town · 14 via one-off quote' });
+      s.caseFile = { ...s.caseFile, status: 'Closed' };
+      s.order.status = 'Confirmed';
+      s.order.erp = 'Booked · delivery Fri 07:00–09:00';
+      log(s, '08:30', 'nigel', 'Nigel confirmed the quote', { detail: 'WhatsApp' });
+      log(s, '08:30', 'agent', 'Sauvignon Blanc: confirmed');
+      log(s, '08:31', 'agent', 'All lines confirmed by their owners: order confirmed', { rule: 'Confirm only when every line is decided' });
+      log(s, '08:31', 'system', 'Sent to Kade’s ERP: delivery Friday, 07:00–09:00');
+      log(s, '08:31', 'agent', 'Confirmation sent to Nigel and Priya', { detail: 'WhatsApp and Teams' });
+      wa(s, '08:31', 'agent', 'Order KD-24817 is confirmed. Delivery Friday, 07:00–09:00.', { kind: 'done' });
+    },
+  };
+
+  const end = {
+    moment: 'done', screen: 'end',
+    title: 'One voice note, three outcomes.',
+    outcomes: [
+      ['Acts', 'The cheese was confirmed on its own: in the contract, in stock, within budget.'],
+      ['Stops', 'The salmon went over budget, so it went to Priya, who owns that decision.'],
+      ['Hands over', 'The wine ran out of allowed options, so it went to Tom, with the full thread.'],
+    ],
+    links: [{ go: 'accept', label: 'What if Nigel had accepted?' }],
+    apply() {},
+  };
+
+  // ---------- The other branch: Nigel accepts the Pinot Grigio ----------
+  const accepted = {
+    time: '22:50',
+    moment: 'nigel', screen: 'whatsapp', actor: 'nigel',
+    title: 'Nigel accepts the Pinot Grigio. No one at Kade needs to step in.',
+    next: 'Back to Kade’s audit trail',
+    apply(s) {
+      wa(s, '22:50', 'nigel', 'Accept Pinot Grigio', { kind: 'reply' });
+      set(s, 'wine', { name: 'Pinot Grigio', status: 'confirmed', owner: null, note: 'Swap accepted by Nigel' });
+      wa(s, '22:50', 'agent', 'Done: 24 bottles of Pinot Grigio. The salmon is still with Priya. I’ll confirm the whole order once she approves it.');
+    },
+  };
+
+  const acceptLogged = {
+    time: '22:50',
+    moment: 'accepted', screen: 'trail',
+    title: 'The swap is logged. The order now waits only for Priya’s approval of the salmon.',
+    next: 'Wrap up',
+    apply(s) {
+      log(s, '22:50', 'nigel', 'Nigel accepted Pinot Grigio', { detail: 'WhatsApp' });
+      log(s, '22:50', 'agent', 'Wine: confirmed as Pinot Grigio, 24 bottles', { rule: 'Substitutes are suggested; the requester decides' });
+      log(s, '22:50', 'agent', 'Waiting for Priya to approve the salmon', { detail: 'Approval request in Teams since 22:48' });
+    },
+  };
+
+  const acceptEnd = {
+    moment: 'accepted', screen: 'end',
+    title: 'This branch closes here.',
+    body: 'In the morning, Priya approves the salmon and the order is confirmed. The agent acted and stopped; it never had to hand over.',
+    links: [{ go: 'decline', label: 'Back to the main story' }],
+    apply() {},
+  };
+
+  const shared = [intake, lock, readback];
   window.STORY = {
     initial,
-    paths: { decline: [...shared, ...decline, done], accept: [...shared, ...accept, done] },
+    choiceAt: shared.length - 1,
+    moments: {
+      intake: ['Wed 22:47', 'The agent reads the order', 'agent'],
+      nigel: ['22:48', 'Nigel confirms', 'nigel'],
+      handover: ['22:51', 'Hand-over to Tom', 'agent'],
+      accepted: ['22:50', 'Swap accepted', 'agent'],
+      priya: ['Thu 07:40', 'Priya’s morning', 'priya'],
+      tom: ['08:05', 'Tom finds the wine', 'tom'],
+      done: ['08:31', 'Order confirmed', 'agent'],
+    },
+    paths: {
+      decline: [...shared, declined, handover, morning, tip, called, compose, sent, priyaLogged, tom, quote, done, end],
+      more: [...shared, more, handover, morning, tip, called, compose, sent, priyaLogged, tom, quote, done, end],
+      accept: [...shared, accepted, acceptLogged, acceptEnd],
+    },
+    labels: { decline: 'Nigel declines the swap', more: 'Nigel asks for more options', accept: 'Nigel accepts the swap' },
   };
 })();
