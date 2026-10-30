@@ -215,7 +215,7 @@
     const last = (list) => { const m = list[list.length - 1]; return m ? (m.kind === 'card' && !m.text ? 'Harbour Front · Saturday dinner' : m.text) : ''; };
     return `
       <div class="teams">
-        <div class="teams-top"><img class="teams-logo" src="../assets/teams-icon.png" alt=""><b>Teams</b><span class="search">Search</span></div>
+        <div class="teams-top"><img class="teams-logo" src="../assets/teams-inverted.png" alt=""><b>Teams</b><span class="search">Search</span></div>
         <div class="teams-main">
           <aside class="chats">
             <div class="chat-item ${onAssistant ? 'on' : ''}"><span class="assistant">${icon('agent')}</span><div><b>Your assistant</b><span>${esc(last(s.assistant))}</span></div></div>
