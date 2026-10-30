@@ -55,7 +55,9 @@
       <nav>${['Orders', 'Cases', 'Customers', 'Agent rules'].map(n => `<span class="${n === on ? 'on' : ''}">${n}</span>`).join('')}</nav>
     </header>`;
 
-  const ACTOR = { agent: 'AI · Order agent · v2.3', system: 'System', nigel: 'Nigel · Head chef', priya: 'Priya · Buyer', tom: 'Tom · Service rep' };
+  // The agent's version is kept for audits, in a tooltip, not on every row.
+  const AGENT_VERSION = 'AI order agent, version 2.3';
+  const ACTOR = { agent: 'AI order agent', system: 'System', nigel: 'Nigel · Head chef', priya: 'Priya · Buyer', tom: 'Tom · Service rep' };
 
   // Only the open decisions: it stays this size whether an order has 3 lines or 40.
   function summary(s) {
@@ -94,7 +96,7 @@
             ${avatar(e.who)}
             <div>
               <p class="actor-row">
-                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}">${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>${e.open ? `<span class="sep"> · </span><button class="open-link" data-open="${i}">${esc(e.open)}</button>` : ''}
+                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}"${e.who === 'agent' ? ` title="${AGENT_VERSION}"` : ''}>${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>${e.open ? `<span class="sep"> · </span><button class="open-link" data-open="${i}">${esc(e.open)}</button>` : ''}
               </p>
               <p><b>${esc(e.text)}</b></p>
               ${e.quote ? `<q>${esc(e.quote)}</q>` : ''}
