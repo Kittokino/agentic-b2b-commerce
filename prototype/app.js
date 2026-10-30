@@ -31,7 +31,7 @@
     const face = view && (view[0] ? V.avatar(view[0], 'sm') : '<span class="mark">K</span>');
     const card = ['break', 'end'].includes(sc.screen);
     el('#rail-body').innerHTML = `
-      ${view ? `<div class="view">${face}<div><span class="kicker">You’re looking at</span><b>${V.esc(view[1])}</b></div></div>` : ''}
+      ${view ? `<div class="view"><span class="kicker">You’re looking at</span><div class="view-box">${face}<b>${V.esc(view[1])}</b></div></div>` : ''}
       <div class="so-far"><span class="kicker">So far</span><p>${V.esc(sc.story)}</p></div>
       ${card ? '' : `<div class="now"><span class="kicker">Now · ${V.esc(`${s.day} ${sc.time}`)}</span><h2>${V.esc(sc.title)}</h2></div>`}`;
     el('.path').textContent = chosen || index > S.choiceAt ? S.labels[path] : 'Wednesday night, after service';

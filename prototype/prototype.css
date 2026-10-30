@@ -46,15 +46,17 @@ ul, ol { padding: 0; list-style: none; }
 .play .ico { fill: currentColor; stroke: none; }
 
 /* ---------- Left column: whose screen, what led here, what happens now ---------- */
-.rail { display: flex; flex-direction: column; min-height: 0; background: #dedcd8; padding: 28px 24px 20px; border-right: 1px solid #d0cdc7; }
+/* Dark is the storytelling, light is the product: a warm charcoal, not the product's navy. */
+.rail { display: flex; flex-direction: column; min-height: 0; background: #2e2c35; color: #f1eff3; padding: 28px 24px 20px; }
 .rail-head h2 { margin-top: 6px; font-family: var(--font-display); font-weight: 500; font-size: 21px; letter-spacing: -.01em; }
-.rail-head .path { margin-top: 4px; font-size: 14px; color: var(--ink-2); }
-.rail .kicker { color: #6f6b7d; }
+.rail-head .path { margin-top: 4px; font-size: 14px; color: #c9c6d1; }
+.rail .kicker { color: #a9a5b5; }
 .rail-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 26px; margin-top: 30px; }
-.view { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, .55); }
-.view b { display: block; margin-top: 2px; font-size: 15px; font-weight: 600; line-height: 1.35; }
-.view .mark { flex: none; width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; background: var(--ink); color: #fff; font-size: 16px; font-weight: 700; }
-.so-far p { margin-top: 6px; font-size: 16px; line-height: 1.5; color: var(--ink-2); }
+.view-box { display: flex; align-items: center; gap: 12px; margin-top: 8px; padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .1); }
+.view b { font-size: 15px; font-weight: 600; line-height: 1.35; }
+.view .face { border-color: rgba(255, 255, 255, .2); }
+.view .mark { flex: none; width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; background: #f1eff3; color: var(--ink); font-size: 16px; font-weight: 700; }
+.so-far p { margin-top: 6px; font-size: 16px; line-height: 1.5; color: #c9c6d1; }
 .now h2 { margin-top: 6px; font-family: var(--font-display); font-weight: 500; font-size: 23px; line-height: 1.28; letter-spacing: -.01em; }
 
 /* ---------- Footer: the controls, across the bottom ---------- */
@@ -268,4 +270,4 @@ ul, ol { padding: 0; list-style: none; }
 .outcomes p { margin-top: 6px; font-size: 16px; line-height: 1.45; color: var(--ink-2); }
 .end-btns { display: flex; gap: 12px; margin-top: 40px; }
 
-.footbar .link { justify-self: start; }
+.footbar [data-nav="restart"] { justify-self: start; }
