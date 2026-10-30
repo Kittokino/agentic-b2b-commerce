@@ -4,7 +4,7 @@
   --surface: #ffffff;
   --ink: #150f33;
   --ink-2: #4b4862;
-  --ink-3: #8d8a9b;
+  --ink-3: #67637a;  /* 4.7:1 or better on every background we use */
   --line: #e3e0da;
   --red: #e2103c;
   --red-soft: #fce4e9;
