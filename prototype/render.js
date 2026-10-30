@@ -57,7 +57,7 @@
 
   const ACTOR = { agent: 'AI · Order agent · v2.3', system: 'System', nigel: 'Nigel · Head chef', priya: 'Priya · Buyer', tom: 'Tom · Service rep' };
 
-  // Only what needs a person: it stays this size whether an order has 3 lines or 40.
+  // Only the open decisions: it stays this size whether an order has 3 lines or 40.
   function summary(s) {
     const o = s.order;
     const c = s.caseFile;
@@ -65,8 +65,8 @@
     const done = o.lines.filter(l => l.status === 'confirmed').length;
     return `
       <aside class="summary">
-        <h3>Needs a person</h3>
-        <p class="tally">${open.length ? `${open.length} of ${o.lines.length} items are waiting for someone.` : `All ${o.lines.length} items are confirmed.`}</p>
+        <h3>Open decisions</h3>
+        <p class="tally">${open.length ? `${open.length} of ${o.lines.length} items still need a decision.` : `No open decisions. All ${o.lines.length} items are confirmed.`}</p>
         ${open.length ? `<ul class="sum-lines">${open.map(l => `
           <li class="${l.status === 'stopped' ? 'is-stop' : ''}">
             <b>${esc(l.name)}</b>
@@ -94,8 +94,7 @@
             ${avatar(e.who)}
             <div>
               <p class="actor-row">
-                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}">${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>
-                ${e.open ? `<button class="open-link" data-open="${i}">${esc(e.open)}</button>` : ''}
+                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}">${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>${e.open ? `<span class="sep"> · </span><button class="open-link" data-open="${i}">${esc(e.open)}</button>` : ''}
               </p>
               <p><b>${esc(e.text)}</b></p>
               ${e.quote ? `<q>${esc(e.quote)}</q>` : ''}

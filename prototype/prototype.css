@@ -338,9 +338,10 @@ ul, ol { padding: 0; list-style: none; }
 .tap-hint.at-target.below .ico { transform: rotate(90deg); }
 .tap-hint.at-target em { white-space: nowrap; }
 
-/* The actor line carries the source; the link to it sits at the right. */
-.actor-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.actor-row .open-link { flex: none; font-size: var(--t-small); }
+/* The actor line carries the source, then the link to it. */
+.actor-row { font-size: var(--t-label); }
+.actor-row .sep { color: var(--ink-3); font-weight: 600; }
+.actor-row .open-link { font-size: var(--t-label); font-weight: 600; color: var(--ink-2); }
 .filters .select { display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; padding: 4px 10px 4px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); }
 .filters .select .ico { font-size: 14px; }
 .tally + .sum-facts { border-top: 0; padding-top: 12px; }
