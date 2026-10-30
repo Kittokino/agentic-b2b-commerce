@@ -69,7 +69,8 @@
     time: '22:48',
     screen: 'lock', actor: 'nigel',
     title: 'Nigel is closing up the kitchen when a WhatsApp message from Kade arrives.',
-    prompt: 'Open the message on Nigel’s phone.',
+    cta: 'Read the message',
+    hint: 'Tap the notification.', hintAt: 'notification',
     choices: [{ action: 'open', label: 'Open' }],
     apply(s) {
       s.notify = { app: 'WhatsApp', from: 'Kade Foodservice', text: 'We have your order for Saturday. The cheese board is confirmed. The salmon and the wine need a decision.' };
@@ -81,7 +82,7 @@
     time: '22:48',
     screen: 'whatsapp', actor: 'nigel',
     title: 'The agent confirms what the contract allows. For everything else, it asks the person who decides.',
-    prompt: 'Which reply does Nigel choose?',
+    hint: 'Click one of Nigel’s replies.', hintAt: 'buttons',
     choices: [{ action: 'accept' }, { action: 'decline' }, { action: 'more' }],
     def: 'decline',
     apply(s) {
@@ -156,7 +157,7 @@
     time: '07:40',
     screen: 'teams', actor: 'priya', chat: 'assistant',
     title: 'Priya’s assistant has read Kade’s update and checked the inventory of the other two restaurants.',
-    prompt: 'Priya calls Old Town.',
+    cta: 'Call Old Town',
     choices: [{ action: 'call' }],
     apply(s) {
       s.assistant.push({ time: '07:40', kind: 'card', text: 'Kade doesn’t have 24 bottles of Sauvignon Blanc for Harbour Front’s private dinner on Saturday. Old Town, one of your restaurants, has 10 bottles of the same wine in stock and could send them to Harbour Front.', buttons: [{ action: 'call', label: 'Call Old Town' }, { action: 'not-now', label: 'Not now' }] });
@@ -168,7 +169,7 @@
     time: '07:43',
     screen: 'teams', actor: 'priya', chat: 'assistant',
     title: 'Old Town can send all 10 bottles. Priya’s assistant does not hear the call, so it asks her how it went.',
-    prompt: 'Priya tells her assistant.',
+    cta: 'Old Town confirmed',
     choices: [{ action: 'confirmed' }],
     apply(s) {
       s.assistant.push({ time: '07:43', kind: 'note', text: 'Call with Old Town, 2 minutes' });
@@ -181,7 +182,7 @@
     time: '07:44',
     screen: 'teams', actor: 'priya', chat: 'kade',
     title: 'Priya tells Kade in Kade’s order thread, not in a private chat, so the change is made on the order itself.',
-    prompt: 'Priya sends the change.',
+    cta: 'Send the message',
     choices: [{ action: 'send' }],
     apply(s) {
       s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
@@ -195,7 +196,7 @@
     time: '07:45',
     screen: 'teams', actor: 'priya', chat: 'kade',
     title: 'Kade’s order agent changes the wine to 14 bottles and updates Tom’s case. While she is in the thread, Priya also approves the salmon.',
-    prompt: 'Priya approves the salmon.',
+    cta: 'Approve the salmon',
     choices: [{ action: 'approve' }],
     apply(s) {
       s.compose = '';
@@ -231,7 +232,7 @@
     time: '08:05',
     screen: 'desk', actor: 'tom',
     title: 'Tom opens his case. It already says 14 bottles and explains why.',
-    prompt: 'Tom sends Nigel the price.',
+    cta: 'Send Nigel the one-time price',
     choices: [{ action: 'quote' }],
     apply(s) {
       s.caseFile = { ...s.caseFile, status: 'In progress', found: 'A partner supplier has 14 bottles in stock, at €11.80 a bottle.' };
@@ -243,7 +244,8 @@
     time: '08:05',
     screen: 'whatsapp', actor: 'nigel',
     title: 'Nigel gets a one-time price on WhatsApp. His contract stays the same.',
-    prompt: 'Nigel agrees to the price.',
+    cta: 'Yes, order them',
+    hint: 'Tap “Yes, order them”.', hintAt: 'buttons',
     choices: [{ action: 'confirm' }],
     apply(s) {
       s.caseFile = { ...s.caseFile, status: 'Quote sent' };

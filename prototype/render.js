@@ -178,7 +178,7 @@
     }).join('');
     return `
       <div class="phone">
-        <div class="phone-top">${icon('back')}${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>Order agent (AI)</span></div></div>
+        <div class="phone-top">${icon('back')}${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>Order agent (AI)</span></div>${icon('kebab')}</div>
         <div class="chat">${msgs}</div>
         <div class="phone-bar"><span>Message</span>${icon('mic')}</div>
       </div>`;
@@ -259,7 +259,11 @@
   }
 
   // A person's screen, centred; who it belongs to is said in the left column.
-  const personScene = (s, scene, ctx, device) => `<div class="person-scene dev-${scene.screen}">${device}</div>`;
+  // A hand and a short line beside the phone point to where the viewer clicks.
+  const personScene = (s, scene, ctx, device) => `
+    <div class="person-scene dev-${scene.screen}">
+      <div class="device-wrap">${device}${scene.hint ? `<p class="tap-hint at-${scene.hintAt}">${icon('point')}<em>${esc(scene.hint)}</em></p>` : ''}</div>
+    </div>`;
   const wide = (s, scene, ctx, body) => `<div class="wide-scene">${body}</div>`;
 
   // ---------- What an activity link opens: the message, case or voice note as it was then ----------

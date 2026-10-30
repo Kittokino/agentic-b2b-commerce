@@ -22,9 +22,8 @@ ul, ol { padding: 0; list-style: none; }
 .btn:disabled { opacity: .35; cursor: default; }
 .btn:not(:disabled):hover { filter: brightness(1.3); }
 
-/* A button the story is waiting for: a soft, slow ring. */
-@keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(21, 15, 51, .35); } 100% { box-shadow: 0 0 0 12px rgba(21, 15, 51, 0); } }
-.live { animation: ring 1.8s ease-out infinite; cursor: pointer; }
+/* A button the story is waiting for. The help text beside the screen points to it. */
+.live { cursor: pointer; }
 
 /* What the current scene added comes in, one entry after another. */
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
@@ -68,7 +67,6 @@ ul, ol { padding: 0; list-style: none; }
 .footbar .cue { justify-self: end; }
 .cue[hidden] { display: none; }
 .cue.btn { height: 44px; padding: 0 16px 0 20px; }
-.cue.hint { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; padding: 0; font-size: var(--t-body); font-weight: 600; color: var(--ink-2); cursor: default; }
 .cue .ico { font-size: 18px; }
 .link { background: none; border: 0; padding: 0; font-size: var(--t-small); color: var(--ink-2); cursor: pointer; }
 .link:hover { color: var(--ink); }
@@ -216,8 +214,6 @@ ul, ol { padding: 0; list-style: none; }
 .n-top > .ico { margin-left: auto; font-size: 16px; color: var(--ink-3); }
 .notification b { display: block; margin-top: 8px; font-size: var(--t-body); font-weight: 600; }
 .notification p { margin-top: 2px; font-size: var(--t-body); line-height: 1.4; color: var(--ink-2); }
-.notification.live { animation: ringlight 1.8s ease-out infinite; }
-@keyframes ringlight { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, .55); } 100% { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0); } }
 
 /* ---------- Priya's laptop (a Teams-style window, not Microsoft's own design) ---------- */
 .teams { width: 100%; max-width: 980px; height: 100%; max-height: 640px; display: flex; flex-direction: column; overflow: hidden; border-radius: 12px; background: var(--surface);
@@ -315,3 +311,18 @@ ul, ol { padding: 0; list-style: none; }
 .ctl .ico { font-size: 16px; }
 .ctl.main { width: 46px; height: 46px; border-radius: 50%; background: var(--ink); color: #fff; }
 .ctl.main .ico { fill: #fff; stroke: none; font-size: 18px; }
+
+/* The notification arrives tilted back, as if lying flat, then stands upright on the screen. */
+.lockscreen { perspective: 700px; }
+@keyframes stand-up { from { opacity: 0; transform: translateY(-24px) rotateX(-70deg) scale(.92); } to { opacity: 1; transform: none; } }
+.notification { transform-origin: 50% 0; animation: stand-up .8s cubic-bezier(.2, .8, .2, 1) .9s both; }
+
+/* The hand and help text beside the phone, pointing at what to click. */
+.device-wrap { position: relative; height: 100%; display: flex; align-items: center; }
+@keyframes appear { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+.tap-hint { position: absolute; left: calc(100% + 28px); display: flex; align-items: center; gap: 10px; width: 220px; font-size: var(--t-body); color: var(--ink-2); animation: appear .5s ease-out 1.6s both; }
+.tap-hint em { font-style: italic; }
+.tap-hint .ico { flex: none; font-size: 30px; color: var(--ink); }
+.tap-hint.at-notification { top: 290px; }
+.tap-hint.at-buttons { bottom: 130px; }
+.phone-top > .ico:last-child { margin-left: auto; font-size: 20px; }

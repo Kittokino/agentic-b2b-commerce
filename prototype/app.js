@@ -101,12 +101,12 @@
   }
 
   // Footer, right: the way on when nothing needs choosing, a hint when something does.
+  // A scene with one action gets a button that does it; with several choices, the footer stays
+  // empty so it doesn't pick an answer for the viewer.
   function renderCue(sc) {
-    cue.hidden = sc.screen === 'end';
-    cue.className = sc.choices ? 'cue hint' : 'cue btn';
-    cue.innerHTML = sc.choices
-      ? `<svg class="ico"><use href="#i-tap"/></svg><span>${V.esc(sc.prompt)}</span>`
-      : `<span>${V.esc(sc.next || 'Continue')}</span><svg class="ico"><use href="#i-right"/></svg>`;
+    cue.hidden = sc.screen === 'end' || (!!sc.choices && !sc.cta);
+    cue.className = 'cue btn';
+    cue.innerHTML = sc.cta ? V.esc(sc.cta) : `<span>${V.esc(sc.next || 'Continue')}</span><svg class="ico"><use href="#i-right"/></svg>`;
   }
 
   function go(n, dir = 1) {
@@ -146,7 +146,7 @@
     const t = e.target.closest('[data-action], [data-nav], [data-go], [data-intro], #cue');
     if (!t || t.disabled) return;
     if (t.dataset.intro) play();
-    else if (t === cue) { if (!steps()[index].choices) go(index + 1); }
+    else if (t === cue) { const sc = steps()[index]; if (sc.cta) choose(sc.choices[0].action); else go(index + 1); }
     else if (t.dataset.action) choose(t.dataset.action);
     else if (t.dataset.nav === 'next') advance();
     else if (t.dataset.nav === 'prev') go(index - 1, -1);
