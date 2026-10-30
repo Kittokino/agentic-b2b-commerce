@@ -65,15 +65,15 @@
     const done = o.lines.filter(l => l.status === 'confirmed').length;
     return `
       <aside class="summary">
-        <p class="tally">${o.lines.length} lines · ${done} confirmed · ${open.length} with a person</p>
         <h3>Needs a person</h3>
+        <p class="tally">${open.length ? `${open.length} of ${o.lines.length} items are waiting for someone.` : `All ${o.lines.length} items are confirmed.`}</p>
         ${open.length ? `<ul class="sum-lines">${open.map(l => `
           <li class="${l.status === 'stopped' ? 'is-stop' : ''}">
             <b>${esc(l.name)}</b>
             ${statusChip(l, 'kade')}
             ${l.note ? `<span>${esc(l.note)}</span>` : ''}
           </li>`).join('')}
-        </ul>` : '<p class="none">Nothing. Every line has its answer.</p>'}
+        </ul>` : ''}
         <dl class="sum-facts">
           <div><dt>ERP</dt><dd>${esc(o.erp)}</dd></div>
           ${c ? `<div><dt>Case</dt><dd>${avatar('tom')}${esc(c.id)} · ${esc(c.status)}</dd></div>` : ''}
@@ -93,12 +93,14 @@
             <span class="t">${esc(e.time)}</span>
             ${avatar(e.who)}
             <div>
-              <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}">${esc(ACTOR[e.who])}</span>
+              <p class="actor-row">
+                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}">${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>
+                ${e.open ? `<button class="open-link" data-open="${i}">${esc(e.open)}</button>` : ''}
+              </p>
               <p><b>${esc(e.text)}</b></p>
               ${e.quote ? `<q>${esc(e.quote)}</q>` : ''}
               ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
               ${e.change ? `<p class="chg">${esc(field)}: <s>${esc(from)}</s> → <b>${esc(to)}</b></p>` : ''}
-              ${e.source || e.open ? `<p class="src">${e.source ? `via ${esc(e.source)}` : ''}${e.source && e.open ? ' · ' : ''}${e.open ? `<button class="open-link" data-open="${i}">${esc(e.open)}</button>` : ''}</p>` : ''}
               ${e.rule ? `<span class="rule">${icon('rule')}Rule: ${esc(e.rule)}</span>` : ''}
             </div>
           </div>
@@ -121,9 +123,10 @@
           <section class="trail-main">
             <div class="filters">
               ${['All', 'AI agents', 'People', 'System'].map((f, i) => `<span class="${i ? '' : 'on'}">${f}</span>`).join('')}
+              <span class="select">Source: All sources${icon('down')}</span>
               <span class="ro" title="Entries in this log can’t be edited or deleted.">${icon('lock')}Read-only</span>
             </div>
-            <ol class="trail">${rows}</ol>
+            <div class="trail-scroll"><ol class="trail">${rows}</ol></div>
           </section>
           ${summary(s)}
         </div>

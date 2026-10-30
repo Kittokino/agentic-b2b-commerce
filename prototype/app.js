@@ -113,7 +113,7 @@
   function follow(root) {
     followers.forEach(clearTimeout);
     followers = [];
-    root.querySelectorAll('.trail-main, .chat, .tlist').forEach(list => {
+    root.querySelectorAll('.trail-scroll, .chat, .tlist').forEach(list => {
       const fresh = [...list.querySelectorAll('.new')];
       if (!fresh.length) { list.scrollTop = list.scrollHeight; return; }
       list.scrollTop = Math.max(0, fresh[0].offsetTop - list.offsetTop - 60);
