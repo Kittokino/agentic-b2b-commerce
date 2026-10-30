@@ -1,0 +1,26 @@
+/* Design tokens shared by the deck and the prototype: one source for colour and type. */
+:root {
+  --bg: #f5f3f1;
+  --surface: #ffffff;
+  --ink: #150f33;
+  --ink-2: #4b4862;
+  --ink-3: #8d8a9b;
+  --line: #e3e0da;
+  --red: #e2103c;
+  --red-soft: #fce4e9;
+
+  /* Status: the only colours besides red and navy. */
+  --done: #2f7a49;
+  --done-soft: #e3f1e6;
+  --wait: #e2103c;
+  --wait-soft: #fce4e9;
+  --suggest: #9a6200;
+  --suggest-soft: #fbefd8;
+  --person: #150f33;
+  --person-soft: #e9e8f0;
+
+  --radius: 14px;
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-voice: "Instrument Serif", Georgia, serif;
+}
