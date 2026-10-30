@@ -275,3 +275,7 @@ ul, ol { padding: 0; list-style: none; }
 .end-btns { display: flex; gap: 12px; margin-top: 40px; }
 
 .footbar [data-nav="restart"] { justify-self: start; }
+/* Footer: one text size from left to right, and buttons of one height. */
+.footbar .btn, .footbar .counter, .footbar .cue { font-size: var(--t-body); }
+.footbar .btn { height: 40px; }
+.footbar [data-nav="restart"] { padding: 0 18px; }
