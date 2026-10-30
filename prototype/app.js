@@ -22,19 +22,23 @@
     return s;
   }
 
-  // ---------- Left column: whose screen this is, what led here, what happens now ----------
+  // ---------- Left column: when, whose screen, what led here, what happens now ----------
+  // One text size; brightness carries the order: the past is muted, the present is bright.
+  // The main story needs no label; the other branches are named.
+  const PATHS = { more: 'What if: Nigel asked for more', accept: 'What if: Nigel accepted' };
   function rail() {
     const list = steps();
     const sc = list[index];
     const s = stateAt(index);
     const view = V.VIEWPOINT[sc.screen];
-    const face = view && (view[0] ? V.avatar(view[0], 'sm') : '<span class="mark">K</span>');
-    const card = ['break', 'end'].includes(sc.screen);
+    const mark = view && (view[0] ? V.avatar(view[0]) : '<img class="logo" src="../assets/kade-logo.png" alt="">');
+    const when = [s.day, sc.time].filter(Boolean).join(' · ');
+    const branch = index > S.choiceAt && PATHS[path];
     el('#rail-body').innerHTML = `
-      ${view ? `<div class="view"><span class="kicker">You’re looking at</span><div class="view-box">${face}<b>${V.esc(view[1])}</b></div></div>` : ''}
+      <p class="kicker when">${V.esc(when)}${branch ? `<br><span>${V.esc(branch)}</span>` : ''}</p>
+      ${view ? `<p class="view">${mark}<span>${V.esc(view[1])}</span></p>` : ''}
       <div class="so-far"><span class="kicker">So far</span><p>${V.esc(sc.story)}</p></div>
-      ${card ? '' : `<div class="now"><span class="kicker">Now · ${V.esc(`${s.day} ${sc.time}`)}</span><h2>${V.esc(sc.title)}</h2></div>`}`;
-    el('.path').textContent = chosen || index > S.choiceAt ? S.labels[path] : 'Wednesday night, after service';
+      ${['break', 'end'].includes(sc.screen) ? '' : `<div class="now"><span class="kicker">Now</span><p>${V.esc(sc.title)}</p></div>`}`;
     el('.counter').textContent = `Scene ${index + 1} of ${list.length}`;
     el('[data-nav="prev"]').disabled = index === 0;
     el('[data-nav="next"]').disabled = index === list.length - 1;

@@ -8,11 +8,11 @@
 
   // Whose screen we are looking at, for the left column.
   const VIEWPOINT = {
-    trail: [null, 'Kade’s order screen in Sana, as Tom or a colleague sees it'],
-    desk: ['tom', 'Tom’s case, in Kade’s Sana'],
+    trail: [null, 'Kade’s order screen, in Sana'],
+    desk: ['tom', 'Tom’s case screen, in Sana'],
     lock: ['nigel', 'Nigel’s phone'],
-    whatsapp: ['nigel', 'Nigel’s phone · WhatsApp'],
-    teams: ['priya', 'Priya’s laptop · Teams'],
+    whatsapp: ['nigel', 'Nigel’s phone, WhatsApp'],
+    teams: ['priya', 'Priya’s laptop, Teams'],
   };
 
   // ---------- Components ----------
@@ -48,7 +48,7 @@
   // ---------- Kade's order in Sana: its Activity tab ----------
   const sanaTop = (on) => `
     <header class="sana-top">
-      <div class="brand"><span class="mark">K</span><b>Kade Foodservice</b><span class="on">on Sana</span></div>
+      <div class="brand"><img class="logo" src="../assets/kade-logo.png" alt=""><b>Kade Foodservice</b><span class="on">on Sana</span></div>
       <nav>${['Orders', 'Cases', 'Customers', 'Agent rules'].map(n => `<span class="${n === on ? 'on' : ''}">${n}</span>`).join('')}</nav>
     </header>`;
 

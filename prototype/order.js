@@ -335,6 +335,5 @@
       more: [...shared, more, handover, morning, tip, called, compose, sent, priyaLogged, tom, quote, done, end],
       accept: [...shared, accepted, acceptLogged, acceptEnd],
     },
-    labels: { decline: 'Nigel declines the swap', more: 'Nigel asks for more options', accept: 'Nigel accepts the swap' },
   };
 })();

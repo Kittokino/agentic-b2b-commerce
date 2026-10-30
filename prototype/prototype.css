@@ -52,16 +52,16 @@ ul, ol { padding: 0; list-style: none; }
 /* ---------- Left column: whose screen, what led here, what happens now ---------- */
 /* Dark is the storytelling, light is the product: a warm charcoal, not the product's navy. */
 .rail { display: flex; flex-direction: column; min-height: 0; background: #2e2c35; color: #f1eff3; padding: 28px 24px 20px; }
-.rail-head h2 { margin-top: 6px; font-family: var(--font-display); font-weight: 500; font-size: var(--t-head); letter-spacing: -.01em; }
-.rail-head .path { margin-top: 4px; font-size: var(--t-small); color: #c9c6d1; }
 .rail .kicker { color: #a9a5b5; }
-.rail-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 26px; margin-top: 30px; }
-.view-box { display: flex; align-items: center; gap: 12px; margin-top: 8px; padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .1); }
-.view b { font-size: var(--t-body); font-weight: 600; line-height: 1.35; }
+.rail-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 28px; }
+.rail-body p:not(.kicker) { font-size: var(--t-body); line-height: 1.55; }
+.rail .when { color: #f1eff3; line-height: 1.7; }
+.rail .when span { color: #a9a5b5; }
+.view { display: flex; align-items: center; gap: 10px; margin-top: -12px; font-weight: 500; color: #f1eff3; }
 .view .face { border-color: rgba(255, 255, 255, .2); }
-.view .mark { flex: none; width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; background: #f1eff3; color: var(--ink); font-size: 16px; font-weight: 700; }
-.so-far p { margin-top: 6px; font-size: var(--t-body); line-height: 1.5; color: #c9c6d1; }
-.now h2 { margin-top: 6px; font-family: var(--font-display); font-weight: 500; font-size: var(--t-head); line-height: 1.28; letter-spacing: -.01em; }
+.view .logo { width: 28px; height: 28px; padding: 3px; filter: invert(1); }
+.so-far p { margin-top: 6px; color: #c9c6d1; }
+.now p { margin-top: 6px; color: #fff; font-weight: 600; }
 
 /* ---------- Footer: the controls, across the bottom ---------- */
 .footbar { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 24px; background: var(--surface); border-top: 1px solid var(--line); }
@@ -97,8 +97,8 @@ ul, ol { padding: 0; list-style: none; }
 
 /* ---------- Sana (Kade) ---------- */
 .sana-top { flex: none; height: 54px; display: flex; align-items: stretch; gap: 40px; padding: 0 24px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.brand .logo { width: 26px; height: 26px; }
 .brand { display: flex; align-items: center; gap: 10px; font-size: var(--t-body); }
-.brand .mark { width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center; background: var(--ink); color: #fff; font-size: 14px; font-weight: 700; }
 .brand .on { font-size: var(--t-label); color: var(--ink-3); }
 .sana-top nav { display: flex; gap: 26px; font-size: var(--t-body); color: var(--ink-3); }
 .sana-top nav span { display: flex; align-items: center; }
