@@ -155,15 +155,16 @@
 
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-action], [data-nav], [data-slide], [data-jump], [data-fly], #cue');
+    const t = e.target.closest('[data-action], [data-nav], [data-slide], [data-jump], [data-fly], [data-intro], #cue');
     if (!t) return;
-    if (t.dataset.action) {
+    if (t.dataset.intro) showIntro(false);
+    else if (t.dataset.action) {
       const a = t.dataset.action;
       if (a === 'accept' || a === 'decline') { path = a; chosen = true; }
       go(index + 1);
     } else if (t.dataset.nav === 'next') go(index + 1);
     else if (t.dataset.nav === 'prev') go(index - 1);
-    else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; go(0); }
+    else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; go(0); showIntro(true); }
     else if (t.dataset.slide !== undefined) { slide = +t.dataset.slide; renderFlyout(stateAt(index)); }
     else if (t.dataset.jump !== undefined) go(+t.dataset.jump);
     else if (t.dataset.fly === 'close') setFlyout(false);
@@ -172,10 +173,16 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (introOpen()) { if (['ArrowRight', 'PageDown', 'Enter', ' '].includes(e.key)) { e.preventDefault(); showIntro(false); } return; }
     if (['ArrowRight', 'PageDown'].includes(e.key)) { e.preventDefault(); go(index + 1); }
     if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(index - 1); }
     if (e.key === 'Escape') setFlyout(false);
   });
+
+  // The opening screen shows on first load and on Start again; deep links skip it.
+  const intro = el('#intro');
+  const introOpen = () => !intro.classList.contains('gone');
+  function showIntro(show) { intro.classList.toggle('gone', !show); }
 
   function fit() {
     const scale = Math.min(window.innerWidth / 1440, window.innerHeight / 810);
@@ -193,7 +200,7 @@
     return true;
   }
   window.addEventListener('hashchange', () => { if (location.hash !== `#${path}-${index + 1}` && fromHash()) go(index); });
-  fromHash();
+  if (fromHash()) showIntro(false);
   fit();
   go(index);
 })();

@@ -18,12 +18,9 @@ p, h1, h2, h3, dl, dd { margin: 0; }
 @keyframes fresh { 0%, 35% { background-color: #e6e2f3; } 100% { background-color: transparent; } }
 .fresh { animation: fresh 2.4s ease-out; }
 
-/* ---------- Left rail: the story, in time. Light cardboard with a little grain. ---------- */
-.rail { position: relative; display: flex; flex-direction: column; min-height: 0; background: #e4d7c1; color: var(--ink); padding: 28px 22px 20px; border-right: 1px solid #d3c4aa; }
-.rail::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .32; mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .16 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.rail > * { position: relative; }
-.kicker { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #7d6c52; }
+/* ---------- Left rail: the story, in time ---------- */
+.rail { position: relative; display: flex; flex-direction: column; min-height: 0; background: #ebeae7; color: var(--ink); padding: 28px 22px 20px; border-right: 1px solid var(--line); }
+.kicker { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
 .rail-head h2 { font-family: var(--font-display); font-weight: 500; font-size: 22px; letter-spacing: -.01em; margin-top: 6px; }
 .rail-head .path { margin-top: 4px; font-size: 13px; color: var(--ink-2); }
 .timeline { list-style: none; margin: 22px 0 0; padding: 0; flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
@@ -44,7 +41,7 @@ p, h1, h2, h3, dl, dd { margin: 0; }
 .timeline li:hover:not(.now):not(.pending) { opacity: .9; }
 .timeline li.pending { cursor: default; opacity: .5; }
 .timeline li.pending b { font-weight: 400; font-style: italic; }
-.timeline .gap { width: 28px; height: 28px; border-radius: 50%; border: 1px dashed rgba(21, 15, 51, .45); position: relative; background: #e4d7c1; }
+.timeline .gap { width: 28px; height: 28px; border-radius: 50%; border: 1px dashed rgba(21, 15, 51, .45); position: relative; background: #ebeae7; }
 .rail-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid rgba(21, 15, 51, .14); }
 .link { background: none; border: 0; padding: 0; font-size: 13px; color: var(--ink-2); cursor: pointer; }
 .link:hover { color: var(--ink); }
@@ -229,3 +226,14 @@ p, h1, h2, h3, dl, dd { margin: 0; }
 .quiet li { font-size: 12.5px; color: var(--ink-3); }
 .quiet li.you { color: var(--ink); }
 .quiet li span { display: inline-block; min-width: 46px; font-weight: 600; }
+
+/* ---------- Opening: Nigel after close-down, before the screens ---------- */
+.intro { position: absolute; inset: 0; z-index: 10; display: grid; grid-template-columns: 1fr 460px; gap: 56px; align-items: center; padding: 56px 72px; background: var(--bg); transition: opacity .5s, visibility .5s; }
+.intro.gone { opacity: 0; visibility: hidden; }
+.intro .illo { height: 100%; align-items: center; padding: 0; }
+.intro .illo-label { position: static; }
+.intro-text .kicker { color: var(--ink-3); }
+.intro-text .when { margin-top: 18px; font-size: 14px; color: var(--ink-2); }
+.intro-text blockquote { margin: 8px 0 0; font-family: var(--font-voice); font-style: italic; font-size: 30px; line-height: 1.25; }
+.intro-text h2 { margin-top: 40px; font-family: var(--font-display); font-weight: 500; font-size: 30px; line-height: 1.2; letter-spacing: -.015em; }
+.intro-text .btn { margin-top: 28px; height: 46px; padding: 0 24px; font-size: 15px; }
