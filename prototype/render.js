@@ -21,6 +21,9 @@
       : who === 'system' ? `<span class="face ${size} system">${icon('db')}</span>`
         : `<span class="face ${size}"><img src="../assets/personas/${who}.png" alt=""></span>`;
 
+  // Kade's own mark, where Kade appears as a business (a profile picture, a chat).
+  const kadeMark = (size = 'sm') => `<span class="face ${size} kade"><img src="../assets/kade-logo.png" alt=""></span>`;
+
   // One status vocabulary; the label adapts to who is looking.
   function statusChip(line, viewer) {
     const mine = line.owner && line.owner === viewer;
@@ -178,7 +181,7 @@
     }).join('');
     return `
       <div class="phone">
-        <div class="phone-top">${icon('back')}${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>Order agent (AI)</span></div>${icon('kebab')}</div>
+        <div class="phone-top">${icon('back')}${kadeMark()}<div><b>Kade Foodservice</b><span>Order agent (AI)</span></div>${icon('kebab')}</div>
         <div class="chat">${msgs}</div>
         <div class="phone-bar"><span>Message</span>${icon('mic')}</div>
       </div>`;
@@ -219,10 +222,10 @@
         <div class="teams-main">
           <aside class="chats">
             <div class="chat-item ${onAssistant ? 'on' : ''}"><span class="assistant">${icon('agent')}</span><div><b>Your assistant</b><span>${esc(last(s.assistant))}</span></div></div>
-            <div class="chat-item ${onAssistant ? '' : 'on'}">${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>${esc(last(s.kade))}</span></div></div>
+            <div class="chat-item ${onAssistant ? '' : 'on'}">${kadeMark()}<div><b>Kade Foodservice</b><span>${esc(last(s.kade))}</span></div></div>
           </aside>
           <section class="conv">
-            <header>${onAssistant ? `<span class="assistant">${icon('agent')}</span><b>Your assistant</b><span class="muted">The Olive Tree</span>` : `${avatar('agent', 'sm')}<b>Kade Foodservice</b><span class="muted">Order thread · ${esc(s.order.id)}</span>`}</header>
+            <header>${onAssistant ? `<span class="assistant">${icon('agent')}</span><b>Your assistant</b><span class="muted">The Olive Tree</span>` : `${kadeMark()}<b>Kade Foodservice</b><span class="muted">Order thread · ${esc(s.order.id)}</span>`}</header>
             <ul class="tlist">${onAssistant ? chatAssistant : chatKade}</ul>
             <div class="composer ${s.compose ? 'typing' : ''}">
               <span>${s.compose ? esc(s.compose) : 'Type a message'}</span>
@@ -259,12 +262,13 @@
   }
 
   // A person's screen, centred; who it belongs to is said in the left column.
+  const hintFor = (scene) => scene.hint ? `<p class="tap-hint at-${scene.hintAt}">${icon('point')}<em>${esc(scene.hint)}</em></p>` : '';
   // A hand and a short line beside the phone point to where the viewer clicks.
   const personScene = (s, scene, ctx, device) => `
     <div class="person-scene dev-${scene.screen}">
-      <div class="device-wrap">${device}${scene.hint ? `<p class="tap-hint at-${scene.hintAt}">${icon('point')}<em>${esc(scene.hint)}</em></p>` : ''}</div>
+      <div class="device-wrap">${device}${hintFor(scene)}</div>
     </div>`;
-  const wide = (s, scene, ctx, body) => `<div class="wide-scene">${body}</div>`;
+  const wide = (s, scene, ctx, body) => `<div class="wide-scene">${body}${hintFor(scene)}</div>`;
 
   // ---------- What an activity link opens: the message, case or voice note as it was then ----------
   const waveform = (n) => Array.from({ length: n }, (_, i) => `<i style="height:${6 + Math.round(14 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * .45)))}px"></i>`).join('');
