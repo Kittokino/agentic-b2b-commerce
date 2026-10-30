@@ -38,25 +38,21 @@
   // Things the current scene added animate in, one after another.
   const enter = (i, from, step = .45) => i >= from ? ` class="new" style="animation-delay:${((i - from) * step).toFixed(2)}s"` : '';
 
-  // ---------- Kade's audit trail, in Sana ----------
+  // ---------- Kade's order in Sana: its Activity tab ----------
   const sanaTop = (on) => `
     <header class="sana-top">
       <div class="brand"><span class="mark">K</span><b>Kade Foodservice</b><span class="on">on Sana</span></div>
       <nav>${['Orders', 'Cases', 'Customers', 'Agent rules'].map(n => `<span class="${n === on ? 'on' : ''}">${n}</span>`).join('')}</nav>
     </header>`;
 
+  const ACTOR = { agent: 'AI agent', system: 'System', nigel: 'Nigel · Head chef', priya: 'Priya · Buyer', tom: 'Tom · Service rep' };
+
   function summary(s) {
     const o = s.order;
-    const cls = o.status === 'Confirmed' ? 'done' : 'handed';
     const c = s.caseFile;
     return `
       <aside class="summary">
-        <div class="sum-head">
-          <span class="muted">${esc(o.id)}</span>
-          <span class="status ${cls}">${o.status === 'Confirmed' ? icon('check') : ''}${esc(o.status)}</span>
-        </div>
-        <h3>${esc(o.customer)}</h3>
-        <p class="muted">${esc(o.purpose)}</p>
+        <h3>Lines</h3>
         <ul class="sum-lines">${o.lines.map(l => `
           <li class="${l.status === 'stopped' ? 'is-stop' : ''}">
             <div><b>${esc(l.name)}</b><span>${esc(l.qty)}</span></div>
@@ -71,29 +67,47 @@
   }
 
   function trail(s, scene, ctx) {
+    const o = s.order;
     let day = '';
     const rows = s.trail.map((e, i) => {
       const divider = e.day !== day ? `<li class="day">${esc((day = e.day))}</li>` : '';
+      const [field, from, to] = e.change || [];
       return `${divider}
         <li${enter(i, ctx.fresh.trail)}>
-          <div class="entry ${e.stop ? 'is-stop' : ''} by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}">
+          <div class="entry ${e.stop ? 'is-stop' : ''}">
             <span class="t">${esc(e.time)}</span>
             ${avatar(e.who)}
             <div>
+              <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}">${esc(ACTOR[e.who])}</span>
               <p><b>${esc(e.text)}</b></p>
               ${e.quote ? `<q>${esc(e.quote)}</q>` : ''}
               ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
+              ${e.change ? `<p class="chg">${esc(field)}: <s>${esc(from)}</s> → <b>${esc(to)}</b></p>` : ''}
+              ${e.source || e.open ? `<p class="src">${e.source ? `via ${esc(e.source)}` : ''}${e.source && e.open ? ' · ' : ''}${e.open ? `<u>${esc(e.open)}</u>` : ''}</p>` : ''}
               ${e.rule ? `<span class="rule">${icon('rule')}Rule: ${esc(e.rule)}</span>` : ''}
             </div>
           </div>
         </li>`;
     }).join('');
+    const cls = o.status === 'Confirmed' ? 'done' : 'handed';
     return `
       <div class="frame">
         ${sanaTop('Orders')}
+        <div class="order-head">
+          <div class="crumb">Orders <span>/</span> ${esc(o.id)}</div>
+          <div class="order-title">
+            <h1>${esc(o.customer)}</h1>
+            <span class="status ${cls}">${o.status === 'Confirmed' ? icon('check') : ''}${esc(o.status)}</span>
+            <span class="muted">${esc(o.purpose)}</span>
+          </div>
+          <nav class="tabs">${['Overview', 'Lines', 'Conversation', 'Activity'].map(t => `<span class="${t === 'Activity' ? 'on' : ''}">${t}</span>`).join('')}</nav>
+        </div>
         <div class="trail-page">
           <section class="trail-main">
-            <div class="crumb">Orders <span>/</span> ${esc(s.order.id)} <span>/</span> Audit trail</div>
+            <div class="filters">
+              ${['All', 'AI agent', 'People', 'System'].map((f, i) => `<span class="${i ? '' : 'on'}">${f}</span>`).join('')}
+              <span class="ro">${icon('lock')}Read-only: entries can’t be edited</span>
+            </div>
             <ol class="trail">${rows}</ol>
           </section>
           ${summary(s)}
@@ -119,7 +133,7 @@
             <div class="case-actions">${act({ action: 'quote', label: 'Send Nigel a one-off quote' }, ctx, 'btn')}</div>
           </section>
           <aside class="summary history">
-            <h3>Latest in the audit trail</h3>
+            <h3>Latest activity on the order</h3>
             <ul>${recent}</ul>
           </aside>
         </div>

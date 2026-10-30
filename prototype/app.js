@@ -125,12 +125,12 @@
   stage.addEventListener('click', (e) => {
     const t = e.target.closest('[data-action], [data-nav], [data-jump], [data-go], [data-intro], #cue');
     if (!t || t.disabled) return;
-    if (t.dataset.intro) intro.classList.add('gone');
+    if (t.dataset.intro) play();
     else if (t === cue) { if (!steps()[index].choices) go(index + 1); }
     else if (t.dataset.action) choose(t.dataset.action);
     else if (t.dataset.nav === 'next') advance();
     else if (t.dataset.nav === 'prev') go(index - 1, -1);
-    else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; go(0, -1); intro.classList.remove('gone'); }
+    else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; index = 0; intro.classList.remove('gone'); }
     else if (t.dataset.jump !== undefined) go(+t.dataset.jump, +t.dataset.jump < index ? -1 : 1);
     else if (t.dataset.go === 'accept') { path = 'accept'; chosen = true; go(S.choiceAt + 1); }
     else if (t.dataset.go === 'decline') { path = 'decline'; chosen = false; go(S.choiceAt, -1); }
@@ -139,7 +139,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (!intro.classList.contains('gone')) {
-      if (['ArrowRight', 'PageDown', 'Enter', ' '].includes(e.key)) { e.preventDefault(); intro.classList.add('gone'); }
+      if (['ArrowRight', 'PageDown', 'Enter', ' '].includes(e.key)) { e.preventDefault(); play(); }
       return;
     }
     if (['ArrowRight', 'PageDown'].includes(e.key)) { e.preventDefault(); advance(); }
@@ -162,7 +162,14 @@
     return true;
   }
   window.addEventListener('hashchange', () => { if (location.hash !== `#${path}-${index + 1}` && fromHash()) render(1); });
-  if (fromHash()) intro.classList.add('gone');
+  // The first scene is drawn when Play is pressed, so it always plays from the start.
+  function play() {
+    intro.classList.add('gone');
+    screen.innerHTML = '';
+    shown = null;
+    go(0);
+  }
+
   fit();
-  render(1);
+  if (fromHash()) { intro.classList.add('gone'); render(1); } else rail();
 })();

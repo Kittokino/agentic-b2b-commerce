@@ -1,5 +1,5 @@
 // One order record, and the story as a series of scenes that change it.
-// Every screen (Kade's audit trail, Nigel's WhatsApp, Priya's Teams, Tom's case) is drawn
+// Every screen (Kade's order activity, Nigel's WhatsApp, Priya's Teams, Tom's case) is drawn
 // from this record; none of them keeps its own copy.
 (() => {
   // Line statuses: one vocabulary, used by every screen.
@@ -23,7 +23,7 @@
         { id: 'wine', name: 'Sauvignon Blanc', qty: '24 bottles', status: 'received' },
       ],
     },
-    trail: [],      // Kade's audit trail: append only
+    trail: [],      // the order's activity in Kade's Sana: append only
     wa: [],         // Nigel's WhatsApp chat with Kade
     assistant: [],  // Priya's chat with her own AI assistant (Teams)
     kade: [],       // Priya's chat with Kade's app (Teams)
@@ -46,19 +46,19 @@
     next: 'Nigel’s phone buzzes',
     apply(s) {
       wa(s, '22:47', 'nigel', 'Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.', { kind: 'voice' });
-      log(s, '22:47', 'system', 'New order request received', { detail: 'Channel: WhatsApp · Type: voice message, 0:14 · From: Nigel, head chef' });
+      log(s, '22:47', 'system', 'New order request received', { detail: 'Type: voice message, 0:14 · From: Nigel, head chef', source: 'WhatsApp', open: 'Play voice note' });
       log(s, '22:47', 'agent', 'Transcribed the voice note', { quote: 'Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.' });
       log(s, '22:47', 'agent', 'Matched to The Olive Tree · Harbour', { detail: 'Nigel’s number is on the Harbour account' });
       s.order.status = 'Draft';
-      log(s, '22:47', 'agent', 'Created draft order KD-24817 with 3 lines');
+      log(s, '22:47', 'agent', 'Created draft order KD-24817 with 3 lines', { change: ['Order', 'None', 'Draft'] });
       set(s, 'cheese', { status: 'confirmed' });
-      log(s, '22:48', 'agent', 'Cheese board: confirmed', { rule: 'In the contract, in stock, within budget' });
+      log(s, '22:48', 'agent', 'Cheese board: confirmed', { change: ['Status', 'Received', 'Confirmed'], rule: 'In the contract, in stock, within budget' });
       set(s, 'salmon', { status: 'stopped', owner: 'priya', note: '€180 over Harbour’s fish budget' });
-      log(s, '22:48', 'agent', 'Salmon: stopped, approval requested from Priya', { detail: '€180 over Harbour’s fish budget', rule: 'Category budget per outlet · set by Maheep', stop: true });
+      log(s, '22:48', 'agent', 'Salmon: stopped, approval requested from Priya', { detail: '€180 over Harbour’s fish budget', change: ['Status', 'Received', 'Needs Priya'], rule: 'Category budget per outlet · v3', stop: true });
       set(s, 'wine', { status: 'suggested', owner: 'nigel', note: 'Not enough in stock · Pinot Grigio suggested' });
-      log(s, '22:48', 'agent', 'Sauvignon Blanc: not enough in stock, Pinot Grigio suggested', { rule: 'Substitutes are suggested; the requester decides' });
+      log(s, '22:48', 'agent', 'Sauvignon Blanc: not enough in stock, Pinot Grigio suggested', { change: ['Status', 'Received', 'Asked Nigel'], rule: 'Substitutes are suggested; the requester decides' });
       s.order.status = 'Awaiting replies';
-      log(s, '22:48', 'agent', 'Message sent to Nigel to confirm the order', { detail: 'WhatsApp · approval request also sent to Priya in Teams' });
+      log(s, '22:48', 'agent', 'Message sent to Nigel to confirm the order', { detail: 'Approval request also sent to Priya in Teams', source: 'WhatsApp', open: 'Open message', change: ['Order', 'Draft', 'Awaiting replies'] });
       s.kade.push({ time: '22:48', kind: 'card' });
     },
   };
@@ -103,7 +103,7 @@
     time: '22:51',
     moment: 'nigel', screen: 'whatsapp', actor: 'nigel',
     title: 'Nigel declines. The agent has nothing else it may offer, so it passes the wine to a person.',
-    next: 'Back to Kade’s audit trail',
+    next: 'Back to Kade’s screen',
     apply(s) {
       wa(s, '22:51', 'nigel', 'Decline', { kind: 'reply' });
       handToTom(s);
@@ -126,10 +126,10 @@
     title: 'Back at Kade, the hand-over is logged, and Tom has a case waiting for the morning.',
     next: 'Thursday morning',
     apply(s) {
-      log(s, '22:51', 'nigel', s.more ? 'Nigel asked for more options' : 'Nigel declined Pinot Grigio', { detail: s.more ? 'No other Sauvignon Blanc in the contract' : 'Needs Sauvignon Blanc for the food pairing' });
-      log(s, '22:51', 'agent', 'Wine: handed over to Tom', { rule: 'Hand over when no allowed option is left' });
-      log(s, '22:51', 'system', 'Case CS-3391 created for Tom', { detail: 'Source 24 × Sauvignon Blanc · queued for 08:00 · full thread attached' });
-      log(s, '22:51', 'agent', 'Told Nigel who has the wine, and when', { detail: 'WhatsApp' });
+      log(s, '22:51', 'nigel', s.more ? 'Nigel asked for more options' : 'Nigel declined Pinot Grigio', { detail: s.more ? 'No other Sauvignon Blanc in the contract' : 'Needs Sauvignon Blanc for the food pairing', source: 'WhatsApp', open: 'Open message' });
+      log(s, '22:51', 'agent', 'Wine: handed over to Tom', { change: ['Status', 'Asked Nigel', 'With Tom'], rule: 'Hand over when no allowed option is left' });
+      log(s, '22:51', 'system', 'Case CS-3391 created for Tom', { detail: 'Source 24 × Sauvignon Blanc · queued for 08:00 · full thread attached', open: 'Open case' });
+      log(s, '22:51', 'agent', 'Told Nigel who has the wine, and when', { source: 'WhatsApp', open: 'Open message' });
     },
   };
 
@@ -198,16 +198,16 @@
   const priyaLogged = {
     time: '07:46',
     moment: 'priya', screen: 'trail',
-    title: 'The audit trail shows who changed what, and why, before Tom starts.',
+    title: 'The order’s activity shows who changed what, and why, before Tom starts.',
     next: 'Tom opens his case',
     apply(s) {
       set(s, 'salmon', { status: 'confirmed', owner: null, note: 'Approved by Priya' });
-      log(s, '07:45', 'priya', 'Priya changed the wine: 10 from Old Town, source 14', { detail: 'Teams · Kade order thread' });
+      log(s, '07:45', 'priya', 'Priya changed the wine: 10 from Old Town, source 14', { change: ['To source', '24', '14'], source: 'Teams, Kade order thread', open: 'Open message' });
       log(s, '07:45', 'agent', 'Applied the change before work started', { rule: 'Changes from the buyer apply before work starts' });
-      log(s, '07:45', 'system', 'Case CS-3391 updated: source 14 × Sauvignon Blanc');
-      log(s, '07:45', 'agent', 'Told Nigel about the change', { detail: 'WhatsApp' });
-      log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'Teams · €180 over budget, approved' });
-      log(s, '07:46', 'agent', 'Salmon: confirmed');
+      log(s, '07:45', 'system', 'Case CS-3391 updated', { change: ['Quantity', '24', '14'], open: 'Open case' });
+      log(s, '07:45', 'agent', 'Told Nigel about the change', { source: 'WhatsApp', open: 'Open message' });
+      log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: '€180 over budget, approved', source: 'Teams', open: 'Open message' });
+      log(s, '07:46', 'agent', 'Salmon: confirmed', { change: ['Status', 'Needs Priya', 'Confirmed'] });
     },
   };
 
@@ -231,7 +231,7 @@
     apply(s) {
       s.caseFile = { ...s.caseFile, status: 'Quote sent' };
       set(s, 'wine', { status: 'quote', owner: 'nigel', note: 'One-off quote · 14 × €11.80' });
-      log(s, '08:05', 'tom', 'Tom sent Nigel a one-off quote: 14 × €11.80', { detail: 'Partner supplier · the contract is unchanged' });
+      log(s, '08:05', 'tom', 'Tom sent Nigel a one-off quote: 14 × €11.80', { detail: 'Partner supplier · the contract is unchanged', change: ['Status', 'With Tom', 'Quote for Nigel'], source: 'WhatsApp', open: 'Open message' });
       wa(s, '08:05', 'agent', 'Tom found 14 bottles of Sauvignon Blanc at a partner supplier: a one-off price of €11.80 a bottle. Your contract stays as it is. Confirm?', {
         buttons: [{ action: 'confirm', label: 'Confirm' }, { action: 'no-thanks', label: 'No, thanks' }],
       });
@@ -249,11 +249,11 @@
       s.caseFile = { ...s.caseFile, status: 'Closed' };
       s.order.status = 'Confirmed';
       s.order.erp = 'Booked · delivery Fri 07:00–09:00';
-      log(s, '08:30', 'nigel', 'Nigel confirmed the quote', { detail: 'WhatsApp' });
-      log(s, '08:30', 'agent', 'Sauvignon Blanc: confirmed');
-      log(s, '08:31', 'agent', 'All lines confirmed by their owners: order confirmed', { rule: 'Confirm only when every line is decided' });
-      log(s, '08:31', 'system', 'Sent to Kade’s ERP: delivery Friday, 07:00–09:00');
-      log(s, '08:31', 'agent', 'Confirmation sent to Nigel and Priya', { detail: 'WhatsApp and Teams' });
+      log(s, '08:30', 'nigel', 'Nigel confirmed the quote', { source: 'WhatsApp', open: 'Open message' });
+      log(s, '08:30', 'agent', 'Sauvignon Blanc: confirmed', { change: ['Status', 'Quote for Nigel', 'Confirmed'] });
+      log(s, '08:31', 'agent', 'All lines confirmed by their owners: order confirmed', { change: ['Order', 'Awaiting replies', 'Confirmed'], rule: 'Confirm only when every line is decided' });
+      log(s, '08:31', 'system', 'Sent to Kade’s ERP: delivery Friday, 07:00–09:00', { change: ['ERP', 'Not sent', 'Booked'] });
+      log(s, '08:31', 'agent', 'Confirmation sent to Nigel and Priya', { source: 'WhatsApp and Teams' });
       wa(s, '08:31', 'agent', 'Order KD-24817 is confirmed. Delivery Friday, 07:00–09:00.', { kind: 'done' });
     },
   };
@@ -275,7 +275,7 @@
     time: '22:50',
     moment: 'nigel', screen: 'whatsapp', actor: 'nigel',
     title: 'Nigel accepts the Pinot Grigio. No one at Kade needs to step in.',
-    next: 'Back to Kade’s audit trail',
+    next: 'Back to Kade’s screen',
     apply(s) {
       wa(s, '22:50', 'nigel', 'Accept Pinot Grigio', { kind: 'reply' });
       set(s, 'wine', { name: 'Pinot Grigio', status: 'confirmed', owner: null, note: 'Swap accepted by Nigel' });
@@ -289,8 +289,8 @@
     title: 'The swap is logged. The order now waits only for Priya’s approval of the salmon.',
     next: 'Wrap up',
     apply(s) {
-      log(s, '22:50', 'nigel', 'Nigel accepted Pinot Grigio', { detail: 'WhatsApp' });
-      log(s, '22:50', 'agent', 'Wine: confirmed as Pinot Grigio, 24 bottles', { rule: 'Substitutes are suggested; the requester decides' });
+      log(s, '22:50', 'nigel', 'Nigel accepted Pinot Grigio', { source: 'WhatsApp', open: 'Open message' });
+      log(s, '22:50', 'agent', 'Wine: confirmed as Pinot Grigio, 24 bottles', { change: ['Status', 'Asked Nigel', 'Confirmed'], rule: 'Substitutes are suggested; the requester decides' });
       log(s, '22:50', 'agent', 'Waiting for Priya to approve the salmon', { detail: 'Approval request in Teams since 22:48' });
     },
   };
