@@ -3,12 +3,12 @@
 > Status: draft for discussion. Continues as UC2 (salmon stock-out) on the same order.
 
 ## 1. Story
-- **Wednesday 22:47.** Chef Nigel (head chef, Harbour) closes the kitchen and sends Kade a WhatsApp voice note: *"Private dinner Saturday, 120 covers. The usual event set, plus about 18 kilos of salmon for the main."*
+- **Wednesday 22:47.** Chef Nigel (head chef, Harbour Front) closes the kitchen and sends Kade a WhatsApp voice note: *"Private dinner Saturday, 120 covers. The usual event set, plus about 18 kilos of salmon for the main."*
 - **The agent:**
-  - recognises Nigel and Harbour
+  - recognises Nigel and Harbour Front
   - turns the voice note into order lines
-  - checks them against Harbour's product list and contract prices
-  - finds the order (~€2,200) is **over the €1,500 limit Priya set for Harbour orders**.
+  - checks them against Harbour Front's product list and contract prices
+  - finds the order (~€2,200) is **over the €1,500 limit Priya set for Harbour Front orders**.
 - **The agent replies to Nigel on WhatsApp.** It reads the order back and explains that it has sent the order to Priya for approval.
 - **Thursday 07:30.** Priya sees a "Needs your decision" card in the Kade portal: the voice note, its transcript, the lines, and the rule that applied, with three buttons: **Approve / Adjust / Ask Nigel**. She approves.
 - **Nigel gets a WhatsApp confirmation:** *"Approved by Priya ✅"*
@@ -54,8 +54,8 @@
 
 ## 6. What this means for the design
 - **Always read the order back** as structured lines, and ask only about the items the agent isn't sure of.
-- **Show who the agent thinks you are** ("Nigel · Harbour") so mistakes are easy to spot.
-- **Label the limit honestly:** "Priya's limit for Harbour orders", not "your budget".
+- **Show who the agent thinks you are** ("Nigel · Harbour Front") so mistakes are easy to spot.
+- **Label the limit honestly:** "Priya's limit for Harbour Front orders", not "your budget".
 - **Show estimated totals** for items sold by weight.
 - **Priya's decision card** shows the original request (voice and transcript), the amount, the rule that applied and a deadline, all in one view, with at most 3 actions so it fits WhatsApp too.
 - **A rule for when nobody answers:** if Priya hasn't decided in time, the agent tells Nigel and escalates. The exact behaviour depends on what research shows.

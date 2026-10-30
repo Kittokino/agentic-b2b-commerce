@@ -8,7 +8,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 ## Places
 | Place | What it is |
 |---|---|
-| **The Olive Tree** | A restaurant chain in Rotterdam: a head office (Priya) and 3 outlets: **Harbour** (Nigel's kitchen), **Old Town** (spares 10 bottles of wine), Riverside |
+| **The Olive Tree** | A restaurant chain in Rotterdam: a head office (Priya) and 3 outlets: **Harbour Front** (Nigel's kitchen), **Old Town** (spares 10 bottles of wine), Riverside |
 | **Kade Foodservice** ("Kade" = quay in Dutch) | A food & beverage wholesaler running on Sana: the agent, Tom's service desk, Maheep's admin |
 | **Sana** | The platform under Kade; it serves many wholesalers in many industries |
 
@@ -16,7 +16,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 | Actor | Side | Channel in this story |
 |---|---|---|
 | **Priya**, central buyer | The Olive Tree | **Teams** (approvals, updates) + Kade **webshop** (full order) |
-| **Chef Nigel**, head chef, Harbour | The Olive Tree | **WhatsApp** (voice note, replies) |
+| **Chef Nigel**, head chef, Harbour Front | The Olive Tree | **WhatsApp** (voice note, replies) |
 | **Kade agent** | Kade | Reads WhatsApp, posts to Teams |
 | **Tom**, service rep | Kade | Service desk on his desktop |
 | **Maheep**, commerce admin | Kade | Sana admin (sets the rules) |
@@ -25,7 +25,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 
 ## Rules (set at Kade, limits from Priya)
 0. **The contract comes first:** the agent only works with the products and prices agreed in each buyer's contract. It never steps outside it.
-1. **Category budgets per outlet:** a line that takes Harbour over its budget for that category (e.g. fish) needs **Priya's** approval.
+1. **Category budgets per outlet:** a line that takes Harbour Front over its budget for that category (e.g. fish) needs **Priya's** approval.
 2. **Substitutions:** the agent may *suggest* an in-stock alternative within budget; the **requester (Nigel)** accepts or declines.
 3. **Hand-over:** when the agent has nothing left it's allowed to offer (e.g. sourcing from a partner supplier), it hands over to **Tom** with full context.
 
@@ -33,7 +33,7 @@ Nigel orders three things in one voice note. **Cheese just happens, the salmon g
 1. **Wed 22:47 · WhatsApp.** Nigel sends a voice note: *"Private dinner Saturday, 120 covers. 18 kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc."*
 2. **The agent reads it back to Nigel**, line by line:
    - **Cheese:** within budget → **confirmed.**
-   - **Salmon:** takes Harbour's fish budget over → **sent to Priya.** The agent doesn't change it.
+   - **Salmon:** takes Harbour Front's fish budget over → **sent to Priya.** The agent doesn't change it.
    - **Sauvignon Blanc:** low stock → **suggests Pinot Grigio** (in stock, within budget) → *Accept / Decline.*
 3. **Priya gets one card in Teams** showing all three lines and their status. The salmon *needs her*; the others are for information. She can open the full order in the **webshop**.
 4. **Nigel declines the Pinot Grigio** (he needs a Sauvignon Blanc for the pairing). The agent has nothing else it's allowed to offer → **hands over to Tom.**

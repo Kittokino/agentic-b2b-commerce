@@ -4,9 +4,16 @@
   const esc = (t) => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const icon = (id) => `<svg class="ico"><use href="#i-${id}"/></svg>`;
 
-  const PEOPLE = { nigel: 'Nigel', priya: 'Priya', tom: 'Tom', agent: 'Kade agent', system: 'Sana' };
-  const ROLES = { nigel: 'Head chef, Harbour', priya: 'Buyer, The Olive Tree', tom: 'Service rep, Kade' };
-  const CHANNEL = { nigel: 'WhatsApp', priya: 'Teams', tom: 'Kade on Sana' };
+  const PEOPLE = { nigel: 'Nigel', priya: 'Priya', tom: 'Tom', agent: 'Order agent', system: 'Sana' };
+
+  // Whose screen we are looking at, for the left column.
+  const VIEWPOINT = {
+    trail: [null, 'Kade’s order screen in Sana, as Tom or a colleague sees it'],
+    desk: ['tom', 'Tom’s case, in Kade’s Sana'],
+    lock: ['nigel', 'Nigel’s phone'],
+    whatsapp: ['nigel', 'Nigel’s phone · WhatsApp'],
+    teams: ['priya', 'Priya’s laptop · Teams'],
+  };
 
   // ---------- Components ----------
   const avatar = (who, size = 'xs') =>
@@ -20,10 +27,10 @@
     const map = {
       received: ['plain', 'Received'],
       confirmed: ['done', 'Confirmed'],
-      stopped: ['wait', mine ? 'Needs you' : `Needs ${PEOPLE[line.owner]}`],
-      suggested: ['suggest', mine ? 'Your call' : `Asked ${PEOPLE[line.owner]}`],
+      stopped: ['wait', mine ? 'Needs you' : `Waiting on ${PEOPLE[line.owner]}`],
+      suggested: ['suggest', mine ? 'Your call' : `Waiting on ${PEOPLE[line.owner]}`],
       handed: ['handed', 'With Tom'],
-      quote: ['suggest', mine ? 'Your call' : `Quote for ${PEOPLE[line.owner]}`],
+      quote: ['suggest', mine ? 'Your call' : `Quote with ${PEOPLE[line.owner]}`],
     };
     const [cls, label] = map[line.status];
     return `<span class="status ${cls}">${line.status === 'confirmed' ? icon('check') : ''}${esc(label)}</span>`;
@@ -45,20 +52,25 @@
       <nav>${['Orders', 'Cases', 'Customers', 'Agent rules'].map(n => `<span class="${n === on ? 'on' : ''}">${n}</span>`).join('')}</nav>
     </header>`;
 
-  const ACTOR = { agent: 'AI agent', system: 'System', nigel: 'Nigel · Head chef', priya: 'Priya · Buyer', tom: 'Tom · Service rep' };
+  const ACTOR = { agent: 'AI · Order agent · v2.3', system: 'System', nigel: 'Nigel · Head chef', priya: 'Priya · Buyer', tom: 'Tom · Service rep' };
 
+  // Only what needs a person: it stays this size whether an order has 3 lines or 40.
   function summary(s) {
     const o = s.order;
     const c = s.caseFile;
+    const open = o.lines.filter(l => !['confirmed', 'received'].includes(l.status));
+    const done = o.lines.filter(l => l.status === 'confirmed').length;
     return `
       <aside class="summary">
-        <h3>Lines</h3>
-        <ul class="sum-lines">${o.lines.map(l => `
+        <p class="tally">${o.lines.length} lines · ${done} confirmed · ${open.length} with a person</p>
+        <h3>Needs a person</h3>
+        ${open.length ? `<ul class="sum-lines">${open.map(l => `
           <li class="${l.status === 'stopped' ? 'is-stop' : ''}">
-            <div><b>${esc(l.name)}</b><span>${esc(l.qty)}</span></div>
+            <b>${esc(l.name)}</b>
             ${statusChip(l, 'kade')}
+            ${l.note ? `<span>${esc(l.note)}</span>` : ''}
           </li>`).join('')}
-        </ul>
+        </ul>` : '<p class="none">Nothing. Every line has its answer.</p>'}
         <dl class="sum-facts">
           <div><dt>ERP</dt><dd>${esc(o.erp)}</dd></div>
           ${c ? `<div><dt>Case</dt><dd>${avatar('tom')}${esc(c.id)} · ${esc(c.status)}</dd></div>` : ''}
@@ -96,17 +108,17 @@
         <div class="order-head">
           <div class="crumb">Orders <span>/</span> ${esc(o.id)}</div>
           <div class="order-title">
-            <h1>${esc(o.customer)}</h1>
+            <h1>Order ${esc(o.id)}</h1>
             <span class="status ${cls}">${o.status === 'Confirmed' ? icon('check') : ''}${esc(o.status)}</span>
-            <span class="muted">${esc(o.purpose)}</span>
           </div>
+          <p class="order-meta">${esc(o.customer)} · ${esc(o.purpose)}</p>
           <nav class="tabs">${['Overview', 'Lines', 'Conversation', 'Activity'].map(t => `<span class="${t === 'Activity' ? 'on' : ''}">${t}</span>`).join('')}</nav>
         </div>
         <div class="trail-page">
           <section class="trail-main">
             <div class="filters">
-              ${['All', 'AI agent', 'People', 'System'].map((f, i) => `<span class="${i ? '' : 'on'}">${f}</span>`).join('')}
-              <span class="ro">${icon('lock')}Read-only: entries can’t be edited</span>
+              ${['All', 'AI agents', 'People', 'System'].map((f, i) => `<span class="${i ? '' : 'on'}">${f}</span>`).join('')}
+              <span class="ro" title="Entries in this log can’t be edited or deleted.">${icon('lock')}Read-only</span>
             </div>
             <ol class="trail">${rows}</ol>
           </section>
@@ -166,7 +178,7 @@
     }).join('');
     return `
       <div class="phone">
-        <div class="phone-top">${icon('back')}${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>Business account</span></div></div>
+        <div class="phone-top">${icon('back')}${avatar('agent', 'sm')}<div><b>Kade Foodservice</b><span>Order agent (AI)</span></div></div>
         <div class="chat">${msgs}</div>
         <div class="phone-bar"><span>Message</span>${icon('mic')}</div>
       </div>`;
@@ -176,7 +188,7 @@
   function orderCard(s, ctx) {
     return `
       <div class="tcard">
-        <div class="tcard-head">${avatar('agent', 'sm')}<div><b>Harbour · Saturday dinner</b><span>${esc(s.order.id)} · ${esc(s.order.status)}</span></div></div>
+        <div class="tcard-head">${avatar('agent', 'sm')}<div><b>Harbour Front · Saturday dinner</b><span>${esc(s.order.id)} · ${esc(s.order.status)}</span></div></div>
         ${s.order.lines.map(l => `
           <div class="o-line">
             <div class="o-main"><b>${esc(l.name)}</b><span>${esc(l.qty)}</span>${l.note ? `<em>${esc(l.note)}</em>` : ''}</div>
@@ -196,11 +208,11 @@
 
     const chatKade = s.kade.map((m, i) => {
       const body = m.kind === 'card' ? orderCard(s, ctx) : `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
-      return `<li${enter(i, ctx.fresh.kade)}>${m.who === 'priya' ? '' : avatar('agent')}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Kade Foodservice'} · ${esc(m.time)}</span>${body}</div></li>`;
+      return `<li${enter(i, ctx.fresh.kade)}>${m.who === 'priya' ? '' : avatar('agent')}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Kade · Order agent (AI)'} · ${esc(m.time)}</span>${body}</div></li>`;
     }).join('');
 
     const onAssistant = scene.chat === 'assistant';
-    const last = (list) => { const m = list[list.length - 1]; return m ? (m.kind === 'card' && !m.text ? 'Harbour · Saturday dinner' : m.text) : ''; };
+    const last = (list) => { const m = list[list.length - 1]; return m ? (m.kind === 'card' && !m.text ? 'Harbour Front · Saturday dinner' : m.text) : ''; };
     return `
       <div class="teams">
         <div class="teams-top"><span class="dot"></span><b>Teams</b><span class="search">Search</span></div>
@@ -246,28 +258,9 @@
       </div>`;
   }
 
-  // A person's screen sits beside who they are and what is happening.
-  function personScene(s, scene, ctx, device) {
-    const who = scene.actor;
-    return `
-      <div class="person-scene dev-${scene.screen}">
-        <div class="device">${device}</div>
-        <div class="about">
-          <div class="who">${avatar(who, 'md')}<div><b>${PEOPLE[who]}</b><span>${esc(ROLES[who])} · ${esc(CHANNEL[who])}</span></div></div>
-          <p class="time">${esc(ctx.time)}</p>
-          <h2>${esc(scene.title)}</h2>
-          ${scene.prompt ? `<p class="prompt">${icon('tap')}${esc(scene.prompt)}</p>` : ''}
-        </div>
-      </div>`;
-  }
-
-  function wide(s, scene, ctx, body) {
-    return `
-      <div class="wide-scene">
-        <div class="caption"><span class="time">${esc(ctx.time)}</span><h2>${esc(scene.title)}</h2></div>
-        ${body}
-      </div>`;
-  }
+  // A person's screen, centred; who it belongs to is said in the left column.
+  const personScene = (s, scene, ctx, device) => `<div class="person-scene dev-${scene.screen}">${device}</div>`;
+  const wide = (s, scene, ctx, body) => `<div class="wide-scene">${body}</div>`;
 
   const SCREENS = {
     trail: (s, sc, ctx) => wide(s, sc, ctx, trail(s, sc, ctx)),
@@ -279,5 +272,5 @@
     end,
   };
 
-  window.VIEWS = { SCREENS, avatar, esc, icon, PEOPLE };
+  window.VIEWS = { SCREENS, VIEWPOINT, avatar, esc, icon, PEOPLE };
 })();

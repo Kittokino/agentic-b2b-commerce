@@ -10,7 +10,7 @@ ul, ol { padding: 0; list-style: none; }
 .kicker { font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
 
 /* A fixed 1440x810 stage, centred and scaled to the window by app.js. */
-.stage { position: absolute; left: 50%; top: 50%; width: 1440px; height: 810px; transform-origin: center center; background: var(--bg); display: grid; grid-template-columns: 248px 1fr; overflow: hidden; }
+.stage { position: absolute; left: 50%; top: 50%; width: 1440px; height: 810px; transform-origin: center center; background: var(--bg); display: grid; grid-template-columns: 300px 1fr; grid-template-rows: 1fr 64px; overflow: hidden; }
 
 .btn { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--ink); color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; white-space: nowrap; }
 .btn.ghost { background: transparent; color: var(--ink); }
@@ -45,33 +45,31 @@ ul, ol { padding: 0; list-style: none; }
 .intro-text .play { margin-top: 28px; height: 52px; padding: 0 28px 0 22px; font-size: 17px; }
 .play .ico { fill: currentColor; stroke: none; }
 
-/* ---------- Left rail: the moments of the story ---------- */
-.rail { display: flex; flex-direction: column; min-height: 0; background: #ebeae7; padding: 28px 20px 20px; border-right: 1px solid var(--line); }
+/* ---------- Left column: whose screen, what led here, what happens now ---------- */
+.rail { display: flex; flex-direction: column; min-height: 0; background: #dedcd8; padding: 28px 24px 20px; border-right: 1px solid #d0cdc7; }
 .rail-head h2 { margin-top: 6px; font-family: var(--font-display); font-weight: 500; font-size: 21px; letter-spacing: -.01em; }
 .rail-head .path { margin-top: 4px; font-size: 14px; color: var(--ink-2); }
-.moments { margin-top: 26px; flex: 1; min-height: 0; overflow-y: auto; }
-.moments li { position: relative; display: grid; grid-template-columns: 70px 28px 1fr; gap: 10px; align-items: center; padding: 10px 0; cursor: pointer; }
-.moments li::before { content: ""; position: absolute; left: 94px; top: 0; bottom: 0; width: 1px; background: rgba(21, 15, 51, .2); }
-.moments li:first-child::before { top: 50%; }
-.moments li:last-child::before { bottom: 50%; }
-.moments .face { position: relative; border-color: rgba(21, 15, 51, .15); }
-.moments .time { font-size: 13px; font-weight: 600; color: var(--ink-2); text-align: right; white-space: nowrap; }
-.moments b { font-size: 15px; font-weight: 500; line-height: 1.3; }
-.moments li.done { opacity: .55; }
-.moments li.next { opacity: .3; }
-.moments li.now b { font-weight: 700; }
-.moments li.now::after { content: ""; position: absolute; left: -20px; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: var(--ink); }
-.moments li:hover:not(.now):not(.pending) { opacity: .9; }
-.moments li.pending { cursor: default; opacity: .55; }
-.moments li.pending b { font-weight: 400; font-style: italic; }
-.moments .gap { position: relative; width: 28px; height: 28px; border-radius: 50%; border: 1px dashed rgba(21, 15, 51, .45); background: #ebeae7; }
-.rail-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid rgba(21, 15, 51, .14); }
+.rail .kicker { color: #6f6b7d; }
+.rail-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 26px; margin-top: 30px; }
+.view { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, .55); }
+.view b { display: block; margin-top: 2px; font-size: 15px; font-weight: 600; line-height: 1.35; }
+.view .mark { flex: none; width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; background: var(--ink); color: #fff; font-size: 16px; font-weight: 700; }
+.so-far p { margin-top: 6px; font-size: 16px; line-height: 1.5; color: var(--ink-2); }
+.now h2 { margin-top: 6px; font-family: var(--font-display); font-weight: 500; font-size: 23px; line-height: 1.28; letter-spacing: -.01em; }
+
+/* ---------- Footer: the controls, across the bottom ---------- */
+.footbar { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 24px; background: var(--surface); border-top: 1px solid var(--line); }
+.footbar .cue { justify-self: end; }
+.cue[hidden] { display: none; }
+.cue.btn { height: 44px; padding: 0 16px 0 20px; }
+.cue.hint { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; padding: 0; font-size: 16px; font-weight: 600; color: var(--ink-2); cursor: default; }
+.cue .ico { font-size: 18px; }
 .link { background: none; border: 0; padding: 0; font-size: 14px; color: var(--ink-2); cursor: pointer; }
 .link:hover { color: var(--ink); }
 .nav { display: flex; align-items: center; gap: 6px; }
-.nav button { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(21, 15, 51, .25); background: rgba(255, 255, 255, .5); cursor: pointer; font-size: 16px; }
+.nav button { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 16px; }
 .nav button:disabled { opacity: .3; cursor: default; }
-.counter { min-width: 46px; text-align: center; font-size: 13.5px; color: var(--ink-2); }
+.counter { min-width: 120px; text-align: center; font-size: 13.5px; color: var(--ink-2); }
 
 /* ---------- Screen: one actor at a time, swiping ---------- */
 .screen { position: relative; min-width: 0; overflow: hidden; }
@@ -81,22 +79,13 @@ ul, ol { padding: 0; list-style: none; }
 .scene.to-left, .scene.to-right { opacity: .4; }
 
 /* A person's screen, beside who they are and what is happening. */
-.person-scene { height: 100%; display: grid; grid-template-columns: 520px 1fr; gap: 56px; align-items: center; padding: 30px 64px 92px 48px; }
-.person-scene.dev-teams { grid-template-columns: 760px 1fr; gap: 44px; padding-right: 48px; }
-.device { height: 100%; display: flex; align-items: center; justify-content: center; min-height: 0; }
-.about .who { display: flex; align-items: center; gap: 14px; }
-.about .who b { display: block; font-size: 21px; }
-.about .who span { font-size: 15px; color: var(--ink-2); }
-.about .time { margin-top: 36px; font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
-.about h2 { margin-top: 8px; font-family: var(--font-display); font-weight: 500; font-size: 30px; line-height: 1.25; letter-spacing: -.012em; }
-.prompt { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; padding: 10px 18px 10px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 16px; font-weight: 600; }
-.prompt .ico { font-size: 20px; }
+
+/* A person's screen, centred. */
+.person-scene { height: 100%; display: flex; align-items: center; justify-content: center; padding: 26px 40px; }
+.person-scene.dev-teams { padding: 40px 56px; }
 
 /* Kade's screens: a framed screen we watch. */
-.wide-scene { height: 100%; display: flex; flex-direction: column; gap: 16px; padding: 26px 40px 90px; }
-.caption { display: flex; align-items: baseline; gap: 16px; }
-.caption .time { flex: none; font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
-.caption h2 { font-family: var(--font-display); font-weight: 500; font-size: 24px; letter-spacing: -.01em; }
+.wide-scene { height: 100%; display: flex; flex-direction: column; padding: 24px 32px; }
 .frame { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: var(--bg);
   box-shadow: 0 0 0 1px #c8c3bb, 0 30px 60px -16px rgba(21, 15, 51, .26), 0 6px 18px rgba(21, 15, 51, .07); }
 
@@ -112,7 +101,7 @@ ul, ol { padding: 0; list-style: none; }
 .order-head { flex: none; padding: 14px 24px 0; background: var(--surface); border-bottom: 1px solid var(--line); }
 .order-title { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
 .order-title h1 { font-family: var(--font-display); font-weight: 500; font-size: 24px; letter-spacing: -.012em; }
-.order-title .muted { font-size: 15px; }
+.order-meta { margin-top: 2px; font-size: 15px; color: var(--ink-2); }
 .tabs { display: flex; gap: 26px; margin-top: 10px; font-size: 15px; color: var(--ink-3); }
 .tabs span { padding: 8px 0 10px; }
 .tabs .on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--ink); }
@@ -128,7 +117,7 @@ ul, ol { padding: 0; list-style: none; }
 .src { margin-top: 2px; font-size: 14px; color: var(--ink-3); }
 .src u { color: var(--ink-2); text-underline-offset: 3px; }
 /* A thin, quiet scrollbar: Windows draws wide ones by default. */
-.trail-main, .chat, .tlist, .case-main, .moments { scrollbar-width: thin; scrollbar-color: rgba(21, 15, 51, .2) transparent; }
+.trail-main, .chat, .tlist, .case-main, .rail-body { scrollbar-width: thin; scrollbar-color: rgba(21, 15, 51, .2) transparent; }
 .crumb { font-size: 14px; color: var(--ink-3); }
 .crumb span { margin: 0 4px; }
 
@@ -149,12 +138,15 @@ ul, ol { padding: 0; list-style: none; }
 
 .summary { align-self: start; margin-bottom: 18px; padding: 18px 20px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
 .sum-head { display: flex; align-items: center; justify-content: space-between; font-size: 14px; }
-.summary h3 { font-size: 16px; font-weight: 600; }
+.summary h3 { margin-top: 14px; font-size: 16px; font-weight: 600; }
+.tally { font-size: 14.5px; color: var(--ink-2); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.none { margin: 8px 0 12px; font-size: 15px; color: var(--ink-2); }
 .summary > .muted { font-size: 15px; margin-top: 2px; }
-.sum-lines { margin-top: 12px; }
-.sum-lines li { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 11px 0; border-top: 1px solid var(--line); }
+.sum-lines { margin-top: 4px; }
+.sum-lines li { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 11px 0; border-top: 1px solid var(--line); }
+.sum-lines li:first-child { border-top: 0; }
 .sum-lines li.is-stop::before { content: ""; position: absolute; left: -20px; top: 10px; bottom: 10px; width: 3px; border-radius: 0 3px 3px 0; background: var(--red); }
-.sum-lines b { display: block; font-size: 15.5px; font-weight: 600; }
+.sum-lines b { font-size: 15.5px; font-weight: 600; }
 .sum-lines span:not(.status) { font-size: 14px; color: var(--ink-2); }
 .sum-facts { padding-top: 10px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 .sum-facts div { display: flex; justify-content: space-between; gap: 10px; font-size: 14.5px; }
@@ -220,7 +212,7 @@ ul, ol { padding: 0; list-style: none; }
 @keyframes ringlight { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, .55); } 100% { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0); } }
 
 /* ---------- Priya's laptop (a Teams-style window, not Microsoft's own design) ---------- */
-.teams { width: 100%; height: 100%; max-height: 620px; display: flex; flex-direction: column; overflow: hidden; border-radius: 12px; background: var(--surface);
+.teams { width: 100%; max-width: 980px; height: 100%; max-height: 640px; display: flex; flex-direction: column; overflow: hidden; border-radius: 12px; background: var(--surface);
   box-shadow: 0 0 0 1px #c8c3bb, 0 34px 60px -22px rgba(21, 15, 51, .35); }
 .teams-top { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px; background: #ebe9f3; font-size: 14px; }
 .teams-top .dot { width: 12px; height: 12px; border-radius: 3px; background: #6a63b5; }
@@ -276,11 +268,4 @@ ul, ol { padding: 0; list-style: none; }
 .outcomes p { margin-top: 6px; font-size: 16px; line-height: 1.45; color: var(--ink-2); }
 .end-btns { display: flex; gap: 12px; margin-top: 40px; }
 
-/* ---------- The cue: a translucent pill, bottom right ---------- */
-.cue { position: absolute; right: 28px; bottom: 24px; z-index: 6; display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 18px 0 22px; border-radius: 999px;
-  border: 1px solid rgba(21, 15, 51, .14); background: rgba(255, 255, 255, .7); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  box-shadow: 0 8px 28px rgba(21, 15, 51, .14); font-size: 16px; font-weight: 600; color: var(--ink); cursor: pointer; }
-.cue:hover { background: rgba(255, 255, 255, .92); }
-.cue[hidden] { display: none; }
-.cue .ico { font-size: 18px; }
-.cue.hint { padding: 0 22px 0 16px; cursor: default; color: var(--ink-2); font-weight: 500; background: rgba(255, 255, 255, .45); box-shadow: none; }
+.footbar .link { justify-self: start; }

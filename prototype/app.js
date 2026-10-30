@@ -22,20 +22,20 @@
     return s;
   }
 
-  // ---------- Left rail: the moments of the story ----------
+  // ---------- Left column: whose screen this is, what led here, what happens now ----------
   function rail() {
     const list = steps();
-    const known = chosen || index > S.choiceAt ? list : list.slice(0, S.choiceAt + 1);
-    const moments = [];
-    known.forEach((sc, i) => { if (!moments.length || moments[moments.length - 1].key !== sc.moment) moments.push({ key: sc.moment, first: i }); });
-    const nowAt = moments.findIndex(m => m.key === list[index].moment);
-    el('#moments').innerHTML = moments.map((m, i) => {
-      const [time, label, actor] = S.moments[m.key];
-      const state = i < nowAt ? 'done' : i === nowAt ? 'now' : 'next';
-      return `<li class="${state}" data-jump="${m.first}"><span class="time">${time}</span>${V.avatar(actor)}<b>${label}</b></li>`;
-    }).join('') + (known.length < list.length ? '<li class="pending"><span class="time"></span><span class="gap"></span><b>The rest depends on Nigel’s reply</b></li>' : '');
+    const sc = list[index];
+    const s = stateAt(index);
+    const view = V.VIEWPOINT[sc.screen];
+    const face = view && (view[0] ? V.avatar(view[0], 'sm') : '<span class="mark">K</span>');
+    const card = ['break', 'end'].includes(sc.screen);
+    el('#rail-body').innerHTML = `
+      ${view ? `<div class="view">${face}<div><span class="kicker">You’re looking at</span><b>${V.esc(view[1])}</b></div></div>` : ''}
+      <div class="so-far"><span class="kicker">So far</span><p>${V.esc(sc.story)}</p></div>
+      ${card ? '' : `<div class="now"><span class="kicker">Now · ${V.esc(`${s.day} ${sc.time}`)}</span><h2>${V.esc(sc.title)}</h2></div>`}`;
     el('.path').textContent = chosen || index > S.choiceAt ? S.labels[path] : 'Wednesday night, after service';
-    el('.counter').textContent = `${index + 1} / ${list.length}`;
+    el('.counter').textContent = `Scene ${index + 1} of ${list.length}`;
     el('[data-nav="prev"]').disabled = index === 0;
     el('[data-nav="next"]').disabled = index === list.length - 1;
   }
@@ -95,10 +95,10 @@
     });
   }
 
-  // The pill, bottom right: the way on when nothing needs choosing, a hint when something does.
+  // Footer, right: the way on when nothing needs choosing, a hint when something does.
   function renderCue(sc) {
     cue.hidden = sc.screen === 'end';
-    cue.classList.toggle('hint', !!sc.choices);
+    cue.className = sc.choices ? 'cue hint' : 'cue btn';
     cue.innerHTML = sc.choices
       ? `<svg class="ico"><use href="#i-tap"/></svg><span>${V.esc(sc.prompt)}</span>`
       : `<span>${V.esc(sc.next || 'Continue')}</span><svg class="ico"><use href="#i-right"/></svg>`;
@@ -123,7 +123,7 @@
 
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-action], [data-nav], [data-jump], [data-go], [data-intro], #cue');
+    const t = e.target.closest('[data-action], [data-nav], [data-go], [data-intro], #cue');
     if (!t || t.disabled) return;
     if (t.dataset.intro) play();
     else if (t === cue) { if (!steps()[index].choices) go(index + 1); }
@@ -131,7 +131,6 @@
     else if (t.dataset.nav === 'next') advance();
     else if (t.dataset.nav === 'prev') go(index - 1, -1);
     else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; index = 0; intro.classList.remove('gone'); }
-    else if (t.dataset.jump !== undefined) go(+t.dataset.jump, +t.dataset.jump < index ? -1 : 1);
     else if (t.dataset.go === 'accept') { path = 'accept'; chosen = true; go(S.choiceAt + 1); }
     else if (t.dataset.go === 'decline') { path = 'decline'; chosen = false; go(S.choiceAt, -1); }
   });

@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=1">
-  <link rel="stylesheet" href="../shared/components.css?v=2">
-  <link rel="stylesheet" href="prototype.css?v=9">
+  <link rel="stylesheet" href="../shared/components.css?v=3">
+  <link rel="stylesheet" href="prototype.css?v=11">
 </head>
 <body>
 
@@ -35,7 +35,7 @@
   <section class="intro" id="intro">
     <img class="opening" src="../assets/places/nigel-closedown.jpg?v=1" alt="Nigel, the head chef, checking his phone in the empty kitchen after service.">
     <div class="intro-text">
-      <span class="kicker">Wednesday, 22:47 · Harbour</span>
+      <span class="kicker">Wednesday, 22:47 · Harbour Front</span>
       <p class="when">After service, Nigel sends Kade a voice note on WhatsApp.</p>
       <blockquote>“Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.”</blockquote>
       <h2>Let’s experience how Sana for Kade handles this request.</h2>
@@ -43,33 +43,33 @@
     </div>
   </section>
 
-  <!-- Left: the moments of the story. -->
+  <!-- Left: whose screen this is, what led here, and what happens now. -->
   <aside class="rail">
     <div class="rail-head">
       <span class="kicker">Prototype</span>
       <h2>One order, every channel</h2>
       <p class="path"></p>
     </div>
-    <ol class="moments" id="moments"></ol>
-    <div class="rail-foot">
-      <button data-nav="restart" class="link">Start again</button>
-      <div class="nav">
-        <button data-nav="prev" aria-label="Previous"><svg class="ico"><use href="#i-left"/></svg></button>
-        <span class="counter"></span>
-        <button data-nav="next" aria-label="Next"><svg class="ico"><use href="#i-right"/></svg></button>
-      </div>
-    </div>
+    <div class="rail-body" id="rail-body"></div>
   </aside>
 
   <!-- Right: one actor's screen at a time; a new actor swipes in. -->
   <section class="screen" id="screen"></section>
 
-  <!-- The way on, bottom right. -->
-  <button class="cue" id="cue" hidden></button>
+  <!-- Controls, across the bottom. -->
+  <footer class="footbar">
+    <button data-nav="restart" class="link">Start again</button>
+    <div class="nav">
+      <button data-nav="prev" aria-label="Previous"><svg class="ico"><use href="#i-left"/></svg></button>
+      <span class="counter"></span>
+      <button data-nav="next" aria-label="Next"><svg class="ico"><use href="#i-right"/></svg></button>
+    </div>
+    <button class="cue" id="cue" hidden></button>
+  </footer>
 </main>
 
-<script src="order.js?v=7"></script>
-<script src="render.js?v=5"></script>
-<script src="app.js?v=9"></script>
+<script src="order.js?v=8"></script>
+<script src="render.js?v=6"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>
