@@ -114,7 +114,7 @@
     followers.forEach(clearTimeout);
     followers = [];
     root.querySelectorAll('.trail-scroll, .chat, .tlist').forEach(list => {
-      const fresh = [...list.querySelectorAll('.new')];
+      const fresh = [...list.querySelectorAll('.new, .typing')];
       if (!fresh.length) { list.scrollTop = list.scrollHeight; return; }
       list.scrollTop = Math.max(0, fresh[0].offsetTop - list.offsetTop - 60);
       fresh.forEach(item => {

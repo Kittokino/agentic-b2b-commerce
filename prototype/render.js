@@ -175,13 +175,24 @@
   }
 
   function whatsapp(s, scene, ctx) {
+    // New messages come in one after another. When the agent answers Nigel, it shows that it is
+    // typing for a second before its reply appears.
+    let delay = 0;
     const msgs = s.wa.map((m, i) => {
       const out = m.who === 'nigel';
+      const isNew = i >= ctx.fresh.wa;
+      let typing = '';
+      if (isNew && m.who === 'agent' && s.wa[i - 1] && s.wa[i - 1].who === 'nigel') {
+        typing = `<div class="typing" style="animation-delay:${delay.toFixed(2)}s"><span></span><span></span><span></span></div>`;
+        delay += 1;
+      }
+      const wrap = isNew ? ` class="new" style="animation-delay:${delay.toFixed(2)}s"` : '';
+      if (isNew) delay += .6;
       let body = esc(m.text).replace(/\n/g, '<br>');
       if (m.kind === 'voice') body = `<div class="voice"><span class="play">${icon('play')}</span><span class="wave">${'<i></i>'.repeat(24)}</span><span class="len">0:14</span></div>`;
       if (m.kind === 'done') body = `<p class="done-msg">${icon('check')} ${body}</p>`;
       const buttons = m.buttons ? `<div class="wa-buttons">${m.buttons.map(b => act(b, ctx)).join('')}</div>` : '';
-      return `<div${enter(i, ctx.fresh.wa, .6)}><div class="msg ${out ? 'out' : 'in'} k-${m.kind}"><div class="bubble">${body}<span class="ts">${esc(m.time)}</span></div></div>${buttons}</div>`;
+      return `${typing}<div${wrap}><div class="msg ${out ? 'out' : 'in'} k-${m.kind}"><div class="bubble">${body}<span class="ts">${esc(m.time)}</span></div></div>${buttons}</div>`;
     }).join('');
     return `
       <div class="phone">
