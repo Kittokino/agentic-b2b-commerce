@@ -76,7 +76,7 @@
     follow(shown.el);
     rail();
     renderCue(sc);
-    history.replaceState(null, '', `#${path}-${index + 1}`);
+    history.replaceState(null, '', hashFor());
   }
 
   // Lists start at the first new entry, then follow each one as it comes in.
@@ -152,16 +152,21 @@
   }
   window.addEventListener('resize', fit);
 
-  // Deep links like #decline-5 open a given scene and skip the opening.
+  // Deep links open a given scene and skip the opening. Before Nigel's reply the link
+  // names no path (#scene-2), so it doesn't give his choice away; after it, it does (#declined-5).
+  const SLUGS = { decline: 'declined', accept: 'accepted', more: 'more-options' };
+  function hashFor() {
+    return `#${index > S.choiceAt ? SLUGS[path] : 'scene'}-${index + 1}`;
+  }
   function fromHash() {
-    const m = location.hash.match(/^#(decline|more|accept)-(\d+)$/);
+    const m = location.hash.match(/^#(scene|declined|accepted|more-options)-(\d+)$/);
     if (!m) return false;
-    path = m[1];
+    path = Object.keys(SLUGS).find(k => SLUGS[k] === m[1]) || 'decline';
     index = Math.max(0, Math.min(steps().length - 1, +m[2] - 1));
     chosen = index > S.choiceAt;
     return true;
   }
-  window.addEventListener('hashchange', () => { if (location.hash !== `#${path}-${index + 1}` && fromHash()) render(1); });
+  window.addEventListener('hashchange', () => { if (location.hash !== hashFor() && fromHash()) render(1); });
   // The first scene is drawn when Play is pressed, so it always plays from the start.
   function play() {
     intro.classList.add('gone');

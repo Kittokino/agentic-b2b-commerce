@@ -36,6 +36,7 @@ ul, ol { padding: 0; list-style: none; }
 /* ---------- Opening ---------- */
 .intro { position: absolute; inset: 0; z-index: 10; display: grid; grid-template-columns: 1fr 480px; gap: 56px; align-items: center; padding: 56px 72px; background: var(--bg); transition: opacity .6s, visibility .6s; }
 .intro.gone { opacity: 0; visibility: hidden; }
+.intro .opening { height: 100%; width: auto; max-width: 100%; min-height: 0; justify-self: center; object-fit: cover; border: 2px solid var(--ink); }
 .illo { height: 100%; display: grid; place-items: center; border: 1.5px dashed #c9c5bd; border-radius: 16px; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(21, 15, 51, .025) 14px 15px); }
 .illo-label { font-size: 14px; color: var(--ink-3); }
 .intro-text .when { margin-top: 18px; font-size: 17px; color: var(--ink-2); }
