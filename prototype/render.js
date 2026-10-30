@@ -48,6 +48,15 @@
   // Things the current scene added animate in, one after another.
   const enter = (i, from, step = .45) => i >= from ? ` class="new" style="animation-delay:${((i - from) * step).toFixed(2)}s"` : '';
 
+  // In the activity, the first new entry is what moved the story on. It waits for the screen to
+  // finish sliding in, comes in slowly with a soft wash, and holds for a moment before the rest follow.
+  const lead = (i, from) => {
+    if (i < from) return '';
+    const k = i - from;
+    const delay = k === 0 ? .8 : .8 + 1 + 1.2 + (k - 1) * .45;
+    return ` class="new${k === 0 ? ' lead' : ''}" style="animation-delay:${delay.toFixed(2)}s"`;
+  };
+
   // ---------- Kade's order in Sana: its Activity tab ----------
   const sanaTop = (on) => `
     <header class="sana-top">
@@ -90,7 +99,7 @@
       const divider = e.day !== day ? `<li class="day">${esc((day = e.day))}</li>` : '';
       const [field, from, to] = e.change || [];
       return `${divider}
-        <li${enter(i, ctx.fresh.trail)}>
+        <li${lead(i, ctx.fresh.trail)}>
           <div class="entry ${e.stop ? 'is-stop' : ''}">
             <span class="t">${esc(e.time)}</span>
             ${avatar(e.who)}
