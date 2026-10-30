@@ -95,7 +95,7 @@
               ${e.quote ? `<q>${esc(e.quote)}</q>` : ''}
               ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
               ${e.change ? `<p class="chg">${esc(field)}: <s>${esc(from)}</s> → <b>${esc(to)}</b></p>` : ''}
-              ${e.source || e.open ? `<p class="src">${e.source ? `via ${esc(e.source)}` : ''}${e.source && e.open ? ' · ' : ''}${e.open ? `<u>${esc(e.open)}</u>` : ''}</p>` : ''}
+              ${e.source || e.open ? `<p class="src">${e.source ? `via ${esc(e.source)}` : ''}${e.source && e.open ? ' · ' : ''}${e.open ? `<button class="open-link" data-open="${i}">${esc(e.open)}</button>` : ''}</p>` : ''}
               ${e.rule ? `<span class="rule">${icon('rule')}Rule: ${esc(e.rule)}</span>` : ''}
             </div>
           </div>
@@ -262,6 +262,78 @@
   const personScene = (s, scene, ctx, device) => `<div class="person-scene dev-${scene.screen}">${device}</div>`;
   const wide = (s, scene, ctx, body) => `<div class="wide-scene">${body}</div>`;
 
+  // ---------- What an activity link opens: the message, case or voice note as it was then ----------
+  const waveform = (n) => Array.from({ length: n }, (_, i) => `<i style="height:${6 + Math.round(14 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * .45)))}px"></i>`).join('');
+
+  function modal(s, e, then) {
+    const at = (list) => list.filter(m => m.time === e.time);
+    const by = (list) => { const own = at(list).filter(m => m.who === e.who); return own.length ? own : at(list).filter(m => m.who === 'agent'); };
+    let title, body;
+    if (e.open === 'Play voice note') {
+      const v = s.wa.find(m => m.kind === 'voice');
+      title = 'Voice note from Nigel';
+      body = `
+        <p class="m-meta">WhatsApp · Wednesday ${esc(v.time)} · 0:14</p>
+        <div class="player">
+          <div class="track"><span class="bars">${waveform(48)}</span><span class="head"></span></div>
+          <div class="times"><span>0:05</span><span>0:14</span></div>
+          <div class="controls">
+            <span class="ctl">1×</span>
+            <span class="ctl">${icon('back')}5</span>
+            <span class="ctl main">${icon('play')}</span>
+            <span class="ctl">5${icon('right')}</span>
+          </div>
+        </div>
+        <p class="m-label">Transcript</p>
+        <q class="m-quote">${esc(v.text)}</q>`;
+    } else if (e.open === 'Open case') {
+      const c = then.caseFile;
+      title = `Case ${esc(c.id)}`;
+      body = `
+        <p class="m-meta">Assigned to Tom · order ${esc(s.order.id)} · ${esc(c.status)}</p>
+        <h4 class="m-case">${esc(c.title)}</h4>
+        <p class="m-text">${esc(c.task)}</p>
+        ${c.changed ? `<p class="m-note">${esc(c.changed)}</p>` : ''}
+        <p class="m-label">Attached</p>
+        <p class="m-text">The full conversation with Nigel and Priya, and every entry in the order’s activity.</p>`;
+    } else if (e.open === 'Open approval') {
+      const salmon = s.order.lines.find(l => l.id === 'salmon');
+      title = 'Priya’s approval';
+      body = `
+        <p class="m-meta">Teams · Kade order thread · Thursday ${esc(e.time)}</p>
+        <div class="m-approval">
+          <div><b>${esc(salmon.name)}</b><span>${esc(salmon.qty)} · takes Harbour Front €180 over its fish budget</span></div>
+          <span class="status done">${icon('check')}Approved by Priya</span>
+        </div>
+        <p class="m-text">Priya approved the salmon with the Approve button on Kade’s order card in Teams. There is no written message for this step.</p>`;
+    } else if ((e.source || '').startsWith('Teams')) {
+      title = 'Message in Teams';
+      body = `
+        <p class="m-meta">Kade order thread · ${esc(s.day)} ${esc(e.time)}</p>
+        <ul class="tlist m-list">${by(s.kade).map(m => `<li><div><span class="meta">${m.who === 'priya' ? 'Priya' : 'Kade · Order agent (AI)'}</span><p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p></div></li>`).join('')}</ul>`;
+    } else {
+      // A reply from Nigel shows with the message it answers.
+      let msgs = by(s.wa);
+      if (e.who === 'nigel') {
+        const first = s.wa.indexOf(msgs[0]);
+        const asked = s.wa.slice(0, first).reverse().find(m => m.who === 'agent');
+        if (asked) msgs = [asked, ...msgs];
+      }
+      title = 'Message on WhatsApp';
+      body = `
+        <p class="m-meta">Nigel and Kade Foodservice · ${esc(e.day)} ${esc(e.time)}</p>
+        <div class="chat m-chat">${msgs.map(m => `
+          <div class="msg ${m.who === 'nigel' ? 'out' : 'in'}"><div class="bubble">${esc(m.text).replace(/\n/g, '<br>')}<span class="ts">${esc(m.time)}</span></div></div>
+          ${m.buttons ? `<div class="wa-buttons">${m.buttons.map(b => `<button disabled>${esc(b.label)}</button>`).join('')}</div>` : ''}`).join('')}
+        </div>`;
+    }
+    return `
+      <div class="modal" role="dialog" aria-modal="true" aria-label="${title}">
+        <header><h3>${title}</h3><button class="m-close" data-close aria-label="Close">${icon('close')}</button></header>
+        <div class="m-body">${body}</div>
+      </div>`;
+  }
+
   const SCREENS = {
     trail: (s, sc, ctx) => wide(s, sc, ctx, trail(s, sc, ctx)),
     desk: (s, sc, ctx) => wide(s, sc, ctx, desk(s, sc, ctx)),
@@ -272,5 +344,5 @@
     end,
   };
 
-  window.VIEWS = { SCREENS, VIEWPOINT, avatar, esc, icon, PEOPLE };
+  window.VIEWS = { SCREENS, modal, VIEWPOINT, avatar, esc, icon, PEOPLE };
 })();

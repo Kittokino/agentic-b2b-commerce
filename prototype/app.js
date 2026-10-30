@@ -49,6 +49,7 @@
   const surface = (sc) => ['trail', 'desk'].includes(sc.screen) ? 'kade' : `${sc.screen}:${sc.actor || ''}`;
 
   function render(dir) {
+    closeModal();
     const sc = steps()[index];
     const s = stateAt(index);
     // What this scene added animates in. Going back, the screen shows as it was, without replaying.
@@ -125,8 +126,23 @@
     if (sc.choices) choose(sc.def || sc.choices[0].action); else go(index + 1);
   }
 
+  // ---------- Activity links open a modal; it closes with the cross, Esc or a click outside ----------
+  const layer = el('#modal');
+  // Messages come from the current scene; a case shows as it was when the entry was written.
+  function openModal(i) {
+    let k = 0;
+    while (stateAt(k).trail.length <= i) k++;
+    const s = stateAt(index);
+    layer.innerHTML = V.modal(s, s.trail[i], stateAt(k));
+    layer.hidden = false;
+  }
+  const closeModal = () => { layer.hidden = true; layer.innerHTML = ''; };
+  layer.addEventListener('click', (e) => { if (e.target === layer || e.target.closest('[data-close]')) closeModal(); });
+
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
+    const link = e.target.closest('[data-open]');
+    if (link) { openModal(+link.dataset.open); return; }
     const t = e.target.closest('[data-action], [data-nav], [data-go], [data-intro], #cue');
     if (!t || t.disabled) return;
     if (t.dataset.intro) play();
@@ -141,6 +157,7 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!layer.hidden) { if (e.key === 'Escape') closeModal(); return; }
     if (!intro.classList.contains('gone')) {
       if (['ArrowRight', 'PageDown', 'Enter', ' '].includes(e.key)) { e.preventDefault(); play(); }
       return;

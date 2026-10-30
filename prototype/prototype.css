@@ -121,7 +121,6 @@ ul, ol { padding: 0; list-style: none; }
 .chg s { color: var(--ink-3); }
 .chg b { color: var(--ink); font-weight: 600; }
 .src { margin-top: 2px; font-size: var(--t-small); color: var(--ink-3); }
-.src u { color: var(--ink-2); text-underline-offset: 3px; }
 /* A thin, quiet scrollbar: Windows draws wide ones by default. */
 .trail-main, .chat, .tlist, .case-main, .rail-body { scrollbar-width: thin; scrollbar-color: rgba(21, 15, 51, .2) transparent; }
 .crumb { font-size: var(--t-small); color: var(--ink-3); }
@@ -279,3 +278,37 @@ ul, ol { padding: 0; list-style: none; }
 .footbar .btn, .footbar .counter, .footbar .cue { font-size: var(--t-body); }
 .footbar .btn { height: 40px; }
 .footbar [data-nav="restart"] { padding: 0 18px; }
+
+/* ---------- Activity links and the modal they open ---------- */
+.open-link { padding: 0; border: 0; background: none; font: inherit; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.open-link:hover { color: var(--ink); }
+.modal-layer { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: rgba(21, 15, 51, .38); }
+.modal-layer[hidden] { display: none; }
+.modal { width: 540px; max-height: 640px; display: flex; flex-direction: column; border-radius: 16px; background: var(--surface); box-shadow: 0 30px 80px rgba(21, 15, 51, .35); overflow: hidden; animation: rise .25s ease-out; }
+.modal header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.modal h3 { font-size: var(--t-head); font-weight: 600; }
+.m-close { width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--bg); cursor: pointer; font-size: 16px; }
+.m-body { padding: 18px 20px 22px; overflow-y: auto; }
+.m-meta { font-size: var(--t-small); color: var(--ink-3); }
+.m-label { margin-top: 18px; font-size: var(--t-label); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.m-text { margin-top: 8px; font-size: var(--t-body); line-height: 1.5; color: var(--ink-2); }
+.m-quote { display: block; margin-top: 6px; font-family: var(--font-voice); font-style: italic; font-size: calc(var(--t-body) * 1.3); line-height: 1.35; }
+.m-case { margin-top: 12px; font-size: var(--t-body); font-weight: 600; }
+.m-note { margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: var(--person-soft); font-size: var(--t-body); line-height: 1.45; }
+.m-chat { margin-top: 12px; border-radius: 12px; flex: none; overflow: visible; }
+.m-list { margin-top: 12px; padding: 0; }
+.m-approval { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; }
+.m-approval b { display: block; font-size: var(--t-body); }
+.m-approval span:not(.status) { font-size: var(--t-small); color: var(--ink-2); }
+.player { margin-top: 14px; padding: 16px; border-radius: 12px; background: var(--bg); }
+.track { position: relative; height: 34px; display: flex; align-items: center; }
+.bars { display: flex; align-items: center; gap: 3px; width: 100%; }
+.bars i { flex: 1; border-radius: 2px; background: var(--ink-3); opacity: .45; }
+.bars i:nth-child(-n+17) { background: var(--ink); opacity: 1; }
+.head { position: absolute; left: 35%; top: 2px; bottom: 2px; width: 2px; border-radius: 2px; background: var(--ink); }
+.times { display: flex; justify-content: space-between; margin-top: 4px; font-size: var(--t-label); color: var(--ink-3); }
+.controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; }
+.ctl { display: inline-flex; align-items: center; gap: 2px; min-width: 34px; height: 34px; justify-content: center; font-size: var(--t-small); font-weight: 600; color: var(--ink-2); }
+.ctl .ico { font-size: 16px; }
+.ctl.main { width: 46px; height: 46px; border-radius: 50%; background: var(--ink); color: #fff; }
+.ctl.main .ico { fill: #fff; stroke: none; font-size: 18px; }
