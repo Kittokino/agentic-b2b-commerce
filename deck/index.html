@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=2">
   <link rel="stylesheet" href="../shared/components.css?v=4">
-  <link rel="stylesheet" href="deck.css?v=20261031b">
+  <link rel="stylesheet" href="deck.css?v=20261031d">
 </head>
 <body>
 
@@ -73,41 +73,40 @@
   <!-- 3 · Principles -->
   <section class="slide s-principles">
     <p class="eyebrow">Principles</p>
-    <h2>Four principles, drawn from the research</h2>
+    <h2>Four principles, and where they come from</h2>
     <ol class="principles">
       <li>
         <h3>The order lives in one record.</h3>
-        <p class="label">What we see today</p>
-        <p>Orders arrive by email, phone calls, WhatsApp messages, PDFs or even photos, and someone types each one in by hand. Nobody sees the whole order in one place.</p>
+        <p class="label">Where this comes from</p>
+        <p>My work with Salesforce. I have worked on workflows that bring an AI agent into a process, where messages from different channels are tied back to one order until it is fulfilled.</p>
         <p class="label">In the story</p>
         <p>Priya changes the wine in Kade's order thread in Teams. Nigel's WhatsApp and Tom's case update at the same time.</p>
       </li>
       <li>
         <h3>The agent works within rules that people set, and people improve the rules.</h3>
-        <p class="label">What we see today</p>
-        <p>Buyers control spending through contracts and budgets. Software that reads orders still needs a person to check each one.</p>
+        <p class="label">Where this comes from</p>
+        <p>Following how AI agents are built today. Agents can be given limits, every action can be recorded and undone, and regular tests help them improve.</p>
         <p class="label">In the story</p>
         <p>Tom flags a poor wine suggestion. Maheep, Kade's admin, then publishes version 2 of the substitution rule.</p>
       </li>
       <li>
         <h3>People only see what needs a decision.</h3>
-        <p class="label">What we see today</p>
-        <p>Order desks spend much of their time on routine orders, and buyers get updates they do not need to act on.</p>
+        <p class="label">Where this comes from</p>
+        <p>The day in the life of each person (slide 5), which is still an assumption. Nigel and Priya have little free time, so they should only be asked about what needs them.</p>
         <p class="label">In the story</p>
         <p>The agent confirms the cheese board without asking anyone. Priya is asked only about the salmon and the price of the wine.</p>
       </li>
       <li>
         <h3>Every decision goes to the person who owns it, and affects only that item.</h3>
-        <p class="label">What we see today</p>
-        <p>In B2B, the person who places an order is often not the person who controls the budget.</p>
+        <p class="label">Where this comes from</p>
+        <p>Overviews from AI tools, and searches on Google and Reddit. The head chef has the authority to order ingredients, including special orders like the wine.</p>
         <p class="label">In the story</p>
         <p>Nigel decides whether another wine suits his menu, Priya decides on the budget and the price, and Tom chooses the supplier. When Nigel declines the Pinot Grigio, only the wine changes.</p>
       </li>
     </ol>
     <aside class="notes">
-      <p>These four principles come from how wholesalers handle orders today, and the rest of the design follows from them.</p>
-      <p>The second principle also says that people improve the rules. That is how the agent earns trust over time, and it is where the vision at the end of the deck starts.</p>
-      <p>Each principle appears in the story that follows, at the moment shown under "In the story".</p>
+      <p>These four principles guide the rest of the design. Each one shows where it comes from, because the sources are not equally strong.</p>
+      <p>The first comes from my own work with Salesforce, so I have seen it work. The second comes from following how AI agents are built, for example with MCP, limits on what an agent may do, audit trails, rollback and evaluations. The third and fourth come from assumptions and from overviews by AI tools, so they are the first things the research would test.</p>
     </aside>
   </section>
 
@@ -164,7 +163,7 @@
         </ol>
       </div>
     </div>
-    <p class="caveat"><b>Note:</b> These are assumptions. The real workflow is still to be verified with chefs and buyers.</p>
+    <p class="caveat"><b>Note:</b> A day in the life is the first step of how I research a new problem. Here it is still based on assumptions, and slide 9 shows the next steps.</p>
     <aside class="notes">
       <p>Priya works at a desk and spends most of her day in Teams, so that is where the agent reaches her. She also has her own AI assistant, which summarises updates from her suppliers.</p>
       <p>Nigel orders after service, when he is tired and only has his phone. So the agent accepts a WhatsApp voice note and reads the order back to him before doing anything with it.</p>
@@ -297,17 +296,19 @@
         <p class="key"><i class="k hot"></i>Test first: high impact if wrong, little evidence today</p>
       </div>
       <div class="phase">
-        <h3>Before launch <span>tests 1–3</span></h3>
+        <h3>How I would find out</h3>
         <dl>
-          <dt>An evening in a kitchen</dt>
-          <dt>Where Kade's orders come from</dt>
-          <dt>Interviews with buyers, chefs, service reps</dt>
-          <dt>Wizard of Oz on WhatsApp</dt>
+          <dt>A day in the life of each person <span>Tests 2, 5</span></dt>
+          <dt>The tools they use, and how well <span>Tests 2, 6</span></dt>
+          <dt>Why they have not learnt more of a tool <span>Tests 1, 6</span></dt>
+          <dt>Time where they work <span>Tests 2, 3</span></dt>
+          <dt>Interviews <span>Tests 1, 3, 4</span></dt>
         </dl>
       </div>
       <div class="phase">
-        <h3>After launch <span>measure &amp; listen</span></h3>
+        <h3>Then test, and measure</h3>
         <dl>
+          <dt>Wizard of Oz on WhatsApp <span>Tests 1–3</span></dt>
           <dt>Share handled by the agent</dt>
           <dt>Overrides and hand-overs</dt>
           <dt>Trust, in the moment</dt>
@@ -316,9 +317,9 @@
       </div>
     </div>
     <aside class="notes">
-      <p>The design is built on six assumptions that haven't been tested yet. The three filled ones come first, as they would matter most if they turn out wrong and there is little evidence for them today: whether buyers will let an agent confirm orders within their rules, whether chefs really order by voice note and WhatsApp, and whether chefs accept a suggested substitute for items chosen on taste.</p>
-      <p>Before launch, the plan is to spend two evenings in a kitchen after service, look at how Kade's orders arrive today, interview buyers, chefs and service reps, and run a Wizard of Oz test where a person plays the agent on WhatsApp for two weeks across three outlets. After launch, the focus is on how much the agent handles on its own, how often people override it or need a hand-over, a one-tap check on trust after decisions, and a four-week diary study. Tom's flag in the prototype, when he marks the Pinot Grigio suggestion as a poor match, is an example of an override that would be measured.</p>
-      <p>The appendix has the full assumptions matrix and research plan.</p>
+      <p>The design is built on six assumptions that have not been tested yet. The three filled ones come first, because they would matter most if they turn out wrong and there is little evidence for them today.</p>
+      <p>To find out, I would follow the steps I use for any new problem. I start with a day in the life of each person. Then I look at the tools they use and how well they use them, and when a tool could do more, I ask why they have not learnt it: is it too complex, hidden, too slow to learn, or does it break their trust? I spend time where they work, to notice their rhythm and what else helps them get the work done. Then I interview them about their needs, what years of experience have taught them, and the hardest challenges they have faced.</p>
+      <p>After that, a person plays the agent on WhatsApp for two weeks across three outlets. After launch, I would measure how much the agent handles on its own, how often people override it or need a hand-over, and how much they trust it, with a diary study alongside. Tom's flag in the prototype, when he marks the Pinot Grigio suggestion as a poor match, is an example of an override that would be measured.</p>
     </aside>
   </section>
 
@@ -372,26 +373,28 @@
     <h2>How we'd learn, before and after launch</h2>
     <div class="cols">
       <div class="phase">
-        <h3>Before launch <span>tests assumptions 1–3</span></h3>
+        <h3>How I would find out <span>Before launch</span></h3>
         <dl>
-          <dt>An evening in a kitchen <span>2 evenings</span></dt><dd>Watch how chefs order after service: channel, timing, words used.</dd>
-          <dt>Where Kade's orders come from <span>1 week</span></dt><dd>Analyse incoming orders by channel and time of day.</dd>
-          <dt>Interviews <span>6–8 people</span></dt><dd>Central buyers, chefs and service reps: who decides, and how spend is controlled.</dd>
-          <dt>Wizard of Oz on WhatsApp <span>2 weeks, 3 outlets</span></dt><dd>A person plays the agent. Do people accept, decline or work around it?</dd>
+          <dt>A day in the life <span>6 people</span></dt><dd>Two chefs, two buyers and two service reps describe a usual working day, including when they order or approve, and on which device.</dd>
+          <dt>Their tools, and how well they use them <span>1 week</span></dt><dd>WhatsApp, Teams, email and the wholesaler's webshop, plus a week of the wholesaler's orders by channel and time of day.</dd>
+          <dt>Why they have not learnt more of a tool <span>With the interviews</span></dt><dd>Is the tool too complex, is the feature hidden, does it take too long to learn, or does it break their trust?</dd>
+          <dt>Time where they work <span>4 days</span></dt><dd>Two evenings in a kitchen after service, a day at a buyer's head office, and a day with a customer service team.</dd>
+          <dt>Interviews <span>6–8 people</span></dt><dd>Their needs, what years of experience have taught them, and the hardest challenges they have faced.</dd>
         </dl>
       </div>
       <div class="phase">
-        <h3>After launch <span>measure and listen</span></h3>
+        <h3>Then test, and measure <span>Before and after launch</span></h3>
         <dl>
-          <dt>Handled by the agent <span>metric</span></dt><dd>Share of lines confirmed with no person involved.</dd>
-          <dt>Overrides and hand-overs <span>metric</span></dt><dd>How often people change the agent's decision, and how fast hand-overs resolve.</dd>
-          <dt>Trust, in the moment <span>in-chat pulse</span></dt><dd>One tap after a decision: “Was this right?”</dd>
+          <dt>Wizard of Oz on WhatsApp <span>2 weeks, 3 outlets</span></dt><dd>A person plays the agent. Do people accept it, decline it or work around it?</dd>
+          <dt>Handled by the agent <span>Measure</span></dt><dd>The share of items confirmed with no person involved.</dd>
+          <dt>Overrides and hand-overs <span>Measure</span></dt><dd>How often people change the agent's decision, and how fast hand-overs are resolved.</dd>
+          <dt>Trust, in the moment <span>In-chat question</span></dt><dd>One tap after a decision: “Was this right?”</dd>
           <dt>Diary study <span>4 weeks</span></dt><dd>Three buyers record when the agent helped, and when it got in the way.</dd>
         </dl>
       </div>
     </div>
     <aside class="notes">
-      <p>Before launch, the research focuses on the three riskiest assumptions: watching chefs order after service, looking at how Kade's orders arrive today, interviewing buyers, chefs and service reps, and a Wizard of Oz test where a person plays the agent on WhatsApp for two weeks across three outlets.</p>
+      <p>Before launch, the research follows the steps I use for any new problem: a day in the life, the tools people use and why they have not learnt more of them, time where they work, and interviews. Then a person plays the agent on WhatsApp for two weeks across three outlets.</p>
       <p>After launch, the agent is measured on how much it handles on its own, how often people override it or need a hand-over, and how much they trust it, with a short diary study alongside.</p>
     </aside>
   </section>
@@ -399,15 +402,22 @@
   <!-- Appendix · How this was made -->
   <section class="slide s-made">
     <p class="eyebrow">Appendix · How this was made</p>
-    <h2>Research, feedback, and working with AI</h2>
+    <h2>What this work is based on</h2>
     <div class="made">
       <div>
         <h3>Desk research</h3>
         <ul>
           <li><b>The Sana case brief</b><span>The problem, the figures and what the panel evaluates.</span></li>
           <li><b>Sana's website</b><span>The visual language started there. After Charles Barton's reply, it became Supreo's own: off-white and navy, with red only where the agent stops.</span></li>
-          <li><b>Sana's reviews on G2</b><span>What merchants praise, and what they miss.</span></li>
-          <li><b>How kitchens and central buying work</b><span>General knowledge, used as assumptions, not findings.</span></li>
+          <li><b>Sana's reviews on G2</b><span>Customers rate Sana's products well and describe the interface as simple and easy to work with.</span></li>
+          <li><b>Overviews from AI tools, and searches on Google and Reddit</b><span>How restaurants order, for example that the head chef can order ingredients, including special orders.</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Experience</h3>
+        <ul>
+          <li><b>Work with Salesforce</b><span>Workflows that bring an AI agent into a process. Messages from different channels are tied back to one order until it is fulfilled, and updates go out in WhatsApp, Slack, Teams and email.</span></li>
+          <li><b>Following AI developments</b><span>How MCP, RAG and reasoning engines keep agents within limits, and how audit trails, rollback, observability and evaluations help them improve.</span></li>
         </ul>
       </div>
       <div>
@@ -421,15 +431,15 @@
       <div>
         <h3>Working with AI</h3>
         <ul>
-          <li><b>Claude</b><span>A thinking partner: challenged the story, proposed options and argued for and against them, then built the deck in code.</span></li>
+          <li><b>Claude</b><span>Wrote the first version of the story, which Supreo found plausible from experience and added detail to. Then a thinking partner that argued for and against options, and built the deck in code.</span></li>
           <li><b>Supreo</b><span>Every decision: the story, what to cut, the twist, the visual direction and the final wording.</span></li>
           <li><b>Disagreements, kept</b><span>A circular title visual was tried and dropped. A red headline was proposed by Supreo and talked down by Claude in favour of the agent's symbol.</span></li>
         </ul>
       </div>
     </div>
     <aside class="notes">
-      <p>This slide shows how the case was put together: what was read, who gave feedback, and how AI was used. Most of the research behind the story is desk research and informed assumption, and the assumptions slide shows how it would be tested with real chefs, buyers and service reps.</p>
-      <p>Claude was used as a thinking partner and to build the deck in code. The decisions on the story, the scope and the design were Supreo's.</p>
+      <p>This slide shows what the case is based on. The desk research came from the case brief, Sana's website, reviews on G2, overviews from AI tools, and searches on Google and Reddit. The experience comes from my work with Salesforce and from following how AI agents are built.</p>
+      <p>Claude wrote the first version of the story. I accepted it because it matched what I know from experience, and then added detail to it. Slide 9 shows how the story's assumptions would be tested with real chefs, buyers and service reps.</p>
     </aside>
   </section>
 
