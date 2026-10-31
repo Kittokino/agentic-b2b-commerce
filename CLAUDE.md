@@ -28,4 +28,6 @@ Open points the author will decide later. They matter for the application, so ra
 1. Present the research into how orders are handled today (shared inboxes, order desks, AI order capture) as evidence about the problem, not as products the design copies.
 2. Make the vision central: the "Where this is heading" slide (Today, Next, Later), plus one slide of principles derived from the research (for example: the order lives in one record; the agent works within rules people set; people only see the exceptions; every decision goes to the person who owns it).
 
+Vision idea to carry into the "Next" or "Later" stage: the agent suggests changes the customer did not ask for, for example "Your usual cheese board serves about 70; this dinner is for 120. Would you like two?". The author decided against this in the prototype, because from the supplier's agent it can feel pushy, like upselling. In the vision, it shows how trust lets such suggestions work: the more an agent has earned trust, the more it is allowed to suggest.
+
 Research note: the author's G2 research read reviews of Sana's products. They are rated well, and people describe the interface as simple and easy to work with.

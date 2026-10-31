@@ -392,3 +392,5 @@ ul, ol { padding: 0; list-style: none; }
 .m-history li.now b { color: var(--ink); }
 .m-history li:not(.now) b { color: var(--ink-3); }
 .m-note-small { margin-top: 16px; font-size: var(--t-small); line-height: 1.5; color: var(--ink-3); }
+.m-orders li { grid-template-columns: 82px 1fr; }
+.m-orders b { color: var(--ink) !important; font-weight: 600; }

@@ -50,9 +50,10 @@
       log(s, '22:47', 'system', 'Received a new order request on WhatsApp', { detail: 'A 14-second voice message from Nigel, head chef at Harbour Front.', source: 'WhatsApp', open: 'Play voice note' });
       log(s, '22:47', 'agent', 'Transcribed the voice message', { quote: 'Private dinner Saturday, 120 covers. Eighteen kilos of salmon, the usual cheese board, and 24 bottles of Sauvignon Blanc.' });
       log(s, '22:47', 'agent', 'Matched the message to The Olive Tree, Harbour Front', { detail: 'Nigel’s phone number is registered on the Harbour Front account.' });
+      log(s, '22:47', 'agent', 'Worked out what “the usual cheese board” means', { detail: 'Harbour Front has ordered the same cheese board six times since July, most recently on 17 October.', rule: 'usual', open: 'Open past orders' });
       s.order.status = 'Draft';
       log(s, '22:47', 'agent', 'Created draft order KD-24817 with three items', { change: ['Order', 'None', 'Draft'] });
-      set(s, 'cheese', { status: 'confirmed' });
+      set(s, 'cheese', { status: 'confirmed', note: 'Same as Harbour Front’s last six orders' });
       log(s, '22:48', 'agent', 'Confirmed the cheese board', { change: ['Status', 'Received', 'Confirmed'], rule: 'stock' });
       set(s, 'salmon', { status: 'stopped', owner: 'priya', note: 'Takes Harbour Front €180 over its fish budget' });
       log(s, '22:48', 'agent', 'Stopped the salmon and asked Priya to approve it', { detail: 'The 18 kg of salmon takes Harbour Front €180 over its fish budget.', change: ['Status', 'Received', 'Waiting on Priya'], rule: 'budget', stop: true });
@@ -87,7 +88,7 @@
     def: 'decline',
     apply(s) {
       s.notify = null;
-      wa(s, '22:48', 'agent', 'Thanks, Nigel. We have your order for Saturday, number KD-24817.\nThe cheese board (house selection) is confirmed.');
+      wa(s, '22:48', 'agent', 'Thanks, Nigel. We have your order for Saturday, number KD-24817.\nThe cheese board you usually order is confirmed: Old Amsterdam (2 kg), Brie de Meaux (1 kg), Roquefort (500 g), oat crackers and quince paste. It is the same size as usual.');
       wa(s, '22:48', 'agent', 'The 18 kg of salmon takes Harbour Front €180 over its fish budget, so I have asked Priya to approve it. You don’t need to do anything for the salmon.');
       wa(s, '22:48', 'agent', 'We don’t have 24 bottles of Sauvignon Blanc in stock. We can send 24 bottles of Pinot Grigio instead, at the same price. Would Pinot Grigio work for your dinner?', {
         buttons: [{ action: 'accept', label: 'Accept Pinot Grigio' }, { action: 'decline', label: 'Decline' }, { action: 'more', label: 'More options' }],
@@ -289,7 +290,7 @@
     screen: 'end',
     title: 'One voice note, three outcomes.',
     outcomes: [
-      ['Acts', 'The agent confirmed the cheese board by itself, because it was in the contract, in stock and within budget.'],
+      ['Acts', 'The agent confirmed the cheese board by itself: its order history showed what “the usual” meant, and it was in the contract, in stock and within budget.'],
       ['Stops', 'The salmon went over Harbour Front’s fish budget, so the agent stopped and asked Priya, who decides on budgets.'],
       ['Hands over', 'The agent had no other wine it was allowed to offer, so it passed the Sauvignon Blanc to Tom with the full conversation.'],
     ],
@@ -336,6 +337,12 @@
   // The rules the agent works by. Maheep maintains them in Agent rules; each change is a new version.
   const MAHEEP = 'Maheep, commerce admin at Kade';
   const rules = {
+    usual: {
+      name: 'The usual means the last orders that agree', version: 1,
+      sentence: 'When a customer asks for “the usual”, the agent reads it from the outlet’s order history, but only when its recent orders of that item agree. If they differ, it asks which one is meant.',
+      scope: 'All of Kade’s customers.',
+      history: [['v1', '9 September 2026', 'First version.']],
+    },
     stock: {
       name: 'Confirm what is in the contract, in stock and within budget', version: 2,
       sentence: 'The agent may confirm an item on its own when the item is in the customer’s contract, Kade has it in stock, and it keeps the outlet within its budget.',
@@ -379,8 +386,15 @@
   const dates = { Wednesday: 'Wednesday, 28 October 2026', Thursday: 'Thursday, 29 October 2026' };
 
   const shared = [intake, lock, readback];
+  // Harbour Front's earlier cheese board orders: they all agree, so "the usual" is clear.
+  const pastOrders = {
+    contents: 'Old Amsterdam (2 kg), Brie de Meaux (1 kg), Roquefort (500 g), oat crackers and quince paste',
+    orders: [['17 October 2026', 'KD-24611'], ['3 October 2026', 'KD-24402'], ['19 September 2026', 'KD-24178'], ['29 August 2026', 'KD-23854'], ['1 August 2026', 'KD-23460'], ['11 July 2026', 'KD-23017']],
+  };
+
   window.STORY = {
     initial,
+    pastOrders,
     rules,
     dates,
     choiceAt: shared.length - 1,

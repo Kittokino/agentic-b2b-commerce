@@ -353,6 +353,14 @@
         </div>
         <p class="m-label">Transcript</p>
         <q class="m-quote">${esc(v.text)}</q>`;
+    } else if (e.open === 'Open past orders') {
+      const h = window.STORY.pastOrders;
+      title = 'Past cheese board orders';
+      body = `
+        <p class="m-meta">Harbour Front · the last six orders with a cheese board</p>
+        <p class="m-text">Each time: one board of ${esc(h.contents)}.</p>
+        <ol class="m-history m-orders">${h.orders.map(([d, id]) => `<li><b>${esc(id)}</b><span>${esc(d)}</span><p>1 board, the same contents</p></li>`).join('')}</ol>
+        <p class="m-note-small">All six orders agree, so the agent could read “the usual” without asking. If they had differed, it would have asked Nigel which board he meant.</p>`;
     } else if (e.open === 'Open case') {
       const c = then.caseFile;
       title = `Case ${esc(c.id)}`;

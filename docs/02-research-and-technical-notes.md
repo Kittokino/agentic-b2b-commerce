@@ -12,6 +12,7 @@ This note goes with the story in [`01-story.md`](01-story.md): Nigel's voice not
 | Does the buyer want to be asked or only told, and above what amount? | Asked when an item goes over budget, told otherwise. | A prototype test with several thresholds. |
 | What should happen if the buyer does not answer in time? | Not known. | Interviews, and walking the scenario through with a buyer and a service rep. |
 | Does a chef trust "I have asked Priya", or does he phone the supplier anyway? | Only if he gets quick feedback. | A prototype test with chefs, watching whether they try to go around the agent. |
+| When a chef asks for "the usual" for a larger event than normal, does he mean the usual amount, or the usual items scaled to the number of guests? | The usual amount; the read-back says "same size as usual" so the chef can change it. | Interviews with chefs, and order history around events. |
 | When a substitute is suggested, how often do chefs accept it, and what makes them say no? | They decline when a dish depends on the exact product, as Nigel does with the wine pairing. | Order history and interviews with chefs. |
 | Do buyers use their own AI assistants, and what would they let one do? | Some use one to read and summarise, not to order or negotiate. | Interviews with buyers. |
 
