@@ -393,7 +393,7 @@ ul, ol { padding: 0; list-style: none; }
 .teams-top > .face { margin-left: auto; }
 .t-rail { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 0; background: #ecebe8; border-right: 1px solid var(--line); }
 .t-rail span { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 54px; padding: 7px 0; border-radius: 8px; color: var(--ink-2); }
-.t-rail span .ico { font-size: 20px; }
+.t-rail span .ico { font-size: 22px; stroke: none; }   /* Fluent icons are filled shapes, not strokes */
 .t-rail span i { font-style: normal; font-size: 10.5px; }
 .t-rail span.on { color: var(--ink); background: rgba(255, 255, 255, .8); font-weight: 600; }
 .t-rail .apps { margin-top: auto; }

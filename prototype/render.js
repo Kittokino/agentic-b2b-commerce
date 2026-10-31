@@ -283,8 +283,8 @@
         <div class="teams-top"><img class="teams-logo" src="../assets/teams-outline.png" alt=""><b>Teams</b><span class="search">Search</span>${avatar('priya')}</div>
         <div class="teams-main">
           <nav class="t-rail" aria-hidden="true">
-            ${[['bell', 'Activity'], ['chat', 'Chat'], ['people', 'Teams'], ['calendar', 'Calendar'], ['phone', 'Calls'], ['file', 'Files']].map(([ic, l]) => `<span class="${l === 'Chat' ? 'on' : ''}">${icon(ic)}<i>${l}</i></span>`).join('')}
-            <span class="apps">${icon('apps')}<i>Apps</i></span>
+            ${[['fl-alert', 'Activity'], ['fl-chat', 'Chat'], ['fl-team', 'Teams'], ['fl-calendar', 'Calendar'], ['fl-call', 'Calls'], ['fl-document', 'Files']].map(([ic, l]) => `<span class="${l === 'Chat' ? 'on' : ''}">${icon(ic)}<i>${l}</i></span>`).join('')}
+            <span class="apps">${icon('fl-apps')}<i>Apps</i></span>
           </nav>
           <aside class="chats">
             <div class="chat-item ${onAssistant ? 'on' : ''}"><span class="assistant">${icon('agent')}</span><div><b>Your assistant</b><span>${esc(last(s.assistant))}</span></div></div>

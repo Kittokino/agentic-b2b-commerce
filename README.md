@@ -26,3 +26,7 @@ https://kittokino.github.io/agentic-b2b-commerce/ (once GitHub Pages is enabled:
 - [ ] Research framing (assumptions vs. evidence, research agenda)
 - [x] Design-system foundation (shared tokens and components, one order record)
 - [x] Working prototype (first version)
+
+## Credits
+
+The icons in Priya's Teams window are from [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) by Microsoft, used under the MIT licence. The WhatsApp and Teams logos represent those apps in the prototype and belong to their owners.
