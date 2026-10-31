@@ -226,19 +226,22 @@
     time: '07:46',
     screen: 'teams', actor: 'priya', chat: 'kade',
     title: 'Kade’s order agent confirms the salmon in the same thread. Only the Sauvignon Blanc is still open, and Tom has it.',
-    next: 'Back to Kade’s screen',
+    next: 'Go to Tom’s morning',
     apply(s) {
       set(s, 'salmon', { status: 'confirmed', owner: null, note: 'Approved by Priya' });
       s.kade.push({ time: '07:46', kind: 'text', who: 'agent', text: 'Thanks, Priya. The 18 kg of salmon is approved and confirmed. The order now waits only for the Sauvignon Blanc, which Tom from our customer service team is finding this morning.' });
     },
   };
 
-  const priyaLogged = {
-    story: "Priya’s change arrived before Tom started work, so nobody looks for bottles that are no longer needed.",
-    time: '07:46',
-    screen: 'trail',
-    title: 'The order’s activity shows who changed what, and why, before Tom starts work.',
-    next: 'Go to Tom’s morning',
+
+  const tomMorning = {
+    story: "The order now waits only for the Sauvignon Blanc. Kade has 14 bottles to find, and Tom has the case.",
+    screen: 'break', actor: 'tom',
+    kicker: 'Thursday 29 October, 08:05',
+    title: 'Over at Kade, Tom starts his day.',
+    body: 'Tom works in Kade’s customer service team. He has not seen this order before. Overnight, the order agent passed him one case. He needs to find 14 bottles of Sauvignon Blanc for Harbour Front by 17:00 today.',
+    next: 'Go to Tom’s case',
+    // What happened while Priya was in Teams lands in the order's record before Tom opens his case.
     apply(s) {
       log(s, '07:45', 'priya', 'Priya reduced the Sauvignon Blanc Kade must find from 24 to 14 bottles', { detail: 'Old Town is sending the other 10 bottles.', change: ['To source', '24', '14'], source: 'Teams, Kade order thread', open: 'Open message' });
       log(s, '07:45', 'agent', 'Updated the order before Tom started on the case', { rule: 'changes' });
@@ -250,16 +253,6 @@
       s.order.status = 'With Kade';
       log(s, '07:46', 'system', 'Changed the order status to With Kade', { detail: 'Only the Sauvignon Blanc is still open, and Tom has it.', change: ['Order', 'Waiting on customer and Kade', 'With Kade'] });
     },
-  };
-
-  const tomMorning = {
-    story: "The order now waits only for the Sauvignon Blanc. Kade has 14 bottles to find, and Tom has the case.",
-    screen: 'break', actor: 'tom',
-    kicker: 'Thursday 29 October, 08:05',
-    title: 'Over at Kade, Tom starts his day.',
-    body: 'Tom works in Kade’s customer service team. He has not seen this order before. Overnight, the order agent passed him one case. He needs to find 14 bottles of Sauvignon Blanc for Harbour Front by 17:00 today.',
-    next: 'Go to Tom’s case',
-    apply() {},
   };
 
   const tom = {
@@ -518,8 +511,8 @@
     dates,
     choiceAt: shared.length - 1,
     paths: {
-      decline: [...shared, declined, handover, morning, tip, called, noted, compose, sent, approved, priyaLogged, tomMorning, tom, quote, priceApproved, done, end],
-      more: [...shared, more, handover, morning, tip, called, noted, compose, sent, approved, priyaLogged, tomMorning, tom, quote, priceApproved, done, end],
+      decline: [...shared, declined, handover, morning, tip, called, noted, compose, sent, approved, tomMorning, tom, quote, priceApproved, done, end],
+      more: [...shared, more, handover, morning, tip, called, noted, compose, sent, approved, tomMorning, tom, quote, priceApproved, done, end],
       accept: [...shared, accepted, acceptLogged, acceptEnd],
       // After the order: starts from the confirmed order of the main story.
       admin: [flagIt, review, published, adminEnd],
