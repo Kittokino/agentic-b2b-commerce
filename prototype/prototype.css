@@ -479,5 +479,12 @@ ul, ol { padding: 0; list-style: none; }
 .check p + p { margin-top: 6px; }
 .rule-actions { display: flex; gap: 10px; margin-top: 12px; }
 .rule-history { margin-top: 12px; font-size: var(--t-small); color: var(--ink-3); }
-.o-side .btn + .btn { margin-left: -2px; }
 .toast { white-space: normal; }
+
+/* An item waiting for the viewer: its status on the name line, the buttons under it, both right-aligned. */
+.o-side.with-actions { flex-direction: column; align-items: flex-end; gap: 8px; }
+.o-actions { display: flex; gap: 8px; }
+/* Every status sits on its item's name line. */
+.tcard .o-line { align-items: flex-start; }
+.tcard .o-side { min-height: 22px; padding-top: 2px; }
+.tcard .o-side.with-actions { padding-top: 0; margin-top: 2px; }

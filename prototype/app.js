@@ -198,7 +198,9 @@
     toastEl.classList.remove('show');
     void toastEl.offsetWidth;   // restart the fade when a toast replaces another
     toastEl.classList.add('show');
-    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3200);
+    // Long enough to read: 2 seconds to notice it, then about a third of a second per word, up to 7 seconds.
+    const ms = Math.min(7000, 2000 + text.split(' ').length * 330);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), ms);
   }
 
   // ---------- Input ----------
