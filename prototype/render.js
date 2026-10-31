@@ -57,6 +57,9 @@
     return ` class="new${k === 0 ? ' lead' : ''}" style="animation-delay:${delay.toFixed(2)}s"`;
   };
 
+  // The channels an entry came through, for the channel filter.
+  const channelsOf = (source = '') => [/WhatsApp/.test(source) && 'whatsapp', /Teams/.test(source) && 'teams'].filter(Boolean).join(' ');
+
   // ---------- Kade's order in Sana: its Activity tab ----------
   const sanaTop = (on) => `
     <header class="sana-top">
@@ -99,7 +102,7 @@
       const divider = e.day !== day ? `<li class="day">${esc((day = e.day))}</li>` : '';
       const [field, from, to] = e.change || [];
       return `${divider}
-        <li${lead(i, ctx.fresh.trail)}>
+        <li${lead(i, ctx.fresh.trail)} data-kind="${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}" data-channel="${channelsOf(e.source)}">
           <div class="entry ${e.stop ? 'is-stop' : ''}">
             <span class="t">${esc(e.time)}</span>
             ${avatar(e.who)}
@@ -132,11 +135,13 @@
         <div class="trail-page">
           <section class="trail-main">
             <div class="filters">
-              ${['All', 'AI agents', 'People', 'System'].map((f, i) => `<span class="${i ? '' : 'on'}">${f}</span>`).join('')}
-              <span class="select">Source: All sources${icon('down')}</span>
+              ${[['all', 'All'], ['agent', 'AI agents'], ['person', 'People'], ['system', 'System']].map(([k, f], i) => `<button class="pill ${i ? '' : 'on'}" data-filter="${k}">${f}</button>`).join('')}
+              <select class="select" data-channel-filter aria-label="Channel">
+                ${[['', 'All channels'], ['whatsapp', 'WhatsApp'], ['teams', 'Teams'], ['email', 'Email'], ['phone', 'Phone call'], ['manual', 'Entered by hand']].map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}
+              </select>
               <span class="ro" title="Entries in this log can’t be edited or deleted.">${icon('lock')}Read-only</span>
             </div>
-            <div class="trail-scroll"><ol class="trail">${rows}</ol></div>
+            <div class="trail-scroll"><ol class="trail">${rows}</ol><p class="no-match" hidden></p></div>
           </section>
           ${summary(s)}
         </div>
@@ -192,7 +197,7 @@
       const isNew = i >= ctx.fresh.wa;
       let typing = '';
       if (isNew && m.who === 'agent' && s.wa[i - 1] && s.wa[i - 1].who === 'nigel') {
-        typing = `<div class="typing" style="animation-delay:${delay.toFixed(2)}s"><span></span><span></span><span></span></div>`;
+        typing = `<div class="wa-typing" style="animation-delay:${delay.toFixed(2)}s"><span></span><span></span><span></span></div>`;
         delay += 1;
       }
       const wrap = isNew ? ` class="new" style="animation-delay:${delay.toFixed(2)}s"` : '';

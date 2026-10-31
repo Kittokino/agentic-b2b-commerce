@@ -114,7 +114,7 @@
     followers.forEach(clearTimeout);
     followers = [];
     root.querySelectorAll('.trail-scroll, .chat, .tlist').forEach(list => {
-      const fresh = [...list.querySelectorAll('.new, .typing')];
+      const fresh = [...list.querySelectorAll('.new, .wa-typing')];
       if (!fresh.length) { list.scrollTop = list.scrollHeight; return; }
       list.scrollTop = Math.max(0, fresh[0].offsetTop - list.offsetTop - 60);
       fresh.forEach(item => {
@@ -163,8 +163,42 @@
   const closeModal = () => { layer.hidden = true; layer.innerHTML = ''; };
   layer.addEventListener('click', (e) => { if (e.target === layer || e.target.closest('[data-close]')) closeModal(); });
 
+  // ---------- Activity filters: by who acted, and by channel ----------
+  function applyFilters(root) {
+    root.classList.add('filtered');   // entries shown again appear at once, without replaying their entrance
+    const kind = root.querySelector('[data-filter].on').dataset.filter;
+    const channel = root.querySelector('[data-channel-filter]').value;
+    let shownAny = false;
+    let day = null;
+    let dayHasEntries = false;
+    const closeDay = () => { if (day) day.hidden = !dayHasEntries; };
+    root.querySelectorAll('.trail > li').forEach(li => {
+      if (li.classList.contains('day')) { closeDay(); day = li; dayHasEntries = false; return; }
+      const show = (kind === 'all' || li.dataset.kind === kind) && (!channel || li.dataset.channel.split(' ').includes(channel));
+      li.hidden = !show;
+      if (show) { dayHasEntries = true; shownAny = true; }
+    });
+    closeDay();
+    const none = root.querySelector('.no-match');
+    none.hidden = shownAny;
+    none.textContent = channel ? 'No entries from this channel for this order.' : 'No entries of this kind for this order.';
+    // A shorter list would otherwise stay scrolled to where the longer one ended.
+    const list = root.querySelector('.trail-scroll');
+    list.scrollTop = list.scrollHeight;
+  }
+  stage.addEventListener('change', (e) => {
+    if (e.target.matches('[data-channel-filter]')) applyFilters(e.target.closest('.trail-main'));
+  });
+
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
+    const pill = e.target.closest('[data-filter]');
+    if (pill) {
+      const row = pill.closest('.filters');
+      row.querySelectorAll('[data-filter]').forEach(p => p.classList.toggle('on', p === pill));
+      applyFilters(pill.closest('.trail-main'));
+      return;
+    }
     const link = e.target.closest('[data-open]');
     if (link) { openModal(+link.dataset.open); return; }
     const t = e.target.closest('[data-action], [data-nav], [data-go], [data-intro], #cue');
