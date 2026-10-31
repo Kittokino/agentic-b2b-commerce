@@ -160,19 +160,9 @@ ul, ol { padding: 0; list-style: none; }
 .sum-facts .face.xs { width: 22px; height: 22px; }
 
 /* Tom's case */
-/* Tom's case: the key facts in a fixed header, like a CRM's highlights panel; the work scrolls under it. */
-.case-main { min-height: 0; display: flex; flex-direction: column; }
-.case-head { flex: none; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-.case-body { flex: 1; min-height: 0; overflow-y: auto; padding: 4px 8px 18px 0; scrollbar-width: thin; scrollbar-color: rgba(21, 15, 51, .2) transparent; }
-.case-h { margin-top: 14px; font-size: var(--t-small); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
-.case-title { display: flex; align-items: center; gap: 14px; margin-top: 6px; }
-.case-title h1 { font-family: var(--font-display); font-weight: 500; font-size: var(--t-head); letter-spacing: -.015em; }
-.case-for { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: var(--t-body); color: var(--ink-2); }
-.case-task { margin-top: 4px; font-size: var(--t-body); line-height: 1.45; }
 .changed { display: flex; gap: 12px; align-items: flex-start; margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: var(--person-soft); }
 .changed .ico { font-size: 20px; margin-top: 2px; }
 .changed p { font-size: var(--t-body); line-height: 1.45; }
-.case-actions { margin-top: 22px; }
 .history h3 { font-size: var(--t-body); }
 .history ul { margin-top: 8px; }
 .history li { display: grid; grid-template-columns: 44px 28px 1fr; gap: 10px; align-items: start; padding: 10px 0; border-top: 1px solid var(--line); font-size: var(--t-body); line-height: 1.35; }
@@ -426,9 +416,6 @@ ul, ol { padding: 0; list-style: none; }
 .acard-btns .btn, .wa-buttons button, .o-side .btn { transition: background .15s, filter .15s; }
 
 /* Tom's case: the supplier options the agent prepared, for Tom to choose from. */
-.options { margin-top: 16px; }
-.options h3 { font-size: var(--t-small); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
-.options h3 span { margin-left: 8px; font-size: var(--t-small); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink-3); }
 .option-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
 .option { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 14px 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
 .option b { font-size: var(--t-body); }
@@ -437,7 +424,6 @@ ul, ol { padding: 0; list-style: none; }
 .option .btn { margin-top: 10px; }
 .option .btn.live { background: var(--ink); color: #fff; }
 .option .btn:not(.live):not(:disabled):hover { background: var(--person-soft); filter: none; }
-.options-note { margin-top: 10px; font-size: var(--t-small); color: var(--ink-3); }
 
 /* Who is signed in, at the right of Kade's header. */
 .sana-top .me { margin-left: auto; display: flex; align-items: center; }
@@ -492,3 +478,30 @@ ul, ol { padding: 0; list-style: none; }
 .tcard .o-line { align-items: flex-start; }
 .tcard .o-side { min-height: 22px; padding-top: 2px; }
 .tcard .o-side.with-actions { padding-top: 0; margin-top: 2px; }
+
+/* Tom's case, laid out like a case in a service tool. */
+.case-head { flex: none; padding: 14px 24px 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.case-head-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.case-title { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+.case-title h1 { font-family: var(--font-display); font-weight: 500; font-size: var(--t-head); letter-spacing: -.015em; }
+.case-for { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: var(--t-small); color: var(--ink-2); }
+.case-actions { flex: none; display: flex; gap: 8px; }
+.case-actions .btn { gap: 6px; }
+.case-actions .btn:hover { background: var(--person-soft); filter: none; }
+.case-head-body { display: grid; grid-template-columns: 1fr 1.45fr; gap: 24px; margin-top: 12px; align-items: start; }
+.case-desc p { margin-top: 4px; font-size: var(--t-body); line-height: 1.45; }
+.case-head .case-facts { margin-top: 0; background: var(--bg); }
+.case-page { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 300px; gap: 24px; padding: 14px 24px 0; }
+.case-history { min-height: 0; overflow-y: auto; padding: 0 8px 18px 0; scrollbar-width: thin; scrollbar-color: rgba(21, 15, 51, .2) transparent; }
+.case-h { font-size: var(--t-small); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.case-history ol { margin-top: 6px; }
+.case-history li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.case-history li:first-child { border-top: 0; }
+.ch-meta { display: flex; justify-content: space-between; gap: 12px; font-size: var(--t-small); color: var(--ink-3); }
+.ch-title { margin-top: 2px; font-size: var(--t-body); font-weight: 600; }
+.ch-text { margin-top: 2px; font-size: var(--t-small); line-height: 1.5; color: var(--ink-2); }
+.case-history .chg { margin-top: 4px; }
+.case-history .rule { margin-top: 6px; }
+.case-history .option-cards { margin-top: 10px; }
+.case-page .summary { margin-bottom: 18px; }
+.case-head .case-facts dd { white-space: nowrap; }

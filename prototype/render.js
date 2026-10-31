@@ -195,45 +195,74 @@
   }
 
   // ---------- Tom's case, in Sana ----------
+  // Laid out like a case in a service tool: a full-width header with the key facts and actions,
+  // then the case's own history (newest first) beside the related order.
+  const CASE_TOASTS = {
+    comment: 'In the story, Tom does not add a comment here. Use the button at the bottom right to continue.',
+    assign: 'In the story, Tom keeps the case. Use the button at the bottom right to continue.',
+    close: 'The case closes on its own once Priya approves the price and the order is confirmed.',
+  };
   function desk(s, scene, ctx) {
     const c = s.caseFile;
-    const recent = s.trail.slice(-5).map(e => `<li><span class="t">${esc(e.time)}</span>${avatar(e.who)}<p>${esc(e.text)}</p></li>`).join('');
+    const o = s.order;
+    const recent = s.trail.slice(-4).map(e => `<li><span class="t">${esc(e.time)}</span>${avatar(e.who)}<p>${esc(e.text)}</p></li>`).join('');
+    const options = c.options ? `
+      <div class="option-cards">${c.options.map(op => `
+        <div class="option">
+          <b>${esc(op.name)}</b>
+          <p>${esc(op.stock)} · ${esc(op.price)}</p>
+          <p class="muted">${esc(op.when)}</p>
+          ${act(op.action ? { action: op.action, label: 'Use this supplier' } : { action: 'other-supplier', label: 'Use this supplier', toastText: op.toast }, ctx, 'btn sm ghost')}
+        </div>`).join('')}
+      </div>` : '';
+    // The case's history, newest first.
+    const history = [
+      ['Thursday 29 October, 08:05', 'tom', 'Tom · Service rep', 'Opened the case and started work', ''],
+      c.options && ['Thursday 29 October, 07:46', 'agent', 'AI order agent', 'Prepared two supplier options for 14 bottles of Sauvignon Blanc', `<p class="ch-text">The agent checked Kade’s partner suppliers. Tom decides which one to use.</p>${options}`],
+      c.changed && ['Thursday 29 October, 07:45', 'priya', 'Priya · Buyer · via Teams', 'Changed the quantity from 24 to 14 bottles', `<p class="ch-text">Old Town, one of The Olive Tree’s restaurants, is sending the other 10 bottles to Harbour Front.</p><p class="chg">Quantity: <s>24</s> → <b>14</b></p>`],
+      ['Wednesday 28 October, 22:51', 'agent', 'AI order agent', 'Created the case and assigned it to Tom', `<p class="ch-text">Nigel declined the suggested Pinot Grigio, and no other allowed option was left. The full conversation with Nigel and Priya is attached.</p><span class="rule">${icon('rule')}Rule: Hand over when no allowed option is left · v2</span>`],
+    ].filter(Boolean).map(([when, who, label, text, body]) => `
+      <li>
+        ${avatar(who)}
+        <div>
+          <p class="ch-meta"><span class="actor">${esc(label)}</span><span>${esc(when)}</span></p>
+          <p class="ch-title">${esc(text)}</p>
+          ${body}
+        </div>
+      </li>`).join('');
     return `
       <div class="frame">
         ${sanaTop('Cases', 'tom')}
-        <div class="trail-page">
-          <section class="case-main">
-            <header class="case-head">
-            <div class="crumb">Cases <span>/</span> ${esc(c.id)}</div>
-            <div class="case-title"><h1>${esc(c.title)}</h1><span class="status handed">${esc(c.status)}</span></div>
-            <p class="case-for">${avatar('tom')} Assigned to Tom · for ${esc(s.order.customer)} · order ${esc(s.order.id)}</p>
+        <header class="case-head">
+          <div class="case-head-top">
+            <div>
+              <div class="crumb">Cases <span>/</span> ${esc(c.id)}</div>
+              <div class="case-title"><h1>${esc(c.title)}</h1><span class="status handed">${esc(c.status)}</span></div>
+              <p class="case-for">${avatar('tom')} Assigned to Tom · ${esc(o.customer)} · order ${esc(o.id)}</p>
+            </div>
+            <div class="case-actions">
+              <button class="btn sm ghost" data-toast="${esc(CASE_TOASTS.comment)}">${icon('chat')}Comment</button>
+              <button class="btn sm ghost" data-toast="${esc(CASE_TOASTS.assign)}">${icon('person')}Assign</button>
+              <button class="btn sm ghost" data-toast="${esc(CASE_TOASTS.close)}">${icon('check')}Close case</button>
+            </div>
+          </div>
+          <div class="case-head-body">
+            <div class="case-desc"><span class="kicker">Description</span><p>${esc(c.task)}</p></div>
             <dl class="case-facts">
               <div><dt>Needed by</dt><dd>${esc(c.needBy[0])}<span>${esc(c.needBy[1])}</span></dd></div>
-              <div><dt>Delivery to Harbour Front</dt><dd>${esc(c.delivery[0])}<span>${esc(c.delivery[1])}</span></dd></div>
+              <div><dt>Delivery</dt><dd>${esc(c.delivery[0])}<span>${esc(c.delivery[1])}</span></dd></div>
               <div><dt>Private dinner</dt><dd>${esc(c.occasion[0])}<span>${esc(c.occasion[1])}</span></dd></div>
             </dl>
-            </header>
-            <div class="case-body">
-            <h3 class="case-h">What is needed</h3>
-            <p class="case-task">${esc(c.task)}</p>
-            ${c.changed ? `<div class="changed">${icon('rule')}<p>${esc(c.changed)}</p></div>` : ''}
-            ${c.options ? `
-            <section class="options">
-              <h3>Supplier options <span>prepared by the AI order agent at 07:46</span></h3>
-              <div class="option-cards">${c.options.map(o => `
-                <div class="option">
-                  <b>${esc(o.name)}</b>
-                  <p>${esc(o.stock)} · ${esc(o.price)}</p>
-                  <p class="muted">${esc(o.when)}</p>
-                  ${act(o.action ? { action: o.action, label: 'Use this supplier' } : { action: 'other-supplier', label: 'Use this supplier', toastText: o.toast }, ctx, 'btn sm ghost')}
-                </div>`).join('')}
-              </div>
-              <p class="options-note">The agent checked Kade’s partner suppliers for this wine. Tom decides which one to use.</p>
-            </section>` : ''}
-            </div>
+          </div>
+        </header>
+        <div class="case-page">
+          <section class="case-history">
+            <h3 class="case-h">Case history</h3>
+            <ol>${history}</ol>
           </section>
           <aside class="summary history">
-            <h3>Latest activity on the order</h3>
+            <h3>Order ${esc(o.id)}</h3>
+            <p class="tally">${esc(o.status)} · latest activity</p>
             <ul>${recent}</ul>
           </aside>
         </div>
