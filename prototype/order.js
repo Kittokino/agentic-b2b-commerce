@@ -325,7 +325,7 @@
       ['Stops', 'The salmon went over Harbour Front’s fish budget, so the agent stopped and asked Priya, who decides on budgets.'],
       ['Hands over', 'The agent had no other wine it was allowed to offer, so it passed the Sauvignon Blanc to Tom with the full conversation.'],
     ],
-    links: [{ go: 'admin', label: 'See what happens after the order' }, { go: 'accept', label: 'What if Nigel had accepted?' }],
+    links: [{ go: 'admin', label: 'See what happens after the order' }, { go: 'accept', label: 'What if Nigel had accepted Pinot Grigio?' }],
     redAt: 1,
     apply() {},
   };

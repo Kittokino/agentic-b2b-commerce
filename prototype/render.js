@@ -356,8 +356,7 @@
         ${scene.body ? `<p>${esc(scene.body)}</p>` : ''}
         ${scene.outcomes ? `<ul class="outcomes">${scene.outcomes.map(([k, v], i) => `<li class="${i === scene.redAt ? 'is-stop' : ''}"><b>${k}</b><p>${esc(v)}</p></li>`).join('')}</ul>` : ''}
         <div class="end-btns">
-          ${scene.links.map(l => `<button class="btn" data-go="${l.go}">${esc(l.label)}</button>`).join('')}
-          <button class="btn ghost" data-nav="restart">Start again</button>
+          ${scene.links.map((l, i) => `<button class="btn ${i ? 'ghost' : ''}" data-go="${l.go}">${esc(l.label)}</button>`).join('')}
         </div>
       </div>`;
   }
