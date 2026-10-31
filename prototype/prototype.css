@@ -224,7 +224,7 @@ ul, ol { padding: 0; list-style: none; }
 .teams-top .teams-logo { width: 20px; height: 20px; object-fit: contain; }
 .teams-top .search { margin-left: 40px; width: 280px; padding: 5px 12px; border-radius: 6px; background: rgba(255, 255, 255, .7); color: var(--ink-3); font-size: var(--t-label); }
 /* The row is held to the window's height, so the typing box always stays at the bottom. */
-.teams-main { flex: 1; min-height: 0; display: grid; grid-template-columns: 236px 1fr; grid-template-rows: minmax(0, 1fr); }
+.teams-main { flex: 1; min-height: 0; display: grid; grid-template-columns: 64px 236px 1fr; grid-template-rows: minmax(0, 1fr); }
 .chats { border-right: 1px solid var(--line); padding: 8px; }
 .chat-item { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 8px; }
 .chat-item.on { background: var(--bg); }
@@ -326,20 +326,12 @@ ul, ol { padding: 0; list-style: none; }
 .tap-hint { position: absolute; left: calc(100% + 28px); display: flex; align-items: center; gap: 10px; width: 220px; font-size: var(--t-body); color: var(--ink-2); animation: appear .5s ease-out 1.6s both; }
 .tap-hint em { font-style: italic; }
 .tap-hint .ico { flex: none; font-size: 30px; color: var(--ink); }
-.tap-hint.at-notification { top: 290px; }
 .tap-hint.at-buttons { bottom: 130px; }
 .phone-top > .ico:last-child { margin-left: auto; font-size: 20px; }
 
 /* Kade's leaf, where Kade appears as a business. */
 .face.kade img { width: 62%; height: 62%; object-fit: contain; }
 
-/* A hint beside the button it refers to (placed by app.js), or under it, pointing up. */
-.wide-scene { position: relative; }
-.tap-hint.at-target { left: 0; top: 0; width: auto; max-width: 240px; visibility: hidden; animation: none; z-index: 3; }
-.tap-hint.at-target.placed { visibility: visible; animation: appear .4s ease-out both; }
-.tap-hint.at-target.below { flex-direction: column; align-items: flex-start; gap: 2px; }
-.tap-hint.at-target.below .ico { transform: rotate(90deg); }
-.tap-hint.at-target em { white-space: nowrap; }
 
 /* The actor line carries the source, then the link to it. */
 .actor-row { font-size: var(--t-label); }
@@ -396,3 +388,16 @@ ul, ol { padding: 0; list-style: none; }
 .m-orders li { grid-template-columns: 82px 1fr; }
 .m-orders b { color: var(--ink) !important; font-weight: 600; }
 .bubble b { font-weight: 700; }
+
+/* Teams: the app's icon column, Priya's picture at the top right, and an unread chat. */
+.teams-top > .face { margin-left: auto; }
+.t-rail { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 0; background: #ecebe8; border-right: 1px solid var(--line); }
+.t-rail span { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 54px; padding: 7px 0; border-radius: 8px; color: var(--ink-2); }
+.t-rail span .ico { font-size: 20px; }
+.t-rail span i { font-style: normal; font-size: 10.5px; }
+.t-rail span.on { color: var(--ink); background: rgba(255, 255, 255, .8); font-weight: 600; }
+.t-rail .apps { margin-top: auto; }
+.chat-item b { font-weight: 500; }
+.chat-item.unread b { font-weight: 700; }
+.chat-item.unread span:not(.assistant):not(.face) { color: var(--ink); font-weight: 600; }
+.chat-item .unread-dot { flex: none; width: 8px; height: 8px; margin-left: auto; border-radius: 50%; background: var(--ink); }

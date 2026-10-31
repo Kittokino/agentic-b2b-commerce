@@ -80,33 +80,9 @@
     Object.assign(shown, { key, screen: sc.screen });
 
     follow(shown.el);
-    placeHint(shown.el);
     rail();
     renderCue(sc);
     history.replaceState(null, '', hashFor());
-  }
-
-  // A hint marked 'target' sits beside the button the viewer needs, or under it when there is
-  // no room on the right. It is placed once the screen has settled.
-  let hintTimer = null;
-  function placeHint(root) {
-    clearTimeout(hintTimer);
-    hintTimer = setTimeout(() => {
-      const hint = root.querySelector('.tap-hint.at-target');
-      const target = root.querySelector('.live');
-      if (!hint || !target) return;
-      const box = hint.offsetParent.getBoundingClientRect();
-      // Beside the whole row of buttons, so the hint never covers a neighbouring button.
-      const t = (target.closest('.acard-btns, .o-side') || target).getBoundingClientRect();
-      const btn = target.getBoundingClientRect();
-      const k = box.width / hint.offsetParent.offsetWidth;   // the stage's scale
-      const right = (t.right - box.left) / k + 16;
-      const below = right + hint.offsetWidth > hint.offsetParent.offsetWidth - 8;
-      hint.classList.toggle('below', below);
-      hint.style.left = `${below ? Math.max(8, (btn.left - box.left) / k + btn.width / k / 2 - 15) : right}px`;
-      hint.style.top = `${below ? (btn.bottom - box.top) / k + 8 : (t.top - box.top) / k + t.height / k / 2 - hint.offsetHeight / 2}px`;
-      hint.classList.add('placed');
-    }, 1300);
   }
 
   // Lists start at the first new entry, then follow each one as it comes in.

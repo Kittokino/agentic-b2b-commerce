@@ -280,11 +280,15 @@
     const last = (list) => { const m = list[list.length - 1]; return m ? (m.kind === 'card' && !m.text ? 'Harbour Front · Saturday dinner' : m.text) : ''; };
     return `
       <div class="teams">
-        <div class="teams-top"><img class="teams-logo" src="../assets/teams-outline.png" alt=""><b>Teams</b><span class="search">Search</span></div>
+        <div class="teams-top"><img class="teams-logo" src="../assets/teams-outline.png" alt=""><b>Teams</b><span class="search">Search</span>${avatar('priya')}</div>
         <div class="teams-main">
+          <nav class="t-rail" aria-hidden="true">
+            ${[['bell', 'Activity'], ['chat', 'Chat'], ['people', 'Teams'], ['calendar', 'Calendar'], ['phone', 'Calls'], ['file', 'Files']].map(([ic, l]) => `<span class="${l === 'Chat' ? 'on' : ''}">${icon(ic)}<i>${l}</i></span>`).join('')}
+            <span class="apps">${icon('apps')}<i>Apps</i></span>
+          </nav>
           <aside class="chats">
             <div class="chat-item ${onAssistant ? 'on' : ''}"><span class="assistant">${icon('agent')}</span><div><b>Your assistant</b><span>${esc(last(s.assistant))}</span></div></div>
-            <div class="chat-item ${onAssistant ? '' : 'on'}">${kadeMark()}<div><b>Kade Foodservice</b><span>${esc(last(s.kade))}</span></div></div>
+            <div class="chat-item ${onAssistant ? 'unread' : 'on'}">${kadeMark()}<div><b>Kade Foodservice</b><span>${esc(last(s.kade))}</span></div>${onAssistant ? '<span class="unread-dot" aria-label="Unread"></span>' : ''}</div>
           </aside>
           <section class="conv">
             <header>${onAssistant ? `<span class="assistant">${icon('agent')}</span><b>Your assistant</b><span class="muted">The Olive Tree</span>` : `${kadeMark()}<b>Kade Foodservice</b><span class="muted">Order thread · ${esc(s.order.id)}</span>`}</header>

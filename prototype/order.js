@@ -71,7 +71,6 @@
     screen: 'lock', actor: 'nigel',
     title: 'Nigel is closing up the kitchen when a WhatsApp message from Kade arrives.',
     cta: 'Read the message',
-    hint: 'Tap the notification.', hintAt: 'notification',
     choices: [{ action: 'open', label: 'Open' }],
     apply(s) {
       s.notify = { app: 'WhatsApp', from: 'Kade Foodservice', text: 'We have your order for Saturday. The cheese board is confirmed. The salmon and the wine need a decision.' };
@@ -159,7 +158,6 @@
     screen: 'teams', actor: 'priya', chat: 'assistant',
     title: 'Priya’s assistant has read Kade’s update and checked the inventory of the other two restaurants.',
     cta: 'Call Old Town',
-    hint: 'Click “Call Old Town”.', hintAt: 'target',
     choices: [{ action: 'call' }],
     apply(s) {
       s.assistant.push({ time: '07:40', kind: 'card', text: 'Kade doesn’t have 24 bottles of Sauvignon Blanc for Harbour Front’s private dinner on Saturday. Old Town, one of your restaurants, has 10 bottles of the same wine in stock and could send them to Harbour Front.', buttons: [{ action: 'call', label: 'Call Old Town' }, { action: 'not-now', label: 'Not now' }] });
@@ -172,7 +170,6 @@
     screen: 'teams', actor: 'priya', chat: 'assistant',
     title: 'Old Town can send all 10 bottles. Priya’s assistant does not hear the call, so it asks her how it went.',
     cta: 'Old Town confirmed',
-    hint: 'Click “Old Town confirmed”.', hintAt: 'target',
     choices: [{ action: 'confirmed' }],
     apply(s) {
       s.assistant.push({ time: '07:43', kind: 'note', text: 'Call with Old Town, 2 minutes' });
@@ -186,7 +183,6 @@
     screen: 'teams', actor: 'priya', chat: 'kade',
     title: 'Priya tells Kade in Kade’s order thread, not in a private chat, so the change is made on the order itself.',
     cta: 'Send the message',
-    hint: 'Click Send.', hintAt: 'target',
     choices: [{ action: 'send' }],
     apply(s) {
       s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
@@ -201,7 +197,6 @@
     screen: 'teams', actor: 'priya', chat: 'kade',
     title: 'Kade’s order agent changes the wine to 14 bottles and updates Tom’s case. While she is in the thread, Priya also approves the salmon.',
     cta: 'Approve the salmon',
-    hint: 'Click Approve.', hintAt: 'target',
     choices: [{ action: 'approve' }],
     apply(s) {
       s.compose = '';
@@ -238,7 +233,6 @@
     screen: 'desk', actor: 'tom',
     title: 'Tom opens his case. It already says 14 bottles and explains why.',
     cta: 'Send Nigel the one-time price',
-    hint: 'Click the button to send Nigel the price.', hintAt: 'target',
     choices: [{ action: 'quote' }],
     apply(s) {
       s.caseFile = { ...s.caseFile, status: 'In progress', found: 'A partner supplier has 14 bottles in stock, at €11.80 a bottle.' };
@@ -251,7 +245,6 @@
     screen: 'whatsapp', actor: 'nigel',
     title: 'Nigel gets a one-time price on WhatsApp. His contract stays the same.',
     cta: 'Yes, order them',
-    hint: 'Tap “Yes, order them”.', hintAt: 'buttons',
     choices: [{ action: 'confirm' }],
     apply(s) {
       s.caseFile = { ...s.caseFile, status: 'Quote sent' };
