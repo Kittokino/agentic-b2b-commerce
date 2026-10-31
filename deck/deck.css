@@ -152,6 +152,27 @@ p { margin: 0; }
 .chan { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--ink-3); }
 .chan .ico { font-size: 14px; }
 
+/* ---------- 8b · The journey as loops ---------- */
+.s-loops h2 { margin-bottom: 14px; }
+.s-loops .lead { max-width: 900px; font-size: 18px; line-height: 1.5; color: var(--ink-2); margin-bottom: 28px; }
+.loops { position: relative; width: 1088px; height: 390px; }
+.loop-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.loop-lines .loop { fill: none; stroke: var(--ink-3); stroke-width: 1.5; }
+.loop-lines .loop.stop { stroke: var(--red); }
+.loop-lines .head { fill: var(--ink-3); }
+.loop-lines .head.red { fill: var(--red); }
+.hub { position: absolute; left: 466px; top: 117px; width: 156px; height: 156px; border-radius: 50%; border: 1.5px solid var(--ink); background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; padding: 0 18px; }
+.hub .face { width: 40px; height: 40px; font-size: 18px; margin-bottom: 4px; }
+.hub b { font-family: var(--font-display); font-weight: 400; font-size: 22px; letter-spacing: -.02em; }
+.hub span { font-size: 12px; line-height: 1.35; color: var(--ink-3); }
+.party { position: absolute; width: 340px; }
+.party.lt { left: 0; top: 0; } .party.lb { left: 0; top: 222px; }
+.party.rt { right: 0; top: 0; } .party.rb { right: 0; top: 222px; }
+.party.rt, .party.rb { padding-left: 4px; }
+.party h3 { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: 22px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 8px; }
+.party h3 .beat { font-family: var(--font); font-size: 14px; letter-spacing: 0; padding-top: 0; }
+.party p { font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+
 /* ---------- 9 · Configuring the platform ---------- */
 .s-config h2 { margin-bottom: 32px; }
 .config { display: grid; grid-template-columns: 330px 1fr; gap: 56px; align-items: start; }

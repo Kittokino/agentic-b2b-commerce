@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=2">
   <link rel="stylesheet" href="../shared/components.css?v=4">
-  <link rel="stylesheet" href="deck.css?v=20261031i">
+  <link rel="stylesheet" href="deck.css?v=20261031j">
 </head>
 <body>
 
@@ -269,6 +269,55 @@
     <aside class="notes">
       <p>This is one order over two days and three channels. The red dot shows where the agent stops.</p>
       <p>On Thursday morning, before Tom starts work, Priya finds 10 bottles of Sauvignon Blanc at Old Town, so Tom only has to find 14. He chooses Northgate Wines from two suppliers the agent found. Its price is outside the contract, so Priya approves it, not Nigel.</p>
+    </aside>
+  </section>
+
+  <!-- 8b · The journey as loops (to compare with slide 8) -->
+  <section class="slide s-loops">
+    <p class="eyebrow">The journey, as loops</p>
+    <h2>In real life, decisions go back and forth</h2>
+    <p class="lead">An order can look like a straight line, but each decision may go back and forth between the agent and a person several times. Every loop starts and ends in the same order record.</p>
+    <div class="loops">
+      <svg class="loop-lines" viewBox="0 0 1088 390" aria-hidden="true">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="head"/></marker>
+          <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="head red"/></marker>
+        </defs>
+        <path class="loop" d="M352 90 Q395 146 464 157" marker-end="url(#arrow)"/>
+        <path class="loop" d="M473 142 Q431 86 361 74" marker-end="url(#arrow)"/>
+        <path class="loop" d="M361 304 Q428 297 471 245" marker-end="url(#arrow)"/>
+        <path class="loop stop" d="M462 229 Q395 236 353 288" marker-end="url(#arrow-red)"/>
+        <path class="loop" d="M727 74 Q657 86 615 142" marker-end="url(#arrow)"/>
+        <path class="loop" d="M624 157 Q693 146 736 90" marker-end="url(#arrow)"/>
+        <path class="loop" d="M735 288 Q693 236 626 229" marker-end="url(#arrow)"/>
+        <path class="loop" d="M617 245 Q660 297 727 304" marker-end="url(#arrow)"/>
+      </svg>
+      <div class="hub">
+        <div class="face agent"><svg class="ico"><use href="#i-agent"/></svg></div>
+        <b>The order</b>
+        <span>One record, kept by the agent</span>
+      </div>
+      <div class="party lt">
+        <h3>The person who orders</h3>
+        <p>The agent reads the order back and asks about anything unclear. When an item is short, it offers alternatives, and the person accepts, declines or asks for more options.</p>
+      </div>
+      <div class="party lb">
+        <h3>The person who approves <span class="beat stop"><i class="dot"></i>Stops</span></h3>
+        <p>The agent stops and asks for approval when an item goes over a budget or outside the contract. The approver can approve it, decline it or change the order.</p>
+      </div>
+      <div class="party rt">
+        <h3>The supplier's team</h3>
+        <p>The agent hands over what it cannot solve within the rules. The team finds options, and a new price goes back to the person who approves.</p>
+      </div>
+      <div class="party rb">
+        <h3>The admin</h3>
+        <p>People flag decisions that were poor. The admin changes the rule, tests it and publishes a new version, and the agent follows it from then on.</p>
+      </div>
+    </div>
+    <aside class="notes">
+      <p>The previous slide shows the order as a line, because that is how the people in the story experience it. In real life, each decision can go back and forth between the agent and a person several times.</p>
+      <p>The person who orders may correct the agent or turn down an alternative. The person who approves may decline, or change the order while work is under way. The supplier's team may come back with a new price that needs approval. After the order, people flag poor decisions, and the admin improves the rules.</p>
+      <p>Every loop starts and ends in the same order record, so nobody works from an old copy. The red arrow marks the loop where the agent stops and asks.</p>
     </aside>
   </section>
 
