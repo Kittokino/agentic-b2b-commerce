@@ -200,10 +200,15 @@
             <div class="crumb">Cases <span>/</span> ${esc(c.id)}</div>
             <div class="case-title"><h1>${esc(c.title)}</h1><span class="status handed">${esc(c.status)}</span></div>
             <p class="case-for">${avatar('tom')} Assigned to Tom · for ${esc(s.order.customer)} · order ${esc(s.order.id)}</p>
+            <dl class="case-facts">
+              <div><dt>Needed by</dt><dd>${esc(c.needBy[0])}<span>${esc(c.needBy[1])}</span></dd></div>
+              <div><dt>Delivery to Harbour Front</dt><dd>${esc(c.delivery[0])}<span>${esc(c.delivery[1])}</span></dd></div>
+              <div><dt>Private dinner</dt><dd>${esc(c.occasion[0])}<span>${esc(c.occasion[1])}</span></dd></div>
+            </dl>
             <p class="case-task">${esc(c.task)}</p>
             ${c.changed ? `<div class="changed">${icon('rule')}<p>${esc(c.changed)}</p></div>` : ''}
             ${c.found ? `<div class="found"><span class="muted">What Tom found</span><p>${esc(c.found)}</p></div>` : ''}
-            <div class="case-actions">${act({ action: 'quote', label: 'Send Nigel the one-time price' }, ctx, 'btn')}</div>
+            <div class="case-actions">${act({ action: 'quote', label: 'Send the one-time price to Priya' }, ctx, 'btn')}</div>
           </section>
           <aside class="summary history">
             <h3>Latest activity on the order</h3>
@@ -279,7 +284,9 @@
     }).join('');
 
     const chatKade = s.kade.map((m, i) => {
-      const body = m.kind === 'card' ? orderCard(s, ctx) : `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
+      const body = m.kind === 'card' ? orderCard(s, ctx)
+        : m.buttons ? `<div class="acard"><p>${esc(m.text)}</p><div class="acard-btns">${m.buttons.map(b => act(b, ctx, 'btn sm ghost')).join('')}</div></div>`
+        : `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
       return `<li${enter(i, ctx.fresh.kade)}>${m.who === 'priya' ? '' : avatar('agent')}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Kade · Order agent (AI)'} · ${esc(m.time)}</span>${body}</div></li>`;
     }).join('');
 
@@ -390,15 +397,15 @@
         <p class="m-label">Attached</p>
         <p class="m-text">The full conversation with Nigel and Priya, and every entry in the order’s activity.</p>`;
     } else if (e.open === 'Open approval') {
-      const salmon = s.order.lines.find(l => l.id === 'salmon');
+      const price = e.approves === 'price';
       title = 'Priya’s approval';
       body = `
         <p class="m-meta">Teams · Kade order thread · Thursday ${esc(e.time)}</p>
         <div class="m-approval">
-          <div><b>${esc(salmon.name)}</b><span>${esc(salmon.qty)} · takes Harbour Front €180 over its fish budget</span></div>
+          <div><b>${price ? 'Sauvignon Blanc, one-time price' : 'Salmon fillet'}</b><span>${price ? '14 bottles at €11.80 each, €165.20 in total' : '18 kg · takes Harbour Front €180 over its fish budget'}</span></div>
           <span class="status done">${icon('check')}Approved by Priya</span>
         </div>
-        <p class="m-text">Priya approved the salmon with the Approve button on Kade’s order card in Teams. There is no written message for this step.</p>`;
+        <p class="m-text">${price ? 'Priya approved the one-time price with the Approve button on Kade’s message in Teams.' : 'Priya approved the salmon with the Approve button on Kade’s order card in Teams.'} There is no written message for this step.</p>`;
     } else if ((e.source || '').startsWith('Teams')) {
       title = 'Message in Teams';
       body = `

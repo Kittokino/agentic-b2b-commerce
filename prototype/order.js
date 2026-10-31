@@ -97,7 +97,8 @@
 
   const handToTom = (s) => {
     set(s, 'wine', { status: 'handed', owner: 'tom', note: 'Tom will look for it from 08:00' });
-    s.caseFile = { id: 'CS-3391', title: 'Find 24 bottles of Sauvignon Blanc', status: 'Starts at 08:00', task: 'For Harbour Front’s private dinner on Saturday. Nigel needs Sauvignon Blanc for the menu, so a different wine won’t do.' };
+    s.caseFile = { id: 'CS-3391', title: 'Find 24 bottles of Sauvignon Blanc', status: 'Starts at 08:00', task: 'For Harbour Front’s private dinner on Saturday. Nigel needs Sauvignon Blanc for the menu, so a different wine won’t do.',
+      needBy: ['Thursday 29 October', 'by 17:00'], delivery: ['Friday 30 October', '07:00–09:00'], occasion: ['Saturday 31 October', '120 guests'] };
     wa(s, '22:51', 'agent', s.more
       ? 'There is no other Sauvignon Blanc in your contract. *Tom* from our customer service team will look for 24 bottles elsewhere when he starts work *tomorrow at 08:00*. We will message you here on WhatsApp with what he finds. You don’t need to do anything until then.'
       : 'Understood, Nigel. *Tom* from our customer service team will look for 24 bottles of Sauvignon Blanc when he starts work *tomorrow at 08:00*. We will message you here on WhatsApp with what he finds. You don’t need to do anything until then.');
@@ -219,6 +220,19 @@
     },
   };
 
+  // Kade's order agent confirms the approval in the same thread, before the story moves on.
+  const approved = {
+    story: "Priya approved the salmon with the button in Kade’s order card.",
+    time: '07:46',
+    screen: 'teams', actor: 'priya', chat: 'kade',
+    title: 'Kade’s order agent confirms the salmon in the same thread. Only the Sauvignon Blanc is still open, and Tom has it.',
+    next: 'Back to Kade’s screen',
+    apply(s) {
+      set(s, 'salmon', { status: 'confirmed', owner: null, note: 'Approved by Priya' });
+      s.kade.push({ time: '07:46', kind: 'text', who: 'agent', text: 'Thanks, Priya. The 18 kg of salmon is approved and confirmed. The order now waits only for the Sauvignon Blanc, which Tom from our customer service team is finding this morning.' });
+    },
+  };
+
   const priyaLogged = {
     story: "Priya’s change arrived before Tom started work, so nobody looks for bottles that are no longer needed.",
     time: '07:46',
@@ -226,12 +240,11 @@
     title: 'The order’s activity shows who changed what, and why, before Tom starts work.',
     next: 'Go to Tom’s case',
     apply(s) {
-      set(s, 'salmon', { status: 'confirmed', owner: null, note: 'Approved by Priya' });
       log(s, '07:45', 'priya', 'Priya reduced the Sauvignon Blanc Kade must find from 24 to 14 bottles', { detail: 'Old Town is sending the other 10 bottles.', change: ['To source', '24', '14'], source: 'Teams, Kade order thread', open: 'Open message' });
       log(s, '07:45', 'agent', 'Updated the order before Tom started on the case', { rule: 'changes' });
       log(s, '07:45', 'system', 'Updated case CS-3391 to 14 bottles', { change: ['Quantity', '24', '14'], open: 'Open case' });
       log(s, '07:45', 'agent', 'Messaged Nigel that Old Town is sending 10 bottles', { source: 'WhatsApp', open: 'Open message' });
-      log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'She accepted going €180 over Harbour Front’s fish budget.', source: 'Teams, Kade order thread', open: 'Open approval' });
+      log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'She accepted going €180 over Harbour Front’s fish budget.', source: 'Teams, Kade order thread', open: 'Open approval', approves: 'salmon' });
       log(s, '07:46', 'agent', 'Confirmed the salmon', { change: ['Status', 'Waiting on Priya', 'Confirmed'] });
       s.order.status = 'With Kade';
       log(s, '07:46', 'system', 'Changed the order status to With Kade', { detail: 'Only the Sauvignon Blanc is still open, and Tom has it.', change: ['Order', 'Waiting on customer and Kade', 'With Kade'] });
@@ -243,7 +256,7 @@
     time: '08:05',
     screen: 'desk', actor: 'tom',
     title: 'Tom opens his case. It already says 14 bottles and explains why.',
-    cta: 'Send Nigel the one-time price',
+    cta: 'Send the one-time price to Priya',
     choices: [{ action: 'quote' }],
     apply(s) {
       s.caseFile = { ...s.caseFile, status: 'In progress', found: 'A partner supplier has 14 bottles in stock, at €11.80 a bottle.' };
@@ -251,41 +264,51 @@
   };
 
   const quote = {
-    story: "Tom found 14 bottles at a partner supplier. The price is not in The Olive Tree’s contract, so Nigel has to agree to it first.",
+    story: "Tom found 14 bottles at a partner supplier. The price is not in The Olive Tree’s contract, so Priya, who owns the budget, has to approve it.",
     time: '08:05',
-    screen: 'whatsapp', actor: 'nigel',
-    title: 'Nigel gets a one-time price on WhatsApp. His contract stays the same.',
-    cta: 'Yes, order them',
+    screen: 'teams', actor: 'priya', chat: 'kade',
+    title: 'Priya gets the one-time price in Teams, because prices outside the contract are hers to approve. Nigel has nothing to decide.',
+    cta: 'Approve the one-time price',
     choices: [{ action: 'confirm' }],
     apply(s) {
-      s.caseFile = { ...s.caseFile, status: 'Quote sent' };
-      set(s, 'wine', { status: 'quote', owner: 'nigel', note: 'One-time price: 14 bottles at €11.80' });
+      s.caseFile = { ...s.caseFile, status: 'Waiting on Priya' };
+      set(s, 'wine', { status: 'quote', owner: 'priya', note: 'One-time price: 14 bottles at €11.80' });
       s.order.status = 'Waiting on customer';
-      log(s, '08:05', 'tom', 'Tom sent Nigel a one-time price for 14 bottles at €11.80 each', { detail: 'The bottles come from a partner supplier. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Nigel'], source: 'WhatsApp', open: 'Open message' });
-      wa(s, '08:05', 'agent', 'Tom has found *14 bottles* of Sauvignon Blanc at a partner supplier. They cost *€11.80 a bottle*. This is a one-time price for this order, and your contract does not change. Shall we order them?', {
-        buttons: [{ action: 'confirm', label: 'Yes, order them' }, { action: 'no-thanks', label: 'No, thanks', toast: 'alt' }],
-      });
+      log(s, '08:05', 'tom', 'Tom sent Priya a one-time price for 14 bottles at €11.80 each', { detail: 'The bottles come from a partner supplier. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Priya'], rule: 'price', source: 'Teams, Kade order thread', open: 'Open message' });
+      s.kade.push({ time: '08:05', kind: 'text', who: 'agent', text: 'Tom has found 14 bottles of Sauvignon Blanc at a partner supplier. They cost €11.80 a bottle, €165.20 in total. This is a one-time price for this order, outside your contract, and the contract does not change. Do you approve it?',
+        buttons: [{ action: 'confirm', label: 'Approve' }, { action: 'decline-price', label: 'Decline', toast: 'alt' }] });
+    },
+  };
+
+  // Kade's order agent confirms the approval in the same thread, before the story moves on.
+  const priceApproved = {
+    story: "Priya approved the one-time price with the button in Kade’s message.",
+    time: '08:30',
+    screen: 'teams', actor: 'priya', chat: 'kade',
+    title: 'Kade’s order agent confirms it in the same thread. Every item now has its answer.',
+    next: 'Back to Kade’s screen',
+    apply(s) {
+      set(s, 'wine', { status: 'confirmed', owner: null, qty: '24 bottles', note: '10 bottles from Old Town and 14 from a partner supplier' });
+      s.order.status = 'Confirmed';
+      s.kade.push({ time: '08:30', kind: 'text', who: 'agent', text: 'Thanks, Priya. The one-time price is approved, so all three items are confirmed. We will deliver to Harbour Front on Friday between 07:00 and 09:00.' });
     },
   };
 
   const done = {
-    story: "Nigel agreed to the one-time price on WhatsApp.",
+    story: "Priya approved the one-time price in Teams.",
     time: '08:31',
     screen: 'trail',
     title: 'Every item now has an answer from the person who decides. The order is confirmed and sent to Kade’s ERP system for delivery.',
     next: 'See the summary',
     apply(s) {
-      wa(s, '08:30', 'nigel', 'Yes, order them', { kind: 'reply' });
-      set(s, 'wine', { status: 'confirmed', owner: null, qty: '24 bottles', note: '10 bottles from Old Town and 14 from a partner supplier' });
       s.caseFile = { ...s.caseFile, status: 'Closed' };
-      s.order.status = 'Confirmed';
       s.order.erp = 'Booked · delivery Fri 07:00–09:00';
-      log(s, '08:30', 'nigel', 'Nigel agreed to the one-time price', { source: 'WhatsApp', open: 'Open message' });
-      log(s, '08:30', 'agent', 'Confirmed the Sauvignon Blanc', { change: ['Status', 'Waiting on Nigel', 'Confirmed'] });
+      log(s, '08:30', 'priya', 'Priya approved the one-time price', { detail: '14 bottles of Sauvignon Blanc at €11.80 each, €165.20 in total.', source: 'Teams, Kade order thread', open: 'Open approval', approves: 'price' });
+      log(s, '08:30', 'agent', 'Confirmed the Sauvignon Blanc', { change: ['Status', 'Waiting on Priya', 'Confirmed'] });
       log(s, '08:31', 'agent', 'Confirmed the order, because every item now has an answer', { change: ['Order', 'Waiting on customer', 'Confirmed'], rule: 'confirm' });
       log(s, '08:31', 'system', 'Sent the order to Kade’s ERP for delivery on Friday between 07:00 and 09:00', { change: ['ERP', 'Not sent', 'Booked'] });
       log(s, '08:31', 'agent', 'Messaged Nigel and Priya that the order is confirmed', { source: 'WhatsApp and Teams' });
-      wa(s, '08:31', 'agent', 'Your order *KD-24817 is confirmed*. We will deliver it to Harbour Front on *Friday between 07:00 and 09:00*.', { kind: 'done' });
+      wa(s, '08:31', 'agent', 'Your order *KD-24817 is confirmed*. Tom found the other 14 bottles of Sauvignon Blanc, and Priya approved the price. We will deliver it to Harbour Front on *Friday between 07:00 and 09:00*.', { kind: 'done' });
     },
   };
 
@@ -341,6 +364,12 @@
   // The rules the agent works by. Maheep maintains them in Agent rules; each change is a new version.
   const MAHEEP = 'Maheep, commerce admin at Kade';
   const rules = {
+    price: {
+      name: 'One-time prices go to the buyer', version: 1,
+      sentence: 'A price outside the customer’s contract is approved by the customer’s buyer, not by the person who ordered. The contract itself does not change.',
+      scope: 'All of Kade’s customers. For The Olive Tree, the buyer is Priya.',
+      history: [['v1', '9 September 2026', 'First version.']],
+    },
     usual: {
       name: 'The usual means the last orders that agree', version: 1,
       sentence: 'When a customer asks for “the usual”, the agent reads it from the outlet’s order history, but only when its recent orders of that item agree. If they differ, it asks which one is meant.',
@@ -403,8 +432,8 @@
     dates,
     choiceAt: shared.length - 1,
     paths: {
-      decline: [...shared, declined, handover, morning, tip, called, noted, compose, sent, priyaLogged, tom, quote, done, end],
-      more: [...shared, more, handover, morning, tip, called, noted, compose, sent, priyaLogged, tom, quote, done, end],
+      decline: [...shared, declined, handover, morning, tip, called, noted, compose, sent, approved, priyaLogged, tom, quote, priceApproved, done, end],
+      more: [...shared, more, handover, morning, tip, called, noted, compose, sent, approved, priyaLogged, tom, quote, priceApproved, done, end],
       accept: [...shared, accepted, acceptLogged, acceptEnd],
     },
   };
