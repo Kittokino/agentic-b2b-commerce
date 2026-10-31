@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=2">
   <link rel="stylesheet" href="../shared/components.css?v=4">
-  <link rel="stylesheet" href="deck.css?v=20261031d">
+  <link rel="stylesheet" href="deck.css?v=20261031e">
 </head>
 <body>
 
@@ -92,7 +92,7 @@
       <li>
         <h3>People only see what needs a decision.</h3>
         <p class="label">Where this comes from</p>
-        <p>The day in the life of each person (slide 5), which is still an assumption. Nigel and Priya have little free time, so they should only be asked about what needs them.</p>
+        <p>The day in the life of each person, shown later and still an assumption. Nigel and Priya have little free time, so they should only be asked about what needs them.</p>
         <p class="label">In the story</p>
         <p>The agent confirms the cheese board without asking anyone. Priya is asked only about the salmon and the price of the wine.</p>
       </li>
@@ -110,7 +110,7 @@
     </aside>
   </section>
 
-  <!-- 3 · Actors -->
+  <!-- 4 · Actors -->
   <section class="slide s-actors">
     <p class="eyebrow">The places &amp; the people</p>
     <div class="places">
@@ -138,7 +138,7 @@
     </aside>
   </section>
 
-  <!-- 4 · A typical day at work -->
+  <!-- 5 · A typical day at work -->
   <section class="slide s-day">
     <p class="eyebrow">A typical day at work</p>
     <div class="days">
@@ -163,7 +163,7 @@
         </ol>
       </div>
     </div>
-    <p class="caveat"><b>Note:</b> A day in the life is the first step of how I research a new problem. Here it is still based on assumptions, and slide 9 shows the next steps.</p>
+    <p class="caveat"><b>Note:</b> A day in the life is the first step of how I research a new problem. Here it is still based on assumptions, and the slide on assumptions and research shows the next steps.</p>
     <aside class="notes">
       <p>Priya works at a desk and spends most of her day in Teams, so that is where the agent reaches her. She also has her own AI assistant, which summarises updates from her suppliers.</p>
       <p>Nigel orders after service, when he is tired and only has his phone. So the agent accepts a WhatsApp voice note and reads the order back to him before doing anything with it.</p>
@@ -171,7 +171,7 @@
     </aside>
   </section>
 
-  <!-- 5 · The opportunity -->
+  <!-- 6 · The opportunity -->
   <section class="slide s-opportunity">
     <div class="text">
       <p class="eyebrow">The scenario · Wednesday, 22:47</p>
@@ -187,7 +187,7 @@
     </aside>
   </section>
 
-  <!-- 6 · Three outcomes -->
+  <!-- 7 · Three outcomes -->
   <section class="slide s-outcomes">
     <p class="eyebrow">What the agent does</p>
     <h2 class="with-agent"><span class="face agent"><svg class="ico"><use href="#i-agent"/></svg></span>One voice note, three outcomes</h2>
@@ -217,7 +217,7 @@
     </aside>
   </section>
 
-  <!-- 7 · Journey -->
+  <!-- 8 · Journey -->
   <section class="slide s-journey">
     <p class="eyebrow">The journey</p>
     <h2>From a voice note to a confirmed order</h2>
@@ -278,7 +278,39 @@
     </aside>
   </section>
 
-  <!-- 8 · Assumptions & research -->
+  <!-- 9 · Configuring the platform -->
+  <section class="slide s-config">
+    <p class="eyebrow">Configuring the platform</p>
+    <h2>The same platform, set up with different rules</h2>
+    <div class="config">
+      <div class="rules-how">
+        <div class="who"><div class="face"><img src="../assets/personas/maheep.png" alt=""></div><div><h3>How Maheep works with rules</h3><span>Commerce admin at Kade</span></div></div>
+        <ul>
+          <li>Each rule is one plain sentence, and Maheep is its owner.</li>
+          <li>Each change to a rule is a new version. Every decision keeps the version it was made under.</li>
+          <li>Before publishing a change, Maheep tests it against past orders. Version 2 of the substitution rule was tested on October's 31 wine substitutions.</li>
+          <li>If a new version causes problems, Maheep can go back to the previous one.</li>
+        </ul>
+      </div>
+      <table class="compare">
+        <thead><tr><th></th><th>Kade Foodservice</th><th>A medical supplier</th></tr></thead>
+        <tbody>
+          <tr><th>Substitutes</th><td>The agent may suggest up to three alternatives, and the person who ordered decides.</td><td>The agent never suggests a substitute for a medicine. It passes the item to a pharmacist.</td></tr>
+          <tr><th>Approvals</th><td>The buyer approves anything over an outlet's budget, and any price outside the contract.</td><td>Prescription-only medicines are sold only to customers whose licence is on file.</td></tr>
+          <tr><th>What each item records</th><td>The rule and the version that each decision followed.</td><td>Also the lot number and expiry date, so a recalled lot can be traced to every customer who received it.</td></tr>
+          <tr><th>Delivery</th><td>Kade's usual delivery routes.</td><td>Items that must stay cold go only on refrigerated routes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caveat"><b>Note:</b> Today, setting up an AI agent often needs help from developers, and undoing what an agent did needs expertise and a full record of its actions. Making this simple enough for an admin like Maheep, in any industry, is work I would do together with engineering and product.</p>
+    <aside class="notes">
+      <p>Kade's agent follows rules that Maheep, Kade's commerce admin, sets and owns. Each rule is a plain sentence with a version, and every decision records which version it followed. Before Maheep publishes a change, Maheep tests it on past orders. If a new version causes problems, Maheep can go back to the previous one.</p>
+      <p>The same platform can serve another industry with different rules. A medical supplier would not let the agent suggest substitutes for medicines, would check a customer's licence before selling prescription-only medicines, and would record lot numbers so that a recall can be traced.</p>
+      <p>Today, this kind of setup usually needs developers, and rollback needs expertise and good traceability. As a designer, I would not solve that alone. I would work with engineering and product to make it simple enough for any admin to use.</p>
+    </aside>
+  </section>
+
+  <!-- 10 · Assumptions & research -->
   <section class="slide s-learn">
     <p class="eyebrow">Assumptions &amp; research</p>
     <h2>What we assume, and how we'd find out</h2>

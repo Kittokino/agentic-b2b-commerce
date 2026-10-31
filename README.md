@@ -10,7 +10,7 @@ Prepared as a concept for a Team Lead Research & Design case. All companies, peo
 |---|---|
 | [`docs/01-story.md`](docs/01-story.md) | The one-page story: places, cast, rules, journey |
 | [`docs/02-research-and-technical-notes.md`](docs/02-research-and-technical-notes.md) | What still needs research, and the technical issues a real build would face |
-| [`deck/`](deck/) | Slide deck (title, problem, principles, places & people, a typical day at work, the opportunity, three outcomes, journey, assumptions & research; appendix with the full assumptions matrix, research plan and how this was made). Keys: ←/→, N for notes, F for fullscreen |
+| [`deck/`](deck/) | Slide deck (title, problem, principles, places & people, a typical day at work, the opportunity, three outcomes, journey, configuring the platform, assumptions & research; appendix with the full assumptions matrix, research plan and how this was made). Keys: ←/→, N for notes, F for fullscreen |
 | [`prototype/`](prototype/) | Interactive prototype: one order, scene by scene. Kade's audit trail in Sana is the spine; each person's screen (Nigel's WhatsApp, Priya's Teams, Tom's case) swipes in when they act. Keys: ←/→ |
 | [`shared/`](shared/) | The design system both the deck and the prototype use: tokens and shared components |
 | `index.html` | Entry point for the hosted demo (GitHub Pages) |
