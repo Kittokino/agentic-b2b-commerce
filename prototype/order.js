@@ -215,7 +215,7 @@
       s.kade.push({ time: '07:45', kind: 'text', who: 'priya', text: 'Our Old Town restaurant is sending 10 bottles of Sauvignon Blanc to Harbour Front. Please find the other 14.' });
       set(s, 'wine', { qty: '24 bottles · 10 from Old Town, 14 to source', note: '10 bottles come from Old Town' });
       s.caseFile = { ...s.caseFile, title: 'Find 14 bottles of Sauvignon Blanc', task: 'For Harbour Front’s private dinner on Saturday. Nigel needs Sauvignon Blanc for the menu, so a different wine won’t do.', changed: 'Priya changed this at 07:45. Old Town is sending 10 bottles, so Kade only needs to find 14.' };
-      s.kade.push({ time: '07:45', kind: 'text', who: 'agent', text: 'Thanks, Priya. I have changed the order, so Kade will now find 14 bottles of Sauvignon Blanc instead of 24. Tom’s case is updated too.' });
+      s.kade.push({ time: '07:45', kind: 'text', who: 'agent', text: 'Thanks, Priya. I have changed the order, so Kade will now find 14 bottles of Sauvignon Blanc instead of 24. Tom’s case is updated too. The 18 kg of salmon is still waiting for your approval in the order card above.' });
       wa(s, '07:45', 'agent', 'Priya has arranged *10 bottles* of Sauvignon Blanc from your Old Town restaurant. Kade will find the other *14 bottles*, and we will message you here when we have them.');
     },
   };
@@ -280,7 +280,7 @@
       s.order.status = 'Waiting on customer';
       log(s, '08:05', 'tom', 'Tom chose De Wijnkelder and sent Priya a one-time price for 14 bottles at €11.80 each', { detail: 'De Wijnkelder is one of Kade’s partner suppliers. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Priya'], rule: 'price', source: 'Teams, Kade order thread', open: 'Open message' });
       s.kade.push({ time: '08:05', kind: 'text', who: 'agent', text: 'Tom has found 14 bottles of Sauvignon Blanc at De Wijnkelder, one of Kade’s partner suppliers. They cost €11.80 a bottle, €165.20 in total. This is a one-time price for this order, outside your contract, and the contract does not change. Do you approve it?',
-        buttons: [{ action: 'confirm', label: 'Approve' }, { action: 'decline-price', label: 'Decline', toast: 'alt' }] });
+        buttons: [{ action: 'confirm', label: 'Approve' }, { action: 'decline-price', label: 'Decline', toast: 'declinePrice' }] });
     },
   };
 

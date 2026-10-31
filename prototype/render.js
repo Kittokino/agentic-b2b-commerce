@@ -46,6 +46,8 @@
   const TOASTS = {
     alt: 'This choice is not part of the prototype’s story. Use the button at the bottom right to continue.',
     approve: 'Priya approves the salmon in a later step. Use the button at the bottom right to continue the story.',
+    declinePrice: 'In the story, Priya approves. If she declined, only the Sauvignon Blanc would be affected: Tom would look for another supplier or ask Nigel about a different wine. The rest of the order would go ahead.',
+    declineSalmon: 'In the story, Priya approves. If she declined, only the salmon would be affected: the agent would tell Nigel and offer an amount that fits the budget. The rest of the order would go ahead.',
   };
   const act = (b, ctx, cls = '') => {
     if (ctx.live.includes(b.action)) return `<button class="${cls} live" data-action="${b.action}">${esc(b.label)}</button>`;
@@ -284,7 +286,7 @@
         ${s.order.lines.map(l => `
           <div class="o-line">
             <div class="o-main"><b>${esc(l.name)}</b><span>${esc(l.qty)}</span>${l.note ? `<em>${esc(l.note)}</em>` : ''}</div>
-            <div class="o-side">${statusChip(l, 'priya')}${l.status === 'stopped' ? act({ action: 'approve', label: 'Approve', toast: 'approve' }, ctx, 'btn sm') : ''}</div>
+            <div class="o-side">${statusChip(l, 'priya')}${l.status === 'stopped' ? act({ action: 'approve', label: 'Approve', toast: 'approve' }, ctx, 'btn sm') + act({ action: 'decline-salmon', label: 'Decline', toast: 'declineSalmon' }, ctx, 'btn sm ghost') : ''}</div>
           </div>`).join('')}
       </div>`;
   }
