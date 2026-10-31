@@ -177,16 +177,27 @@
     },
   };
 
+  // Priya tells her assistant how the call went; it notes it and points her to Kade.
+  const noted = {
+    story: "Old Town can send all 10 bottles, and Priya tells her purchasing assistant.",
+    time: '07:44',
+    screen: 'teams', actor: 'priya', chat: 'assistant',
+    title: 'The purchasing assistant notes it and reminds Priya to tell Kade. It does not change Kade’s order itself.',
+    next: 'Switch to the Kade Foodservice chat',
+    apply(s) {
+      s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
+      s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Thanks, Priya. I have noted that Old Town is sending 10 bottles to Harbour Front. Please tell Kade in their order thread, so they look for 14 bottles instead of 24.' });
+    },
+  };
+
   const compose = {
     story: "Old Town will send 10 bottles to Harbour Front, so Kade only needs to find the other 14.",
-    time: '07:44',
+    time: '07:45',
     screen: 'teams', actor: 'priya', chat: 'kade',
     title: 'Priya tells Kade in Kade’s order thread, not in a private chat, so the change is made on the order itself.',
     cta: 'Send the message',
     choices: [{ action: 'send' }],
     apply(s) {
-      s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
-      s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Thanks. Please tell Kade, so they look for 14 bottles instead of 24.' });
       s.compose = 'Our Old Town restaurant is sending 10 bottles of Sauvignon Blanc to Harbour Front. Please find the other 14.';
     },
   };
@@ -392,8 +403,8 @@
     dates,
     choiceAt: shared.length - 1,
     paths: {
-      decline: [...shared, declined, handover, morning, tip, called, compose, sent, priyaLogged, tom, quote, done, end],
-      more: [...shared, more, handover, morning, tip, called, compose, sent, priyaLogged, tom, quote, done, end],
+      decline: [...shared, declined, handover, morning, tip, called, noted, compose, sent, priyaLogged, tom, quote, done, end],
+      more: [...shared, more, handover, morning, tip, called, noted, compose, sent, priyaLogged, tom, quote, done, end],
       accept: [...shared, accepted, acceptLogged, acceptEnd],
     },
   };
