@@ -18,8 +18,14 @@
 
   const steps = () => S.paths[path];
 
-  function stateAt(n) {
+  // 'After the order' starts from the confirmed order of the main story.
+  function baseState() {
     const s = S.initial();
+    if (path === 'admin') S.paths.decline.slice(0, -1).forEach(sc => { if (sc.day) s.day = sc.day; sc.apply(s); });
+    return s;
+  }
+  function stateAt(n) {
+    const s = baseState();
     steps().slice(0, n + 1).forEach(sc => { if (sc.day) s.day = sc.day; sc.apply(s); });
     return s;
   }
@@ -27,16 +33,16 @@
   // ---------- Left column: when, whose screen, what led here, what happens now ----------
   // One text size; brightness carries the order: the past is muted, the present is bright.
   // The main story needs no label; the other branches are named.
-  const PATHS = { more: 'What if: Nigel asked for more', accept: 'What if: Nigel accepted' };
+  const PATHS = { more: 'What if: Nigel asked for more', accept: 'What if: Nigel accepted', admin: 'After the order: improving the agent' };
   function rail() {
     const list = steps();
     const sc = list[index];
     const s = stateAt(index);
-    const view = V.VIEWPOINT[sc.screen];
+    const view = sc.viewpoint || V.VIEWPOINT[sc.screen];
     const mark = view && (view[0] ? V.avatar(view[0]) : '<img class="logo" src="../assets/kade-logo.png" alt="">');
     const day = S.dates[s.day].replace(',', '').replace(/ \d{4}$/, '');   // 'Wednesday 28 October'
     const when = [day, sc.time].filter(Boolean).join(' · ');
-    const branch = index > S.choiceAt && PATHS[path];
+    const branch = (path === 'admin' || index > S.choiceAt) && PATHS[path];
     el('#rail-body').innerHTML = `
       <p class="kicker when">${V.esc(when)}${branch ? `<br><span>${V.esc(branch)}</span>` : ''}</p>
       ${view ? `<p class="view">${mark}<span>${V.esc(view[1])}</span></p>` : ''}
@@ -56,7 +62,7 @@
     const sc = steps()[index];
     const s = stateAt(index);
     // What this scene added animates in. Going back, the screen shows as it was, without replaying.
-    const before = dir >= 0 && index > 0 ? stateAt(index - 1) : null;
+    const before = dir >= 0 ? stateAt(index - 1) : null;
     const count = (k) => (dir < 0 ? 1e9 : before ? before[k].length : 0);
     const fresh = { trail: count('trail'), wa: count('wa'), assistant: count('assistant'), kade: count('kade') };
     const ctx = { fresh, live: (sc.choices || []).map(c => c.action), time: `${s.day} ${sc.time || ''}`, chat: chatView, kadeSeen };
@@ -82,6 +88,14 @@
     Object.assign(shown, { key, screen: sc.screen });
 
     follow(shown.el);
+    // Tom's flag: bring the entry he flags into view once the screen has slid in.
+    if (sc.flagTarget) {
+      const root = shown.el;
+      setTimeout(() => {
+        const li = [...root.querySelectorAll('.trail > li')].find(l => l.dataset.entry === sc.flagTarget);
+        if (li) li.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }, 900);
+    }
     rail();
     renderCue(sc);
     history.replaceState(null, '', hashFor());
@@ -135,7 +149,7 @@
   // A message an entry refers to is part of the record, even if the story has not shown it yet,
   // so messages are looked up in the whole story. A case shows as it was when the entry was written.
   function openModal(i) {
-    let k = 0;
+    let k = -1;
     while (stateAt(k).trail.length <= i) k++;
     const entry = stateAt(index).trail[i];
     layer.innerHTML = V.modal(stateAt(steps().length - 1), entry, stateAt(k));
@@ -189,6 +203,8 @@
 
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
+    const flagForm = e.target.closest('[data-flagform]');
+    if (flagForm) { layer.innerHTML = V.flagModal(steps()[index].flagTarget); layer.hidden = false; return; }
     const said = e.target.closest('[data-toast]');
     if (said) { toast(said.dataset.toast); return; }
     // Opening the other Teams chat changes only what is on screen, not where the story is.
@@ -227,6 +243,7 @@
     else if (t.dataset.nav === 'prev') go(index - 1, -1);
     else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; index = 0; kadeSeen = false; intro.classList.remove('gone'); }
     else if (t.dataset.go === 'accept') { path = 'accept'; chosen = true; go(S.choiceAt + 1); }
+    else if (t.dataset.go === 'admin') { path = 'admin'; chosen = true; go(0); }
     else if (t.dataset.go === 'decline') { path = 'decline'; chosen = false; go(S.choiceAt, -1); }
   });
 
@@ -251,17 +268,17 @@
   // names no path (#scene-2), so it doesn't give his choice away; after it, it does (#declined-5).
   // The main story is #scene-n throughout; only the side branches are named, as the left column
   // names them ('What if'). Older links (#declined-n, #accepted-n, #more-options-n) still work.
-  const SLUGS = { decline: 'scene', accept: 'what-if-accepted', more: 'what-if-more-options' };
+  const SLUGS = { decline: 'scene', accept: 'what-if-accepted', more: 'what-if-more-options', admin: 'after-the-order' };
   const OLD = { declined: 'decline', accepted: 'accept', 'more-options': 'more' };
   function hashFor() {
-    return `#${index > S.choiceAt ? SLUGS[path] : 'scene'}-${index + 1}`;
+    return `#${path === 'admin' || index > S.choiceAt ? SLUGS[path] : 'scene'}-${index + 1}`;
   }
   function fromHash() {
-    const m = location.hash.match(/^#(scene|what-if-accepted|what-if-more-options|declined|accepted|more-options)-(\d+)$/);
+    const m = location.hash.match(/^#(scene|what-if-accepted|what-if-more-options|after-the-order|declined|accepted|more-options)-(\d+)$/);
     if (!m) return false;
     path = OLD[m[1]] || Object.keys(SLUGS).find(k => SLUGS[k] === m[1]) || 'decline';
     index = Math.max(0, Math.min(steps().length - 1, +m[2] - 1));
-    chosen = index > S.choiceAt;
+    chosen = path === 'admin' || index > S.choiceAt;
     return true;
   }
   window.addEventListener('hashchange', () => { if (location.hash !== hashFor() && fromHash()) render(1); });

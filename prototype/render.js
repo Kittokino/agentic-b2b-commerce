@@ -4,11 +4,12 @@
   const esc = (t) => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const icon = (id) => `<svg class="ico"><use href="#i-${id}"/></svg>`;
 
-  const PEOPLE = { nigel: 'Nigel', priya: 'Priya', tom: 'Tom', agent: 'Order agent', system: 'Sana' };
+  const PEOPLE = { nigel: 'Nigel', priya: 'Priya', tom: 'Tom', maheep: 'Maheep', agent: 'Order agent', system: 'Sana' };
 
   // Whose screen we are looking at, for the left column.
   const VIEWPOINT = {
     trail: [null, 'Kade’s order screen, in Sana'],
+    rules: ['maheep', 'Agent rules in Kade’s Sana, as Maheep sees it'],
     desk: ['tom', 'Tom’s case screen, in Sana'],
     lock: ['nigel', 'Nigel’s phone'],
     whatsapp: ['nigel', 'Nigel’s phone, WhatsApp'],
@@ -94,6 +95,7 @@
           <p class="m-label">Version history</p>
           <ol class="m-history">${r.history.map(([v, d, c], k) => `<li class="${k ? '' : 'now'}"><b>${v}</b><span>${esc(d)}</span><p>${esc(c)}</p></li>`).join('')}</ol>
           <p class="m-note-small">Only an admin can change this rule, in Agent rules. A change creates a new version, and every decision keeps the version it was made under.</p>
+          <button class="link-btn" data-go="admin">See how Maheep changes a rule ${icon('right')}</button>
         </div>
       </div>`;
   }
@@ -109,7 +111,7 @@
 
   // The agent's version is kept for audits, in a tooltip, not on every row.
   const AGENT_VERSION = 'AI order agent, version 2.3';
-  const ACTOR = { agent: 'AI order agent', system: 'System', nigel: 'Nigel · Head chef', priya: 'Priya · Buyer', tom: 'Tom · Service rep' };
+  const ACTOR = { agent: 'AI order agent', system: 'System', nigel: 'Nigel · Head chef', priya: 'Priya · Buyer', tom: 'Tom · Service rep', maheep: 'Maheep · Commerce admin' };
 
   // Only the open decisions: it stays this size whether an order has 3 lines or 40.
   function summary(s) {
@@ -142,13 +144,13 @@
       const divider = e.day !== day ? `<li class="day">${esc(window.STORY.dates[(day = e.day)])}</li>` : '';
       const [field, from, to] = e.change || [];
       return `${divider}
-        <li${lead(i, ctx.fresh.trail)} data-kind="${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}" data-channel="${channelsOf(e.source)}">
+        <li${lead(i, ctx.fresh.trail)} data-entry="${esc(e.text)}" data-kind="${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}" data-channel="${channelsOf(e.source)}">
           <div class="entry ${e.stop ? 'is-stop' : ''}">
             <span class="t">${esc(e.time)}</span>
             ${avatar(e.who)}
             <div>
               <p class="actor-row">
-                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}"${e.who === 'agent' ? ` title="${AGENT_VERSION}"` : ''}>${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>
+                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}"${e.who === 'agent' ? ` title="${AGENT_VERSION}"` : ''}>${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>${e.who === 'agent' ? flagButton(e, scene) : ''}
               </p>
               <p><b>${esc(e.text)}</b></p>
               ${e.quote ? `<q>${esc(e.quote)}</q>` : ''}
@@ -162,7 +164,7 @@
     const cls = o.status === 'Confirmed' ? 'done' : 'handed';
     return `
       <div class="frame">
-        ${sanaTop('Orders')}
+        ${sanaTop('Orders', scene.viewer)}
         <div class="order-head">
           <div class="crumb">Orders <span>/</span> ${esc(o.id)}</div>
           <div class="order-title">
@@ -350,7 +352,7 @@
         ${avatar('agent', 'lg')}
         <h2>${esc(scene.title)}</h2>
         ${scene.body ? `<p>${esc(scene.body)}</p>` : ''}
-        ${scene.outcomes ? `<ul class="outcomes">${scene.outcomes.map(([k, v], i) => `<li class="${i === 1 ? 'is-stop' : ''}"><b>${k}</b><p>${esc(v)}</p></li>`).join('')}</ul>` : ''}
+        ${scene.outcomes ? `<ul class="outcomes">${scene.outcomes.map(([k, v], i) => `<li class="${i === scene.redAt ? 'is-stop' : ''}"><b>${k}</b><p>${esc(v)}</p></li>`).join('')}</ul>` : ''}
         <div class="end-btns">
           ${scene.links.map(l => `<button class="btn" data-go="${l.go}">${esc(l.label)}</button>`).join('')}
           <button class="btn ghost" data-nav="restart">Start again</button>
@@ -447,9 +449,75 @@
       </div>`;
   }
 
+  // Any person at Kade can flag one of the agent's entries for the admin to review. In the story,
+  // Tom flags the Pinot Grigio suggestion after the order is confirmed.
+  const FLAG_TOAST = 'Tom flags one of the agent’s suggestions after the order is confirmed. You can see it from the closing screen.';
+  function flagButton(e, scene) {
+    const target = scene.flagTarget === e.text;
+    return `<button class="flag ${target ? 'live' : ''}" ${target ? 'data-flagform' : `data-toast="${esc(FLAG_TOAST)}"`} title="Flag this entry for review" aria-label="Flag this entry for review">${icon('flag')}</button>`;
+  }
+
+  // Tom's flag: the entry, a reason and a note for the admin. The entry itself does not change.
+  function flagModal(entry) {
+    return `
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Flag this entry for review">
+        <header><h3>Flag this entry for review</h3><button class="m-close" data-close aria-label="Close">${icon('close')}</button></header>
+        <div class="m-body">
+          <p class="m-meta">Order KD-24817 · Thursday 29 October, 09:10 · Tom</p>
+          <p class="m-flag-entry">${avatar('agent')}<span>${esc(entry)}</span></p>
+          <p class="m-label">Reason</p>
+          <p class="m-field">The suggestion was a poor match ${icon('down')}</p>
+          <p class="m-label">Note for the admin</p>
+          <p class="m-field m-area">Pinot Grigio doesn’t suit a fish course. Please check the substitution rule. Going forward, could the agent offer up to three alternatives?</p>
+          <p class="m-note-small">The entry itself does not change. Maheep, Kade’s commerce admin, reviews every flag.</p>
+          <div class="m-actions"><button class="btn live" data-action="flag">Send to Maheep</button><button class="btn ghost" data-close>Cancel</button></div>
+        </div>
+      </div>`;
+  }
+
+  // ---------- Agent rules, in Kade's Sana: Maheep's screen ----------
+  function rules(s, scene, ctx) {
+    const ch = window.STORY.ruleChange;
+    const r = window.STORY.rules[ch.rule];
+    const live = s.ruleDraft === 'live';
+    const f = s.flag;
+    const history = live ? [ch.v2, ...r.history] : r.history;
+    return `
+      <div class="frame">
+        ${sanaTop('Agent rules', 'maheep')}
+        <div class="rules-page">
+          <aside class="flags">
+            <h3>Flags to review <span>${live ? 0 : 1}</span></h3>
+            <div class="flag-card ${live ? 'resolved' : ''}">
+              <p class="fc-top">${avatar(f.by)}<span><b>Tom</b> flagged an entry on order ${esc(f.order)}</span></p>
+              <p class="fc-entry">${icon('flag')}${esc(f.entry)}</p>
+              <p class="fc-note">“${esc(f.note)}”</p>
+              <p class="fc-meta">${esc(f.when)} · ${live ? 'Resolved: rule updated to version 2' : 'Open'}</p>
+            </div>
+          </aside>
+          <section class="rule-edit">
+            <div class="crumb">Agent rules <span>/</span> Substitutes</div>
+            <div class="rule-title"><h1>${esc(r.name)}</h1><span class="status ${live ? 'done' : 'handed'}">${live ? `${icon('check')}Version 2 live` : 'Version 2 draft'}</span></div>
+            ${live ? `<p class="published">${icon('check')}Version 2 is live. The agent uses it from now on, and every earlier decision keeps the version it was made under.</p>` : ''}
+            <table class="settings">
+              <thead><tr><th>Setting</th><th>Version 1</th><th>Version 2</th></tr></thead>
+              <tbody>${ch.settings.map(([k, a, b]) => `<tr class="${a === b.replace(' (no change)', '') ? 'same' : ''}"><td>${esc(k)}</td><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join('')}</tbody>
+            </table>
+            <div class="checks">
+              <div class="check"><h4>How the alternatives reach people</h4>${ch.channels.map(([c, t]) => `<p><b>${esc(c)}.</b> ${esc(t)}</p>`).join('')}</div>
+              <div class="check"><h4>Test</h4><p>${esc(ch.test)}</p></div>
+            </div>
+            ${live ? `<p class="rule-history">Version history: ${history.map(([v, d]) => `${v}, ${d}`).join(' · ')}</p>`
+              : `<div class="rule-actions">${act({ action: 'publish', label: 'Publish version 2' }, ctx, 'btn')}${act({ action: 'discard', label: 'Discard draft', toast: 'alt' }, ctx, 'btn ghost')}</div>`}
+          </section>
+        </div>
+      </div>`;
+  }
+
   const SCREENS = {
     trail: (s, sc, ctx) => wide(s, sc, ctx, trail(s, sc, ctx)),
     desk: (s, sc, ctx) => wide(s, sc, ctx, desk(s, sc, ctx)),
+    rules: (s, sc, ctx) => wide(s, sc, ctx, rules(s, sc, ctx)),
     lock: (s, sc, ctx) => personScene(s, sc, ctx, lock(s, sc, ctx)),
     whatsapp: (s, sc, ctx) => personScene(s, sc, ctx, whatsapp(s, sc, ctx)),
     teams: (s, sc, ctx) => personScene(s, sc, ctx, teams(s, sc, ctx)),
@@ -457,5 +525,5 @@
     end,
   };
 
-  window.VIEWS = { SCREENS, modal, ruleModal, VIEWPOINT, avatar, esc, icon, PEOPLE };
+  window.VIEWS = { SCREENS, modal, ruleModal, flagModal, VIEWPOINT, avatar, esc, icon, PEOPLE };
 })();

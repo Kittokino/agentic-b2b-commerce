@@ -325,7 +325,8 @@
       ['Stops', 'The salmon went over Harbour Front’s fish budget, so the agent stopped and asked Priya, who decides on budgets.'],
       ['Hands over', 'The agent had no other wine it was allowed to offer, so it passed the Sauvignon Blanc to Tom with the full conversation.'],
     ],
-    links: [{ go: 'accept', label: 'What if Nigel had accepted?' }],
+    links: [{ go: 'admin', label: 'See what happens after the order' }, { go: 'accept', label: 'What if Nigel had accepted?' }],
+    redAt: 1,
     apply() {},
   };
 
@@ -420,7 +421,77 @@
   Object.values(rules).forEach(r => { r.owner = MAHEEP; });
 
   // The story's days, in full.
-  const dates = { Wednesday: 'Wednesday, 28 October 2026', Thursday: 'Thursday, 29 October 2026' };
+  const dates = { Wednesday: 'Wednesday, 28 October 2026', Thursday: 'Thursday, 29 October 2026', Friday: 'Friday, 30 October 2026' };
+
+  // ---------- After the order: Tom flags a suggestion, Maheep improves the rule ----------
+  const flagIt = {
+    story: "The order is confirmed. Looking back at the case, Tom thinks the agent’s Pinot Grigio suggestion was a poor match for a fish course.",
+    time: '09:10',
+    screen: 'trail', viewer: 'tom', viewpoint: ['tom', 'Kade’s order screen, as Tom sees it'],
+    title: 'Tom flags the agent’s suggestion for review. The activity stays as it was; the flag is a note attached to the entry.',
+    cta: 'Send the flag to Maheep',
+    choices: [{ action: 'flag' }],
+    flagTarget: 'Suggested Pinot Grigio instead of Sauvignon Blanc',
+    apply() {},
+  };
+
+  const review = {
+    story: "Tom flagged the Pinot Grigio suggestion and asked whether the agent could offer up to three alternatives.",
+    time: '09:00', day: 'Friday',
+    screen: 'rules', actor: 'maheep',
+    title: 'Maheep reviews Tom’s flag and drafts version 2 of the substitution rule: what counts as a match, where the agent looks, and how many alternatives it offers.',
+    cta: 'Publish version 2',
+    choices: [{ action: 'publish' }],
+    apply(s) {
+      log(s, '09:10', 'tom', 'Tom flagged an entry for review', { detail: 'The entry was “Suggested Pinot Grigio instead of Sauvignon Blanc”. The flag went to Maheep, Kade’s commerce admin.' });
+      s.flag = { by: 'tom', when: 'Thursday 29 October, 09:10', order: 'KD-24817', entry: 'Suggested Pinot Grigio instead of Sauvignon Blanc', reason: 'The suggestion was a poor match',
+        note: 'Pinot Grigio doesn’t suit a fish course. Please check the substitution rule. Going forward, could the agent offer up to three alternatives?', status: 'Open' };
+      s.ruleDraft = 'draft';
+    },
+  };
+
+  const published = {
+    story: "Maheep checked how three alternatives reach people in WhatsApp and Teams, and tested the change against October’s orders.",
+    time: '09:20',
+    screen: 'rules', actor: 'maheep',
+    title: 'Version 2 is live. The agent uses it from now on, and every earlier decision keeps the version it was made under.',
+    next: 'See the summary',
+    apply(s) {
+      s.flag = { ...s.flag, status: 'Resolved' };
+      s.ruleDraft = 'live';
+    },
+  };
+
+  const adminEnd = {
+    story: "From Tom’s flag on Thursday to a better rule on Friday morning.",
+    screen: 'end',
+    title: 'People flag, the admin adjusts the rules, the agent improves.',
+    outcomes: [
+      ['Tom flags', 'Tom noticed a poor suggestion while working on the order and flagged it in the order’s activity, with a note.'],
+      ['Maheep adjusts', 'Maheep changed the substitution rule, checked how it reaches people in WhatsApp and Teams, tested it on October’s orders and published version 2.'],
+      ['The agent improves', 'From now on, the agent offers up to three ranked alternatives that suit the dish. Earlier decisions keep version 1.'],
+    ],
+    links: [],
+    apply() {},
+  };
+
+  // The substitution rule as Maheep edits it: each setting before and after.
+  const ruleChange = {
+    rule: 'substitutes',
+    settings: [
+      ['Where the agent looks', 'The customer’s contract range', 'All of Kade’s inventory. An item outside the contract still needs the buyer to approve its price.'],
+      ['What counts as a match', 'A wine of a similar style', 'The same grape first, otherwise a similar style, and a wine that suits the dish’s main ingredient (fish, for this order).'],
+      ['How many alternatives', 'One', 'Up to three'],
+      ['How they are ranked', 'Not ranked', 'Closest match first, then lower price, then more in stock.'],
+      ['Who decides', 'The person who ordered', 'The person who ordered (no change)'],
+    ],
+    channels: [
+      ['WhatsApp', 'A message holds at most three reply buttons, and three alternatives plus “None of these” need four. So the agent sends a WhatsApp list, which holds up to ten options.'],
+      ['Teams', 'A card with a button for each alternative.'],
+    ],
+    test: 'Of October’s 31 wine substitutions, 14 were accepted with version 1. With version 2, an estimated 22 would have been.',
+    v2: ['v2', '30 October 2026', 'Up to three alternatives from all of Kade’s inventory, matched on the dish and ranked. Prompted by Tom’s flag on order KD-24817.'],
+  };
 
   const shared = [intake, lock, readback];
   // Harbour Front's earlier cheese board orders: they all agree, so "the usual" is clear.
@@ -433,12 +504,15 @@
     initial,
     pastOrders,
     rules,
+    ruleChange,
     dates,
     choiceAt: shared.length - 1,
     paths: {
       decline: [...shared, declined, handover, morning, tip, called, noted, compose, sent, approved, priyaLogged, tom, quote, priceApproved, done, end],
       more: [...shared, more, handover, morning, tip, called, noted, compose, sent, approved, priyaLogged, tom, quote, priceApproved, done, end],
       accept: [...shared, accepted, acceptLogged, acceptEnd],
+      // After the order: starts from the confirmed order of the main story.
+      admin: [flagIt, review, published, adminEnd],
     },
   };
 })();

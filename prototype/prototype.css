@@ -438,3 +438,44 @@ ul, ol { padding: 0; list-style: none; }
 /* Who is signed in, at the right of Kade's header. */
 .sana-top .me { margin-left: auto; display: flex; align-items: center; }
 .face.someone { background: var(--person-soft); border: 0; color: var(--ink-2); font-size: 18px; }
+
+/* A flag on each of the agent's entries: quiet, at the end of the label line. */
+.actor-row { display: flex; align-items: center; gap: 8px; }
+.flag { margin-left: auto; width: 26px; height: 26px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 6px; background: none; color: var(--ink-3); cursor: pointer; font-size: 15px; }
+.flag:hover { background: var(--person-soft); color: var(--ink); }
+.flag.live { color: var(--ink); box-shadow: 0 0 0 1.5px var(--ink); }
+.link-btn { display: inline-flex; align-items: center; gap: 4px; margin-top: 14px; padding: 0; border: 0; background: none; font-size: var(--t-small); font-weight: 600; color: var(--ink); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Tom's flag form. */
+.m-flag-entry { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--bg); font-size: var(--t-body); font-weight: 600; }
+.m-field { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; font-size: var(--t-body); }
+.m-field.m-area { display: block; min-height: 72px; line-height: 1.5; }
+.m-actions { display: flex; gap: 10px; margin-top: 16px; }
+
+/* Agent rules: Maheep's screen. */
+.rules-page { flex: 1; min-height: 0; display: grid; grid-template-columns: 270px 1fr; gap: 24px; padding: 14px 24px; overflow-y: auto; }
+.flags h3 { display: flex; align-items: center; gap: 8px; font-size: var(--t-body); font-weight: 600; }
+.flags h3 span { min-width: 22px; height: 22px; display: grid; place-items: center; border-radius: 999px; background: var(--ink); color: #fff; font-size: var(--t-label); }
+.flag-card { margin-top: 10px; padding: 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); box-shadow: inset 3px 0 0 var(--ink); }
+.flag-card.resolved { box-shadow: none; opacity: .7; }
+.fc-top { display: flex; align-items: center; gap: 8px; font-size: var(--t-small); }
+.fc-entry { display: flex; gap: 6px; align-items: flex-start; margin-top: 10px; font-size: var(--t-small); font-weight: 600; }
+.fc-entry .ico { flex: none; margin-top: 2px; }
+.fc-note { margin-top: 8px; font-size: var(--t-small); font-style: italic; line-height: 1.5; color: var(--ink-2); }
+.fc-meta { margin-top: 8px; font-size: var(--t-label); color: var(--ink-3); }
+.rule-title { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+.rule-title h1 { font-family: var(--font-display); font-weight: 500; font-size: var(--t-head); }
+.published { display: flex; align-items: flex-start; gap: 8px; margin-top: 8px; padding: 10px 14px; border-radius: 10px; background: var(--done-soft); color: var(--done); font-size: var(--t-small); font-weight: 600; }
+.settings { width: 100%; margin-top: 10px; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; font-size: var(--t-small); }
+.settings th { padding: 6px 12px; text-align: left; font-weight: 500; color: var(--ink-3); border-bottom: 1px solid var(--line); }
+.settings td { padding: 7px 12px; vertical-align: top; border-top: 1px solid var(--line); line-height: 1.35; }
+.settings td:first-child { width: 22%; font-weight: 600; }
+.settings td:nth-child(2) { width: 26%; color: var(--ink-3); }
+.settings tr:not(.same) td:nth-child(3) { font-weight: 600; }
+.checks { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; margin-top: 12px; }
+.check { padding: 10px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
+.check h4 { margin: 0 0 6px; font-size: var(--t-small); font-weight: 600; }
+.check p { font-size: var(--t-small); line-height: 1.4; color: var(--ink-2); }
+.check p + p { margin-top: 6px; }
+.rule-actions { display: flex; gap: 10px; margin-top: 12px; }
+.rule-history { margin-top: 12px; font-size: var(--t-small); color: var(--ink-3); }
