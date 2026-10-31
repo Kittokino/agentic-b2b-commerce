@@ -32,7 +32,8 @@
     const s = stateAt(index);
     const view = V.VIEWPOINT[sc.screen];
     const mark = view && (view[0] ? V.avatar(view[0]) : '<img class="logo" src="../assets/kade-logo.png" alt="">');
-    const when = [s.day, sc.time].filter(Boolean).join(' · ');
+    const day = S.dates[s.day].replace(',', '').replace(/ \d{4}$/, '');   // 'Wednesday 28 October'
+    const when = [day, sc.time].filter(Boolean).join(' · ');
     const branch = index > S.choiceAt && PATHS[path];
     el('#rail-body').innerHTML = `
       <p class="kicker when">${V.esc(when)}${branch ? `<br><span>${V.esc(branch)}</span>` : ''}</p>
@@ -179,9 +180,13 @@
       if (show) { dayHasEntries = true; shownAny = true; }
     });
     closeDay();
+    // An empty result says what is true, and offers the way back.
     const none = root.querySelector('.no-match');
     none.hidden = shownAny;
-    none.textContent = channel ? 'No entries from this channel for this order.' : 'No entries of this kind for this order.';
+    const KIND = { agent: 'The AI order agent has not acted on this order yet.', person: 'No person has acted on this order yet.', system: 'There are no system entries for this order yet.' };
+    const CHANNEL = { whatsapp: 'on WhatsApp', teams: 'in Teams', email: 'by email', phone: 'by phone', manual: 'by hand' };
+    none.querySelector('p').textContent = channel && kind !== 'all' ? 'No entries match these filters.'
+      : channel ? `Nothing about this order ${channel === 'manual' ? 'was entered' : 'came in'} ${CHANNEL[channel]}.` : KIND[kind];
     // A shorter list would otherwise stay scrolled to where the longer one ended.
     const list = root.querySelector('.trail-scroll');
     list.scrollTop = list.scrollHeight;
@@ -192,6 +197,16 @@
 
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
+    const rule = e.target.closest('[data-rule]');
+    if (rule) { layer.innerHTML = V.ruleModal(S.rules[rule.dataset.rule]); layer.hidden = false; return; }
+    const reset = e.target.closest('[data-reset]');
+    if (reset) {
+      const root = reset.closest('.trail-main');
+      root.querySelectorAll('[data-filter]').forEach(p => p.classList.toggle('on', p.dataset.filter === 'all'));
+      root.querySelector('[data-channel-filter]').value = '';
+      applyFilters(root);
+      return;
+    }
     const pill = e.target.closest('[data-filter]');
     if (pill) {
       const row = pill.closest('.filters');

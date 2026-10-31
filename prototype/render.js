@@ -60,6 +60,34 @@
   // The channels an entry came through, for the channel filter.
   const channelsOf = (source = '') => [/WhatsApp/.test(source) && 'whatsapp', /Teams/.test(source) && 'teams'].filter(Boolean).join(' ');
 
+  // The bottom row of an entry: why the agent acted (the rule), then the evidence (a message,
+  // a case, the voice note). Always in the same place, so both are easy to find.
+  function foot(e, i) {
+    const r = e.rule && window.STORY.rules[e.rule];
+    const rule = r ? `<button class="rule" data-rule="${e.rule}">${icon('rule')}Rule: ${esc(r.name)} · v${r.version}</button>` : '';
+    const open = e.open ? `<button class="open-link" data-open="${i}">${icon(e.open === 'Play voice note' ? 'play' : 'open')}${esc(e.open)}</button>` : '';
+    return rule || open ? `<p class="entry-foot">${rule}${open}</p>` : '';
+  }
+
+  // A rule, as Maheep maintains it: what it says, who it applies to, and every version.
+  function ruleModal(r) {
+    return `
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Rule">
+        <header><h3>Rule</h3><button class="m-close" data-close aria-label="Close">${icon('close')}</button></header>
+        <div class="m-body">
+          <p class="m-rule-name">${esc(r.name)} <span>Version ${r.version}</span></p>
+          <p class="m-text">${esc(r.sentence)}</p>
+          <p class="m-label">Applies to</p>
+          <p class="m-text">${esc(r.scope)}</p>
+          <p class="m-label">Maintained by</p>
+          <p class="m-text">${esc(r.owner)}</p>
+          <p class="m-label">Version history</p>
+          <ol class="m-history">${r.history.map(([v, d, c], k) => `<li class="${k ? '' : 'now'}"><b>${v}</b><span>${esc(d)}</span><p>${esc(c)}</p></li>`).join('')}</ol>
+          <p class="m-note-small">Only an admin can change this rule, in Agent rules. A change creates a new version, and every decision keeps the version it was made under.</p>
+        </div>
+      </div>`;
+  }
+
   // ---------- Kade's order in Sana: its Activity tab ----------
   const sanaTop = (on) => `
     <header class="sana-top">
@@ -99,7 +127,7 @@
     const o = s.order;
     let day = '';
     const rows = s.trail.map((e, i) => {
-      const divider = e.day !== day ? `<li class="day">${esc((day = e.day))}</li>` : '';
+      const divider = e.day !== day ? `<li class="day">${esc(window.STORY.dates[(day = e.day)])}</li>` : '';
       const [field, from, to] = e.change || [];
       return `${divider}
         <li${lead(i, ctx.fresh.trail)} data-kind="${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}" data-channel="${channelsOf(e.source)}">
@@ -108,13 +136,13 @@
             ${avatar(e.who)}
             <div>
               <p class="actor-row">
-                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}"${e.who === 'agent' ? ` title="${AGENT_VERSION}"` : ''}>${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>${e.open ? `<span class="sep"> · </span><button class="open-link" data-open="${i}">${esc(e.open)}</button>` : ''}
+                <span class="actor by-${e.who === 'agent' || e.who === 'system' ? e.who : 'person'}"${e.who === 'agent' ? ` title="${AGENT_VERSION}"` : ''}>${esc(ACTOR[e.who])}${e.source ? ` · via ${esc(e.source)}` : ''}</span>
               </p>
               <p><b>${esc(e.text)}</b></p>
               ${e.quote ? `<q>${esc(e.quote)}</q>` : ''}
               ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
               ${e.change ? `<p class="chg">${esc(field)}: <s>${esc(from)}</s> → <b>${esc(to)}</b></p>` : ''}
-              ${e.rule ? `<span class="rule">${icon('rule')}Rule: ${esc(e.rule)}</span>` : ''}
+              ${foot(e, i)}
             </div>
           </div>
         </li>`;
@@ -141,7 +169,9 @@
               </select>
               <span class="ro" title="Entries in this log can’t be edited or deleted.">${icon('lock')}Read-only</span>
             </div>
-            <div class="trail-scroll"><ol class="trail">${rows}</ol><p class="no-match" hidden></p></div>
+            <div class="trail-scroll"><ol class="trail">${rows}</ol>
+              <div class="no-match" hidden><img src="../assets/empty-box.png?v=2" alt=""><p></p><button class="btn ghost sm" data-reset>Show all entries</button></div>
+            </div>
           </section>
           ${summary(s)}
         </div>
@@ -178,7 +208,7 @@
     const n = s.notify;
     return `
       <div class="phone lockscreen">
-        <div class="lock-time"><span>Wednesday</span><b>22:48</b></div>
+        <div class="lock-time"><span>Wednesday 28 October</span><b>22:48</b></div>
         ${n ? `
         <button class="notification ${ctx.live.includes('open') ? 'live' : ''}" data-action="open">
           <span class="n-top"><img class="n-icon" src="../assets/whatsapp-icon.svg" alt=""><span>${esc(n.app)} · now</span>${icon('down')}</span>
@@ -381,5 +411,5 @@
     end,
   };
 
-  window.VIEWS = { SCREENS, modal, VIEWPOINT, avatar, esc, icon, PEOPLE };
+  window.VIEWS = { SCREENS, modal, ruleModal, VIEWPOINT, avatar, esc, icon, PEOPLE };
 })();

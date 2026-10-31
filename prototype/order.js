@@ -53,11 +53,11 @@
       s.order.status = 'Draft';
       log(s, '22:47', 'agent', 'Created draft order KD-24817 with three items', { change: ['Order', 'None', 'Draft'] });
       set(s, 'cheese', { status: 'confirmed' });
-      log(s, '22:48', 'agent', 'Confirmed the cheese board', { change: ['Status', 'Received', 'Confirmed'], rule: 'In the contract, in stock, within budget' });
+      log(s, '22:48', 'agent', 'Confirmed the cheese board', { change: ['Status', 'Received', 'Confirmed'], rule: 'stock' });
       set(s, 'salmon', { status: 'stopped', owner: 'priya', note: 'Takes Harbour Front €180 over its fish budget' });
-      log(s, '22:48', 'agent', 'Stopped the salmon and asked Priya to approve it', { detail: 'The 18 kg of salmon takes Harbour Front €180 over its fish budget.', change: ['Status', 'Received', 'Waiting on Priya'], rule: 'Category budget per outlet · v3', stop: true });
+      log(s, '22:48', 'agent', 'Stopped the salmon and asked Priya to approve it', { detail: 'The 18 kg of salmon takes Harbour Front €180 over its fish budget.', change: ['Status', 'Received', 'Waiting on Priya'], rule: 'budget', stop: true });
       set(s, 'wine', { status: 'suggested', owner: 'nigel', note: 'Not enough in stock, so Pinot Grigio was suggested' });
-      log(s, '22:48', 'agent', 'Suggested Pinot Grigio instead of Sauvignon Blanc', { detail: 'Kade has fewer than 24 bottles of Sauvignon Blanc in stock. Pinot Grigio is a close match at the same price.', change: ['Status', 'Received', 'Waiting on Nigel'], rule: 'Substitutes are suggested; the requester decides' });
+      log(s, '22:48', 'agent', 'Suggested Pinot Grigio instead of Sauvignon Blanc', { detail: 'Kade has fewer than 24 bottles of Sauvignon Blanc in stock. Pinot Grigio is a close match at the same price.', change: ['Status', 'Received', 'Waiting on Nigel'], rule: 'substitutes' });
       s.order.status = 'Waiting on customer';
       log(s, '22:48', 'agent', 'Sent Nigel a WhatsApp message to confirm the order', { detail: 'Also sent Priya a request in Teams to approve the salmon.', source: 'WhatsApp', open: 'Open message', change: ['Order', 'Draft', 'Waiting on customer'] });
       s.kade.push({ time: '22:48', kind: 'card' });
@@ -135,7 +135,7 @@
     apply(s) {
       log(s, '22:51', 'nigel', s.more ? 'Nigel asked for other options' : 'Nigel declined the Pinot Grigio', { detail: s.more ? 'There is no other Sauvignon Blanc in his contract.' : 'He needs Sauvignon Blanc to go with a dish on the menu.', source: 'WhatsApp', open: 'Open message' });
       s.order.status = 'Waiting on customer and Kade';
-      log(s, '22:51', 'agent', 'Passed the Sauvignon Blanc request to Tom', { change: ['Status', 'Waiting on Nigel', 'With Tom'], rule: 'Hand over when no allowed option is left' });
+      log(s, '22:51', 'agent', 'Passed the Sauvignon Blanc request to Tom', { change: ['Status', 'Waiting on Nigel', 'With Tom'], rule: 'handover' });
       log(s, '22:51', 'system', 'Created case CS-3391 for Tom', { detail: 'Find 24 bottles of Sauvignon Blanc. Tom starts work at 08:00, and the full conversation is attached.', open: 'Open case' });
       log(s, '22:51', 'agent', 'Told Nigel that Tom will look for the Sauvignon Blanc at 08:00', { source: 'WhatsApp', open: 'Open message' });
     },
@@ -145,7 +145,7 @@
   const morning = {
     story: "Overnight, the order stayed as it was. Tom starts work at 08:00, so nobody has looked for the Sauvignon Blanc yet, and Priya has not yet approved the salmon.",
     screen: 'break', actor: 'priya', day: 'Thursday',
-    kicker: 'Thursday, 07:40',
+    kicker: 'Thursday 29 October, 07:40',
     title: 'Let’s start at Priya’s end.',
     body: 'Priya also uses her own AI assistant. It belongs to The Olive Tree, not to Kade, and it can see the orders and the inventory of all three of their restaurants.',
     next: 'Go to Priya’s laptop',
@@ -221,7 +221,7 @@
     apply(s) {
       set(s, 'salmon', { status: 'confirmed', owner: null, note: 'Approved by Priya' });
       log(s, '07:45', 'priya', 'Priya reduced the Sauvignon Blanc Kade must find from 24 to 14 bottles', { detail: 'Old Town is sending the other 10 bottles.', change: ['To source', '24', '14'], source: 'Teams, Kade order thread', open: 'Open message' });
-      log(s, '07:45', 'agent', 'Updated the order before Tom started on the case', { rule: 'Changes from the buyer apply before work starts' });
+      log(s, '07:45', 'agent', 'Updated the order before Tom started on the case', { rule: 'changes' });
       log(s, '07:45', 'system', 'Updated case CS-3391 to 14 bottles', { change: ['Quantity', '24', '14'], open: 'Open case' });
       log(s, '07:45', 'agent', 'Told Nigel that Old Town is sending 10 bottles', { source: 'WhatsApp', open: 'Open message' });
       log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'She accepted going €180 over Harbour Front’s fish budget.', source: 'Teams, Kade order thread', open: 'Open approval' });
@@ -277,7 +277,7 @@
       s.order.erp = 'Booked · delivery Fri 07:00–09:00';
       log(s, '08:30', 'nigel', 'Nigel agreed to the one-time price', { source: 'WhatsApp', open: 'Open message' });
       log(s, '08:30', 'agent', 'Confirmed the Sauvignon Blanc', { change: ['Status', 'Waiting on Nigel', 'Confirmed'] });
-      log(s, '08:31', 'agent', 'Confirmed the order, because every item now has an answer', { change: ['Order', 'Waiting on customer', 'Confirmed'], rule: 'Confirm only when every line is decided' });
+      log(s, '08:31', 'agent', 'Confirmed the order, because every item now has an answer', { change: ['Order', 'Waiting on customer', 'Confirmed'], rule: 'confirm' });
       log(s, '08:31', 'system', 'Sent the order to Kade’s ERP for delivery on Friday between 07:00 and 09:00', { change: ['ERP', 'Not sent', 'Booked'] });
       log(s, '08:31', 'agent', 'Sent the confirmation to Nigel and Priya', { source: 'WhatsApp and Teams' });
       wa(s, '08:31', 'agent', 'Your order KD-24817 is confirmed. We will deliver it to Harbour Front on Friday between 07:00 and 09:00.', { kind: 'done' });
@@ -319,7 +319,7 @@
     next: 'See the summary',
     apply(s) {
       log(s, '22:50', 'nigel', 'Nigel accepted the Pinot Grigio', { source: 'WhatsApp', open: 'Open message' });
-      log(s, '22:50', 'agent', 'Confirmed 24 bottles of Pinot Grigio instead of Sauvignon Blanc', { change: ['Status', 'Waiting on Nigel', 'Confirmed'], rule: 'Substitutes are suggested; the requester decides' });
+      log(s, '22:50', 'agent', 'Confirmed 24 bottles of Pinot Grigio instead of Sauvignon Blanc', { change: ['Status', 'Waiting on Nigel', 'Confirmed'], rule: 'substitutes' });
       log(s, '22:50', 'agent', 'Waiting for Priya to approve the salmon', { detail: 'Priya has had the approval request in Teams since 22:48.' });
     },
   };
@@ -333,9 +333,56 @@
     apply() {},
   };
 
+  // The rules the agent works by. Maheep maintains them in Agent rules; each change is a new version.
+  const MAHEEP = 'Maheep, commerce admin at Kade';
+  const rules = {
+    stock: {
+      name: 'Confirm what is in the contract, in stock and within budget', version: 2,
+      sentence: 'The agent may confirm an item on its own when the item is in the customer’s contract, Kade has it in stock, and it keeps the outlet within its budget.',
+      scope: 'All of Kade’s customers.',
+      history: [['v2', '4 June 2026', 'Added the outlet’s budget as a third condition.'], ['v1', '12 March 2026', 'First version: the contract and stock only.']],
+    },
+    budget: {
+      name: 'Category budget per outlet', version: 3,
+      sentence: 'Each outlet has a budget for each product category. If an item would take an outlet over its budget, the agent stops and asks the customer’s buyer to approve it.',
+      scope: 'The Olive Tree, all three restaurants. The budgets themselves are set by Priya, the buyer; Harbour Front’s fish budget is one of them.',
+      history: [['v3', '18 September 2026', 'The buyer is asked in the channel they use (Teams for Priya), not by email.'], ['v2', '3 April 2026', 'Budgets per product category, instead of one budget per order.'], ['v1', '20 January 2026', 'First version: one budget per order for each outlet.']],
+    },
+    substitutes: {
+      name: 'Substitutes are suggested; the requester decides', version: 1,
+      sentence: 'When an item is short, the agent may suggest a close match at the same price or lower. It never swaps an item on its own: the person who ordered decides.',
+      scope: 'All of Kade’s customers.',
+      history: [['v1', '12 March 2026', 'First version.']],
+    },
+    handover: {
+      name: 'Hand over when no allowed option is left', version: 2,
+      sentence: 'If the agent has nothing left that it is allowed to offer, it passes the request to the customer’s service rep with the full conversation, and tells the customer who has it and when they will hear back.',
+      scope: 'All of Kade’s customers.',
+      history: [['v2', '2 July 2026', 'Hand over to the customer’s own service rep, and tell the customer who and when.'], ['v1', '12 March 2026', 'First version: hand over to the shared service desk queue.']],
+    },
+    changes: {
+      name: 'Changes from the buyer apply before work starts', version: 1,
+      sentence: 'If the buyer changes an item before a person at Kade has started on it, the agent applies the change straight away. If work has already started, it tells the person working on it instead.',
+      scope: 'All of Kade’s customers.',
+      history: [['v1', '2 July 2026', 'First version.']],
+    },
+    confirm: {
+      name: 'Confirm only when every item is decided', version: 1,
+      sentence: 'The agent confirms an order and sends it to Kade’s ERP only when every item has an answer from the person who decides.',
+      scope: 'All of Kade’s customers.',
+      history: [['v1', '12 March 2026', 'First version.']],
+    },
+  };
+  Object.values(rules).forEach(r => { r.owner = MAHEEP; });
+
+  // The story's days, in full.
+  const dates = { Wednesday: 'Wednesday, 28 October 2026', Thursday: 'Thursday, 29 October 2026' };
+
   const shared = [intake, lock, readback];
   window.STORY = {
     initial,
+    rules,
+    dates,
     choiceAt: shared.length - 1,
     paths: {
       decline: [...shared, declined, handover, morning, tip, called, compose, sent, priyaLogged, tom, quote, done, end],

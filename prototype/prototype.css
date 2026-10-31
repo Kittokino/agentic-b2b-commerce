@@ -343,8 +343,6 @@ ul, ol { padding: 0; list-style: none; }
 
 /* The actor line carries the source, then the link to it. */
 .actor-row { font-size: var(--t-label); }
-.actor-row .sep { color: var(--ink-3); font-weight: 600; }
-.actor-row .open-link { font-size: var(--t-label); font-weight: 600; color: var(--ink-2); }
 .tally + .sum-facts { border-top: 0; padding-top: 12px; }
 
 /* The agent is typing: three dots in a wave, shown for one second, then the reply takes its place. */
@@ -367,5 +365,30 @@ ul, ol { padding: 0; list-style: none; }
 .filters .select { appearance: none; -webkit-appearance: none; margin-left: 6px; padding: 4px 30px 4px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234b4862' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center / 14px; font: inherit; color: var(--ink-2); cursor: pointer; }
 .filters .select:hover { border-color: var(--ink-3); color: var(--ink); }
 .trail > li[hidden] { display: none; }
-.no-match { padding: 24px 4px; font-size: var(--t-body); color: var(--ink-2); }
 .trail-main.filtered .new, .trail-main.filtered .new > .entry { animation: none !important; }
+
+/* The bottom row of an entry: the rule (why), then the evidence (a link). */
+.entry-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 8px; }
+.entry-foot .rule { margin-top: 0; font: inherit; font-size: var(--t-small); cursor: pointer; }
+.entry-foot .rule:hover { border-color: var(--ink-3); color: var(--ink); }
+.entry-foot .open-link { display: inline-flex; align-items: center; gap: 5px; font-size: var(--t-small); font-weight: 500; }
+.entry-foot .open-link .ico { font-size: 14px; }
+
+/* Empty filter result: an illustration, what is true, and the way back. */
+.no-match { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 48px 24px 24px; text-align: center; }
+.no-match[hidden] { display: none; }
+.no-match img { width: 96px; height: auto; }
+.no-match p { max-width: 320px; font-size: var(--t-body); line-height: 1.5; color: var(--ink-2); }
+
+/* The rule pop-up. */
+.m-rule-name { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: var(--t-body); font-weight: 600; }
+.m-rule-name span { flex: none; font-size: var(--t-small); font-weight: 500; color: var(--ink-3); }
+.m-history { margin-top: 8px; }
+.m-history li { display: grid; grid-template-columns: 34px 1fr; column-gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); font-size: var(--t-small); }
+.m-history li:first-child { border-top: 0; }
+.m-history b { grid-row: span 2; }
+.m-history span { color: var(--ink-3); }
+.m-history p { color: var(--ink-2); line-height: 1.45; }
+.m-history li.now b { color: var(--ink); }
+.m-history li:not(.now) b { color: var(--ink-3); }
+.m-note-small { margin-top: 16px; font-size: var(--t-small); line-height: 1.5; color: var(--ink-3); }
