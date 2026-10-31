@@ -99,10 +99,12 @@
   }
 
   // ---------- Kade's order in Sana: its Activity tab ----------
-  const sanaTop = (on) => `
+  // Who is signed in: Tom on his own case; on the order screen, a generic colleague.
+  const sanaTop = (on, who) => `
     <header class="sana-top">
       <div class="brand"><img class="logo" src="../assets/kade-logo.png" alt=""><b>Kade Foodservice</b><span class="on">on Sana</span></div>
       <nav>${['Orders', 'Cases', 'Customers', 'Agent rules'].map(n => `<span class="${n === on ? 'on' : ''}">${n}</span>`).join('')}</nav>
+      <span class="me" title="${who ? `Signed in as ${PEOPLE[who]}` : 'Signed in as a Kade colleague'}">${who ? avatar(who, 'sm') : `<span class="face sm someone">${icon('person')}</span>`}</span>
     </header>`;
 
   // The agent's version is kept for audits, in a tooltip, not on every row.
@@ -194,7 +196,7 @@
     const recent = s.trail.slice(-5).map(e => `<li><span class="t">${esc(e.time)}</span>${avatar(e.who)}<p>${esc(e.text)}</p></li>`).join('');
     return `
       <div class="frame">
-        ${sanaTop('Cases')}
+        ${sanaTop('Cases', 'tom')}
         <div class="trail-page">
           <section class="case-main">
             <div class="crumb">Cases <span>/</span> ${esc(c.id)}</div>

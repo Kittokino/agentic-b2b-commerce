@@ -434,3 +434,7 @@ ul, ol { padding: 0; list-style: none; }
 .option .btn.live { background: var(--ink); color: #fff; }
 .option .btn:not(.live):not(:disabled):hover { background: var(--person-soft); filter: none; }
 .options-note { margin-top: 10px; font-size: var(--t-small); color: var(--ink-3); }
+
+/* Who is signed in, at the right of Kade's header. */
+.sana-top .me { margin-left: auto; display: flex; align-items: center; }
+.face.someone { background: var(--person-soft); border: 0; color: var(--ink-2); font-size: 18px; }
