@@ -65,7 +65,7 @@ p { margin: 0; }
 .s-principles h2 { margin-bottom: 32px; }
 .principles { list-style: none; margin: 0; padding: 0; counter-reset: p; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 40px; row-gap: 0; }
 /* Subgrid: the labels line up across all four columns. */
-.principles li { counter-increment: p; grid-row: span 6; display: grid; grid-template-rows: subgrid; align-content: start; }
+.principles li { counter-increment: p; grid-row: span 4; display: grid; grid-template-rows: subgrid; align-content: start; }
 .principles li::before { content: counter(p); width: 26px; height: 26px; margin-bottom: 14px; border-radius: 50%; border: 1.5px solid var(--ink); font-size: 12px; font-weight: 700; display: grid; place-items: center; }
 .s-principles h3 { font-size: 22px; line-height: 1.25; }
 .s-principles li > p:not(.label) { font-size: 14px; }

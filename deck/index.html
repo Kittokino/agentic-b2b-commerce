@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=2">
   <link rel="stylesheet" href="../shared/components.css?v=4">
-  <link rel="stylesheet" href="deck.css?v=20261031e">
+  <link rel="stylesheet" href="deck.css?v=20261031f">
 </head>
 <body>
 
@@ -66,7 +66,7 @@
     <p class="hmw">How might we let buyers order in the channels they already use, with an agent that acts on their behalf, <em>and knows when to stop?</em></p>
     <aside class="notes">
       <p>Most B2B orders still arrive as messages, calls and emails, in people's own words. An agent can turn these into orders and keep all related conversations attached to the order.</p>
-      <p>In B2B, the person placing an order is often not the person who controls the budget. In this story, Nigel orders and Priya approves spending above the outlet's limits. The agent therefore needs to know when it can act on its own, and when it should ask someone else.</p>
+      <p>In B2B, the person placing an order is often not the person who controls the budget. In a restaurant chain, for example, a head chef orders and a central buyer approves spending above the restaurant's limits. The agent therefore needs to know when it can act on its own, and when it should ask someone else.</p>
     </aside>
   </section>
 
@@ -79,34 +79,26 @@
         <h3>The order lives in one record.</h3>
         <p class="label">Where this comes from</p>
         <p>My work with Salesforce. I have worked on workflows that bring an AI agent into a process, where messages from different channels are tied back to one order until it is fulfilled.</p>
-        <p class="label">In the story</p>
-        <p>Priya changes the wine in Kade's order thread in Teams. Nigel's WhatsApp and Tom's case update at the same time.</p>
       </li>
       <li>
         <h3>The agent works within rules that people set, and people improve the rules.</h3>
         <p class="label">Where this comes from</p>
         <p>Following how AI agents are built today. Agents can be given limits, every action can be recorded and undone, and regular tests help them improve.</p>
-        <p class="label">In the story</p>
-        <p>Tom flags a poor wine suggestion. Maheep, Kade's admin, then publishes version 2 of the substitution rule.</p>
       </li>
       <li>
         <h3>People only see what needs a decision.</h3>
         <p class="label">Where this comes from</p>
-        <p>The day in the life of each person, shown later and still an assumption. Nigel and Priya have little free time, so they should only be asked about what needs them.</p>
-        <p class="label">In the story</p>
-        <p>The agent confirms the cheese board without asking anyone. Priya is asked only about the salmon and the price of the wine.</p>
+        <p>Experience of how people work. Everyone's time is limited, so a person should only be asked when a decision is theirs to make.</p>
       </li>
       <li>
         <h3>Every decision goes to the person who owns it, and affects only that item.</h3>
         <p class="label">Where this comes from</p>
-        <p>Overviews from AI tools, and searches on Google and Reddit. The head chef has the authority to order ingredients, including special orders like the wine.</p>
-        <p class="label">In the story</p>
-        <p>Nigel decides whether another wine suits his menu, Priya decides on the budget and the price, and Tom chooses the supplier. When Nigel declines the Pinot Grigio, only the wine changes.</p>
+        <p>Experience of how teams work. People hold roles that come with responsibility and accountability, so each decision has to move along the chain to the person who is accountable for it.</p>
       </li>
     </ol>
     <aside class="notes">
       <p>These four principles guide the rest of the design. Each one shows where it comes from, because the sources are not equally strong.</p>
-      <p>The first comes from my own work with Salesforce, so I have seen it work. The second comes from following how AI agents are built, for example with MCP, limits on what an agent may do, audit trails, rollback and evaluations. The third and fourth come from assumptions and from overviews by AI tools, so they are the first things the research would test.</p>
+      <p>The first comes from my own work with Salesforce, so I have seen it work. The second comes from following how AI agents are built, for example with MCP, limits on what an agent may do, audit trails, rollback and evaluations. The third and fourth come from how people work in any team, where roles come with responsibility and accountability. The research does not need to prove these. It tests how they apply, for example who decides what, and above which amount.</p>
     </aside>
   </section>
 
