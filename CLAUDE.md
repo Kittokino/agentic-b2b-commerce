@@ -31,3 +31,11 @@ Open points the author will decide later. They matter for the application, so ra
 Vision idea to carry into the "Next" or "Later" stage: the agent suggests changes the customer did not ask for, for example "Your usual cheese board serves about 70; this dinner is for 120. Would you like two?". The author decided against this in the prototype, because from the supplier's agent it can feel pushy, like upselling. In the vision, it shows how trust lets such suggestions work: the more an agent has earned trust, the more it is allowed to suggest.
 
 Research note: the author's G2 research read reviews of Sana's products. They are rated well, and people describe the interface as simple and easy to work with.
+
+## Where the prototype stands (31 October 2026)
+
+- Main story: 18 scenes (#scene-1 to #scene-18). Side branches: #what-if-accepted-n and #what-if-more-options-n. Follow-on: #after-the-order-1 to 4 (Tom flags a suggestion; Maheep publishes version 2 of the substitution rule).
+- Decided not to build: the full Sana navigation (Orders, Customers and the other tabs). The author will mention the unbuilt parts in the email to Anjali.
+- Still open: the length review of the main story; the vision ("Where this is heading"), possibly with one mock-up of the "Later" stage; the deck slides listed in the open points above.
+- Testing: Playwright scripts click through every path and open every link and pop-up; run them after any change to order.js, render.js or app.js.
+

@@ -203,6 +203,7 @@
         ${sanaTop('Cases', 'tom')}
         <div class="trail-page">
           <section class="case-main">
+            <header class="case-head">
             <div class="crumb">Cases <span>/</span> ${esc(c.id)}</div>
             <div class="case-title"><h1>${esc(c.title)}</h1><span class="status handed">${esc(c.status)}</span></div>
             <p class="case-for">${avatar('tom')} Assigned to Tom · for ${esc(s.order.customer)} · order ${esc(s.order.id)}</p>
@@ -211,6 +212,9 @@
               <div><dt>Delivery to Harbour Front</dt><dd>${esc(c.delivery[0])}<span>${esc(c.delivery[1])}</span></dd></div>
               <div><dt>Private dinner</dt><dd>${esc(c.occasion[0])}<span>${esc(c.occasion[1])}</span></dd></div>
             </dl>
+            </header>
+            <div class="case-body">
+            <h3 class="case-h">What is needed</h3>
             <p class="case-task">${esc(c.task)}</p>
             ${c.changed ? `<div class="changed">${icon('rule')}<p>${esc(c.changed)}</p></div>` : ''}
             ${c.options ? `
@@ -226,6 +230,7 @@
               </div>
               <p class="options-note">The agent checked Kade’s partner suppliers for this wine. Tom decides which one to use.</p>
             </section>` : ''}
+            </div>
           </section>
           <aside class="summary history">
             <h3>Latest activity on the order</h3>
