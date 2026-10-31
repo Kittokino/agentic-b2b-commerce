@@ -45,7 +45,7 @@ The deck is `deck/index.html` (slides), `deck/deck.css` and `deck/deck.js`. It i
 
 Deadlines: submit the deck and the prototype by Tuesday 3 November 2026, 18:00 IST. The presentation is Wednesday 4 November, 18:00 IST, over Microsoft Teams: about 30 minutes presenting, then questions. Panel: Charles Barton (VP of Product, hiring manager), Nicole (user researcher), Frank (product manager).
 
-Slides that exist: 1 title, 2 problem, 3 research (how wholesalers handle orders today), 4 four principles drawn from the research, 5 the places and the people, 6 a typical day at work, 7 the opportunity, 8 what the agent does (acts, stops, hands over), 9 the journey, 10 assumptions and research; appendix with the assumptions matrix, the research plan, and how this was made.
+Slides that exist: 1 title, 2 problem, 3 four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 assumptions and research; appendix with the assumptions matrix, the research plan, and how this was made.
 
 Slides still to build (the case brief asks for research, vision, leadership, commercial impact, platform configurability, and a design system shown in two or more channels):
 1. Research as evidence (open point 1 above), including the author's revised research plan. Research questions and technical notes are in `docs/02-research-and-technical-notes.md`.
