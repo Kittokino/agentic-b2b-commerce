@@ -403,3 +403,7 @@ ul, ol { padding: 0; list-style: none; }
 .chat-item .unread-dot { flex: none; width: 8px; height: 8px; margin-left: auto; border-radius: 50%; background: var(--ink); }
 .chat-item[data-chat] { cursor: pointer; }
 .chat-item[data-chat]:not(.on):hover { background: rgba(21, 15, 51, .04); }
+
+/* Priya's Teams window keeps one size, whichever chat is open (it used to follow its content). */
+.dev-teams .device-wrap { width: 100%; justify-content: center; }
+.dev-teams .teams { width: 100%; max-width: 980px; flex: none; }
