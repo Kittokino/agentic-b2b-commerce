@@ -39,3 +39,33 @@ Research note: the author's G2 research read reviews of Sana's products. They ar
 - Still open: the length review of the main story; the vision ("Where this is heading"), possibly with one mock-up of the "Later" stage; the deck slides listed in the open points above.
 - Testing: Playwright scripts click through every path and open every link and pop-up; run them after any change to order.js, render.js or app.js.
 
+## Deck: what to build next (hand-over, 31 October 2026)
+
+The deck is `deck/index.html` (slides), `deck/deck.css` and `deck/deck.js`. It is a fixed 1280x720 stage; keys ←/→, N for notes. Live at https://kittokino.github.io/agentic-b2b-commerce/deck/.
+
+Deadlines: submit the deck and the prototype by Tuesday 3 November 2026, 18:00 IST. The presentation is Wednesday 4 November, 18:00 IST, over Microsoft Teams: about 30 minutes presenting, then questions. Panel: Charles Barton (VP of Product, hiring manager), Nicole (user researcher), Frank (product manager).
+
+Slides that exist: 1 title, 2 problem, 3 the places and the people, 4 a typical day at work, 5 the opportunity, 6 what the agent does (acts, stops, hands over), 7 the journey, 8 assumptions and research; appendix with the assumptions matrix, the research plan, and how this was made.
+
+Slides still to build (the case brief asks for research, vision, leadership, commercial impact, platform configurability, and a design system shown in two or more channels):
+1. Research as evidence (open point 1 above), including the author's revised research plan. Research questions and technical notes are in `docs/02-research-and-technical-notes.md`.
+2. Principles derived from the research, then "Where this is heading": Today, Next, Later (open point 2 above, plus the vision idea about trust).
+3. A "Live prototype" hand-off slide that links to https://kittokino.github.io/agentic-b2b-commerce/prototype/.
+4. Platform configurability: Maheep's rules (versioned, tested before publishing), and one example of the same platform with different rules for another industry (for example, a medical supplier: lot numbers, prescriptions, cold chain).
+5. The design system: the same components (status, order item, agent symbol, activity entry) in WhatsApp, Teams and Kade's Sana.
+6. Commercial impact: what it is worth to Kade (more orders confirmed without a person, faster confirmation, fewer errors) and the measures to track.
+7. How the author would lead: team, ways of working with product and engineering, the first 90 days.
+8. A technical assumptions appendix slide (from `docs/02`). Check slide 8's speaker notes against the slide with the author.
+
+The deck must match what the prototype now shows:
+- The agent works out "the usual cheese board" from Harbour Front's order history.
+- Prices outside the contract go to Priya, the buyer, not to Nigel. Tom chooses the supplier (Northgate Wines, 14 bottles at €11.80) from options the agent prepared; Priya approves the one-time price in Teams.
+- Every decision on an item affects only that item; a decline never cancels the whole order.
+- After the order: Tom flags a poor suggestion, and Maheep publishes version 2 of the substitution rule (up to three ranked alternatives from all of Kade's inventory; a WhatsApp list, because a message holds at most three reply buttons).
+- Names: Harbour Front (Nigel's restaurant), Old Town (sends 10 bottles), the AI order agent (Kade's), the purchasing assistant (The Olive Tree's own, Priya's). Dates: Wednesday 28 to Friday 30 October 2026; the dinner is on Saturday 31 October.
+
+When two sessions work on this repository at the same time:
+- Pull `main` before starting, and pull again before pushing.
+- Do not change `shared/` (colours, fonts, components) without asking the author; the prototype uses the same files.
+- Record any change to the story (a name, a time, a price) in `docs/01-story.md`, so both sessions read the same story.
+
