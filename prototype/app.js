@@ -13,6 +13,8 @@
   let chosen = false;   // has a reply been picked at Nigel's choice yet?
   let index = 0;
   let shown = null;     // the screen on view: its element and what it shows
+  let chatView = null;  // a Teams chat the viewer opened in this scene, if any
+  let kadeSeen = false; // whether the viewer has opened Kade's chat; it stays read until Start again
 
   const steps = () => S.paths[path];
 
@@ -57,7 +59,7 @@
     const before = dir >= 0 && index > 0 ? stateAt(index - 1) : null;
     const count = (k) => (dir < 0 ? 1e9 : before ? before[k].length : 0);
     const fresh = { trail: count('trail'), wa: count('wa'), assistant: count('assistant'), kade: count('kade') };
-    const ctx = { fresh, live: (sc.choices || []).map(c => c.action), time: `${s.day} ${sc.time || ''}` };
+    const ctx = { fresh, live: (sc.choices || []).map(c => c.action), time: `${s.day} ${sc.time || ''}`, chat: chatView, kadeSeen };
     const html = V.SCREENS[sc.screen](s, sc, ctx);
 
     const key = surface(sc);
@@ -111,6 +113,7 @@
   }
 
   function go(n, dir = 1) {
+    chatView = null;
     index = Math.max(0, Math.min(steps().length - 1, n));
     if (index > S.choiceAt) chosen = true;
     render(dir);
@@ -174,6 +177,14 @@
 
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
+    // Opening the other Teams chat changes only what is on screen, not where the story is.
+    const chat = e.target.closest('[data-chat]');
+    if (chat) {
+      chatView = chat.dataset.chat;
+      if (chatView === 'kade') kadeSeen = true;
+      render(-1);
+      return;
+    }
     const rule = e.target.closest('[data-rule]');
     if (rule) { layer.innerHTML = V.ruleModal(S.rules[rule.dataset.rule]); layer.hidden = false; return; }
     const reset = e.target.closest('[data-reset]');
@@ -200,7 +211,7 @@
     else if (t.dataset.action) choose(t.dataset.action);
     else if (t.dataset.nav === 'next') advance();
     else if (t.dataset.nav === 'prev') go(index - 1, -1);
-    else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; index = 0; intro.classList.remove('gone'); }
+    else if (t.dataset.nav === 'restart') { path = 'decline'; chosen = false; index = 0; kadeSeen = false; intro.classList.remove('gone'); }
     else if (t.dataset.go === 'accept') { path = 'accept'; chosen = true; go(S.choiceAt + 1); }
     else if (t.dataset.go === 'decline') { path = 'decline'; chosen = false; go(S.choiceAt, -1); }
   });

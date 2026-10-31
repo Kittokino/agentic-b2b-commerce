@@ -401,3 +401,5 @@ ul, ol { padding: 0; list-style: none; }
 .chat-item.unread b { font-weight: 700; }
 .chat-item.unread span:not(.assistant):not(.face) { color: var(--ink); font-weight: 600; }
 .chat-item .unread-dot { flex: none; width: 8px; height: 8px; margin-left: auto; border-radius: 50%; background: var(--ink); }
+.chat-item[data-chat] { cursor: pointer; }
+.chat-item[data-chat]:not(.on):hover { background: rgba(21, 15, 51, .04); }

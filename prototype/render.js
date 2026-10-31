@@ -268,7 +268,7 @@
       if (m.kind === 'card') body = `<div class="acard"><p>${esc(m.text)}</p><div class="acard-btns">${m.buttons.map(b => act(b, ctx, 'btn sm ghost')).join('')}</div></div>`;
       else if (m.kind === 'note') body = `<p class="call">${icon('phone')}${esc(m.text)}</p>`;
       else body = `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
-      return `<li${enter(i, ctx.fresh.assistant)}>${m.who === 'priya' ? '' : `<span class="assistant">${icon('agent')}</span>`}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Your assistant'} · ${esc(m.time)}</span>${body}</div></li>`;
+      return `<li${enter(i, ctx.fresh.assistant)}>${m.who === 'priya' ? '' : `<span class="assistant">${icon('agent')}</span>`}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Purchasing assistant'} · ${esc(m.time)}</span>${body}</div></li>`;
     }).join('');
 
     const chatKade = s.kade.map((m, i) => {
@@ -276,7 +276,11 @@
       return `<li${enter(i, ctx.fresh.kade)}>${m.who === 'priya' ? '' : avatar('agent')}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Kade · Order agent (AI)'} · ${esc(m.time)}</span>${body}</div></li>`;
     }).join('');
 
-    const onAssistant = scene.chat === 'assistant';
+    // The viewer can open either chat; the story's own chat for the scene is the default.
+    const onAssistant = (ctx.chat || scene.chat) === 'assistant';
+    // Kade's chat is unread only before Priya opens it: in the story (scene 9) or by the viewer.
+    const kadeUnread = scene.chat === 'assistant' && onAssistant && !ctx.kadeSeen;
+    const draft = onAssistant ? '' : s.compose;   // Priya's message to Kade stays in Kade's chat
     const last = (list) => { const m = list[list.length - 1]; return m ? (m.kind === 'card' && !m.text ? 'Harbour Front · Saturday dinner' : m.text) : ''; };
     return `
       <div class="teams">
@@ -287,15 +291,15 @@
             <span class="apps">${icon('fl-apps')}<i>Apps</i></span>
           </nav>
           <aside class="chats">
-            <div class="chat-item ${onAssistant ? 'on' : ''}"><span class="assistant">${icon('agent')}</span><div><b>Your assistant</b><span>${esc(last(s.assistant))}</span></div></div>
-            <div class="chat-item ${onAssistant ? 'unread' : 'on'}">${kadeMark()}<div><b>Kade Foodservice</b><span>${esc(last(s.kade))}</span></div>${onAssistant ? '<span class="unread-dot" aria-label="Unread"></span>' : ''}</div>
+            <div class="chat-item ${onAssistant ? 'on' : ''}" data-chat="assistant"><span class="assistant">${icon('agent')}</span><div><b>Purchasing assistant</b><span>${esc(last(s.assistant))}</span></div></div>
+            <div class="chat-item ${onAssistant ? (kadeUnread ? 'unread' : '') : 'on'}" data-chat="kade">${kadeMark()}<div><b>Kade Foodservice</b><span>${esc(last(s.kade))}</span></div>${kadeUnread ? '<span class="unread-dot" aria-label="Unread"></span>' : ''}</div>
           </aside>
           <section class="conv">
-            <header>${onAssistant ? `<span class="assistant">${icon('agent')}</span><b>Your assistant</b><span class="muted">The Olive Tree</span>` : `${kadeMark()}<b>Kade Foodservice</b><span class="muted">Order thread · ${esc(s.order.id)}</span>`}</header>
+            <header>${onAssistant ? `<span class="assistant">${icon('agent')}</span><b>Purchasing assistant</b><span class="muted">The Olive Tree</span>` : `${kadeMark()}<b>Kade Foodservice</b><span class="muted">Order thread · ${esc(s.order.id)}</span>`}</header>
             <ul class="tlist">${onAssistant ? chatAssistant : chatKade}</ul>
-            <div class="composer ${s.compose ? 'typing' : ''}">
-              <span>${s.compose ? esc(s.compose) : 'Type a message'}</span>
-              ${s.compose ? act({ action: 'send', label: 'Send' }, ctx, 'btn sm') : ''}
+            <div class="composer ${draft ? 'typing' : ''}">
+              <span>${draft ? esc(draft) : 'Type a message'}</span>
+              ${draft ? act({ action: 'send', label: 'Send' }, ctx, 'btn sm') : ''}
             </div>
           </section>
         </div>

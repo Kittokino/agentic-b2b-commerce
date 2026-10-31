@@ -25,7 +25,7 @@
     },
     trail: [],      // the order's activity in Kade's Sana: append only
     wa: [],         // Nigel's WhatsApp chat with Kade
-    assistant: [],  // Priya's chat with her own AI assistant (Teams)
+    assistant: [],  // Priya's chat with her own AI purchasing assistant (Teams)
     kade: [],       // Priya's chat with Kade's app (Teams)
     notify: null,   // the lock-screen notification on Nigel's phone
     compose: '',    // what Priya is typing
@@ -147,7 +147,7 @@
     screen: 'break', actor: 'priya', day: 'Thursday',
     kicker: 'Thursday 29 October, 07:40',
     title: 'Let’s start at Priya’s end.',
-    body: 'Priya also uses her own AI assistant. It belongs to The Olive Tree, not to Kade, and it can see the orders and the inventory of all three of their restaurants.',
+    body: 'Priya also uses her own AI purchasing assistant. It belongs to The Olive Tree, not to Kade, and it can see the orders and the inventory of all three of their restaurants.',
     next: 'Go to Priya’s laptop',
     apply() {},
   };
@@ -156,7 +156,7 @@
     story: "During the night, Kade’s order agent updated the order in Priya’s Teams. Tom will look for the Sauvignon Blanc at 08:00, and the salmon is waiting for Priya’s approval.",
     time: '07:40',
     screen: 'teams', actor: 'priya', chat: 'assistant',
-    title: 'Priya’s assistant has read Kade’s update and checked the inventory of the other two restaurants.',
+    title: 'Priya’s purchasing assistant has read Kade’s update and checked the inventory of the other two restaurants.',
     cta: 'Call Old Town',
     choices: [{ action: 'call' }],
     apply(s) {
@@ -168,7 +168,7 @@
     story: "Priya calls the manager at Old Town to ask whether they can spare the 10 bottles.",
     time: '07:43',
     screen: 'teams', actor: 'priya', chat: 'assistant',
-    title: 'Old Town can send all 10 bottles. Priya’s assistant does not hear the call, so it asks her how it went.',
+    title: 'Old Town can send all 10 bottles. Priya’s purchasing assistant does not hear the call, so it asks her how it went.',
     cta: 'Old Town confirmed',
     choices: [{ action: 'confirmed' }],
     apply(s) {
