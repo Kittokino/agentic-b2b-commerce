@@ -368,7 +368,8 @@ ul, ol { padding: 0; list-style: none; }
 .trail-main.filtered .new, .trail-main.filtered .new > .entry { animation: none !important; }
 
 /* The bottom row of an entry: the rule (why), then the evidence (a link). */
-.entry-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 8px; }
+/* The rule and the link each get their own line, so a link always starts at the same left edge. */
+.entry-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 8px; }
 .entry-foot .rule { margin-top: 0; font: inherit; font-size: var(--t-small); cursor: pointer; }
 .entry-foot .rule:hover { border-color: var(--ink-3); color: var(--ink); }
 .entry-foot .open-link { display: inline-flex; align-items: center; gap: 5px; font-size: var(--t-small); font-weight: 500; }

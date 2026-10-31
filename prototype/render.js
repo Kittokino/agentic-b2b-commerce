@@ -60,7 +60,7 @@
   // The channels an entry came through, for the channel filter.
   const channelsOf = (source = '') => [/WhatsApp/.test(source) && 'whatsapp', /Teams/.test(source) && 'teams'].filter(Boolean).join(' ');
 
-  // The bottom row of an entry: why the agent acted (the rule), then the evidence (a message,
+  // The bottom of an entry: why the agent acted (the rule), then under it the evidence (a message,
   // a case, the voice note). Always in the same place, so both are easy to find.
   function foot(e, i) {
     const r = e.rule && window.STORY.rules[e.rule];
