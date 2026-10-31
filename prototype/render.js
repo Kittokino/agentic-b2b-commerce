@@ -45,6 +45,9 @@
     return `<button class="${cls} ${live ? 'live' : ''}" ${live ? `data-action="${b.action}"` : 'disabled'}>${esc(b.label)}</button>`;
   };
 
+  // WhatsApp's own formatting: *bold* in a message's text becomes bold.
+  const waText = (t) => esc(t).replace(/\*([^*]+)\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+
   // Things the current scene added animate in, one after another.
   const enter = (i, from, step = .45) => i >= from ? ` class="new" style="animation-delay:${((i - from) * step).toFixed(2)}s"` : '';
 
@@ -232,7 +235,7 @@
       }
       const wrap = isNew ? ` class="new" style="animation-delay:${delay.toFixed(2)}s"` : '';
       if (isNew) delay += .6;
-      let body = esc(m.text).replace(/\n/g, '<br>');
+      let body = waText(m.text);
       if (m.kind === 'voice') body = `<div class="voice"><span class="play">${icon('play')}</span><span class="wave">${'<i></i>'.repeat(24)}</span><span class="len">0:14</span></div>`;
       if (m.kind === 'done') body = `<p class="done-msg">${icon('check')} ${body}</p>`;
       const buttons = m.buttons ? `<div class="wa-buttons">${m.buttons.map(b => act(b, ctx)).join('')}</div>` : '';
@@ -398,7 +401,7 @@
       body = `
         <p class="m-meta">Nigel and Kade Foodservice · ${esc(e.day)} ${esc(e.time)}</p>
         <div class="chat m-chat">${msgs.map(m => `
-          <div class="msg ${m.who === 'nigel' ? 'out' : 'in'}"><div class="bubble">${esc(m.text).replace(/\n/g, '<br>')}<span class="ts">${esc(m.time)}</span></div></div>
+          <div class="msg ${m.who === 'nigel' ? 'out' : 'in'}"><div class="bubble">${waText(m.text)}<span class="ts">${esc(m.time)}</span></div></div>
           ${m.buttons ? `<div class="wa-buttons">${m.buttons.map(b => `<button disabled>${esc(b.label)}</button>`).join('')}</div>` : ''}`).join('')}
         </div>`;
     }

@@ -88,9 +88,9 @@
     def: 'decline',
     apply(s) {
       s.notify = null;
-      wa(s, '22:48', 'agent', 'Thanks, Nigel. We have your order for Saturday, number KD-24817.\nThe cheese board you usually order is confirmed: Old Amsterdam (2 kg), Brie de Meaux (1 kg), Roquefort (500 g), oat crackers and quince paste. It is the same size as usual.');
-      wa(s, '22:48', 'agent', 'The 18 kg of salmon takes Harbour Front €180 over its fish budget, so I have asked Priya to approve it. You don’t need to do anything for the salmon.');
-      wa(s, '22:48', 'agent', 'We don’t have 24 bottles of Sauvignon Blanc in stock. We can send 24 bottles of Pinot Grigio instead, at the same price. Would Pinot Grigio work for your dinner?', {
+      wa(s, '22:48', 'agent', 'Thanks, Nigel. We have your order for Saturday, number KD-24817.\nThe *cheese board* you usually order is *confirmed*: Old Amsterdam (2 kg), Brie de Meaux (1 kg), Roquefort (500 g), oat crackers and quince paste. It is the same size as usual.');
+      wa(s, '22:48', 'agent', 'The *18 kg of salmon* takes Harbour Front €180 over its fish budget, so I have *asked Priya to approve it*. You don’t need to do anything for the salmon.');
+      wa(s, '22:48', 'agent', 'We don’t have *24 bottles of Sauvignon Blanc* in stock. We can send *24 bottles of Pinot Grigio* instead, at the same price. Would Pinot Grigio work for your dinner?', {
         buttons: [{ action: 'accept', label: 'Accept Pinot Grigio' }, { action: 'decline', label: 'Decline' }, { action: 'more', label: 'More options' }],
       });
     },
@@ -100,8 +100,8 @@
     set(s, 'wine', { status: 'handed', owner: 'tom', note: 'Tom will look for it from 08:00' });
     s.caseFile = { id: 'CS-3391', title: 'Find 24 bottles of Sauvignon Blanc', status: 'Starts at 08:00', task: 'For Harbour Front’s private dinner on Saturday. Nigel needs Sauvignon Blanc for the menu, so a different wine won’t do.' };
     wa(s, '22:51', 'agent', s.more
-      ? 'There is no other Sauvignon Blanc in your contract. Tom from our customer service team will look for 24 bottles elsewhere when he starts work tomorrow at 08:00. We will message you here on WhatsApp with what he finds. You don’t need to do anything until then.'
-      : 'Understood, Nigel. Tom from our customer service team will look for 24 bottles of Sauvignon Blanc when he starts work tomorrow at 08:00. We will message you here on WhatsApp with what he finds. You don’t need to do anything until then.');
+      ? 'There is no other Sauvignon Blanc in your contract. *Tom* from our customer service team will look for 24 bottles elsewhere when he starts work *tomorrow at 08:00*. We will message you here on WhatsApp with what he finds. You don’t need to do anything until then.'
+      : 'Understood, Nigel. *Tom* from our customer service team will look for 24 bottles of Sauvignon Blanc when he starts work *tomorrow at 08:00*. We will message you here on WhatsApp with what he finds. You don’t need to do anything until then.');
   };
 
   const declined = {
@@ -209,7 +209,7 @@
       set(s, 'wine', { qty: '24 bottles · 10 from Old Town, 14 to source', note: '10 bottles come from Old Town' });
       s.caseFile = { ...s.caseFile, title: 'Find 14 bottles of Sauvignon Blanc', task: 'For Harbour Front’s private dinner on Saturday. Nigel needs Sauvignon Blanc for the menu, so a different wine won’t do.', changed: 'Priya changed this at 07:45. Old Town is sending 10 bottles, so Kade only needs to find 14.' };
       s.kade.push({ time: '07:45', kind: 'text', who: 'agent', text: 'Thanks, Priya. I have changed the order, so Kade will now find 14 bottles of Sauvignon Blanc instead of 24. Tom’s case is updated too.' });
-      wa(s, '07:45', 'agent', 'Priya has arranged 10 bottles of Sauvignon Blanc from your Old Town restaurant. Kade will find the other 14 bottles, and we will message you here when we have them.');
+      wa(s, '07:45', 'agent', 'Priya has arranged *10 bottles* of Sauvignon Blanc from your Old Town restaurant. Kade will find the other *14 bottles*, and we will message you here when we have them.');
     },
   };
 
@@ -258,7 +258,7 @@
       set(s, 'wine', { status: 'quote', owner: 'nigel', note: 'One-time price: 14 bottles at €11.80' });
       s.order.status = 'Waiting on customer';
       log(s, '08:05', 'tom', 'Tom sent Nigel a one-time price for 14 bottles at €11.80 each', { detail: 'The bottles come from a partner supplier. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Nigel'], source: 'WhatsApp', open: 'Open message' });
-      wa(s, '08:05', 'agent', 'Tom has found 14 bottles of Sauvignon Blanc at a partner supplier. They cost €11.80 a bottle. This is a one-time price for this order, and your contract does not change. Shall we order them?', {
+      wa(s, '08:05', 'agent', 'Tom has found *14 bottles* of Sauvignon Blanc at a partner supplier. They cost *€11.80 a bottle*. This is a one-time price for this order, and your contract does not change. Shall we order them?', {
         buttons: [{ action: 'confirm', label: 'Yes, order them' }, { action: 'no-thanks', label: 'No, thanks' }],
       });
     },
@@ -281,7 +281,7 @@
       log(s, '08:31', 'agent', 'Confirmed the order, because every item now has an answer', { change: ['Order', 'Waiting on customer', 'Confirmed'], rule: 'confirm' });
       log(s, '08:31', 'system', 'Sent the order to Kade’s ERP for delivery on Friday between 07:00 and 09:00', { change: ['ERP', 'Not sent', 'Booked'] });
       log(s, '08:31', 'agent', 'Sent the confirmation to Nigel and Priya', { source: 'WhatsApp and Teams' });
-      wa(s, '08:31', 'agent', 'Your order KD-24817 is confirmed. We will deliver it to Harbour Front on Friday between 07:00 and 09:00.', { kind: 'done' });
+      wa(s, '08:31', 'agent', 'Your order *KD-24817 is confirmed*. We will deliver it to Harbour Front on *Friday between 07:00 and 09:00*.', { kind: 'done' });
     },
   };
 
@@ -308,7 +308,7 @@
     apply(s) {
       wa(s, '22:50', 'nigel', 'Accept Pinot Grigio', { kind: 'reply' });
       set(s, 'wine', { name: 'Pinot Grigio', status: 'confirmed', owner: null, note: 'Nigel accepted Pinot Grigio' });
-      wa(s, '22:50', 'agent', 'Thanks, Nigel. I have changed the wine to 24 bottles of Pinot Grigio. The salmon is still waiting for Priya’s approval, and I will confirm the whole order as soon as she approves it.');
+      wa(s, '22:50', 'agent', 'Thanks, Nigel. I have changed the wine to *24 bottles of Pinot Grigio*. The salmon is still *waiting for Priya’s approval*, and I will confirm the whole order as soon as she approves it.');
     },
   };
 
