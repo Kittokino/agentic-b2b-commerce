@@ -60,7 +60,7 @@
       set(s, 'wine', { status: 'suggested', owner: 'nigel', note: 'Not enough in stock, so Pinot Grigio was suggested' });
       log(s, '22:48', 'agent', 'Suggested Pinot Grigio instead of Sauvignon Blanc', { detail: 'Kade has fewer than 24 bottles of Sauvignon Blanc in stock. Pinot Grigio is a close match at the same price.', change: ['Status', 'Received', 'Waiting on Nigel'], rule: 'substitutes' });
       s.order.status = 'Waiting on customer';
-      log(s, '22:48', 'agent', 'Sent Nigel a WhatsApp message to confirm the order', { detail: 'Also sent Priya a request in Teams to approve the salmon.', source: 'WhatsApp', open: 'Open message', change: ['Order', 'Draft', 'Waiting on customer'] });
+      log(s, '22:48', 'agent', 'Messaged Nigel to confirm the order', { detail: 'Also messaged Priya in Teams to approve the salmon.', source: 'WhatsApp', open: 'Open message', change: ['Order', 'Draft', 'Waiting on customer'] });
       s.kade.push({ time: '22:48', kind: 'card' });
     },
   };
@@ -138,7 +138,7 @@
       s.order.status = 'Waiting on customer and Kade';
       log(s, '22:51', 'agent', 'Passed the Sauvignon Blanc request to Tom', { change: ['Status', 'Waiting on Nigel', 'With Tom'], rule: 'handover' });
       log(s, '22:51', 'system', 'Created case CS-3391 for Tom', { detail: 'Find 24 bottles of Sauvignon Blanc. Tom starts work at 08:00, and the full conversation is attached.', open: 'Open case' });
-      log(s, '22:51', 'agent', 'Told Nigel that Tom will look for the Sauvignon Blanc at 08:00', { source: 'WhatsApp', open: 'Open message' });
+      log(s, '22:51', 'agent', 'Messaged Nigel that Tom will look for the Sauvignon Blanc at 08:00', { source: 'WhatsApp', open: 'Open message' });
     },
   };
 
@@ -224,7 +224,7 @@
       log(s, '07:45', 'priya', 'Priya reduced the Sauvignon Blanc Kade must find from 24 to 14 bottles', { detail: 'Old Town is sending the other 10 bottles.', change: ['To source', '24', '14'], source: 'Teams, Kade order thread', open: 'Open message' });
       log(s, '07:45', 'agent', 'Updated the order before Tom started on the case', { rule: 'changes' });
       log(s, '07:45', 'system', 'Updated case CS-3391 to 14 bottles', { change: ['Quantity', '24', '14'], open: 'Open case' });
-      log(s, '07:45', 'agent', 'Told Nigel that Old Town is sending 10 bottles', { source: 'WhatsApp', open: 'Open message' });
+      log(s, '07:45', 'agent', 'Messaged Nigel that Old Town is sending 10 bottles', { source: 'WhatsApp', open: 'Open message' });
       log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'She accepted going €180 over Harbour Front’s fish budget.', source: 'Teams, Kade order thread', open: 'Open approval' });
       log(s, '07:46', 'agent', 'Confirmed the salmon', { change: ['Status', 'Waiting on Priya', 'Confirmed'] });
       s.order.status = 'With Kade';
@@ -280,7 +280,7 @@
       log(s, '08:30', 'agent', 'Confirmed the Sauvignon Blanc', { change: ['Status', 'Waiting on Nigel', 'Confirmed'] });
       log(s, '08:31', 'agent', 'Confirmed the order, because every item now has an answer', { change: ['Order', 'Waiting on customer', 'Confirmed'], rule: 'confirm' });
       log(s, '08:31', 'system', 'Sent the order to Kade’s ERP for delivery on Friday between 07:00 and 09:00', { change: ['ERP', 'Not sent', 'Booked'] });
-      log(s, '08:31', 'agent', 'Sent the confirmation to Nigel and Priya', { source: 'WhatsApp and Teams' });
+      log(s, '08:31', 'agent', 'Messaged Nigel and Priya that the order is confirmed', { source: 'WhatsApp and Teams' });
       wa(s, '08:31', 'agent', 'Your order *KD-24817 is confirmed*. We will deliver it to Harbour Front on *Friday between 07:00 and 09:00*.', { kind: 'done' });
     },
   };
