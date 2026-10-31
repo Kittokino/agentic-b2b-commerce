@@ -247,7 +247,7 @@
       log(s, '07:45', 'agent', 'Updated the order before Tom started on the case', { rule: 'changes' });
       log(s, '07:45', 'system', 'Updated case CS-3391 to 14 bottles', { change: ['Quantity', '24', '14'], open: 'Open case' });
       log(s, '07:45', 'agent', 'Messaged Nigel that Old Town is sending 10 bottles', { source: 'WhatsApp', open: 'Open message' });
-      log(s, '07:46', 'agent', 'Checked Kade’s partner suppliers for 14 bottles of Sauvignon Blanc', { detail: 'Two have it in stock: De Wijnkelder (14 bottles) and Vinhuis Maas (8 bottles). Tom decides which one to use.', open: 'Open case' });
+      log(s, '07:46', 'agent', 'Checked Kade’s partner suppliers for 14 bottles of Sauvignon Blanc', { detail: 'Two have it in stock: Northgate Wines (14 bottles) and Riverside Cellars (8 bottles). Tom decides which one to use.', open: 'Open case' });
       log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'She accepted going €180 over Harbour Front’s fish budget.', source: 'Teams, Kade order thread', open: 'Open approval', approves: 'salmon' });
       log(s, '07:46', 'agent', 'Confirmed the salmon', { change: ['Status', 'Waiting on Priya', 'Confirmed'] });
       s.order.status = 'With Kade';
@@ -260,18 +260,18 @@
     time: '08:05',
     screen: 'desk', actor: 'tom',
     title: 'Tom opens his case. It already says 14 bottles, and the agent has found two suppliers. Tom decides which one to use.',
-    cta: 'Use De Wijnkelder and send the price to Priya',
+    cta: 'Use Northgate Wines and send the price to Priya',
     choices: [{ action: 'quote' }],
     apply(s) {
       s.caseFile = { ...s.caseFile, status: 'In progress', options: [
-        { name: 'De Wijnkelder', stock: '14 bottles in stock', price: '€11.80 a bottle', when: 'Can deliver to Kade by Thursday 15:00', action: 'quote' },
-        { name: 'Vinhuis Maas', stock: '8 bottles in stock', price: '€10.90 a bottle', when: 'Can deliver to Kade by Thursday 16:00', toast: 'Vinhuis Maas has only 8 bottles, so it cannot cover the 14 on its own.' },
+        { name: 'Northgate Wines', stock: '14 bottles in stock', price: '€11.80 a bottle', when: 'Can deliver to Kade by Thursday 15:00', action: 'quote' },
+        { name: 'Riverside Cellars', stock: '8 bottles in stock', price: '€10.90 a bottle', when: 'Can deliver to Kade by Thursday 16:00', toast: 'Riverside Cellars has only 8 bottles, so it cannot cover the 14 on its own.' },
       ] };
     },
   };
 
   const quote = {
-    story: "Tom chose De Wijnkelder, a partner supplier with 14 bottles. The price is not in The Olive Tree’s contract, so Priya, who owns the budget, has to approve it.",
+    story: "Tom chose Northgate Wines, a partner supplier with 14 bottles. The price is not in The Olive Tree’s contract, so Priya, who owns the budget, has to approve it.",
     time: '08:05',
     screen: 'teams', actor: 'priya', chat: 'kade',
     title: 'Priya gets the one-time price in Teams, because prices outside the contract are hers to approve. Nigel has nothing to decide.',
@@ -281,8 +281,8 @@
       s.caseFile = { ...s.caseFile, status: 'Waiting on Priya' };
       set(s, 'wine', { status: 'quote', owner: 'priya', note: 'One-time price: 14 bottles at €11.80' });
       s.order.status = 'Waiting on customer';
-      log(s, '08:05', 'tom', 'Tom chose De Wijnkelder and sent Priya a one-time price for 14 bottles at €11.80 each', { detail: 'De Wijnkelder is one of Kade’s partner suppliers. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Priya'], rule: 'price', source: 'Teams, Kade order thread', open: 'Open message' });
-      s.kade.push({ time: '08:05', kind: 'text', who: 'agent', text: 'Tom has found 14 bottles of Sauvignon Blanc at De Wijnkelder, one of Kade’s partner suppliers. They cost €11.80 a bottle, €165.20 in total. This is a one-time price for this order, outside your contract, and the contract does not change. Do you approve it?',
+      log(s, '08:05', 'tom', 'Tom chose Northgate Wines and sent Priya a one-time price for 14 bottles at €11.80 each', { detail: 'Northgate Wines is one of Kade’s partner suppliers. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Priya'], rule: 'price', source: 'Teams, Kade order thread', open: 'Open message' });
+      s.kade.push({ time: '08:05', kind: 'text', who: 'agent', text: 'Tom has found 14 bottles of Sauvignon Blanc at Northgate Wines, one of Kade’s partner suppliers. They cost €11.80 a bottle, €165.20 in total. This is a one-time price for this order, outside your contract, and the contract does not change. Do you approve it?',
         buttons: [{ action: 'confirm', label: 'Approve' }, { action: 'decline-price', label: 'Decline', toast: 'declinePrice' }] });
     },
   };
