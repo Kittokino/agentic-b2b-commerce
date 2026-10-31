@@ -160,7 +160,7 @@
     cta: 'Call Old Town',
     choices: [{ action: 'call' }],
     apply(s) {
-      s.assistant.push({ time: '07:40', kind: 'card', text: 'Kade doesn’t have 24 bottles of Sauvignon Blanc for Harbour Front’s private dinner on Saturday. Old Town, one of your restaurants, has 10 bottles of the same wine in stock and could send them to Harbour Front.', buttons: [{ action: 'call', label: 'Call Old Town' }, { action: 'not-now', label: 'Not now' }] });
+      s.assistant.push({ time: '07:40', kind: 'card', text: 'Kade doesn’t have 24 bottles of Sauvignon Blanc for Harbour Front’s private dinner on Saturday. Old Town, one of your restaurants, has 10 bottles of the same wine in stock and could send them to Harbour Front.', buttons: [{ action: 'call', label: 'Call Old Town' }, { action: 'not-now', label: 'Not now', toast: 'alt' }] });
     },
   };
 
@@ -173,7 +173,7 @@
     choices: [{ action: 'confirmed' }],
     apply(s) {
       s.assistant.push({ time: '07:43', kind: 'note', text: 'Call with Old Town, 2 minutes' });
-      s.assistant.push({ time: '07:43', kind: 'card', text: 'Did Old Town confirm the 10 bottles?', buttons: [{ action: 'confirmed', label: 'Old Town confirmed' }, { action: 'not-available', label: 'Not available' }] });
+      s.assistant.push({ time: '07:43', kind: 'card', text: 'Did Old Town confirm the 10 bottles?', buttons: [{ action: 'confirmed', label: 'Old Town confirmed' }, { action: 'not-available', label: 'Not available', toast: 'alt' }] });
     },
   };
 
@@ -263,7 +263,7 @@
       s.order.status = 'Waiting on customer';
       log(s, '08:05', 'tom', 'Tom sent Nigel a one-time price for 14 bottles at €11.80 each', { detail: 'The bottles come from a partner supplier. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Nigel'], source: 'WhatsApp', open: 'Open message' });
       wa(s, '08:05', 'agent', 'Tom has found *14 bottles* of Sauvignon Blanc at a partner supplier. They cost *€11.80 a bottle*. This is a one-time price for this order, and your contract does not change. Shall we order them?', {
-        buttons: [{ action: 'confirm', label: 'Yes, order them' }, { action: 'no-thanks', label: 'No, thanks' }],
+        buttons: [{ action: 'confirm', label: 'Yes, order them' }, { action: 'no-thanks', label: 'No, thanks', toast: 'alt' }],
       });
     },
   };

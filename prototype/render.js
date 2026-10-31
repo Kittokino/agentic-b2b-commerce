@@ -39,10 +39,17 @@
     return `<span class="status ${cls}">${line.status === 'confirmed' ? icon('check') : ''}${esc(label)}</span>`;
   }
 
-  // A button inside a screen: live when it is the move the story is waiting for.
+  // A button inside a screen. It is live when it is the move the story is waiting for. A button the
+  // story uses later, or never, looks active as in the real app and explains itself in a toast.
+  // A button already used stays greyed out, as a record of what happened.
+  const TOASTS = {
+    alt: 'This choice is not part of the prototype’s story. Use the button at the bottom right to continue.',
+    approve: 'Priya approves the salmon in a later step. Use the button at the bottom right to continue the story.',
+  };
   const act = (b, ctx, cls = '') => {
-    const live = ctx.live.includes(b.action);
-    return `<button class="${cls} ${live ? 'live' : ''}" ${live ? `data-action="${b.action}"` : 'disabled'}>${esc(b.label)}</button>`;
+    if (ctx.live.includes(b.action)) return `<button class="${cls} live" data-action="${b.action}">${esc(b.label)}</button>`;
+    if (b.toast) return `<button class="${cls}" data-toast="${esc(TOASTS[b.toast])}">${esc(b.label)}</button>`;
+    return `<button class="${cls}" disabled>${esc(b.label)}</button>`;
   };
 
   // WhatsApp's own formatting: *bold* in a message's text becomes bold.
@@ -257,7 +264,7 @@
         ${s.order.lines.map(l => `
           <div class="o-line">
             <div class="o-main"><b>${esc(l.name)}</b><span>${esc(l.qty)}</span>${l.note ? `<em>${esc(l.note)}</em>` : ''}</div>
-            <div class="o-side">${statusChip(l, 'priya')}${l.status === 'stopped' ? act({ action: 'approve', label: 'Approve' }, ctx, 'btn sm') : ''}</div>
+            <div class="o-side">${statusChip(l, 'priya')}${l.status === 'stopped' ? act({ action: 'approve', label: 'Approve', toast: 'approve' }, ctx, 'btn sm') : ''}</div>
           </div>`).join('')}
       </div>`;
   }

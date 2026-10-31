@@ -175,8 +175,22 @@
     if (e.target.matches('[data-channel-filter]')) applyFilters(e.target.closest('.trail-main'));
   });
 
+  // A short note above the footer, for a button the story does not use at this point.
+  const toastEl = el('#toast');
+  let toastTimer = null;
+  function toast(text) {
+    clearTimeout(toastTimer);
+    toastEl.textContent = text;
+    toastEl.classList.remove('show');
+    void toastEl.offsetWidth;   // restart the fade when a toast replaces another
+    toastEl.classList.add('show');
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3200);
+  }
+
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
+    const said = e.target.closest('[data-toast]');
+    if (said) { toast(said.dataset.toast); return; }
     // Opening the other Teams chat changes only what is on screen, not where the story is.
     const chat = e.target.closest('[data-chat]');
     if (chat) {
