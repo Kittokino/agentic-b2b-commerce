@@ -165,7 +165,7 @@
             <div class="filters">
               ${[['all', 'All'], ['agent', 'AI agents'], ['person', 'People'], ['system', 'System']].map(([k, f], i) => `<button class="pill ${i ? '' : 'on'}" data-filter="${k}">${f}</button>`).join('')}
               <select class="select" data-channel-filter aria-label="Channel">
-                ${[['', 'All channels'], ['whatsapp', 'WhatsApp'], ['teams', 'Teams'], ['email', 'Email'], ['phone', 'Phone call'], ['manual', 'Entered by hand']].map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}
+                ${[['', 'All channels'], ['whatsapp', 'WhatsApp'], ['teams', 'Teams'], ['email', 'Email'], ['phone', 'Phone call'], ['manual', 'Manually entered']].map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}
               </select>
               <span class="ro" title="Entries in this log can’t be edited or deleted.">${icon('lock')}Read-only</span>
             </div>

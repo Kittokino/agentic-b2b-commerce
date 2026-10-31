@@ -185,7 +185,7 @@
     const none = root.querySelector('.no-match');
     none.hidden = shownAny;
     const KIND = { agent: 'The AI order agent has not acted on this order yet.', person: 'No person has acted on this order yet.', system: 'There are no system entries for this order yet.' };
-    const CHANNEL = { whatsapp: 'on WhatsApp', teams: 'in Teams', email: 'by email', phone: 'by phone', manual: 'by hand' };
+    const CHANNEL = { whatsapp: 'on WhatsApp', teams: 'in Teams', email: 'by email', phone: 'by phone', manual: 'manually' };
     none.querySelector('p').textContent = channel && kind !== 'all' ? 'No entries match these filters.'
       : channel ? `Nothing about this order ${channel === 'manual' ? 'was entered' : 'came in'} ${CHANNEL[channel]}.` : KIND[kind];
     // A shorter list would otherwise stay scrolled to where the longer one ended.
