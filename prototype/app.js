@@ -249,14 +249,17 @@
 
   // Deep links open a given scene and skip the opening. Before Nigel's reply the link
   // names no path (#scene-2), so it doesn't give his choice away; after it, it does (#declined-5).
-  const SLUGS = { decline: 'declined', accept: 'accepted', more: 'more-options' };
+  // The main story is #scene-n throughout; only the side branches are named, as the left column
+  // names them ('What if'). Older links (#declined-n, #accepted-n, #more-options-n) still work.
+  const SLUGS = { decline: 'scene', accept: 'what-if-accepted', more: 'what-if-more-options' };
+  const OLD = { declined: 'decline', accepted: 'accept', 'more-options': 'more' };
   function hashFor() {
     return `#${index > S.choiceAt ? SLUGS[path] : 'scene'}-${index + 1}`;
   }
   function fromHash() {
-    const m = location.hash.match(/^#(scene|declined|accepted|more-options)-(\d+)$/);
+    const m = location.hash.match(/^#(scene|what-if-accepted|what-if-more-options|declined|accepted|more-options)-(\d+)$/);
     if (!m) return false;
-    path = Object.keys(SLUGS).find(k => SLUGS[k] === m[1]) || 'decline';
+    path = OLD[m[1]] || Object.keys(SLUGS).find(k => SLUGS[k] === m[1]) || 'decline';
     index = Math.max(0, Math.min(steps().length - 1, +m[2] - 1));
     chosen = index > S.choiceAt;
     return true;

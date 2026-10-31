@@ -168,9 +168,6 @@ ul, ol { padding: 0; list-style: none; }
 .changed { display: flex; gap: 12px; align-items: flex-start; margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: var(--person-soft); }
 .changed .ico { font-size: 20px; margin-top: 2px; }
 .changed p { font-size: var(--t-body); line-height: 1.45; }
-.found { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
-.found .muted { font-size: var(--t-small); }
-.found p { margin-top: 2px; font-size: var(--t-body); font-weight: 600; }
 .case-actions { margin-top: 22px; }
 .history h3 { font-size: var(--t-body); }
 .history ul { margin-top: 8px; }
@@ -423,3 +420,17 @@ ul, ol { padding: 0; list-style: none; }
 .acard-btns .btn:not(:disabled):hover, .o-side .btn.ghost:not(:disabled):hover { background: var(--person-soft); filter: none; }
 .wa-buttons button:not(:disabled):hover { background: var(--person-soft); }
 .acard-btns .btn, .wa-buttons button, .o-side .btn { transition: background .15s, filter .15s; }
+
+/* Tom's case: the supplier options the agent prepared, for Tom to choose from. */
+.options { margin-top: 18px; }
+.options h3 { font-size: var(--t-body); font-weight: 600; }
+.options h3 span { margin-left: 8px; font-size: var(--t-small); font-weight: 400; color: var(--ink-3); }
+.option-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+.option { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 14px 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
+.option b { font-size: var(--t-body); }
+.option p { font-size: var(--t-small); color: var(--ink-2); }
+.option p.muted { color: var(--ink-3); }
+.option .btn { margin-top: 10px; }
+.option .btn.live { background: var(--ink); color: #fff; }
+.option .btn:not(.live):not(:disabled):hover { background: var(--person-soft); filter: none; }
+.options-note { margin-top: 10px; font-size: var(--t-small); color: var(--ink-3); }

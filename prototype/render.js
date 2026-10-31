@@ -48,7 +48,7 @@
   };
   const act = (b, ctx, cls = '') => {
     if (ctx.live.includes(b.action)) return `<button class="${cls} live" data-action="${b.action}">${esc(b.label)}</button>`;
-    if (b.toast) return `<button class="${cls}" data-toast="${esc(TOASTS[b.toast])}">${esc(b.label)}</button>`;
+    if (b.toast || b.toastText) return `<button class="${cls}" data-toast="${esc(b.toastText || TOASTS[b.toast])}">${esc(b.label)}</button>`;
     return `<button class="${cls}" disabled>${esc(b.label)}</button>`;
   };
 
@@ -207,8 +207,19 @@
             </dl>
             <p class="case-task">${esc(c.task)}</p>
             ${c.changed ? `<div class="changed">${icon('rule')}<p>${esc(c.changed)}</p></div>` : ''}
-            ${c.found ? `<div class="found"><span class="muted">What Tom found</span><p>${esc(c.found)}</p></div>` : ''}
-            <div class="case-actions">${act({ action: 'quote', label: 'Send the one-time price to Priya' }, ctx, 'btn')}</div>
+            ${c.options ? `
+            <section class="options">
+              <h3>Supplier options <span>prepared by the AI order agent at 07:46</span></h3>
+              <div class="option-cards">${c.options.map(o => `
+                <div class="option">
+                  <b>${esc(o.name)}</b>
+                  <p>${esc(o.stock)} · ${esc(o.price)}</p>
+                  <p class="muted">${esc(o.when)}</p>
+                  ${act(o.action ? { action: o.action, label: 'Use this supplier' } : { action: 'other-supplier', label: 'Use this supplier', toastText: o.toast }, ctx, 'btn sm ghost')}
+                </div>`).join('')}
+              </div>
+              <p class="options-note">The agent checked Kade’s partner suppliers for this wine. Tom decides which one to use.</p>
+            </section>` : ''}
           </section>
           <aside class="summary history">
             <h3>Latest activity on the order</h3>
