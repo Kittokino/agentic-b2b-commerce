@@ -153,12 +153,13 @@
 
   // ---------- Activity links open a modal; it closes with the cross, Esc or a click outside ----------
   const layer = el('#modal');
-  // Messages come from the current scene; a case shows as it was when the entry was written.
+  // A message an entry refers to is part of the record, even if the story has not shown it yet,
+  // so messages are looked up in the whole story. A case shows as it was when the entry was written.
   function openModal(i) {
     let k = 0;
     while (stateAt(k).trail.length <= i) k++;
-    const s = stateAt(index);
-    layer.innerHTML = V.modal(s, s.trail[i], stateAt(k));
+    const entry = stateAt(index).trail[i];
+    layer.innerHTML = V.modal(stateAt(steps().length - 1), entry, stateAt(k));
     layer.hidden = false;
   }
   const closeModal = () => { layer.hidden = true; layer.innerHTML = ''; };
