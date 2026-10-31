@@ -116,7 +116,8 @@ p { margin: 0; }
 .s-opportunity .scene { width: 440px; height: 520px; object-fit: cover; object-position: 38% 50%; border: 2px solid var(--ink); mix-blend-mode: multiply; flex: none; }
 
 /* ---------- 6 · Three outcomes ---------- */
-.s-outcomes h2 { margin-bottom: 44px; }
+.s-outcomes h2 { margin-bottom: 14px; }
+.s-outcomes .lead { max-width: 860px; font-size: 18px; line-height: 1.5; color: var(--ink-2); margin-bottom: 36px; }
 /* The agent's symbol marks this as the agent's slide. */
 .s-outcomes h2.with-agent { display: flex; align-items: center; gap: 18px; }
 .s-outcomes h2.with-agent .face { width: 52px; height: 52px; font-size: 24px; }
