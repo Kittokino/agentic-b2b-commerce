@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=2">
   <link rel="stylesheet" href="../shared/components.css?v=4">
-  <link rel="stylesheet" href="deck.css?v=20261030b">
+  <link rel="stylesheet" href="deck.css?v=20261031a">
 </head>
 <body>
 
@@ -67,6 +67,82 @@
     <aside class="notes">
       <p>Most B2B orders still arrive as messages, calls and emails, in people's own words. An agent can turn these into orders and keep all related conversations attached to the order.</p>
       <p>In B2B, the person placing an order is often not the person who controls the budget. In this story, Nigel orders and Priya approves spending above the outlet's limits. The agent therefore needs to know when it can act on its own, and when it should ask someone else.</p>
+    </aside>
+  </section>
+
+  <!-- 3 · Research as evidence -->
+  <section class="slide s-evidence">
+    <p class="eyebrow">Research</p>
+    <h2>How wholesalers handle orders today</h2>
+    <div class="ways">
+      <div class="way">
+        <h3>Shared inboxes</h3>
+        <p class="label">How it works</p>
+        <p>Customers send orders by email, as PDFs, photos or forwarded messages. Someone at the wholesaler reads each one and types it into the order system.</p>
+        <p class="label">What it shows</p>
+        <p>Each order is typed in a second time, and the conversation about it stays in the inbox, apart from the order.</p>
+      </div>
+      <div class="way">
+        <h3>Order desks</h3>
+        <p class="label">How it works</p>
+        <p>A team takes orders by phone and WhatsApp, checks prices and stock, and calls the customer back when something is missing.</p>
+        <p class="label">What it shows</p>
+        <p>Much of the team's time goes on routine orders that need no decision. The orders that do need a decision wait in the same queue.</p>
+      </div>
+      <div class="way">
+        <h3>AI order capture</h3>
+        <p class="label">How it works</p>
+        <p>Software reads emails and PDFs and creates a draft order. A person checks each draft before it is confirmed.</p>
+        <p class="label">What it shows</p>
+        <p>Software can now read most orders. It does not know which decisions it may take on its own, or who should take the others.</p>
+      </div>
+    </div>
+    <p class="caveat"><b>Note:</b> these observations come from desk research and still need to be tested with wholesalers. They describe the problem; the design does not copy any of these ways of working.</p>
+    <aside class="notes">
+      <p>Before designing anything, I looked at three ways wholesalers handle orders today: shared inboxes, order desks, and software that reads orders with AI.</p>
+      <p>Each one shows part of the problem. Orders are typed in by hand, the conversation is kept apart from the order, routine orders take up people's time, and even software that can read an order does not know what it may decide on its own.</p>
+      <p>The next slide turns these observations into four principles for the design.</p>
+    </aside>
+  </section>
+
+  <!-- 4 · Principles -->
+  <section class="slide s-principles">
+    <p class="eyebrow">Principles</p>
+    <h2>Four principles, drawn from the research</h2>
+    <ol class="principles">
+      <li>
+        <h3>The order lives in one record.</h3>
+        <p class="label">What we see today</p>
+        <p>Orders arrive by email, phone and WhatsApp and are typed in by hand. Nobody sees the whole order in one place.</p>
+        <p class="label">In the story</p>
+        <p>Priya changes the wine in Kade's order thread in Teams. Nigel's WhatsApp and Tom's case update at the same time.</p>
+      </li>
+      <li>
+        <h3>The agent works within rules that people set, and people improve the rules.</h3>
+        <p class="label">What we see today</p>
+        <p>Buyers control spending through contracts and budgets. Software that reads orders still needs a person to check each one.</p>
+        <p class="label">In the story</p>
+        <p>Tom flags a poor wine suggestion. Maheep, Kade's admin, then publishes version 2 of the substitution rule.</p>
+      </li>
+      <li>
+        <h3>People only see what needs a decision.</h3>
+        <p class="label">What we see today</p>
+        <p>Order desks spend much of their time on routine orders, and buyers get updates they do not need to act on.</p>
+        <p class="label">In the story</p>
+        <p>The agent confirms the cheese board without asking anyone. Priya is asked only about the salmon and the price of the wine.</p>
+      </li>
+      <li>
+        <h3>Every decision goes to the person who owns it, and affects only that item.</h3>
+        <p class="label">What we see today</p>
+        <p>In B2B, the person who places an order is often not the person who controls the budget.</p>
+        <p class="label">In the story</p>
+        <p>Nigel decides whether another wine suits his menu, Priya decides on the budget and the price, and Tom chooses the supplier. When Nigel declines the Pinot Grigio, only the wine changes.</p>
+      </li>
+    </ol>
+    <aside class="notes">
+      <p>These four principles come from the research on the previous slide, and the rest of the design follows from them.</p>
+      <p>The second principle also says that people improve the rules. That is how the agent earns trust over time, and it is where the vision at the end of the deck starts.</p>
+      <p>Each principle appears in the story that follows, at the moment shown under "In the story".</p>
     </aside>
   </section>
 

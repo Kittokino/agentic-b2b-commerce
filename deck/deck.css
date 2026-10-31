@@ -58,6 +58,25 @@ p { margin: 0; }
 .hmw { margin-top: auto; max-width: 980px; font-family: var(--font-voice); font-style: italic; font-size: 46px; line-height: 1.2; color: var(--ink); }
 .hmw em { font-style: italic; color: var(--red); white-space: nowrap; }
 
+/* ---------- 3 · Research as evidence ---------- */
+.s-evidence .ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+.s-evidence h3, .s-principles h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.02em; }
+.s-evidence h3 { font-size: 28px; margin-bottom: 8px; }
+.s-evidence .way > p:not(.label), .s-principles li > p:not(.label) { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.s-evidence .label, .s-principles .label { margin: 18px 0 6px; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.s-evidence .caveat { margin-top: auto; font-size: 14px; color: var(--ink-3); }
+.s-evidence .caveat b { color: var(--ink-2); font-weight: 600; }
+
+/* ---------- 4 · Principles ---------- */
+.s-principles h2 { margin-bottom: 32px; }
+.principles { list-style: none; margin: 0; padding: 0; counter-reset: p; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 40px; row-gap: 0; }
+/* Subgrid: the labels line up across all four columns. */
+.principles li { counter-increment: p; grid-row: span 6; display: grid; grid-template-rows: subgrid; align-content: start; }
+.principles li::before { content: counter(p); width: 26px; height: 26px; margin-bottom: 14px; border-radius: 50%; border: 1.5px solid var(--ink); font-size: 12px; font-weight: 700; display: grid; place-items: center; }
+.s-principles h3 { font-size: 22px; line-height: 1.25; }
+.s-principles li > p:not(.label) { font-size: 14px; }
+.s-principles .label { margin-top: 14px; }
+
 /* ---------- 3 · Actors ---------- */
 .s-actors .places { flex: 1; display: flex; align-items: center; gap: 48px; }
 .s-actors .place { flex: 1; display: flex; flex-direction: column; }
