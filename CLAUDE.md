@@ -6,6 +6,7 @@ All copy (prototype screens, messages, activity entries, deck slides and notes) 
 
 - Say who does what, to which item, and why. Name things in full: "24 bottles of Sauvignon Blanc", not "the wine".
 - No telegraphic "Label: fragment" phrasing ("Wine: handed over to Tom"), no colon-compressed clauses, and no clever shorthand ("Overnight, nothing moved").
+- A colon may introduce a complete sentence or a direct question, after a complete clause (not after "which is"). The first word after the colon then starts with a capital letter, and a question ends with a question mark: "I chose one challenge to solve: How do restaurants order their supplies from a wholesaler?", "Note: These are assumptions."
 - Explain times and roles where they matter: "when Tom starts work at 08:00", "Tom from our customer service team".
 - Messages a customer receives (WhatsApp, Teams) must be unambiguous: what happened, who will act, when, and whether the customer needs to do anything.
 - "Inventory" for what a system records; "in stock" for what people say about availability.
