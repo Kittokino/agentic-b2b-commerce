@@ -31,10 +31,10 @@
     const map = {
       received: ['plain', 'Received'],
       confirmed: ['done', 'Confirmed'],
-      stopped: ['wait', mine ? 'Needs you' : `Waiting on ${PEOPLE[line.owner]}`],
+      stopped: ['wait', mine ? 'Awaiting approval' : `Waiting on ${PEOPLE[line.owner]}`],
       suggested: ['suggest', mine ? 'Your call' : `Waiting on ${PEOPLE[line.owner]}`],
       handed: ['handed', 'With Tom'],
-      quote: ['suggest', mine ? 'Your call' : `Waiting on ${PEOPLE[line.owner]}`],
+      quote: ['suggest', mine ? 'Awaiting approval' : `Waiting on ${PEOPLE[line.owner]}`],
     };
     const [cls, label] = map[line.status];
     return `<span class="status ${cls}">${line.status === 'confirmed' ? icon('check') : ''}${esc(label)}</span>`;
