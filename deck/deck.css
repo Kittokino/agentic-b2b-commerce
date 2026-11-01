@@ -164,6 +164,9 @@ p { margin: 0; }
 .open-proto small { display: block; margin-top: 2px; font-size: 13px; color: rgba(255,255,255,.7); }
 .open-proto .arrow { font-size: 22px; margin-left: 12px; }
 .open-proto:hover { opacity: .92; }
+/* The note sits at the bottom, as on the other slides; the content above stays centred. */
+.s-live .caveat { position: absolute; left: 96px; right: 96px; bottom: 80px; font-size: 14px; line-height: 1.5; color: var(--ink-3); }
+.s-live .caveat b { color: var(--ink-2); font-weight: 600; }
 
 /* ---------- 9 · Configuring the platform ---------- */
 .s-config h2 { margin-bottom: 16px; }
