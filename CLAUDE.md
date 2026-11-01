@@ -45,7 +45,7 @@ Vision idea for the "Next" or "Later" stage: the agent suggests changes the cust
 
 The deck is `deck/index.html` (slides), `deck/deck.css` and `deck/deck.js`. It is a fixed 1280x720 stage; keys ←/→, N for notes. Live at https://kittokino.github.io/agentic-b2b-commerce/deck/.
 
-Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research; appendix with the assumptions matrix, the research plan, and how this was made.
+Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research; appendix with the assumptions matrix and the research plan. The slide "How this was made" is hidden for now (`hidden` on its section), and the author will decide on it later.
 
 Still to build:
 1. "Where this is heading": Today, Next, Later; what stays human (for example, Priya calls Old Town herself); and one place where the author would challenge current thinking about B2B commerce. Carry the vision idea about trust above.

@@ -1,7 +1,8 @@
 // Slide navigation: arrows / space / swipe, #n deep links, N for speaker notes, F for fullscreen.
 (() => {
   const deck = document.querySelector('.deck');
-  const slides = [...deck.querySelectorAll('.slide')];
+  // A slide marked hidden stays in the file but is skipped: no number, no navigation.
+  const slides = [...deck.querySelectorAll('.slide:not([hidden])')];
   const total = slides.length;
   const progress = document.querySelector('.progress');
   const notesPanel = document.querySelector('.notes-panel');

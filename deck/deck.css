@@ -258,6 +258,7 @@ body:hover .controls, .controls:focus-within { opacity: .55; }
   .viewport { position: static; display: block; }
   .deck { transform: none !important; position: static; height: auto; }
   .slide { display: flex !important; position: relative; width: 1280px; height: 720px; break-after: page; }
+  .slide[hidden] { display: none !important; }
   .progress, .controls, .notes-panel { display: none !important; }
   .slide-footer .page-no { visibility: visible; }
 }
