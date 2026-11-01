@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=2">
   <link rel="stylesheet" href="../shared/components.css?v=4">
-  <link rel="stylesheet" href="deck.css?v=20261101o">
+  <link rel="stylesheet" href="deck.css?v=20261101p">
 </head>
 <body>
 
@@ -362,6 +362,43 @@
     <h2>For reading, and for questions</h2>
     <aside class="notes">
       <p>The detail behind the main slides: the full assumptions matrix, the research plan, and how this case was put together.</p>
+    </aside>
+  </section>
+
+  <!-- Appendix · Design system (a backup slide, for reading and questions) -->
+  <section class="slide s-system">
+    <p class="eyebrow">Appendix · Design system</p>
+    <h2>One order, drawn in every channel</h2>
+    <p class="lead">I started from the principles of Microsoft's Fluent design system, because Teams is one of the channels and buyers work in Microsoft 365. On top of that sits one small set of colours, type and components, which the deck and the prototype share.</p>
+    <div class="channels">
+      <figure>
+        <div class="ch wa">
+          <p>The <b>18 kg of salmon</b> takes Harbour Front €180 over its fish budget, so I have <b>asked Priya to approve it</b>. You don't need to do anything for the salmon.</p>
+        </div>
+        <figcaption><svg class="ico"><use href="#i-chat"/></svg>WhatsApp, to Nigel</figcaption>
+      </figure>
+      <figure>
+        <div class="ch teams">
+          <div class="ch-line is-stop">
+            <div><b>Salmon fillet, 18 kg</b><span>Takes Harbour Front €180 over its fish budget</span></div>
+            <span class="status wait">Awaiting approval</span>
+          </div>
+          <div class="ch-actions"><span class="b">Approve</span><span class="b ghost">Decline</span></div>
+        </div>
+        <figcaption><svg class="ico"><use href="#i-teams"/></svg>Teams, to Priya</figcaption>
+      </figure>
+      <figure>
+        <div class="ch sana is-stop">
+          <span class="t">22:48</span>
+          <span class="face xs agent"><svg class="ico"><use href="#i-agent"/></svg></span>
+          <div><b>Stopped the salmon and asked Priya to approve it</b><span class="status wait">Waiting on Priya</span><span class="rule">Category budget per outlet, version 3</span></div>
+        </div>
+        <figcaption><svg class="ico"><use href="#i-screen"/></svg>Kade's activity in Sana</figcaption>
+      </figure>
+    </div>
+    <p class="caveat"><b>Note:</b> The whole system is written down in DESIGN.md, so an AI tool can show the same order in a new channel, such as email.</p>
+    <aside class="notes">
+      <p>The salmon is the same item in all three places, with the same status words and the same red for the agent's stop. Only the form changes: a message, a card and an activity entry. The status label adapts to who is looking, so Priya reads "Awaiting approval" while everyone else reads "Waiting on Priya".</p>
     </aside>
   </section>
 

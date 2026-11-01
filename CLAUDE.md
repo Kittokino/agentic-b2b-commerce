@@ -18,6 +18,10 @@ All copy (prototype screens, messages, activity entries, deck slides and notes) 
 - Check the slide in a browser at 1280x720: nothing overflows, wraps badly or touches the footer.
 - Check the speaker notes too: short, in the author's voice, not repeating what the slide already says, and not technical unless the slide is.
 
+## The design system
+
+`DESIGN.md` at the top of the repository describes the design system for people and AI tools: principles, tokens, components, channels, words and example data. Follow it for every screen and message, and update it (with a line in its change log) when a token, component or rule changes.
+
 ## Working with the author
 
 Argue for a suggestion before making it. Changes go to `main`; bump the `?v=` version on any CSS or JS file you change.
@@ -45,10 +49,10 @@ Vision idea for the "Next" or "Later" stage: the agent suggests changes the cust
 
 The deck is `deck/index.html` (slides), `deck/deck.css` and `deck/deck.js`. It is a fixed 1280x720 stage; keys ←/→, N for notes. Live at https://kittokino.github.io/agentic-b2b-commerce/deck/.
 
-Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research, 12 where this is heading (the closing slide: "Trust earns the next step.", with the drawing of two chefs plating together, `assets/places/vision-plating.jpg`); appendix with the assumptions matrix and the research plan. The slide "How this was made" is hidden for now (`hidden` on its section), and the author will decide on it later.
+Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research, 12 where this is heading (the closing slide: "Trust earns the next step.", with the drawing of two chefs plating together, `assets/places/vision-plating.jpg`); appendix with the design system (a backup slide: the same salmon item in WhatsApp, Teams and Kade's Sana), the assumptions matrix and the research plan. The slide "How this was made" is hidden for now (`hidden` on its section), and the author will decide on it later.
 
 Still to build:
-1. The design system: how the author chose the design language, and the same order item (status, order item, agent symbol, activity entry) in WhatsApp, Teams and Kade's Sana. Also a design-system file in the repository that AI tools can generate from (the tokens and components in `shared/`, plus the copy rules above), so the same order can be rendered in a new channel, such as email.
+1. Rehearse DESIGN.md: ask an AI tool to show order KD-24817 as an email to Priya using only DESIGN.md, and fix the file where the result goes wrong. The open decisions in its section 9 need the author.
 2. A line on the title slide on how to use the deck: arrow keys to move, N for the notes.
 3. When slides are added, extend the note on slide 9 that lists what the rest of the deck covers.
 

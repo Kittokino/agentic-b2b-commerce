@@ -237,6 +237,27 @@ p { margin: 0; }
 .s-vision .keep { font-family: var(--font-voice); font-style: italic; font-size: 24px; line-height: 1.3; color: var(--ink); }
 .s-vision h2 { font-family: var(--font-voice); font-style: italic; font-size: 64px; line-height: 1.05; margin-bottom: 16px; }
 
+/* ---------- Appendix · Design system ---------- */
+.s-system h2 { margin-bottom: 16px; }
+.channels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: start; }
+.channels figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.channels figcaption { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-3); }
+.ch { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; font-size: 14px; line-height: 1.5; color: var(--ink); }
+.ch b { font-weight: 600; }
+.ch.wa { background: #e6f2d9; border-color: #d6e8c4; border-radius: 12px 12px 12px 4px; }
+.ch-line { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; position: relative; padding-left: 10px; }
+.ch-line > div, .ch.sana > div { display: flex; flex-direction: column; gap: 3px; }
+.ch-line span:not(.status), .ch.sana .rule { font-size: 13px; color: var(--ink-2); }
+.ch .is-stop::before, .ch.sana.is-stop::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 3px; background: var(--red); }
+.ch-actions { display: flex; gap: 8px; margin-top: 12px; padding-left: 10px; }
+.ch-actions .b { padding: 6px 14px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 13px; font-weight: 600; }
+.ch-actions .b.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+.ch.sana { position: relative; display: grid; grid-template-columns: 40px 28px 1fr; gap: 10px; background: var(--red-soft); border-color: transparent; padding-left: 18px; }
+.ch.sana .t { font-size: 12px; color: var(--ink-3); padding-top: 6px; }
+.ch.sana .rule { display: inline-block; margin-top: 4px; }
+.s-system .caveat { margin-top: auto; font-size: 14px; color: var(--ink-3); }
+.s-system .caveat b { color: var(--ink-2); font-weight: 600; }
+
 /* ---------- Appendix divider ---------- */
 .s-appendix { justify-content: center; }
 .s-appendix h2 { color: var(--ink-3); }
