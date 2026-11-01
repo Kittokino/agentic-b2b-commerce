@@ -504,8 +504,8 @@
           <p class="m-field">The suggestion was a poor match ${icon('down')}</p>
           <p class="m-label">Note for the admin</p>
           <p class="m-field m-area">Pinot Grigio doesn’t suit a fish course. Please check the substitution rule. Going forward, could the agent offer up to three alternatives?</p>
-          <p class="m-note-small">The entry itself does not change. Maheep, Kade’s commerce admin, reviews every flag.</p>
-          <div class="m-actions"><button class="btn live" data-action="flag">Send to Maheep</button><button class="btn ghost" data-close>Cancel</button></div>
+          <p class="m-note-small">The entry itself does not change. Kade’s commerce admin, Maheep, reviews every flag.</p>
+          <div class="m-actions"><button class="btn live" data-action="flag">Submit flag</button><button class="btn ghost" data-close>Cancel</button></div>
         </div>
       </div>`;
   }
