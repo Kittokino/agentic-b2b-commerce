@@ -267,6 +267,8 @@ p { margin: 0; }
 .made { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
 .made h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 14px; }
 .made p { font-size: 17px; line-height: 1.6; color: var(--ink-2); }
+/* Claude's report on working with the author, in the deck's serif "voice". */
+.made .report { margin: 0; font-family: var(--font-voice); font-style: italic; font-size: 22px; line-height: 1.35; color: var(--ink); }
 .s-made .caveat { margin-top: auto; font-size: 14px; color: var(--ink-3); }
 .s-made .caveat b { color: var(--ink-2); font-weight: 600; }
 
