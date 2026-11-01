@@ -100,7 +100,7 @@ What a person at the supplier receives when the agent has nothing left that it m
 
 ### Patterns
 
-**When nobody answers in time.** Every decision has a deadline. If the person who owns it does not answer by then, the agent stops: it does not process the order any further, and it tells everyone involved that it has stopped, because the decision did not arrive in time. The message names the decision, the deadline that passed, and what each person can do now. The order stays open for a person to pick up.
+**When nobody answers in time.** Every decision has a deadline. If the person who owns it does not answer by then, the agent stops for that one item only: that item does not go ahead, and every other item in the order goes ahead as decided (principle 4). The agent tells everyone involved that it has stopped the item because the decision did not arrive in time, which deadline passed, and what each person can do now, for example order the item again.
 
 **Undoing what the agent did.** People can undo an action of the agent, but only people who are authorised to, such as the buyer for spending or the supplier's service rep for a substitution. Undoing asks for a reason. The undo is a new entry in the order's activity; the original entry stays. Another person can review the reason, and the reasons are used to improve the rules, in the same way as a flag.
 
@@ -198,4 +198,5 @@ Owner: the design lead of this project. Change this file through a reviewed comm
 | Date | Change |
 | --- | --- |
 | 1 November 2026 | First version, written from the prototype's tokens, components and copy rules. |
+| 1 November 2026 | A missed deadline stops only the item that is waiting; the rest of the order goes ahead. |
 | 1 November 2026 | Added dark mode, accessibility, every person's own language and formats, and the patterns for a missed deadline and for undoing. Email listed as a channel, with its rules left open on purpose. |
