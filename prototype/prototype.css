@@ -524,3 +524,11 @@ ul, ol { padding: 0; list-style: none; }
 .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line); border-top-color: var(--ink); animation: spin .8s linear infinite; }
 /* The rule pop-up's standing note: smallest size, as people read it once and then know it. */
 .m-footnote { margin-top: 14px; font-size: var(--t-label); line-height: 1.5; }
+
+/* Messages as records in the activity's pop-ups. */
+.records li { padding: 12px 0; border-top: 1px solid var(--line); }
+.records li:first-child { border-top: 0; padding-top: 4px; }
+.rec-head { display: flex; flex-direction: column; gap: 2px; font-size: var(--t-small); }
+.rec-head span { color: var(--ink-3); }
+.rec-text { margin-top: 4px; font-size: var(--t-body); line-height: 1.5; }
+.rec-extra { margin-top: 4px; font-size: var(--t-small); color: var(--ink-2); }

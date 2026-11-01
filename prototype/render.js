@@ -456,26 +456,32 @@
           <span class="status done">${icon('check')}Approved by Priya</span>
         </div>
         <p class="m-text">${price ? 'Priya approved the one-time price with the Approve button on Kade’s message in Teams.' : 'Priya approved the salmon with the Approve button on Kade’s order card in Teams.'} There is no written message for this step.</p>`;
-    } else if ((e.source || '').startsWith('Teams')) {
-      title = 'Message in Teams';
-      body = `
-        <p class="m-meta">Kade order thread · ${esc(s.day)} ${esc(e.time)}</p>
-        <ul class="tlist m-list">${by(s.kade).map(m => `<li><div><span class="meta">${m.who === 'priya' ? 'Priya' : 'Kade · Order agent (AI)'}</span><p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p></div></li>`).join('')}</ul>`;
     } else {
-      // A reply from Nigel shows with the message it answers.
-      let msgs = by(s.wa);
-      if (e.who === 'nigel') {
+      // Messages are kept as records, not as screenshots: who to whom, channel, time, the text,
+      // and the buttons offered or chosen.
+      const teams = (e.source || '').startsWith('Teams');
+      let msgs = by(teams ? s.kade : s.wa);
+      if (!teams && e.who === 'nigel') {   // a reply from Nigel shows with the message it answers
         const first = s.wa.indexOf(msgs[0]);
         const asked = s.wa.slice(0, first).reverse().find(m => m.who === 'agent');
         if (asked) msgs = [asked, ...msgs];
       }
-      title = 'Message on WhatsApp';
+      const channel = teams ? 'Teams, Kade order thread' : 'WhatsApp';
+      const customer = teams ? 'Priya' : 'Nigel';
+      const day = window.STORY.dates[e.day].replace(/^(\w{3})\w*, (\d+) (\w{3})\w* \d{4}$/, '$1, $2 $3');
+      title = teams ? 'Messages in Teams' : 'Messages on WhatsApp';
       body = `
-        <p class="m-meta">Nigel and Kade Foodservice · ${esc(e.day)} ${esc(e.time)}</p>
-        <div class="chat m-chat">${msgs.map(m => `
-          <div class="msg ${m.who === 'nigel' ? 'out' : 'in'}"><div class="bubble">${waText(m.text)}<span class="ts">${esc(m.time)}</span></div></div>
-          ${m.buttons ? `<div class="wa-buttons">${m.buttons.map(b => `<button disabled>${esc(b.label)}</button>`).join('')}</div>` : ''}`).join('')}
-        </div>`;
+        <ol class="records">${msgs.map(m => {
+          const fromKade = m.who !== customer.toLowerCase();
+          const who = fromKade ? `Kade Foodservice (AI order agent) → ${customer}` : `${customer} → Kade Foodservice`;
+          const text = m.kind === 'reply' ? `Chose the reply button “${m.text}”.` : m.text.replace(/\*/g, '');
+          return `
+          <li>
+            <p class="rec-head"><b>${esc(who)}</b><span>${esc(channel)} · ${esc(day)}, ${esc(m.time)}</span></p>
+            <p class="rec-text">${esc(text).replace(/\n/g, '<br>')}</p>
+            ${m.buttons ? `<p class="rec-extra">Buttons offered: ${m.buttons.map(b => esc(b.label)).join(' · ')}</p>` : ''}
+          </li>`; }).join('')}
+        </ol>`;
     }
     return `
       <div class="modal" role="dialog" aria-modal="true" aria-label="${title}">
