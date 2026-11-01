@@ -309,7 +309,7 @@
   }
   window.addEventListener('hashchange', () => { if (location.hash !== hashFor() && fromHash()) render(1); });
   // The first scene is drawn when Play is pressed, so it always plays from the start.
-  // After Play, Kade's screen opens with a short skeleton that says whose screen it is.
+  // After Play, a short moment says whose tool opens next.
   const opening = el('#opening');
   let openTimer = null;
   function play() {
@@ -322,8 +322,8 @@
     openTimer = setTimeout(() => {
       opening.classList.add('done');
       go(0);
-      openTimer = setTimeout(() => { opening.hidden = true; }, 500);
-    }, 1600);
+      openTimer = setTimeout(() => { opening.hidden = true; }, 400);
+    }, 1200);
   }
 
   fit();
