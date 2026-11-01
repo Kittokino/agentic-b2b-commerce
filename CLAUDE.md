@@ -11,6 +11,13 @@ All copy (prototype screens, messages, activity entries, deck slides and notes) 
 - Messages a customer receives (WhatsApp, Teams) must be unambiguous: what happened, who will act, when, and whether the customer needs to do anything.
 - "Inventory" for what a system records; "in stock" for what people say about availability.
 
+## Checks before showing the author a slide
+
+- Read the slide as the audience at that point in the deck: do not name a person, place or item they have not met yet (Priya and Nigel are introduced on slide 4).
+- Keep styles the same across slides: titles (h2, 44px), the line under a title (`.lead`), notes at the bottom (`.caveat`) and eyebrows. Reuse the shared class instead of a slide-specific copy, and compare the computed sizes in a browser.
+- Check the slide in a browser at 1280x720: nothing overflows, wraps badly or touches the footer.
+- Check the speaker notes too: short, in the author's voice, not repeating what the slide already says, and not technical unless the slide is.
+
 ## Working with the author
 
 Argue for a suggestion before making it. Changes go to `main`; bump the `?v=` version on any CSS or JS file you change.
