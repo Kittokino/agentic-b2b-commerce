@@ -212,6 +212,7 @@
     // Opening the other Teams chat changes only what is on screen, not where the story is.
     const chat = e.target.closest('[data-chat]');
     if (chat) {
+      if (steps()[index].advanceOnChat === chat.dataset.chat) { go(index + 1); return; }
       chatView = chat.dataset.chat;
       if (chatView === 'kade') kadeSeen = true;
       render(-1);

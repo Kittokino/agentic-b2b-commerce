@@ -188,6 +188,7 @@
     screen: 'teams', actor: 'priya', chat: 'assistant',
     title: 'The purchasing assistant notes it and reminds Priya to tell Kade. It does not change Kade’s order itself.',
     next: 'Switch to the Kade Foodservice chat',
+    advanceOnChat: 'kade',   // clicking Kade's chat in the list does what the footer button does
     apply(s) {
       s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
       s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Thanks, Priya. I have noted that Old Town is sending 10 bottles to Harbour Front. Please tell Kade in their order thread, so they look for 14 bottles instead of 24.' });
