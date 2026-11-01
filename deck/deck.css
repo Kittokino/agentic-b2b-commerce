@@ -157,6 +157,9 @@ p { margin: 0; }
 
 /* ---------- 9 · Configuring the platform ---------- */
 .s-config h2 { margin-bottom: 16px; }
+/* Same pattern as slide 7: a face or symbol next to the title says whose slide it is. */
+.s-config h2.with-face { display: flex; align-items: center; gap: 18px; max-width: none; }
+.s-config h2.with-face .face { width: 52px; height: 52px; }
 .compare { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.45; }
 .compare thead th { font-family: var(--font-display); font-size: 22px; font-weight: 400; letter-spacing: -.02em; text-align: left; padding: 0 24px 10px 0; color: var(--ink); }
 .compare tbody th { width: 140px; text-align: left; vertical-align: top; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); padding: 12px 24px 12px 0; border-top: 1px solid var(--line); }
