@@ -437,7 +437,6 @@ ul, ol { padding: 0; list-style: none; }
 .flag { margin-left: auto; width: 26px; height: 26px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 6px; background: none; color: var(--ink-3); cursor: pointer; font-size: 15px; }
 .flag:hover { background: var(--person-soft); color: var(--ink); }
 .flag.live { color: var(--ink); box-shadow: 0 0 0 1.5px var(--ink); }
-.link-btn { display: inline-flex; align-items: center; gap: 4px; margin-top: 14px; padding: 0; border: 0; background: none; font-size: var(--t-small); font-weight: 600; color: var(--ink); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
 /* Tom's flag form. */
 .m-flag-entry { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--bg); font-size: var(--t-body); font-weight: 600; }
