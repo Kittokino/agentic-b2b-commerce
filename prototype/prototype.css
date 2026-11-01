@@ -540,3 +540,5 @@ ul, ol { padding: 0; list-style: none; }
 .rec-link { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 .t-replying { margin: 0 18px 8px; }
 .t-replying .t-quote { margin: 0; }
+/* After an order's status: the step it is waiting for next, such as delivery. */
+.status-next { margin-left: -6px; font-size: var(--t-small); color: var(--ink-3); }

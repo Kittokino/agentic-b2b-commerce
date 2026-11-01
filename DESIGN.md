@@ -81,6 +81,8 @@ A small round mark followed by plain text. A finished item shows a check mark in
 
 The label adapts to who is looking; the state underneath is the same everywhere.
 
+The whole order has a status too. Once every item is confirmed, the order shows "✓ Confirmed" followed by the step it is still waiting for, in faint text: "✓ Confirmed · Pending delivery". That way nobody reads "Confirmed" as "delivered".
+
 ### Faces and the agent symbol
 - **People:** a round face, 28, 36 or 56px, white with a thin border.
 - **The supplier's AI order agent:** a round navy symbol with a sparkle, warming into red at the top right. It is never drawn as a person and never given a human name.
@@ -215,5 +217,6 @@ Owner: the design lead of this project. Change this file through a reviewed comm
 | --- | --- |
 | 1 November 2026 | First version, written from the prototype's tokens, components and copy rules. |
 | 1 November 2026 | A missed deadline stops only the item that is waiting; the rest of the order goes ahead. |
+| 1 November 2026 | A confirmed order shows the step it still waits for: "✓ Confirmed · Pending delivery". |
 | 1 November 2026 | One chat per customer and channel, never one per order. How the agent matches a message to its record, and record numbers, linked, in every reply that creates, changes or confirms a record. |
 | 1 November 2026 | Added dark mode, accessibility, every person's own language and formats, and the patterns for a missed deadline and for undoing. Email listed as a channel, with its rules left open on purpose. |

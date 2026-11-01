@@ -181,6 +181,7 @@
           <div class="order-title">
             <h1>Order ${esc(o.id)}</h1>
             <span class="status ${cls}">${o.status === 'Confirmed' ? icon('check') : ''}${esc(o.status)}</span>
+            ${o.status === 'Confirmed' && !o.delivered ? '<span class="status-next">· Pending delivery</span>' : ''}
           </div>
           <p class="order-meta">${esc(o.customer)} · ${esc(o.purpose)}</p>
           <nav class="tabs">${['Overview', 'Lines', 'Conversation', 'Activity'].map(t => `<span class="${t === 'Activity' ? 'on' : ''}">${t}</span>`).join('')}</nav>
