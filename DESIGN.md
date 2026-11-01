@@ -122,7 +122,7 @@ Meet WCAG 2.2 at level AA in every channel and in both light and dark mode.
 | Channel | How the order appears | Limits to respect |
 | --- | --- | --- |
 | **WhatsApp** | Plain messages, one item per message when a decision is needed. Bold (`*text*`) for the item and the outcome. | At most three reply buttons per message; up to ten options as a list. Outside 24 hours after the customer's last message, only a pre-approved template may start a conversation. |
-| **Microsoft Teams** | One order card in the supplier's thread, with every item and its status. Only the item that needs this person has buttons. | Keep a card to one order; at most three actions per item. |
+| **Microsoft Teams** | One order card per order, in the customer's one chat with the supplier, with every item and its status. Only the item that needs this person has buttons. | Keep a card to one order; at most three actions per item. |
 | **Kade's screens in Sana** | The order's full activity, with every entry, rule and version, and filters. | None; this is the complete record. |
 | **Voice** | The agent reads the order back in the same words it would write. | Ask about one item at a time. |
 | **Email** | A needed channel. Its rules are deliberately not written yet: render it from the principles, foundations, components and words in this file, and the checklist in section 7. | Write it so it works in dark mode and in plain text. |
@@ -137,6 +137,22 @@ Meet WCAG 2.2 at level AA in every channel and in both light and dark mode.
 - Use "inventory" for what a system records and "in stock" for availability.
 - A colon may introduce a complete sentence or a question; the next word then starts with a capital letter.
 - Use the status words in section 3 exactly as written.
+
+### One chat, and record numbers in every reply
+
+A customer has one conversation with a supplier in each channel: one WhatsApp chat and one Teams chat with Kade, never one per order, case or ticket. Every extra chat adds to the customer's channel fatigue. Orders, problems and questions all come back into that one chat, each tied to its record number.
+
+Because one chat holds many orders, the agent works out which record a message is about in this order:
+
+1. If the person replies to a message or an order card, the reply belongs to that record.
+2. If the message fits exactly one open record (for example, the only order still waiting for Sauvignon Blanc for Harbour Front), it belongs to that record.
+3. If more than one record could fit, the agent does not guess. It asks "Which order do you mean?" and lists the open orders with their numbers.
+
+Whenever the agent creates, changes or confirms a record (an order, a case or a ticket), its reply names the record's number, for example "I have changed order KD-24817". If the agent matched the wrong record, the person sees it at once and can correct it.
+
+- Link the number to the record's page when the channel supports links (Teams, WhatsApp, email), so the person can see the full details.
+- Link only records the reader can open. A customer can open their order, but not the supplier's internal case for it: name an internal record in words ("Tom from our customer service team has the update"), without its number or a link.
+- In channels without links, such as a voice call, the agent says the number.
 
 ### Every person's own language and formats
 
@@ -199,4 +215,5 @@ Owner: the design lead of this project. Change this file through a reviewed comm
 | --- | --- |
 | 1 November 2026 | First version, written from the prototype's tokens, components and copy rules. |
 | 1 November 2026 | A missed deadline stops only the item that is waiting; the rest of the order goes ahead. |
+| 1 November 2026 | One chat per customer and channel, never one per order. How the agent matches a message to its record, and record numbers, linked, in every reply that creates, changes or confirms a record. |
 | 1 November 2026 | Added dark mode, accessibility, every person's own language and formats, and the patterns for a missed deadline and for undoing. Email listed as a channel, with its rules left open on purpose. |

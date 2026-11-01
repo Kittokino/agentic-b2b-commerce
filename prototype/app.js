@@ -234,7 +234,7 @@
     const flagForm = e.target.closest('[data-flagform]');
     if (flagForm) { layer.innerHTML = V.flagModal(steps()[index].flagTarget); layer.hidden = false; return; }
     const said = e.target.closest('[data-toast]');
-    if (said) { toast(said.dataset.toast); return; }
+    if (said) { e.preventDefault(); toast(said.dataset.toast); return; }
     // Opening the other Teams chat changes only what is on screen, not where the story is.
     const chat = e.target.closest('[data-chat]');
     if (chat) {

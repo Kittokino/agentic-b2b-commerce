@@ -62,8 +62,11 @@
     return buttons.map(b => answered ? `<button class="${cls}" disabled>${esc(b.label)}</button>` : act(b, ctx, cls)).join('');
   };
 
+  // An order number the reader can open is a link to the order on Kade's website (DESIGN.md, Words).
+  // The website is not built, so the link says where it would go.
+  const orderLinks = (html) => html.replace(/KD-\d{5}/g, n => `<a class="rec-link" href="#" data-toast="This link opens order ${n} on Kade’s website, with every item and its status. That page is not part of this prototype.">${n}</a>`);
   // WhatsApp's own formatting: *bold* in a message's text becomes bold.
-  const waText = (t) => esc(t).replace(/\*([^*]+)\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+  const waText = (t) => orderLinks(esc(t).replace(/\*([^*]+)\*/g, '<b>$1</b>').replace(/\n/g, '<br>'));
 
   // Things the current scene added animate in, one after another.
   const enter = (i, from, step = .45) => i >= from ? ` class="new" style="animation-delay:${((i - from) * step).toFixed(2)}s"` : '';
@@ -322,7 +325,7 @@
   function orderCard(s, ctx) {
     return `
       <div class="tcard">
-        <div class="tcard-head">${avatar('agent', 'sm')}<div><b>Harbour Front · Saturday dinner</b><span>${esc(s.order.id)} · ${esc(s.order.status)}</span></div></div>
+        <div class="tcard-head">${avatar('agent', 'sm')}<div><b>Harbour Front · Saturday dinner</b><span>${orderLinks(esc(s.order.id))} · ${esc(s.order.status)}</span></div></div>
         ${s.order.lines.map(l => `
           <div class="o-line">
             <div class="o-main"><b>${esc(l.name)}</b><span>${esc(l.qty)}</span>${l.note ? `<em>${esc(l.note)}</em>` : ''}</div>
@@ -342,8 +345,8 @@
 
     const chatKade = s.kade.map((m, i) => {
       const body = m.kind === 'card' ? orderCard(s, ctx)
-        : m.buttons ? `<div class="acard"><p>${esc(m.text)}</p><div class="acard-btns">${acts(m.buttons, ctx, 'btn sm ghost')}</div></div>`
-        : `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
+        : m.buttons ? `<div class="acard"><p>${orderLinks(esc(m.text))}</p><div class="acard-btns">${acts(m.buttons, ctx, 'btn sm ghost')}</div></div>`
+        : `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${m.replyTo ? `<span class="t-quote"><b>Kade Foodservice</b>Harbour Front · Saturday dinner, order ${esc(s.order.id)}</span>` : ''}${orderLinks(esc(m.text))}</p>`;
       return `<li${enter(i, ctx.fresh.kade)}>${m.who === 'priya' ? '' : avatar('agent')}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Kade · Order agent (AI)'} · ${esc(m.time)}</span>${body}</div></li>`;
     }).join('');
 
@@ -366,8 +369,9 @@
             <div class="chat-item ${onAssistant ? (kadeUnread ? 'unread' : '') : 'on'}" data-chat="kade">${kadeMark()}<div><b>Kade Foodservice</b><span>${esc(last(s.kade))}</span></div>${kadeUnread ? '<span class="unread-dot" aria-label="Unread"></span>' : ''}</div>
           </aside>
           <section class="conv">
-            <header>${onAssistant ? `<span class="assistant">${icon('agent')}</span><b>Purchasing assistant</b><span class="muted">The Olive Tree</span>` : `${kadeMark()}<b>Kade Foodservice</b><span class="muted">Order thread · ${esc(s.order.id)}</span>`}</header>
+            <header>${onAssistant ? `<span class="assistant">${icon('agent')}</span><b>Purchasing assistant</b><span class="muted">The Olive Tree</span>` : `${kadeMark()}<b>Kade Foodservice</b><span class="muted">Order agent (AI)</span>`}</header>
             <ul class="tlist">${onAssistant ? chatAssistant : chatKade}</ul>
+            ${draft ? `<div class="t-replying"><span class="t-quote"><b>Replying to Kade Foodservice</b>Harbour Front · Saturday dinner, order ${esc(s.order.id)}</span></div>` : ''}
             <div class="composer ${draft ? 'typing' : ''}">
               <span>${draft ? esc(draft) : 'Type a message'}</span>
               ${draft ? act({ action: 'send', label: 'Send' }, ctx, 'btn sm') : ''}
@@ -457,7 +461,7 @@
       const price = e.approves === 'price';
       title = 'Priya’s approval';
       body = `
-        <p class="m-meta">Teams · Kade order thread · Thursday ${esc(e.time)}</p>
+        <p class="m-meta">Teams · chat with Kade Foodservice · Thursday ${esc(e.time)}</p>
         <div class="m-approval">
           <div><b>${price ? 'Sauvignon Blanc, one-time price' : 'Salmon fillet'}</b><span>${price ? '14 bottles at €11.80 each, €165.20 in total' : '18 kg · takes Harbour Front €180 over its fish budget'}</span></div>
           <span class="status done">${icon('check')}Approved by Priya</span>
@@ -473,7 +477,7 @@
         const asked = s.wa.slice(0, first).reverse().find(m => m.who === 'agent');
         if (asked) msgs = [asked, ...msgs];
       }
-      const channel = teams ? 'Teams, Kade order thread' : 'WhatsApp';
+      const channel = teams ? 'Teams, chat with Kade Foodservice' : 'WhatsApp';
       const customer = teams ? 'Priya' : 'Nigel';
       const day = window.STORY.dates[e.day].replace(/^(\w{3})\w*, (\d+) (\w{3})\w* \d{4}$/, '$1, $2 $3');
       title = teams ? 'Messages in Teams' : 'Messages on WhatsApp';

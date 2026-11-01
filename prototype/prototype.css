@@ -532,3 +532,11 @@ ul, ol { padding: 0; list-style: none; }
 .rec-head span { color: var(--ink-3); }
 .rec-text { margin-top: 4px; font-size: var(--t-body); line-height: 1.5; }
 .rec-extra { margin-top: 4px; font-size: var(--t-small); color: var(--ink-2); }
+
+/* A reply in Teams quotes the message it answers, above the text. */
+.t-quote { display: block; margin: 0 0 6px; padding: 4px 0 4px 10px; border-left: 3px solid var(--ink-3); font-size: var(--t-small); color: var(--ink-2); }
+.t-quote b { display: block; font-weight: 600; color: var(--ink); }
+/* A record number the reader can open, such as an order number. */
+.rec-link { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.t-replying { margin: 0 18px 8px; }
+.t-replying .t-quote { margin: 0; }

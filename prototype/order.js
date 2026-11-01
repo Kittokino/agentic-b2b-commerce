@@ -180,7 +180,7 @@
       s.assistant.push({ time: '07:43', kind: 'note', text: 'Call with Old Town, 2 minutes' });
       s.assistant.push({ time: '07:43', kind: 'card', text: 'Did Old Town confirm the 10 bottles?', buttons: [{ action: 'confirmed', label: 'Old Town confirmed' }, { action: 'not-available', label: 'Not available', toast: 'alt' }] });
       s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
-      s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Thanks, Priya. I have noted that Old Town is sending 10 bottles to Harbour Front. Please tell Kade in their order thread, so they look for 14 bottles instead of 24.' });
+      s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Thanks, Priya. I have noted that Old Town is sending 10 bottles to Harbour Front. Please reply to Kade’s order card in your chat with Kade Foodservice, so they look for 14 bottles instead of 24.' });
     },
   };
 
@@ -188,7 +188,7 @@
     story: "Old Town will send 10 bottles to Harbour Front, so Kade only needs to find the other 14.",
     time: '07:45',
     screen: 'teams', actor: 'priya', chat: 'kade',
-    title: 'Priya tells Kade in Kade’s order thread, not in a private chat, so the change is made on the order itself.',
+    title: 'Priya replies to Kade’s order card in her chat with Kade, so the agent knows which order she means and can change it directly.',
     cta: 'Send the message',
     choices: [{ action: 'send' }],
     apply(s) {
@@ -197,32 +197,32 @@
   };
 
   const sent = {
-    story: "Because Priya wrote in Kade’s order thread, Kade’s order agent can change the order directly.",
+    story: "Priya replied to Kade’s order card, so Kade’s order agent knows she means order KD-24817 and can change it directly.",
     time: '07:45',
     screen: 'teams', actor: 'priya', chat: 'kade',
-    title: 'Kade’s order agent changes the wine to 14 bottles and updates Tom’s case. While she is in the thread, Priya also approves the salmon.',
+    title: 'Kade’s order agent changes the wine to 14 bottles and updates Tom’s case. While she is in the chat, Priya also approves the salmon.',
     cta: 'Approve the salmon',
     choices: [{ action: 'approve' }],
     apply(s) {
       s.compose = '';
-      s.kade.push({ time: '07:45', kind: 'text', who: 'priya', text: 'Our Old Town restaurant is sending 10 bottles of Sauvignon Blanc to Harbour Front. Please find the other 14.' });
+      s.kade.push({ time: '07:45', kind: 'text', who: 'priya', text: 'Our Old Town restaurant is sending 10 bottles of Sauvignon Blanc to Harbour Front. Please find the other 14.', replyTo: 'card' });
       set(s, 'wine', { qty: '24 bottles · 10 from Old Town, 14 to source', note: '10 bottles come from Old Town' });
       s.caseFile = { ...s.caseFile, title: 'Find 14 bottles of Sauvignon Blanc', task: 'For Harbour Front’s private dinner on Saturday. Nigel needs Sauvignon Blanc for the menu, so a different wine won’t do.', changed: 'Priya changed this at 07:45. Old Town is sending 10 bottles, so Kade only needs to find 14.' };
-      s.kade.push({ time: '07:45', kind: 'text', who: 'agent', text: 'Thanks, Priya. I have changed the order, so Kade will now find 14 bottles of Sauvignon Blanc instead of 24. Tom’s case is updated too. The 18 kg of salmon is still waiting for your approval in the order card above.' });
-      wa(s, '07:45', 'agent', 'Priya has arranged *10 bottles* of Sauvignon Blanc from your Old Town restaurant. Kade will find the other *14 bottles*, and we will message you here when we have them.');
+      s.kade.push({ time: '07:45', kind: 'text', who: 'agent', text: 'Thanks, Priya. I have changed order KD-24817, so Kade will now find 14 bottles of Sauvignon Blanc instead of 24. Tom from our customer service team has the update. The 18 kg of salmon is still waiting for your approval in the order card above.' });
+      wa(s, '07:45', 'agent', 'Priya has arranged *10 bottles* of Sauvignon Blanc from your Old Town restaurant, so I have changed order KD-24817. Kade will find the other *14 bottles*, and we will message you here when we have them.');
     },
   };
 
-  // Kade's order agent confirms the approval in the same thread, before the story moves on.
+  // Kade's order agent confirms the approval in the same chat, before the story moves on.
   const approved = {
     story: "Priya approved the salmon with the button in Kade’s order card.",
     time: '07:46',
     screen: 'teams', actor: 'priya', chat: 'kade',
-    title: 'Kade’s order agent confirms the salmon in the same thread. Only the Sauvignon Blanc is still open, and Tom has it.',
+    title: 'Kade’s order agent confirms the salmon in the same chat. Only the Sauvignon Blanc is still open, and Tom has it.',
     next: 'Go to Tom’s morning',
     apply(s) {
       set(s, 'salmon', { status: 'confirmed', owner: null, note: 'Approved by Priya' });
-      s.kade.push({ time: '07:46', kind: 'text', who: 'agent', text: 'Thanks, Priya. The 18 kg of salmon is approved and confirmed. The order now waits only for the Sauvignon Blanc, which Tom from our customer service team is finding this morning.' });
+      s.kade.push({ time: '07:46', kind: 'text', who: 'agent', text: 'Thanks, Priya. The 18 kg of salmon in order KD-24817 is approved and confirmed. The order now waits only for the Sauvignon Blanc, which Tom from our customer service team is finding this morning.' });
     },
   };
 
@@ -236,12 +236,12 @@
     next: 'Go to Tom’s case',
     // What happened while Priya was in Teams lands in the order's record before Tom opens his case.
     apply(s) {
-      log(s, '07:45', 'priya', 'Priya reduced the Sauvignon Blanc Kade must find from 24 to 14 bottles', { detail: 'Old Town is sending the other 10 bottles.', change: ['To source', '24', '14'], source: 'Teams, Kade order thread', open: 'Open message' });
+      log(s, '07:45', 'priya', 'Priya reduced the Sauvignon Blanc Kade must find from 24 to 14 bottles', { detail: 'Old Town is sending the other 10 bottles.', change: ['To source', '24', '14'], source: 'Teams, chat with Kade Foodservice', open: 'Open message' });
       log(s, '07:45', 'agent', 'Updated the order before Tom started on the case', { rule: 'changes' });
       log(s, '07:45', 'system', 'Updated case CS-3391 to 14 bottles', { change: ['Quantity', '24', '14'], open: 'Open case' });
       log(s, '07:45', 'agent', 'Messaged Nigel that Old Town is sending 10 bottles', { source: 'WhatsApp', open: 'Open message' });
       log(s, '07:46', 'agent', 'Checked Kade’s partner suppliers for 14 bottles of Sauvignon Blanc', { detail: 'Two have it in stock: Northgate Wines (14 bottles) and Riverside Cellars (8 bottles). Tom decides which one to use.', open: 'Open case' });
-      log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'She accepted going €180 over Harbour Front’s fish budget.', source: 'Teams, Kade order thread', open: 'Open approval', approves: 'salmon' });
+      log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'She accepted going €180 over Harbour Front’s fish budget.', source: 'Teams, chat with Kade Foodservice', open: 'Open approval', approves: 'salmon' });
       log(s, '07:46', 'agent', 'Confirmed the salmon', { change: ['Status', 'Waiting on Priya', 'Confirmed'] });
       s.order.status = 'With Kade';
       log(s, '07:46', 'system', 'Changed the order status to With Kade', { detail: 'Only the Sauvignon Blanc is still open, and Tom has it.', change: ['Order', 'Waiting on customer and Kade', 'With Kade'] });
@@ -274,18 +274,18 @@
       s.caseFile = { ...s.caseFile, status: 'Waiting on Priya' };
       set(s, 'wine', { status: 'quote', owner: 'priya', note: 'One-time price: 14 bottles at €11.80' });
       s.order.status = 'Waiting on customer';
-      log(s, '08:05', 'tom', 'Tom chose Northgate Wines and sent Priya a one-time price for 14 bottles at €11.80 each', { detail: 'Northgate Wines is one of Kade’s partner suppliers. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Priya'], rule: 'price', source: 'Teams, Kade order thread', open: 'Open message' });
-      s.kade.push({ time: '08:05', kind: 'text', who: 'agent', text: 'Tom has found 14 bottles of Sauvignon Blanc at Northgate Wines, one of Kade’s partner suppliers. They cost €11.80 a bottle, €165.20 in total. This is a one-time price for this order, outside your contract, and the contract does not change. Do you approve it?',
+      log(s, '08:05', 'tom', 'Tom chose Northgate Wines and sent Priya a one-time price for 14 bottles at €11.80 each', { detail: 'Northgate Wines is one of Kade’s partner suppliers. The contract does not change.', change: ['Status', 'With Tom', 'Waiting on Priya'], rule: 'price', source: 'Teams, chat with Kade Foodservice', open: 'Open message' });
+      s.kade.push({ time: '08:05', kind: 'text', who: 'agent', text: 'Tom has found 14 bottles of Sauvignon Blanc at Northgate Wines, one of Kade’s partner suppliers. They cost €11.80 a bottle, €165.20 in total. This is a one-time price for order KD-24817, outside your contract, and the contract does not change. Do you approve it?',
         buttons: [{ action: 'confirm', label: 'Approve' }, { action: 'decline-price', label: 'Decline', toast: 'declinePrice' }] });
     },
   };
 
-  // Kade's order agent confirms the approval in the same thread, before the story moves on.
+  // Kade's order agent confirms the approval in the same chat, before the story moves on.
   const priceApproved = {
     story: "Priya approved the one-time price with the button in Kade’s message.",
     time: '08:30',
     screen: 'teams', actor: 'priya', chat: 'kade',
-    title: 'Priya approved the one-time price, and Kade’s order agent confirms it in the same thread. Every item now has its answer.',
+    title: 'Priya approved the one-time price, and Kade’s order agent confirms it in the same chat. Every item now has its answer.',
     next: 'Back to Kade’s screen',
     // Part of the scene before it: Priya's click on Approve plays out on the same screen, without a
     // new scene number.
@@ -293,7 +293,7 @@
     apply(s) {
       set(s, 'wine', { status: 'confirmed', owner: null, qty: '24 bottles', note: '10 bottles from Old Town and 14 from a partner supplier' });
       s.order.status = 'Confirmed';
-      s.kade.push({ time: '08:30', kind: 'text', who: 'agent', text: 'Thanks, Priya. The one-time price is approved, so all three items are confirmed. We will deliver to Harbour Front on Friday between 07:00 and 09:00.' });
+      s.kade.push({ time: '08:30', kind: 'text', who: 'agent', text: 'Thanks, Priya. The one-time price is approved, so all three items in order KD-24817 are confirmed. We will deliver to Harbour Front on Friday between 07:00 and 09:00.' });
     },
   };
 
@@ -306,7 +306,7 @@
     apply(s) {
       s.caseFile = { ...s.caseFile, status: 'Closed' };
       s.order.erp = 'Booked · delivery Fri 07:00–09:00';
-      log(s, '08:30', 'priya', 'Priya approved the one-time price', { detail: '14 bottles of Sauvignon Blanc at €11.80 each, €165.20 in total.', source: 'Teams, Kade order thread', open: 'Open approval', approves: 'price' });
+      log(s, '08:30', 'priya', 'Priya approved the one-time price', { detail: '14 bottles of Sauvignon Blanc at €11.80 each, €165.20 in total.', source: 'Teams, chat with Kade Foodservice', open: 'Open approval', approves: 'price' });
       log(s, '08:30', 'agent', 'Confirmed the Sauvignon Blanc', { change: ['Status', 'Waiting on Priya', 'Confirmed'] });
       log(s, '08:31', 'agent', 'Confirmed the order, because every item now has an answer', { change: ['Order', 'Waiting on customer', 'Confirmed'], rule: 'confirm' });
       log(s, '08:31', 'system', 'Sent the order to Kade’s ERP for delivery on Friday between 07:00 and 09:00', { change: ['ERP', 'Not sent', 'Booked'] });
@@ -341,7 +341,7 @@
     apply(s) {
       wa(s, '22:50', 'nigel', 'Accept Pinot Grigio', { kind: 'reply' });
       set(s, 'wine', { name: 'Pinot Grigio', status: 'confirmed', owner: null, note: 'Nigel accepted Pinot Grigio' });
-      wa(s, '22:50', 'agent', 'Thanks, Nigel. I have changed the wine to *24 bottles of Pinot Grigio*. The salmon is still *waiting for Priya’s approval*, and I will confirm the whole order as soon as she approves it.');
+      wa(s, '22:50', 'agent', 'Thanks, Nigel. I have changed order KD-24817 to *24 bottles of Pinot Grigio*. The salmon is still *waiting for Priya’s approval*, and I will confirm the whole order as soon as she approves it.');
     },
   };
 
