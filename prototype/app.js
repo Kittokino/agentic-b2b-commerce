@@ -88,6 +88,7 @@
     Object.assign(shown, { key, screen: sc.screen });
 
     follow(shown.el);
+    typeDraft(shown.el, dir);
     // Tom's flag: bring the entry he flags into view once the screen has slid in.
     if (sc.flagTarget) {
       const root = shown.el;
@@ -99,6 +100,27 @@
     rail();
     renderCue(sc);
     history.replaceState(null, '', hashFor());
+  }
+
+  // What Priya types appears letter by letter once the screen has slid in; Send appears when she
+  // has finished. Going back, or switching chats, shows the finished text at once.
+  let typer = null;
+  function typeDraft(root, dir) {
+    clearTimeout(typer);
+    const box = root.querySelector('.composer.typing');
+    if (!box || dir < 0) return;
+    const out = box.querySelector('span');
+    const text = out.textContent;
+    let n = 0;
+    box.classList.add('is-typing');
+    out.textContent = '';
+    const step = () => {
+      n += 1;
+      out.textContent = text.slice(0, n);
+      if (n < text.length) typer = setTimeout(step, text[n - 1] === ' ' ? 45 : 28);
+      else box.classList.remove('is-typing');
+    };
+    typer = setTimeout(step, 900);
   }
 
   // Lists start at the first new entry, then follow each one as it comes in.
