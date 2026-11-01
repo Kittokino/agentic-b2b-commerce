@@ -155,6 +155,16 @@ p { margin: 0; }
 .chan { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--ink-3); }
 .chan .ico { font-size: 14px; }
 
+/* ---------- 8c · Live prototype ---------- */
+.s-live { justify-content: center; }
+.s-live h2 { margin-bottom: 16px; }
+.open-proto { align-self: flex-start; display: flex; align-items: center; gap: 18px; margin-top: 12px; padding: 18px 26px 18px 18px; border-radius: 999px; background: var(--ink); color: #fff; text-decoration: none; }
+.open-proto .face { width: 48px; height: 48px; font-size: 22px; border: 2px solid rgba(255,255,255,.75); }
+.open-proto b { display: block; font-size: 20px; font-weight: 600; }
+.open-proto small { display: block; margin-top: 2px; font-size: 13px; color: rgba(255,255,255,.7); }
+.open-proto .arrow { font-size: 22px; margin-left: 12px; }
+.open-proto:hover { opacity: .92; }
+
 /* ---------- 9 · Configuring the platform ---------- */
 .s-config h2 { margin-bottom: 16px; }
 /* Same pattern as slide 7: a face or symbol next to the title says whose slide it is. */
