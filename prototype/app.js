@@ -239,7 +239,7 @@
     const t = e.target.closest('[data-action], [data-nav], [data-go], [data-intro], #cue');
     if (!t || t.disabled) return;
     if (t.dataset.intro) play();
-    else if (t === cue) { const sc = steps()[index]; if (sc.cta) choose(sc.choices[0].action); else go(index + 1); }
+    else if (t === cue) { const sc = steps()[index]; if (sc.cta) choose(sc.def || sc.choices[0].action); else go(index + 1); }
     else if (t.dataset.action) choose(t.dataset.action);
     else if (t.dataset.nav === 'next') advance();
     else if (t.dataset.nav === 'prev') go(index - 1, -1);

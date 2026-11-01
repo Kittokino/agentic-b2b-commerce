@@ -317,7 +317,10 @@ ul, ol { padding: 0; list-style: none; }
 .tap-hint { position: absolute; left: calc(100% + 28px); display: flex; align-items: center; gap: 10px; width: 220px; font-size: var(--t-body); color: var(--ink-2); animation: appear .5s ease-out 1.6s both; }
 .tap-hint em { font-style: italic; }
 .tap-hint .ico { flex: none; font-size: 30px; color: var(--ink); }
-.tap-hint.at-buttons { bottom: 130px; }
+/* Each hint waits for what it points at: the reply buttons arrive with the third message,
+   the notification stands up about 1.7 seconds in. */
+.tap-hint.at-buttons { bottom: 130px; animation-delay: 3s; }
+.tap-hint.at-notification { top: 290px; animation-delay: 2s; }
 .phone-top > .ico:last-child { margin-left: auto; font-size: 20px; }
 
 /* Kade's leaf, where Kade appears as a business. */

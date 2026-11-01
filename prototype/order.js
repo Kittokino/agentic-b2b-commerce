@@ -71,6 +71,7 @@
     screen: 'lock', actor: 'nigel',
     title: 'Nigel is closing up the kitchen when a WhatsApp message from Kade arrives.',
     cta: 'Read the message',
+    hint: 'Tap the notification.', hintAt: 'notification',
     choices: [{ action: 'open', label: 'Open' }],
     apply(s) {
       s.notify = { app: 'WhatsApp', from: 'Kade Foodservice', text: 'We have your order for Saturday. The cheese board is confirmed. The salmon and the wine need a decision.' };
@@ -83,6 +84,8 @@
     screen: 'whatsapp', actor: 'nigel',
     title: 'The agent confirms what the contract allows. For everything else, it asks the person who decides.',
     hint: 'Click one of Nigel’s replies.', hintAt: 'buttons',
+    // The footer follows the main story, so clicking only the footer never reaches a dead end.
+    cta: 'Decline the Pinot Grigio',
     choices: [{ action: 'accept' }, { action: 'decline' }, { action: 'more' }],
     def: 'decline',
     apply(s) {
