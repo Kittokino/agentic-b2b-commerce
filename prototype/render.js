@@ -96,7 +96,7 @@
           <p class="m-text">${esc(r.owner)}</p>
           <p class="m-label">Version history</p>
           <ol class="m-history">${r.history.map(([v, d, c], k) => `<li class="${k ? '' : 'now'}"><b>${v}</b><span>${esc(d)}</span><p>${esc(c)}</p></li>`).join('')}</ol>
-          <p class="m-note-small">Only an admin can change this rule, in Agent rules. A change creates a new version, and every decision keeps the version it was made under.</p>
+          <p class="m-note-small m-footnote">Only an admin can change this rule, in Agent rules. A change creates a new version, and every decision keeps the version it was made under.</p>
         </div>
       </div>`;
   }
