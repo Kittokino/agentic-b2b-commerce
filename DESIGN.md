@@ -78,10 +78,20 @@ A small round mark followed by plain text. A finished item shows a check mark in
 | Suggested (a choice is offered) | Your call | Waiting on *name* | Navy |
 | Handed over to a person at the supplier | With *name* | With *name* | Navy |
 | One-time price to approve | Awaiting approval | Waiting on *name* | Navy |
+| Confirmed, on its way | Pending delivery | Pending delivery | Faint (`--ink-3`), weight 500 |
+| Delivered | ✓ Delivered | ✓ Delivered | Navy, check mark |
 
 The label adapts to who is looking; the state underneath is the same everywhere.
 
-The whole order has a status too. Once every item is confirmed, the order shows "✓ Confirmed" followed by the step it is still waiting for, in faint text: "✓ Confirmed · Pending delivery". That way nobody reads "Confirmed" as "delivered".
+The whole order has a status too, shown after its number. Once every item is confirmed, the order shows "✓ Confirmed" followed by the step it is still waiting for, in faint text, so nobody reads "Confirmed" as "delivered". One order can arrive in several deliveries (the wine may come before the cheese and the salmon), so the order counts items, not deliveries, and each item shows its own delivery status:
+
+| The order's items | The order shows |
+| --- | --- |
+| All confirmed, none delivered yet | ✓ Confirmed · Pending delivery |
+| Some delivered | Partly delivered · 1 of 3 items |
+| All delivered | ✓ Delivered |
+
+Never show a delivery date or time in the order's status, because it can differ per item. Show it on the item, or in the message about that delivery.
 
 ### Faces and the agent symbol
 - **People:** a round face, 28, 36 or 56px, white with a thin border.
@@ -217,6 +227,7 @@ Owner: the design lead of this project. Change this file through a reviewed comm
 | --- | --- |
 | 1 November 2026 | First version, written from the prototype's tokens, components and copy rules. |
 | 1 November 2026 | A missed deadline stops only the item that is waiting; the rest of the order goes ahead. |
+| 1 November 2026 | Delivery statuses: Pending delivery and Delivered for items; Partly delivered (counted in items) and Delivered for the whole order. |
 | 1 November 2026 | A confirmed order shows the step it still waits for: "✓ Confirmed · Pending delivery". |
 | 1 November 2026 | One chat per customer and channel, never one per order. How the agent matches a message to its record, and record numbers, linked, in every reply that creates, changes or confirms a record. |
 | 1 November 2026 | Added dark mode, accessibility, every person's own language and formats, and the patterns for a missed deadline and for undoing. Email listed as a channel, with its rules left open on purpose. |
