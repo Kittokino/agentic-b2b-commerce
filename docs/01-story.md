@@ -62,7 +62,7 @@ Every decision on an item affects only that item. A decline never cancels the wh
 **Edge case to design for:** if Tom had already started looking when Priya changed the order, the agent would tell both of them instead of changing his case quietly (rule 8).
 
 **Branches in the prototype:**
-- **Main story:** Nigel declines (#scene-1 to #scene-18).
+- **Main story:** Nigel declines (#scene-1 to #scene-17).
 - **#what-if-more-options-n:** Nigel asks for more options; the agent hands over to Tom in the same way.
 - **#what-if-accepted-n:** Nigel accepts the Pinot Grigio. The wine is confirmed, nobody at Kade needs to step in, and the order is confirmed when Priya approves the salmon in the morning.
 

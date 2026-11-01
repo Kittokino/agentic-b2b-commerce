@@ -147,7 +147,7 @@
 
   // ---------- Thursday morning ----------
   const morning = {
-    story: "Overnight, the order stayed as it was. Tom starts work at 08:00, so nobody has looked for the Sauvignon Blanc yet, and Priya has not yet approved the salmon.",
+    story: "Nothing happened to the order during the night. Tom starts work at 08:00, so nobody has looked for the Sauvignon Blanc yet, and Priya has not yet approved the salmon.",
     screen: 'break', actor: 'priya', day: 'Thursday',
     kicker: 'Thursday 29 October, 07:40',
     title: 'Let’s start at Priya’s end.',
@@ -193,6 +193,18 @@
       s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
       s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Thanks, Priya. I have noted that Old Town is sending 10 bottles to Harbour Front. Please tell Kade in their order thread, so they look for 14 bottles instead of 24.' });
     },
+  };
+
+  // Merged scene (replaces `called` and `noted` in the paths, which stay below until this one is settled):
+  // Priya calls Old Town, then tells her assistant how it went, and it points her to Kade.
+  const callNoted = {
+    story: "Priya calls the manager at Old Town to ask whether they can spare the 10 bottles.",
+    time: '07:44',
+    screen: 'teams', actor: 'priya', chat: 'assistant',
+    title: 'Old Town can send all 10 bottles. The purchasing assistant did not hear the call, so it asks Priya how it went, notes her answer and reminds her to tell Kade. It does not change Kade’s order itself.',
+    next: 'Switch to the Kade Foodservice chat',
+    advanceOnChat: 'kade',
+    apply(s) { called.apply(s); noted.apply(s); },
   };
 
   const compose = {
@@ -518,8 +530,8 @@
     dates,
     choiceAt: shared.length - 1,
     paths: {
-      decline: [...shared, declined, handover, morning, tip, called, noted, compose, sent, approved, tomMorning, tom, quote, priceApproved, done, end],
-      more: [...shared, more, handover, morning, tip, called, noted, compose, sent, approved, tomMorning, tom, quote, priceApproved, done, end],
+      decline: [...shared, declined, handover, morning, tip, callNoted, compose, sent, approved, tomMorning, tom, quote, priceApproved, done, end],
+      more: [...shared, more, handover, morning, tip, callNoted, compose, sent, approved, tomMorning, tom, quote, priceApproved, done, end],
       accept: [...shared, accepted, acceptLogged, acceptEnd],
       // After the order: starts from the confirmed order of the main story.
       admin: [flagIt, review, published, adminEnd],
