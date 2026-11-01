@@ -243,6 +243,32 @@ p { margin: 0; }
 .human-hurdles ul { margin: 0; padding-left: 18px; }
 .s-vision .motto { font-size: 24px; line-height: 1.3; max-width: 1000px; }
 
+/* ---------- 12a · Vision, option A: the trust staircase ---------- */
+.s-vision-a h2 { font-size: 56px; margin-bottom: 8px; }
+/* Three steps rise left to right; Next and Later are dashed, because they have not happened yet. */
+.stair { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; }
+.stair li { position: relative; border-top: 2px dashed var(--ink-3); padding: 18px 28px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.stair li:nth-child(1) { margin-top: 120px; border-top: 2px solid var(--ink); }
+.stair li:nth-child(2) { margin-top: 60px; }
+.stair li:nth-child(2), .stair li:nth-child(3) { padding-left: 22px; }
+.stair li:nth-child(2)::before, .stair li:nth-child(3)::before { content: ""; position: absolute; left: 0; top: -2px; height: 62px; border-left: 2px dashed var(--ink-3); }
+.stair .face { position: absolute; top: -48px; left: 0; }
+.stair .when { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.stair b { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -.02em; line-height: 1.15; color: var(--ink); }
+.stair p { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.s-vision-a .keep, .s-vision-b .keep { font-size: 16px; color: var(--ink-2); }
+.s-vision-a .keep { margin-top: auto; margin-bottom: 6px; }
+.s-vision-a .motto { margin-top: 0; font-size: 40px; }
+
+/* ---------- 12b · Vision, option B: the headline with Nigel ---------- */
+.s-vision-b { flex-direction: row; align-items: center; gap: 64px; }
+.s-vision-b .scene { width: 420px; height: 520px; object-fit: cover; object-position: 40% 30%; border: 2px solid var(--ink); mix-blend-mode: multiply; flex: none; }
+.s-vision-b .text { flex: 1; }
+.s-vision-b h2 { font-family: var(--font-voice); font-style: italic; font-size: 64px; line-height: 1.05; margin-bottom: 16px; }
+.beats-v { list-style: none; margin: 8px 0 28px; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.beats-v li { display: grid; grid-template-columns: 76px 1fr; font-size: 18px; line-height: 1.4; color: var(--ink); }
+.beats-v .when { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); padding-top: 4px; }
+
 /* ---------- Appendix divider ---------- */
 .s-appendix { justify-content: center; }
 .s-appendix h2 { color: var(--ink-3); }
