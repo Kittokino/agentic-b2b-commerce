@@ -229,7 +229,7 @@
       ['Thursday 29 October, 08:05', 'tom', 'Tom · Service rep', 'Opened the case and started work', ''],
       c.options && ['Thursday 29 October, 07:46', 'agent', 'AI order agent', 'Prepared two supplier options for 14 bottles of Sauvignon Blanc', `<p class="ch-text">The agent checked Kade’s partner suppliers. Tom decides which one to use.</p>${options}`],
       c.changed && ['Thursday 29 October, 07:45', 'priya', 'Priya · Buyer · via Teams', 'Changed the quantity from 24 to 14 bottles', `<p class="ch-text">Old Town, one of The Olive Tree’s restaurants, is sending the other 10 bottles to Harbour Front.</p><p class="chg">Quantity: <s>24</s> → <b>14</b></p>`],
-      ['Wednesday 28 October, 22:51', 'agent', 'AI order agent', 'Created the case and assigned it to Tom', `<p class="ch-text">Nigel declined the suggested Pinot Grigio, and no other allowed option was left. The full conversation with Nigel and Priya is attached.</p><span class="rule">${icon('rule')}Rule: Hand over when no allowed option is left · v2</span>`],
+      ['Wednesday 28 October, 22:51', 'agent', 'AI order agent', 'Created the case and assigned it to Tom', `<p class="ch-text">Nigel declined the suggested Pinot Grigio, and no other allowed option was left. The full conversation with Nigel and Priya is attached.</p><button class="rule" data-rule="handover">${icon('rule')}Rule: ${esc(window.STORY.rules.handover.name)} · v${window.STORY.rules.handover.version}</button>`],
     ].filter(Boolean).map(([when, who, label, text, body]) => `
       <li>
         ${avatar(who)}
