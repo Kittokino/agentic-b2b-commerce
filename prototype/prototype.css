@@ -509,7 +509,7 @@ ul, ol { padding: 0; list-style: none; }
 .case-page .summary { margin-bottom: 18px; }
 .case-head .case-facts dd { white-space: nowrap; }
 
-/* Priya typing: a blinking cursor after the text, and Send hidden until she has finished. */
+/* Priya typing: a blinking cursor after the text; Send is hidden only while the box is empty. */
 @keyframes caret { 50% { opacity: 0; } }
 .composer.is-typing span::after { content: ""; display: inline-block; width: 1.5px; height: 1.1em; margin-left: 1px; vertical-align: -.15em; background: var(--ink); animation: caret 1s steps(1) infinite; }
-.composer.is-typing .btn { visibility: hidden; }
+.composer.empty .btn { visibility: hidden; }

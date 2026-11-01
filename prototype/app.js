@@ -102,8 +102,8 @@
     history.replaceState(null, '', hashFor());
   }
 
-  // What Priya types appears letter by letter once the screen has slid in; Send appears when she
-  // has finished. Going back, or switching chats, shows the finished text at once.
+  // What Priya types appears letter by letter once the screen has slid in; Send appears with the
+  // first letter, as in Teams. Going back, or switching chats, shows the finished text at once.
   let typer = null;
   function typeDraft(root, dir) {
     clearTimeout(typer);
@@ -112,11 +112,12 @@
     const out = box.querySelector('span');
     const text = out.textContent;
     let n = 0;
-    box.classList.add('is-typing');
+    box.classList.add('is-typing', 'empty');
     out.textContent = '';
     const step = () => {
       n += 1;
       out.textContent = text.slice(0, n);
+      box.classList.remove('empty');   // Send is available from the first letter
       if (n < text.length) typer = setTimeout(step, text[n - 1] === ' ' ? 45 : 28);
       else box.classList.remove('is-typing');
     };
