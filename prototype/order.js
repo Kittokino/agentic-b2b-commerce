@@ -333,6 +333,7 @@
       ['Hands over', 'The agent had no other wine it was allowed to offer, so it passed the Sauvignon Blanc to Tom with the full conversation.'],
     ],
     links: [{ go: 'admin', label: 'See what happens after the order' }, { go: 'accept', label: 'What if Nigel had accepted Pinot Grigio?' }],
+    deckLink: true,
     redAt: 1,
     apply() {},
   };
@@ -479,6 +480,7 @@
       ['The agent improves', 'From now on, the agent offers up to three ranked alternatives that suit the dish. Earlier decisions keep version 1.'],
     ],
     links: [],
+    deckLink: true,
     apply() {},
   };
 

@@ -391,6 +391,7 @@
         ${scene.outcomes ? `<ul class="outcomes">${scene.outcomes.map(([k, v], i) => `<li class="${i === scene.redAt ? 'is-stop' : ''}"><b>${k}</b><p>${esc(v)}</p></li>`).join('')}</ul>` : ''}
         <div class="end-btns">
           ${scene.links.map((l, i) => `<button class="btn ${i ? 'ghost' : ''}" data-go="${l.go}">${esc(l.label)}</button>`).join('')}
+          ${scene.deckLink ? `<a class="btn ghost" href="../deck/#9" target="kade-deck">${icon('back')}Back to the deck</a>` : ''}
         </div>
       </div>`;
   }

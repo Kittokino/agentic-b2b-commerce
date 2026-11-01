@@ -513,3 +513,4 @@ ul, ol { padding: 0; list-style: none; }
 @keyframes caret { 50% { opacity: 0; } }
 .composer.is-typing span::after { content: ""; display: inline-block; width: 1.5px; height: 1.1em; margin-left: 1px; vertical-align: -.15em; background: var(--ink); animation: caret 1s steps(1) infinite; }
 .composer.empty .btn { visibility: hidden; }
+.end-btns a.btn { text-decoration: none; }

@@ -30,6 +30,10 @@
     history.replaceState(null, '', `#${current + 1}`);
   }
 
+  // The deck's tab has a name, so the prototype's "Back to the deck" link can switch to it
+  // (or open the deck again, on slide 9, if this tab was closed).
+  window.name = 'kade-deck';
+
   function fromHash() {
     const n = parseInt(location.hash.slice(1), 10);
     return Number.isFinite(n) ? n - 1 : 0;
