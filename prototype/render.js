@@ -55,6 +55,13 @@
     return `<button class="${cls}" disabled>${esc(b.label)}</button>`;
   };
 
+  // The reply buttons under one message. Once one of them has been used, the question is answered,
+  // so the others (such as "Not now") are disabled too instead of still showing their message.
+  const acts = (buttons, ctx, cls = '') => {
+    const answered = !buttons.some(b => ctx.live.includes(b.action)) && buttons.some(b => !b.toast && !b.toastText);
+    return buttons.map(b => answered ? `<button class="${cls}" disabled>${esc(b.label)}</button>` : act(b, ctx, cls)).join('');
+  };
+
   // WhatsApp's own formatting: *bold* in a message's text becomes bold.
   const waText = (t) => esc(t).replace(/\*([^*]+)\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
 
@@ -300,7 +307,7 @@
       let body = waText(m.text);
       if (m.kind === 'voice') body = `<div class="voice"><span class="play">${icon('play')}</span><span class="wave">${'<i></i>'.repeat(24)}</span><span class="len">0:14</span></div>`;
       if (m.kind === 'done') body = `<p class="done-msg">${icon('check')} ${body}</p>`;
-      const buttons = m.buttons ? `<div class="wa-buttons">${m.buttons.map(b => act(b, ctx)).join('')}</div>` : '';
+      const buttons = m.buttons ? `<div class="wa-buttons">${acts(m.buttons, ctx)}</div>` : '';
       return `${typing}<div${wrap}><div class="msg ${out ? 'out' : 'in'} k-${m.kind}"><div class="bubble">${body}<span class="ts">${esc(m.time)}</span></div></div>${buttons}</div>`;
     }).join('');
     return `
@@ -327,7 +334,7 @@
   function teams(s, scene, ctx) {
     const chatAssistant = s.assistant.map((m, i) => {
       let body;
-      if (m.kind === 'card') body = `<div class="acard"><p>${esc(m.text)}</p><div class="acard-btns">${m.buttons.map(b => act(b, ctx, 'btn sm ghost')).join('')}</div></div>`;
+      if (m.kind === 'card') body = `<div class="acard"><p>${esc(m.text)}</p><div class="acard-btns">${acts(m.buttons, ctx, 'btn sm ghost')}</div></div>`;
       else if (m.kind === 'note') body = `<p class="call">${icon('phone')}${esc(m.text)}</p>`;
       else body = `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
       return `<li${enter(i, ctx.fresh.assistant)}>${m.who === 'priya' ? '' : `<span class="assistant">${icon('agent')}</span>`}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Purchasing assistant'} · ${esc(m.time)}</span>${body}</div></li>`;
@@ -335,7 +342,7 @@
 
     const chatKade = s.kade.map((m, i) => {
       const body = m.kind === 'card' ? orderCard(s, ctx)
-        : m.buttons ? `<div class="acard"><p>${esc(m.text)}</p><div class="acard-btns">${m.buttons.map(b => act(b, ctx, 'btn sm ghost')).join('')}</div></div>`
+        : m.buttons ? `<div class="acard"><p>${esc(m.text)}</p><div class="acard-btns">${acts(m.buttons, ctx, 'btn sm ghost')}</div></div>`
         : `<p class="tmsg ${m.who === 'priya' ? 'mine' : ''}">${esc(m.text)}</p>`;
       return `<li${enter(i, ctx.fresh.kade)}>${m.who === 'priya' ? '' : avatar('agent')}<div><span class="meta">${m.who === 'priya' ? 'You' : 'Kade · Order agent (AI)'} · ${esc(m.time)}</span>${body}</div></li>`;
     }).join('');
