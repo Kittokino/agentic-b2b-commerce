@@ -264,13 +264,12 @@ p { margin: 0; }
 .s-appendix h2 { color: var(--ink-3); }
 
 /* ---------- Appendix · How this was made ---------- */
-.made { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
-.made h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 14px; }
-.made p { font-size: 17px; line-height: 1.6; color: var(--ink-2); }
-/* Claude's report on working with the author, in the deck's serif "voice". */
-.made .report { margin: 0; font-family: var(--font-voice); font-style: italic; font-size: 22px; line-height: 1.35; color: var(--ink); }
-.s-made .caveat { margin-top: auto; font-size: 14px; color: var(--ink-3); }
-.s-made .caveat b { color: var(--ink-2); font-weight: 600; }
+.s-made h2 { margin-bottom: 16px; }
+.lessons { list-style: none; margin: 0; padding: 0; counter-reset: l; display: grid; grid-template-columns: 1fr 1fr; gap: 32px 64px; }
+.lessons li { counter-increment: l; position: relative; padding-left: 44px; }
+.lessons li::before { content: counter(l); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--ink); font-size: 12px; font-weight: 700; display: grid; place-items: center; }
+.lessons h3 { font-family: var(--font-display); font-size: 22px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 8px; }
+.lessons p { font-size: 16px; line-height: 1.55; color: var(--ink-2); }
 
 /* ---------- Chrome (outside the scaled deck) ---------- */
 .progress { position: fixed; left: 0; top: 0; height: 3px; background: var(--red); transition: width .25s ease; z-index: 5; }
