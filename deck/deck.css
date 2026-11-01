@@ -227,6 +227,22 @@ p { margin: 0; }
 .learn .phase dt { font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 16px; padding-left: 18px; position: relative; }
 .learn .phase dt::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); }
 
+/* ---------- 12 · Where this is heading ---------- */
+.s-vision h2 { margin-bottom: 16px; }
+.s-vision .lead { margin-bottom: 28px; }
+/* Same line-and-dots as the journey: Today is filled, Next and Later are still open. */
+.stages { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.stages::before { content: ""; position: absolute; left: 5px; right: calc((100% - 80px) / 3 - 5px); top: 5px; height: 1px; background: var(--ink-3); opacity: .6; }
+.stages .dot { position: relative; z-index: 1; display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--ink); margin-bottom: 14px; }
+.stages .now .dot { background: var(--ink); }
+.stages h3 { font-family: var(--font-display); font-size: 22px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 6px; }
+.stages p { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.human-hurdles { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
+.human-hurdles h3 { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; font-family: var(--font); }
+.human-hurdles p, .human-hurdles li { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.human-hurdles ul { margin: 0; padding-left: 18px; }
+.s-vision .motto { font-size: 24px; line-height: 1.3; max-width: 1000px; }
+
 /* ---------- Appendix divider ---------- */
 .s-appendix { justify-content: center; }
 .s-appendix h2 { color: var(--ink-3); }

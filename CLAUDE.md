@@ -45,14 +45,12 @@ Vision idea for the "Next" or "Later" stage: the agent suggests changes the cust
 
 The deck is `deck/index.html` (slides), `deck/deck.css` and `deck/deck.js`. It is a fixed 1280x720 stage; keys ←/→, N for notes. Live at https://kittokino.github.io/agentic-b2b-commerce/deck/.
 
-Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research; appendix with the assumptions matrix and the research plan. The slide "How this was made" is hidden for now (`hidden` on its section), and the author will decide on it later.
+Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research, 12 where this is heading (the closing slide); appendix with the assumptions matrix and the research plan. The slide "How this was made" is hidden for now (`hidden` on its section), and the author will decide on it later.
 
 Still to build:
-1. "Where this is heading": Today, Next, Later; what stays human (for example, Priya calls Old Town herself); and one place where the author would challenge current thinking about B2B commerce. Carry the vision idea about trust above.
-2. The design system: how the author chose the design language, and the same order item (status, order item, agent symbol, activity entry) in WhatsApp, Teams and Kade's Sana. Also a design-system file in the repository that AI tools can generate from (the tokens and components in `shared/`, plus the copy rules above), so the same order can be rendered in a new channel, such as email.
-3. Undo, trust and privacy when an agent acts on someone's behalf: a short addition, on the vision slide or as a note on slide 7.
-4. A line on the title slide on how to use the deck: arrow keys to move, N for the notes.
-5. When slides are added, extend the note on slide 9 that lists what the rest of the deck covers.
+1. The design system: how the author chose the design language, and the same order item (status, order item, agent symbol, activity entry) in WhatsApp, Teams and Kade's Sana. Also a design-system file in the repository that AI tools can generate from (the tokens and components in `shared/`, plus the copy rules above), so the same order can be rendered in a new channel, such as email.
+2. A line on the title slide on how to use the deck: arrow keys to move, N for the notes.
+3. When slides are added, extend the note on slide 9 that lists what the rest of the deck covers.
 
 Leadership and commercial impact are not slides; the author prepares them for the conversation.
 
