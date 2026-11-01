@@ -308,8 +308,11 @@
     story: "Priya approved the one-time price with the button in Kade’s message.",
     time: '08:30',
     screen: 'teams', actor: 'priya', chat: 'kade',
-    title: 'Kade’s order agent confirms it in the same thread. Every item now has its answer.',
+    title: 'Priya approved the one-time price, and Kade’s order agent confirms it in the same thread. Every item now has its answer.',
     next: 'Back to Kade’s screen',
+    // Part of the scene before it: Priya's click on Approve plays out on the same screen, without a
+    // new scene number. To make it a scene of its own again, remove this line.
+    merged: true,
     apply(s) {
       set(s, 'wine', { status: 'confirmed', owner: null, qty: '24 bottles', note: '10 bottles from Old Town and 14 from a partner supplier' });
       s.order.status = 'Confirmed';

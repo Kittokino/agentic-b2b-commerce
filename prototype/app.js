@@ -46,9 +46,9 @@
     el('#rail-body').innerHTML = `
       <p class="kicker when">${V.esc(when)}${branch ? `<br><span>${V.esc(branch)}</span>` : ''}</p>
       ${view ? `<p class="view">${mark}<span>${V.esc(view[1])}</span></p>` : ''}
-      <div class="so-far"><span class="kicker">So far</span><p>${V.esc(sc.story)}</p></div>
+      <div class="so-far"><span class="kicker">So far</span><p>${V.esc(sc.merged && index > 0 ? list[index - 1].story : sc.story)}</p></div>
       ${['break', 'end'].includes(sc.screen) ? '' : `<div class="now"><span class="kicker">Now</span><p>${V.esc(sc.title)}</p></div>`}`;
-    el('.counter').textContent = `Scene ${index + 1} of ${list.length}`;
+    el('.counter').textContent = `Scene ${sceneNo(index)} of ${sceneNo(list.length - 1)}`;
     el('[data-nav="prev"]').disabled = index === 0;
     el('[data-nav="next"]').disabled = index === list.length - 1;
   }
@@ -87,6 +87,9 @@
     }
     Object.assign(shown, { key, screen: sc.screen });
 
+    // A step merged into the scene before it: the clicked buttons disable at once, and what it
+    // adds comes in after a short pause, as if the other side were answering.
+    if (sc.merged && dir >= 0) shown.el.querySelectorAll('.new').forEach(n => { n.style.animationDelay = `${(parseFloat(n.style.animationDelay) || 0) + 0.8}s`; });
     follow(shown.el);
     typeDraft(shown.el, dir);
     // Tom's flag: bring the entry he flags into view once the screen has slid in.
@@ -296,14 +299,17 @@
   // names them ('What if'). Older links (#declined-n, #accepted-n, #more-options-n) still work.
   const SLUGS = { decline: 'scene', accept: 'what-if-accepted', more: 'what-if-more-options', admin: 'after-the-order' };
   const OLD = { declined: 'decline', accepted: 'accept', 'more-options': 'more' };
+  // Scene numbers skip steps merged into the scene before them (merged: true in order.js).
+  const sceneNo = (i) => steps().slice(0, i + 1).filter(sc => !sc.merged).length;
+  const stepFor = (n) => Math.max(0, steps().findIndex((sc, i) => sceneNo(i) === n));
   function hashFor() {
-    return `#${path === 'admin' || index > S.choiceAt ? SLUGS[path] : 'scene'}-${index + 1}`;
+    return `#${path === 'admin' || index > S.choiceAt ? SLUGS[path] : 'scene'}-${sceneNo(index)}`;
   }
   function fromHash() {
     const m = location.hash.match(/^#(scene|what-if-accepted|what-if-more-options|after-the-order|declined|accepted|more-options)-(\d+)$/);
     if (!m) return false;
     path = OLD[m[1]] || Object.keys(SLUGS).find(k => SLUGS[k] === m[1]) || 'decline';
-    index = Math.max(0, Math.min(steps().length - 1, +m[2] - 1));
+    index = stepFor(Math.max(1, Math.min(sceneNo(steps().length - 1), +m[2])));
     chosen = path === 'admin' || index > S.choiceAt;
     return true;
   }
