@@ -138,7 +138,7 @@ p { margin: 0; }
 /* ---------- 7 · Journey ---------- */
 /* time → dot → face → title → thought → channel; faces line up as one row. */
 .track { position: relative; list-style: none; padding: 0; margin: 6px 0 0; display: grid; grid-template-columns: repeat(7, 1fr); gap: 18px; }
-.track::before { content: ""; position: absolute; left: 5px; right: calc((100% - 6 * 18px) / 7 - 5px); top: 33px; height: 1px; background: var(--ink-3); opacity: .6; }
+.track::before { content: ""; position: absolute; left: 5px; right: calc((100% - 6 * 18px) / 7 - 5px); top: 35px; height: 1px; background: var(--ink-3); opacity: .6; }
 .track li { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .track .time { font-size: 12px; font-weight: 600; color: var(--ink-3); letter-spacing: .04em; text-transform: uppercase; height: 18px; }
 .track .dot { position: relative; z-index: 1; width: 11px; height: 11px; border-radius: 50%; background: var(--ink); margin: 2px 0 10px; }
