@@ -49,12 +49,11 @@ Vision idea for the "Next" or "Later" stage: the agent suggests changes the cust
 
 The deck is `deck/index.html` (slides), `deck/deck.css` and `deck/deck.js`. It is a fixed 1280x720 stage; keys ←/→, N for notes. Live at https://kittokino.github.io/agentic-b2b-commerce/deck/.
 
-Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research, 12 where this is heading (the closing slide: "Trust earns the next step.", with the drawing of two chefs plating together, `assets/places/vision-plating.jpg`); appendix with the design system (a backup slide: the same salmon item in WhatsApp, Teams and Kade's Sana), the assumptions matrix and the research plan. The slide "How this was made" is hidden for now (`hidden` on its section), and the author will decide on it later.
+Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research, 12 where this is heading (the closing slide: "Trust earns the next step.", with the drawing of two chefs plating together, `assets/places/vision-plating.jpg`); appendix with the design system (a backup slide: the same salmon item in WhatsApp, Teams and Kade's Sana), the assumptions matrix, the research plan, and how this was made ("How I worked with AI").
 
 Still to build:
 1. A start page (`index.html` at the top of the repository) that tells a reader how to go through the deck and the prototype, including the keys: arrow keys to move, N for the notes.
-2. Decide on the hidden slide "How this was made".
-3. When slides are added, extend the note on slide 9 that lists what the rest of the deck covers.
+2. When slides are added, extend the note on slide 9 that lists what the rest of the deck covers.
 
 Leadership and commercial impact are not slides; the author prepares them for the conversation.
 
