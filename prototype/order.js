@@ -168,34 +168,6 @@
     },
   };
 
-  const called = {
-    story: "Priya calls the manager at Old Town to ask whether they can spare the 10 bottles.",
-    time: '07:43',
-    screen: 'teams', actor: 'priya', chat: 'assistant',
-    title: 'Old Town can send all 10 bottles. Priya’s purchasing assistant does not hear the call, so it asks her how it went.',
-    cta: 'Old Town confirmed',
-    choices: [{ action: 'confirmed' }],
-    apply(s) {
-      s.assistant.push({ time: '07:43', kind: 'note', text: 'Call with Old Town, 2 minutes' });
-      s.assistant.push({ time: '07:43', kind: 'card', text: 'Did Old Town confirm the 10 bottles?', buttons: [{ action: 'confirmed', label: 'Old Town confirmed' }, { action: 'not-available', label: 'Not available', toast: 'alt' }] });
-    },
-  };
-
-  // Priya tells her assistant how the call went; it notes it and points her to Kade.
-  const noted = {
-    story: "Old Town can send all 10 bottles, and Priya tells her purchasing assistant.",
-    time: '07:44',
-    screen: 'teams', actor: 'priya', chat: 'assistant',
-    title: 'The purchasing assistant notes it and reminds Priya to tell Kade. It does not change Kade’s order itself.',
-    next: 'Switch to the Kade Foodservice chat',
-    advanceOnChat: 'kade',   // clicking Kade's chat in the list does what the footer button does
-    apply(s) {
-      s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
-      s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Thanks, Priya. I have noted that Old Town is sending 10 bottles to Harbour Front. Please tell Kade in their order thread, so they look for 14 bottles instead of 24.' });
-    },
-  };
-
-  // Merged scene (replaces `called` and `noted` in the paths, which stay below until this one is settled):
   // Priya calls Old Town, then tells her assistant how it went, and it points her to Kade.
   const callNoted = {
     story: "Priya calls the manager at Old Town to ask whether they can spare the 10 bottles.",
@@ -204,7 +176,12 @@
     title: 'Old Town can send all 10 bottles. The purchasing assistant did not hear the call, so it asks Priya how it went, notes her answer and reminds her to tell Kade. It does not change Kade’s order itself.',
     next: 'Switch to the Kade Foodservice chat',
     advanceOnChat: 'kade',
-    apply(s) { called.apply(s); noted.apply(s); },
+    apply(s) {
+      s.assistant.push({ time: '07:43', kind: 'note', text: 'Call with Old Town, 2 minutes' });
+      s.assistant.push({ time: '07:43', kind: 'card', text: 'Did Old Town confirm the 10 bottles?', buttons: [{ action: 'confirmed', label: 'Old Town confirmed' }, { action: 'not-available', label: 'Not available', toast: 'alt' }] });
+      s.assistant.push({ time: '07:44', kind: 'text', who: 'priya', text: 'Old Town confirmed' });
+      s.assistant.push({ time: '07:44', kind: 'text', who: 'assistant', text: 'Thanks, Priya. I have noted that Old Town is sending 10 bottles to Harbour Front. Please tell Kade in their order thread, so they look for 14 bottles instead of 24.' });
+    },
   };
 
   const compose = {
@@ -311,7 +288,7 @@
     title: 'Priya approved the one-time price, and Kade’s order agent confirms it in the same thread. Every item now has its answer.',
     next: 'Back to Kade’s screen',
     // Part of the scene before it: Priya's click on Approve plays out on the same screen, without a
-    // new scene number. To make it a scene of its own again, remove this line.
+    // new scene number.
     merged: true,
     apply(s) {
       set(s, 'wine', { status: 'confirmed', owner: null, qty: '24 bottles', note: '10 bottles from Old Town and 14 from a partner supplier' });

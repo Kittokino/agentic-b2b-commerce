@@ -40,7 +40,7 @@ Vision idea for the "Next" or "Later" stage: the agent suggests changes the cust
 
 ## Where the prototype stands
 
-- Main story: 16 scenes (#scene-1 to #scene-16). Priya's price approval and the agent's confirmation are one scene (#scene-14): `priceApproved` has `merged: true`, so it plays on the same screen without a scene number of its own; remove that line to undo. The Old Town call is one scene (#scene-8, `callNoted` in order.js); the two scenes it replaced (`called`, `noted`) are kept in order.js but left out of the paths until the author settles the merged one. Side branches: #what-if-accepted-n and #what-if-more-options-n. Follow-on: #after-the-order-1 to 4 (Tom flags a suggestion; Maheep publishes version 2 of the substitution rule).
+- Main story: 16 scenes (#scene-1 to #scene-16). Priya's price approval and the agent's confirmation are one scene (#scene-14): `priceApproved` has `merged: true`, so it plays on the same screen without a scene number of its own. The Old Town call is one scene (#scene-8, `callNoted` in order.js). Side branches: #what-if-accepted-n and #what-if-more-options-n. Follow-on: #after-the-order-1 to 4 (Tom flags a suggestion; Maheep publishes version 2 of the substitution rule).
 - The closing cards of the main story and of "After the order" have "Back to the deck", which switches to the deck's tab on slide 9.
 - Decided not to build: the full Sana navigation (Orders, Customers and the other tabs).
 - Testing: Playwright scripts click through every path and open every link and pop-up; run them after any change to order.js, render.js or app.js.
