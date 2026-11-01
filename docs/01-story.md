@@ -1,6 +1,6 @@
 # The Olive Tree × Kade: story
 
-> Concept for a Team Lead Research & Design case. Set in **Rotterdam**. All companies, people and figures are fictional.
+> A design exploration, set in **Rotterdam**. All companies, people and figures are fictional.
 
 ## In one line
 On Wednesday night, Nigel orders three things in one voice note. Kade's AI order agent confirms the cheese board on its own, asks Priya to approve the salmon because it goes over the fish budget, and asks Nigel about the wine because Kade does not have enough Sauvignon Blanc in stock. When Nigel declines the alternative, Priya finds 10 bottles at Old Town, and Tom finds the other 14 at a partner supplier.
