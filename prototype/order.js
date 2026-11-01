@@ -319,6 +319,7 @@
       log(s, '08:31', 'agent', 'Confirmed the order, because every item now has an answer', { change: ['Order', 'Waiting on customer', 'Confirmed'], rule: 'confirm' });
       log(s, '08:31', 'system', 'Sent the order to Kade’s ERP for delivery on Friday between 07:00 and 09:00', { change: ['ERP', 'Not sent', 'Booked'] });
       log(s, '08:31', 'agent', 'Messaged Nigel and Priya that the order is confirmed', { source: 'WhatsApp and Teams' });
+      log(s, '08:32', 'system', 'Scheduled the delivery to Harbour Front for Friday between 07:00 and 09:00', { detail: 'Kade’s ERP planned the picking and the van route. The 14 bottles from Northgate Wines arrive at Kade’s warehouse on Thursday by 15:00 and go out with this order.' });
       wa(s, '08:31', 'agent', 'Your order *KD-24817 is confirmed*. Tom found the other 14 bottles of Sauvignon Blanc, and Priya approved the price. We will deliver it to Harbour Front on *Friday between 07:00 and 09:00*.', { kind: 'done' });
     },
   };
