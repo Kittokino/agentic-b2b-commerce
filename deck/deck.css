@@ -16,7 +16,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; color: var(--in
 h1 { font-size: 76px; line-height: 1.04; }
 h2 { font-size: 44px; line-height: 1.12; margin-bottom: 40px; max-width: 900px; }
 h3 { font-size: 22px; line-height: 1.25; font-weight: 500; letter-spacing: -.01em; }
-.red { color: var(--red); }
+.red { color: var(--red-text); }
 p { margin: 0; }
 .body { font-size: 18px; line-height: 1.55; color: var(--ink-2); }
 .small { font-size: 14px; line-height: 1.5; color: var(--ink-2); }
@@ -29,7 +29,7 @@ p { margin: 0; }
 .pill { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 500; border: 1px solid var(--line); background: var(--surface); color: var(--ink); white-space: nowrap; }
 .pill .ico { font-size: 15px; }
 .pill.solid { background: var(--red); border-color: var(--red); color: #fff; }
-.pill.outline-red { border-color: var(--red); color: var(--red); background: transparent; }
+.pill.outline-red { border-color: var(--red); color: var(--red-text); background: transparent; }
 
 .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line); }
 
@@ -50,7 +50,7 @@ p { margin: 0; }
 .beats b { font-size: 17px; font-weight: 600; color: var(--ink); }
 .beats span { font-size: 14px; color: var(--ink-3); }
 .beats .pivot::before { background: var(--red); width: 15px; height: 15px; top: -2px; left: -2px; }
-.beats .pivot b { color: var(--red); }
+.beats .pivot b { color: var(--red-text); }
 
 /* ---------- 2 · Problem ---------- */
 .big-stat { font-family: var(--font-display); font-size: 110px; line-height: .95; letter-spacing: -.02em; color: var(--ink); }
@@ -130,7 +130,7 @@ p { margin: 0; }
 /* Same verbs and dots as the title slide; red only for the stop. */
 .beat { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: var(--ink); padding-top: 8px; }
 .beat .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--ink); flex: none; }
-.beat.stop { color: var(--red); }
+.beat.stop { color: var(--red-text); }
 .beat.stop .dot { background: var(--red); }
 .beat .face { margin-left: 4px; }
 .motto { margin-top: auto; font-family: var(--font-voice); font-style: italic; font-size: 34px; line-height: 1.25; color: var(--ink); }
@@ -146,7 +146,7 @@ p { margin: 0; }
 .track .face { width: 40px; height: 40px; }
 .track .face.agent { font-size: 18px; }
 .track h3 { font-size: 17px; font-weight: 600; margin-top: 6px; }
-.track .stop h3 { color: var(--red); }
+.track .stop h3 { color: var(--red-text); }
 /* Voices in serif italic; the agent's rule stays in plain sans. */
 .track .thought { font-family: var(--font-voice); font-style: italic; font-size: 19px; line-height: 1.25; color: var(--ink); min-height: 72px; }
 .track .agent-rule { font-size: 14px; line-height: 1.45; color: var(--ink-2); min-height: 72px; }

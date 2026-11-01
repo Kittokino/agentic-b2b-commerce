@@ -9,7 +9,7 @@
 .status::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .status .ico { font-size: 15px; stroke-width: 2.2; }
 .status.done::before { display: none; }
-.status.wait { color: var(--red); }
+.status.wait { color: var(--red-text); }
 .status.plain { color: var(--ink-3); font-weight: 500; }
 
 /* Faces */

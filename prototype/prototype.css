@@ -140,7 +140,7 @@ ul, ol { padding: 0; list-style: none; }
 /* The agent stopped here: the only red on the screen. */
 .entry.is-stop { background: var(--red-soft); border-radius: 8px; border-top-color: transparent; }
 .entry.is-stop::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 3px; background: var(--red); }
-.entry.is-stop .rule { border-color: rgba(226, 16, 60, .25); color: #c40e35; }
+.entry.is-stop .rule { border-color: rgba(226, 16, 60, .25); color: var(--red-text); }
 
 .summary { align-self: start; margin-bottom: 18px; padding: 18px 20px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
 .sum-head { display: flex; align-items: center; justify-content: space-between; font-size: var(--t-small); }
@@ -261,7 +261,7 @@ ul, ol { padding: 0; list-style: none; }
 .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; }
 .outcomes li { padding-top: 14px; border-top: 2px solid var(--ink); }
 .outcomes li.is-stop { border-color: var(--red); }
-.outcomes li.is-stop b { color: var(--red); }
+.outcomes li.is-stop b { color: var(--red-text); }
 .outcomes b { font-size: var(--t-head); }
 .outcomes p { margin-top: 6px; font-size: var(--t-body); line-height: 1.45; color: var(--ink-2); }
 .end-btns { display: flex; gap: 12px; margin-top: 40px; }

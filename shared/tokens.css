@@ -8,6 +8,7 @@
   --line: #e3e0da;
   --red: #e2103c;
   --red-soft: #fce4e9;
+  --red-text: #c40e35;  /* red words: 5:1 or better on every background we use; --red stays for shapes */
 
   /* Status: the only colours besides red and navy. */
   --done: #2f7a49;

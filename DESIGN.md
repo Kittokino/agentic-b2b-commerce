@@ -30,6 +30,7 @@ The design starts from the principles of Microsoft's Fluent design system: calm,
 | `--line` | `#e3e0da` | Dividers and borders. |
 | `--red` | `#e2103c` | **Only** where the agent stops and asks a person: the status, the marker on that item, the stop in a journey. |
 | `--red-soft` | `#fce4e9` | Background behind a stopped item or activity entry. |
+| `--red-text` | `#c40e35` | Red **words**, such as "Awaiting approval". `--red` (4.3 to 1) is enough for shapes, but text needs 4.5 to 1; this red reaches 5.0 to 1 on `--red-soft` and 5.5 to 1 on `--bg`. |
 | `--done` / `--done-soft` | `#2f7a49` / `#e3f1e6` | A confirmation that something is finished, such as "Version 2 is live". Use sparingly. |
 | `--person-soft` | `#e9e8f0` | Notes from people, hover states, system faces. |
 
@@ -47,6 +48,7 @@ Every screen and card works in dark mode too, because Teams, phones and laptops 
 | `--line` | `#2e2a47` | |
 | `--red` | `#ff5c7a` | 6.3 to 1 |
 | `--red-soft` | `#3a1622` | |
+| `--red-text` | `#ff5c7a` | 6.3 to 1 (the same as `--red` in dark mode) |
 | `--done` / `--done-soft` | `#6cc58c` / `#17301f` | 8.9 to 1 |
 | `--person-soft` | `#2a2742` | |
 
@@ -215,7 +217,6 @@ The salmon order at 22:48 on Wednesday 28 October 2026, after the agent read Nig
 These are not decided yet. Do not invent them; ask the owner.
 
 - Email: the rules are left open on purpose, to test whether this file is enough to render it.
-- Red text contrast in light mode: red status text (`#e2103c`) reaches 4.3 to 1 on `--bg` and 4.0 to 1 on `--red-soft`, below 4.5 to 1. A darker red for text, `#c40e35`, reaches 5.5 to 1 and 5.0 to 1. Changing `shared/tokens.css` needs the owner's approval.
 - Dark mode is defined here but not yet built into the prototype.
 - A spacing scale (spacing is currently set per screen).
 
@@ -231,3 +232,4 @@ Owner: the design lead of this project. Change this file through a reviewed comm
 | 1 November 2026 | A confirmed order shows the step it still waits for: "✓ Confirmed · Pending delivery". |
 | 1 November 2026 | One chat per customer and channel, never one per order. How the agent matches a message to its record, and record numbers, linked, in every reply that creates, changes or confirms a record. |
 | 1 November 2026 | Added dark mode, accessibility, every person's own language and formats, and the patterns for a missed deadline and for undoing. Email listed as a channel, with its rules left open on purpose. |
+| 1 November 2026 | Red words use `--red-text` (#c40e35) to pass AA contrast; shapes keep `--red`. |
