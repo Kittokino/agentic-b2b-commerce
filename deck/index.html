@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=2">
   <link rel="stylesheet" href="../shared/components.css?v=4">
-  <link rel="stylesheet" href="deck.css?v=20261101b">
+  <link rel="stylesheet" href="deck.css?v=20261101c">
 </head>
 <body>
 
@@ -273,31 +273,21 @@
   <section class="slide s-config">
     <p class="eyebrow">Configuring the platform</p>
     <h2>The same platform, set up with different rules</h2>
-    <div class="config">
-      <div class="rules-how">
-        <div class="who"><div class="face"><img src="../assets/personas/maheep.png" alt=""></div><div><h3>How Maheep works with rules</h3><span>Commerce admin at Kade</span></div></div>
-        <ul>
-          <li>Each rule is one plain sentence, and Maheep is its owner.</li>
-          <li>Each change to a rule is a new version. Every decision keeps the version it was made under.</li>
-          <li>Before publishing a change, Maheep tests it against past orders. Version 2 of the substitution rule was tested on October's 31 wine substitutions.</li>
-          <li>If a new version causes problems, Maheep can go back to the previous one.</li>
-        </ul>
-      </div>
-      <table class="compare">
-        <thead><tr><th></th><th>Kade Foodservice</th><th>A medical supplier</th></tr></thead>
-        <tbody>
-          <tr><th>Substitutes</th><td>The agent may suggest up to three alternatives, and the person who ordered decides.</td><td>The agent never suggests a substitute for a medicine. It passes the item to a pharmacist.</td></tr>
-          <tr><th>Approvals</th><td>The buyer approves anything over an outlet's budget, and any price outside the contract.</td><td>Prescription-only medicines are sold only to customers whose licence is on file.</td></tr>
-          <tr><th>What each item records</th><td>The rule and the version that each decision followed.</td><td>Also the lot number and expiry date, so a recalled lot can be traced to every customer who received it.</td></tr>
-          <tr><th>Delivery</th><td>Kade's usual delivery routes.</td><td>Items that must stay cold go only on refrigerated routes.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="caveat"><b>Note:</b> Today, setting up an AI agent often needs help from developers, and undoing what an agent did needs expertise and a full record of its actions. Making this simple enough for an admin like Maheep, in any industry, is work I would do together with engineering and product.</p>
+    <p class="lead">Every industry needs the same kinds of rules. Only the settings change. Maheep owns each rule, tests every change before publishing it, and can go back to an earlier version.</p>
+    <table class="compare">
+      <thead><tr><th></th><th>Kade Foodservice</th><th>A medical supplier</th></tr></thead>
+      <tbody>
+        <tr><th>Substitutes</th><td>The agent suggests up to three alternatives, and the person who ordered decides.</td><td>The agent never suggests a substitute for a medicine. A pharmacist decides.</td></tr>
+        <tr><th>Approvals</th><td>The buyer approves anything over an outlet's budget.</td><td>Prescription-only medicines need a licence on file.</td></tr>
+        <tr><th>Pricing</th><td>Prices come from the contract. A one-time price goes to the buyer.</td><td>Prices come from each hospital's agreement. Any other price needs approval.</td></tr>
+        <tr><th>Records</th><td>Each decision records the rule and the version it followed.</td><td>Each item also records its lot number, so a recall can be traced.</td></tr>
+        <tr><th>Delivery</th><td>Orders go on Kade's usual delivery routes.</td><td>Items that must stay cold go only on refrigerated routes.</td></tr>
+      </tbody>
+    </table>
+    <p class="caveat"><b>Note:</b> Today, setting this up often needs developers. I would work with engineering and product to make it simple for any admin.</p>
     <aside class="notes">
-      <p>Kade's agent follows rules that Maheep, Kade's commerce admin, sets and owns. Each rule is a plain sentence with a version, and every decision records which version it followed. Before Maheep publishes a change, Maheep tests it on past orders. If a new version causes problems, Maheep can go back to the previous one.</p>
-      <p>The same platform can serve another industry with different rules. A medical supplier would not let the agent suggest substitutes for medicines, would check a customer's licence before selling prescription-only medicines, and would record lot numbers so that a recall can be traced.</p>
-      <p>Today, this kind of setup usually needs developers, and rollback needs expertise and good traceability. As a designer, I would not solve that alone. I would work with engineering and product to make it simple enough for any admin to use.</p>
+      <p>Maheep, Kade's admin, sets the rules the agent follows. A medical supplier would use the same kinds of rules with stricter settings, because medicines carry more risk.</p>
+      <p>Making these rules easy to set up, test and undo is not something a designer solves alone. I would shape it together with engineering and product.</p>
     </aside>
   </section>
 
