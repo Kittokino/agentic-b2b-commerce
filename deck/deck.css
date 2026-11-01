@@ -229,7 +229,7 @@ p { margin: 0; }
 
 /* ---------- 12 · Where this is heading: a drawing, and the vision as a headline ---------- */
 .s-vision { flex-direction: row; align-items: center; gap: 64px; }
-.s-vision .scene { width: 420px; height: 520px; object-fit: cover; object-position: 40% 30%; border: 2px solid var(--ink); mix-blend-mode: multiply; flex: none; }
+.s-vision .scene { width: 420px; height: 520px; object-fit: cover; object-position: 50% 50%; border: 2px solid var(--ink); mix-blend-mode: multiply; flex: none; }
 .s-vision .text { flex: 1; }
 .s-vision .keep { font-size: 16px; color: var(--ink-2); }
 .s-vision h2 { font-family: var(--font-voice); font-style: italic; font-size: 64px; line-height: 1.05; margin-bottom: 16px; }
