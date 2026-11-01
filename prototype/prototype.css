@@ -515,3 +515,20 @@ ul, ol { padding: 0; list-style: none; }
 .composer.empty .btn { visibility: hidden; }
 .end-btns a.btn { text-decoration: none; }
 .end-btns + .end-btns.deck-row { margin-top: 12px; }
+
+/* Opening Kade's screen: a skeleton with one sentence about whose screen this is. */
+.opening-screen { position: absolute; left: 300px; right: 0; top: 0; bottom: 64px; z-index: 4; display: flex; flex-direction: column; padding: 24px 32px; background: var(--bg); transition: opacity .5s; }
+.opening-screen[hidden] { display: none; }
+.opening-screen.done { opacity: 0; }
+.skeleton { position: relative; }
+.sk-top { display: flex; align-items: center; gap: 28px; height: 54px; padding: 0 24px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.sk-top span, .sk-body i { display: block; height: 12px; border-radius: 6px; background: #e8e5e0; }
+.sk-top span:first-child { width: 160px; } .sk-top span { width: 64px; }
+.sk-body { display: flex; flex-direction: column; gap: 22px; padding: 28px 24px; }
+.sk-body i:nth-child(1) { width: 30%; height: 18px; } .sk-body i:nth-child(2) { width: 52%; }
+.sk-body i:nth-child(3) { width: 64%; } .sk-body i:nth-child(4) { width: 46%; } .sk-body i:nth-child(5) { width: 58%; }
+@keyframes shimmer { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+.sk-top span, .sk-body i { animation: shimmer 1.4s ease-in-out infinite; }
+.sk-note { position: absolute; inset: 54px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; }
+.sk-note p { font-size: var(--t-body); color: var(--ink-2); }
+.sk-note .sk-title { font-family: var(--font-display); font-size: var(--t-head); font-weight: 500; color: var(--ink); }

@@ -309,11 +309,21 @@
   }
   window.addEventListener('hashchange', () => { if (location.hash !== hashFor() && fromHash()) render(1); });
   // The first scene is drawn when Play is pressed, so it always plays from the start.
+  // After Play, Kade's screen opens with a short skeleton that says whose screen it is.
+  const opening = el('#opening');
+  let openTimer = null;
   function play() {
     intro.classList.add('gone');
     screen.innerHTML = '';
     shown = null;
-    go(0);
+    clearTimeout(openTimer);
+    opening.hidden = false;
+    opening.classList.remove('done');
+    openTimer = setTimeout(() => {
+      opening.classList.add('done');
+      go(0);
+      openTimer = setTimeout(() => { opening.hidden = true; }, 500);
+    }, 1600);
   }
 
   fit();
