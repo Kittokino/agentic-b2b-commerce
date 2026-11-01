@@ -22,48 +22,39 @@ All copy (prototype screens, messages, activity entries, deck slides and notes) 
 
 Argue for a suggestion before making it. Changes go to `main`; bump the `?v=` version on any CSS or JS file you change.
 
-## The brief, as clarified by the hiring manager
+## The brief
 
-Charles Barton (VP of Product, Sana) replied to the author's questions: do not use Sana's existing platform, or any other existing commerce platform, as a reference. Derive the work from research and a product vision, as if building a new solution from the ground up. The author may use their own design system.
+Build as if creating a new solution from the ground up: derive the work from research and a product vision, and do not use any existing commerce platform as a reference. The author may use their own design system. Keep private details (people, dates, anything about how the work will be assessed) out of this repository: it is public.
 
-Decisions the author made in response:
+Decisions the author made:
 
-- Keep the name Sana in the prototype and deck ("Kade runs on Sana"). Sana is the company the author is applying to, and the work must not suggest a name for its future platform.
+- Keep the name Sana in the prototype and deck ("Kade runs on Sana"). The work must not suggest a name for Sana's future platform.
 - Keep the current visual language (off-white, navy, red only for the agent's stop).
+- The design language follows Microsoft's Fluent at heart: Teams is one of the channels, and B2B buyers work in Microsoft 365.
 
-Open points the author will decide later. They matter for the application, so raise them again when the deck is next worked on:
+Vision idea for the "Next" or "Later" stage: the agent suggests changes the customer did not ask for, for example "Your usual cheese board serves about 70; this dinner is for 120. Would you like two?". The author decided against this in the prototype, because from the supplier's agent it can feel pushy, like upselling. In the vision, it shows how trust lets such suggestions work: the more an agent has earned trust, the more it is allowed to suggest.
 
-1. Present the research into how orders are handled today (shared inboxes, order desks, AI order capture) as evidence about the problem, not as products the design copies.
-2. Make the vision central: the "Where this is heading" slide (Today, Next, Later), plus one slide of principles derived from the research (for example: the order lives in one record; the agent works within rules people set; people only see the exceptions; every decision goes to the person who owns it).
-
-Vision idea to carry into the "Next" or "Later" stage: the agent suggests changes the customer did not ask for, for example "Your usual cheese board serves about 70; this dinner is for 120. Would you like two?". The author decided against this in the prototype, because from the supplier's agent it can feel pushy, like upselling. In the vision, it shows how trust lets such suggestions work: the more an agent has earned trust, the more it is allowed to suggest.
-
-Research note: the author's G2 research read reviews of Sana's products. They are rated well, and people describe the interface as simple and easy to work with.
-
-## Where the prototype stands (31 October 2026)
+## Where the prototype stands
 
 - Main story: 18 scenes (#scene-1 to #scene-18). Side branches: #what-if-accepted-n and #what-if-more-options-n. Follow-on: #after-the-order-1 to 4 (Tom flags a suggestion; Maheep publishes version 2 of the substitution rule).
-- Decided not to build: the full Sana navigation (Orders, Customers and the other tabs). The author will mention the unbuilt parts in the email to Anjali.
-- Still open: the length review of the main story; the vision ("Where this is heading"), possibly with one mock-up of the "Later" stage; the deck slides listed in the open points above.
+- The closing cards of the main story and of "After the order" have "Back to the deck", which switches to the deck's tab on slide 9.
+- Decided not to build: the full Sana navigation (Orders, Customers and the other tabs).
 - Testing: Playwright scripts click through every path and open every link and pop-up; run them after any change to order.js, render.js or app.js.
 
-## Deck: what to build next (hand-over, 31 October 2026)
+## The deck
 
 The deck is `deck/index.html` (slides), `deck/deck.css` and `deck/deck.js`. It is a fixed 1280x720 stage; keys ←/→, N for notes. Live at https://kittokino.github.io/agentic-b2b-commerce/deck/.
 
-Deadlines: submit the deck and the prototype by Tuesday 3 November 2026, 18:00 IST. The presentation is Wednesday 4 November, 18:00 IST, over Microsoft Teams: about 30 minutes presenting, then questions. Panel: Charles Barton (VP of Product, hiring manager), Nicole (user researcher), Frank (product manager).
+Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (rule types, with Kade and a medical supplier side by side), 11 assumptions and research; appendix with the assumptions matrix, the research plan, and how this was made.
 
-Slides that exist: 1 title, 2 problem, 3 four principles, 4 the places and the people, 5 a typical day at work, 6 the opportunity, 7 what the agent does (acts, stops, hands over), 8 the journey, 9 live prototype (opens the prototype in a new tab), 10 configuring the platform (Maheep's rules, and the same rules for a medical supplier), 11 assumptions and research; appendix with the assumptions matrix, the research plan, and how this was made.
+Still to build:
+1. "Where this is heading": Today, Next, Later; what stays human (for example, Priya calls Old Town herself); and one place where the author would challenge current thinking about B2B commerce. Carry the vision idea about trust above.
+2. The design system: how the author chose the design language, and the same order item (status, order item, agent symbol, activity entry) in WhatsApp, Teams and Kade's Sana. Also a design-system file in the repository that AI tools can generate from (the tokens and components in `shared/`, plus the copy rules above), so the same order can be rendered in a new channel, such as email.
+3. Undo, trust and privacy when an agent acts on someone's behalf: a short addition, on the vision slide or as a note on slide 7.
+4. A line on the title slide on how to use the deck: arrow keys to move, N for the notes.
+5. When slides are added, extend the note on slide 9 that lists what the rest of the deck covers.
 
-Slides still to build (the case brief asks for research, vision, leadership, commercial impact, platform configurability, and a design system shown in two or more channels):
-1. Research as evidence (open point 1 above), including the author's revised research plan. Research questions and technical notes are in `docs/02-research-and-technical-notes.md`.
-2. Principles derived from the research, then "Where this is heading": Today, Next, Later (open point 2 above, plus the vision idea about trust).
-3. A "Live prototype" hand-off slide that links to https://kittokino.github.io/agentic-b2b-commerce/prototype/.
-4. Platform configurability: Maheep's rules (versioned, tested before publishing), and one example of the same platform with different rules for another industry (for example, a medical supplier: lot numbers, prescriptions, cold chain).
-5. The design system: the same components (status, order item, agent symbol, activity entry) in WhatsApp, Teams and Kade's Sana.
-6. Commercial impact: what it is worth to Kade (more orders confirmed without a person, faster confirmation, fewer errors) and the measures to track.
-7. How the author would lead: team, ways of working with product and engineering, the first 90 days.
-8. A technical assumptions appendix slide (from `docs/02`). Check slide 8's speaker notes against the slide with the author.
+Leadership and commercial impact are not slides; the author prepares them for the conversation.
 
 The deck must match what the prototype now shows:
 - The agent works out "the usual cheese board" from Harbour Front's order history.
@@ -76,4 +67,3 @@ When two sessions work on this repository at the same time:
 - Pull `main` before starting, and pull again before pushing.
 - Do not change `shared/` (colours, fonts, components) without asking the author; the prototype uses the same files.
 - Record any change to the story (a name, a time, a price) in `docs/01-story.md`, so both sessions read the same story.
-
