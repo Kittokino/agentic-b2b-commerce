@@ -53,7 +53,8 @@ Slides that exist: 1 title, 2 problem, 3 the problem and four principles, 4 the 
 
 Still to build:
 1. A start page (`index.html` at the top of the repository) that tells a reader how to go through the deck and the prototype, including the keys: arrow keys to move, N for the notes.
-2. When slides are added, extend the note on slide 9 that lists what the rest of the deck covers.
+2. Rework slide 17 ("Lessons from working with AI") with the author. Its four numbered habits echo the four principles on slide 3, which can read as a fixed pattern; the author will decide the new shape.
+3. When slides are added, extend the note on slide 9 that lists what the rest of the deck covers.
 
 Leadership and commercial impact are not slides; the author prepares them for the conversation.
 
