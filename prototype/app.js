@@ -323,7 +323,7 @@
       opening.classList.add('done');
       go(0);
       openTimer = setTimeout(() => { opening.hidden = true; }, 400);
-    }, 1200);
+    }, 1500);
   }
 
   fit();
