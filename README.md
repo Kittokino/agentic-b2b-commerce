@@ -14,7 +14,7 @@ All companies, people and figures are fictional.
 
 | Path | What it is |
 |---|---|
-| [`deck/`](deck/) | The slide deck: the problem and four principles, the people and their day, what the agent does, the journey, a link to the prototype, configuring the platform, assumptions and research, and where this is heading. The appendix has the design system, the assumptions matrix, the research plan, and lessons from working with AI. |
+| [`deck/`](deck/) | The slide deck: the problem and four principles, the people and their day, what the agent does, the journey, a link to the prototype, configuring the platform, assumptions and research, and where this is heading. The appendix has the design system, and lessons from working with AI. |
 | [`prototype/`](prototype/) | The interactive prototype: one order, scene by scene. Kade's activity in Sana is the spine, and each person's screen (Nigel's WhatsApp, Priya's Teams, Tom's case) appears when they act. |
 | [`DESIGN.md`](DESIGN.md) | The design system, written for people and for AI tools: principles, colours and type, components, channels, words and example data. |
 | [`shared/`](shared/) | The code behind the design system: the tokens and components that the deck and the prototype share. |

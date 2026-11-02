@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/tokens.css?v=3">
   <link rel="stylesheet" href="../shared/components.css?v=5">
-  <link rel="stylesheet" href="deck.css?v=20261101u">
+  <link rel="stylesheet" href="deck.css?v=20261102a">
 </head>
 <body>
 
@@ -336,7 +336,8 @@
       </div>
     </div>
     <aside class="notes">
-      <p>The first three assumptions would hurt the design most if they turn out wrong, so I would test them first. I would start with the steps I use for any new problem, then let a person play the agent, and measure once it is live. The appendix has the detail.</p>
+      <p>The first three assumptions would hurt the design most if they turn out wrong, so I would test them first. I would start with the steps I use for any new problem, then let a person play the agent, and measure once it is live.</p>
+      <p>If asked for numbers: a day in the life with six people (two chefs, two buyers, two service reps), four days where they work, six to eight interviews, then two weeks of Wizard of Oz across three outlets, and a four-week diary study after launch.</p>
     </aside>
   </section>
 
@@ -361,7 +362,7 @@
     <p class="eyebrow">Appendix</p>
     <h2>For reading, and for questions</h2>
     <aside class="notes">
-      <p>The detail behind the main slides: the design system, the full assumptions matrix, the research plan, and lessons from working with AI.</p>
+      <p>The detail behind the main slides: the design system, and lessons from working with AI.</p>
     </aside>
   </section>
 
@@ -399,73 +400,6 @@
     <p class="caveat"><b>Note:</b> The whole system is written down in DESIGN.md, so an AI tool can show the same order in a new channel, such as email.</p>
     <aside class="notes">
       <p>The salmon is the same item in all three places, with the same status words and the same red for the agent's stop. Only the form changes: a message, a card and an activity entry. The status label adapts to who is looking, so Priya reads "Awaiting approval" while everyone else reads "Waiting on Priya".</p>
-    </aside>
-  </section>
-
-  <!-- Appendix · Assumptions -->
-  <section class="slide s-assume">
-    <p class="eyebrow">Appendix · Assumptions</p>
-    <h2>What we're assuming, ranked by risk</h2>
-    <div class="grid">
-      <div class="matrix">
-        <span class="q tl">Test first</span>
-        <span class="q tr">Watch</span>
-        <span class="q bl">Learn as we go</span>
-        <span class="q br">Fine for now</span>
-        <span class="pt hot" style="left:16%;top:14%">1</span>
-        <span class="pt hot" style="left:36%;top:24%">2</span>
-        <span class="pt hot" style="left:22%;top:38%">3</span>
-        <span class="pt" style="left:64%;top:34%">4</span>
-        <span class="pt" style="left:30%;top:72%">5</span>
-        <span class="pt" style="left:76%;top:68%">6</span>
-        <span class="axis-x"><span>Little evidence</span><span>Strong evidence</span></span>
-        <span class="axis-y"><span>Low impact if wrong</span><span>High impact if wrong</span></span>
-      </div>
-      <ol class="assumptions">
-        <li class="hot"><b>Buyers will let the agent confirm orders within their rules</b><span>If not, every line waits for Priya and nothing is gained.</span></li>
-        <li class="hot"><b>Chefs order by voice note and WhatsApp</b><span>The whole journey starts there.</span></li>
-        <li class="hot"><b>Chefs accept a suggested swap for taste items</b><span>Or they always want a person, and the agent only adds a step.</span></li>
-        <li><b>Spend is controlled by category budgets per outlet</b><span>This decides what "over budget" means.</span></li>
-        <li><b>Buyers want quiet updates, not alerts, for things they don't decide</b><span>Gets the notification levels right.</span></li>
-        <li><b>Buyers are happy to approve in Teams</b><span>Approval tools like Teams are already common.</span></li>
-      </ol>
-    </div>
-    <aside class="notes">
-      <p>These are the assumptions behind the design that haven't been tested yet. They are placed by how much it would matter if they were wrong, and by how much evidence there is for them today.</p>
-      <p>The three filled dots at the top left get tested first: whether buyers will let an agent confirm orders within their rules, whether chefs really order by voice note and WhatsApp, and whether chefs accept a suggested substitute for items chosen on taste.</p>
-      <p>Technical assumptions, such as data from the order system, WhatsApp's business rules and the Teams integration, are kept separate.</p>
-    </aside>
-  </section>
-
-  <!-- Appendix · Research -->
-  <section class="slide s-research">
-    <p class="eyebrow">Appendix · Research</p>
-    <h2>How we'd learn, before and after launch</h2>
-    <div class="cols">
-      <div class="phase">
-        <h3>How I would find out <span>Before launch</span></h3>
-        <dl>
-          <dt>A day in the life <span>6 people</span></dt><dd>Two chefs, two buyers and two service reps describe a usual working day, including when they order or approve, and on which device.</dd>
-          <dt>Their tools, and how well they use them <span>1 week</span></dt><dd>WhatsApp, Teams, email and the wholesaler's webshop, plus a week of the wholesaler's orders by channel and time of day.</dd>
-          <dt>Why they have not learnt more of a tool <span>With the interviews</span></dt><dd>Is the tool too complex, is the feature hidden, does it take too long to learn, or does it break their trust?</dd>
-          <dt>Time where they work <span>4 days</span></dt><dd>Two evenings in a kitchen after service, a day at a buyer's head office, and a day with a customer service team.</dd>
-          <dt>Interviews <span>6–8 people</span></dt><dd>Their needs, what years of experience have taught them, and the hardest challenges they have faced.</dd>
-        </dl>
-      </div>
-      <div class="phase">
-        <h3>Then test, and measure <span>Before and after launch</span></h3>
-        <dl>
-          <dt>Wizard of Oz on WhatsApp <span>2 weeks, 3 outlets</span></dt><dd>A person plays the agent. Do people accept it, decline it or work around it?</dd>
-          <dt>Handled by the agent <span>Measure</span></dt><dd>The share of items confirmed with no person involved.</dd>
-          <dt>Overrides and hand-overs <span>Measure</span></dt><dd>How often people change the agent's decision, and how fast hand-overs are resolved.</dd>
-          <dt>Trust, in the moment <span>In-chat question</span></dt><dd>One tap after a decision: “Was this right?”</dd>
-          <dt>Diary study <span>4 weeks</span></dt><dd>Three buyers record when the agent helped, and when it got in the way.</dd>
-        </dl>
-      </div>
-    </div>
-    <aside class="notes">
-      <p>Before launch, the research follows the steps I use for any new problem: a day in the life, the tools people use and why they have not learnt more of them, time where they work, and interviews. Then a person plays the agent on WhatsApp for two weeks across three outlets.</p>
-      <p>After launch, the agent is measured on how much it handles on its own, how often people override it or need a hand-over, and how much they trust it, with a short diary study alongside.</p>
     </aside>
   </section>
 
