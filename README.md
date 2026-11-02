@@ -21,6 +21,7 @@ All companies, people and figures are fictional.
 | [`docs/01-story.md`](docs/01-story.md) | The story in one page: places, people, rules and the journey. |
 | [`docs/02-research-and-technical-notes.md`](docs/02-research-and-technical-notes.md) | What still needs research, and the technical issues a real build would face. |
 | `index.html` | The start page of the live site. |
+| `count.js` | Counts visits to the start page, the deck and the prototype anonymously with [GoatCounter](https://www.goatcounter.com), without cookies. It records which slides, scenes and pop-ups were opened, not who opened them, and only the author can see the numbers. |
 
 ## Credits
 
