@@ -208,8 +208,9 @@ p { margin: 0; }
 .learn h3 span { font-family: var(--font); font-size: 13px; letter-spacing: 0; color: var(--ink-3); margin-left: 8px; }
 .assumptions.compact { gap: 24px; }
 .assumptions.compact b { font-size: 15px; font-weight: 500; line-height: 1.4; }
-/* Moved up 2px so its first line sits on the same baseline as the first assumption. */
-.learn .phase p { margin-top: -2px; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+/* Moved up 2px to share the first assumption's baseline, plus 1px of optical correction:
+   the lighter, four-line block reads as lower than the single dark line beside it. */
+.learn .phase p { margin-top: -3px; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
 .learn .phase dt { font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 16px; padding-left: 18px; position: relative; }
 .learn .phase dt::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); }
 
