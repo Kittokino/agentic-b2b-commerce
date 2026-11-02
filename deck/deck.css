@@ -252,7 +252,7 @@ p { margin: 0; }
 /* Bottom right, in the serif "voice". The red dot echoes the agent's stop: here the talk stops and people take over. */
 .s-thanks { justify-content: flex-end; align-items: flex-end; padding-bottom: 150px; }
 .s-thanks h1 { font-family: var(--font-voice); font-style: italic; font-size: 96px; letter-spacing: -.01em; }
-.s-thanks .stop-dot { display: inline-block; width: 16px; height: 16px; margin-left: 4px; border-radius: 50%; background: var(--red); }
+.s-thanks .stop-dot { display: inline-block; width: 14.4px; height: 14.4px; margin-left: 4px; border-radius: 50%; background: var(--red); }
 .s-thanks .slide-footer span:first-child { visibility: hidden; }
 
 /* ---------- Chrome (outside the scaled deck) ---------- */
