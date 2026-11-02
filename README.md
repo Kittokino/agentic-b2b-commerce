@@ -25,4 +25,4 @@ All companies, people and figures are fictional.
 
 ## Credits
 
-The icons in Priya's Teams window are from [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) by Microsoft, used under the MIT licence. The WhatsApp and Teams logos represent those apps in the prototype and belong to their owners.
+The icons in the prototype's Teams screens are from [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) by Microsoft, used under the MIT licence. The WhatsApp and Teams logos represent those apps in the prototype and belong to their owners.
