@@ -24,7 +24,7 @@ All copy (prototype screens, messages, activity entries, deck slides and notes) 
 
 ## Working with the author
 
-Argue for a suggestion before making it. Changes go to `main`; bump the `?v=` version on any CSS or JS file you change.
+Argue for a suggestion before making it. Changes go to `main`; bump the `?v=` version on any CSS or JS file you change. Commit locally, but push to GitHub only when the author says go: collect small changes and push them together.
 
 ## The brief
 
