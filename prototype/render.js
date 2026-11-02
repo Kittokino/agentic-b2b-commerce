@@ -44,8 +44,8 @@
   // story uses later, or never, looks active as in the real app and explains itself in a toast.
   // A button already used stays greyed out, as a record of what happened.
   const TOASTS = {
-    alt: 'This choice is not part of the prototype’s story. Use the button at the bottom right to continue.',
-    approve: 'Priya approves the salmon in a later step. Use the button at the bottom right to continue the story.',
+    alt: 'This choice is not part of the story. Use the button at the bottom right to continue.',
+    approve: 'Priya approves the salmon later. Use the button at the bottom right to continue.',
     declinePrice: 'Declining would affect only the Sauvignon Blanc. The rest of the order goes ahead.',
     declineSalmon: 'Declining would affect only the salmon. The rest of the order goes ahead.',
   };
@@ -64,7 +64,7 @@
 
   // An order number the reader can open is a link to the order on Kade's website (DESIGN.md, Words).
   // The website is not built, so the link says where it would go.
-  const orderLinks = (html) => html.replace(/KD-\d{5}/g, n => `<a class="rec-link" href="#" data-toast="This link opens order ${n} on Kade’s website, with every item and its status. That page is not part of this prototype.">${n}</a>`);
+  const orderLinks = (html) => html.replace(/KD-\d{5}/g, n => `<a class="rec-link" href="#" data-toast="This opens order ${n} on Kade’s website, which is not part of this prototype.">${n}</a>`);
   // WhatsApp's own formatting: *bold* in a message's text becomes bold.
   const waText = (t) => orderLinks(esc(t).replace(/\*([^*]+)\*/g, '<b>$1</b>').replace(/\n/g, '<br>'));
 
@@ -208,9 +208,9 @@
   // Laid out like a case in a service tool: a full-width header with the key facts and actions,
   // then the case's own history (newest first) beside the related order.
   const CASE_TOASTS = {
-    comment: 'In the story, Tom does not add a comment here. Use the button at the bottom right to continue.',
-    assign: 'In the story, Tom keeps the case. Use the button at the bottom right to continue.',
-    close: 'The case closes on its own once Priya approves the price and the order is confirmed.',
+    comment: TOASTS.alt,
+    assign: TOASTS.alt,
+    close: 'The case closes on its own when the order is confirmed.',
   };
   function desk(s, scene, ctx) {
     const c = s.caseFile;
@@ -504,7 +504,7 @@
 
   // Any person at Kade can flag one of the agent's entries for the admin to review. In the story,
   // Tom flags the Pinot Grigio suggestion after the order is confirmed.
-  const FLAG_TOAST = 'Tom flags one of the agent’s suggestions after the order is confirmed. You can see it from the closing screen.';
+  const FLAG_TOAST = 'Tom flags a suggestion after the order is confirmed. Open it from the closing screen.';
   function flagButton(e, scene) {
     const target = scene.flagTarget === e.text;
     return `<button class="flag ${target ? 'live' : ''}" ${target ? 'data-flagform' : `data-toast="${esc(FLAG_TOAST)}"`} title="Flag this entry for review" aria-label="Flag this entry for review">${icon('flag')}</button>`;
