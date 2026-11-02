@@ -103,6 +103,7 @@
     rail();
     renderCue(sc);
     history.replaceState(null, '', hashFor());
+    tally(`prototype/${hashFor().slice(1)}`);
   }
 
   // What Priya types appears letter by letter once the screen has slid in; Send appears with the
@@ -174,12 +175,16 @@
   const layer = el('#modal');
   // A message an entry refers to is part of the record, even if the story has not shown it yet,
   // so messages are looked up in the whole story. A case shows as it was when the entry was written.
+  // Visit counting (../count.js); does nothing if it is blocked or missing.
+  const tally = (name) => { if (window.count) window.count(name); };
+
   function openModal(i) {
     let k = -1;
     while (stateAt(k).trail.length <= i) k++;
     const entry = stateAt(index).trail[i];
     layer.innerHTML = V.modal(stateAt(steps().length - 1), entry, stateAt(k));
     layer.hidden = false;
+    tally(`prototype/opened/${(entry.open || 'message').toLowerCase().replace(/\s+/g, '-')}`);
   }
   const closeModal = () => { layer.hidden = true; layer.innerHTML = ''; };
   layer.addEventListener('click', (e) => { if (e.target === layer || e.target.closest('[data-close]')) closeModal(); });
@@ -232,7 +237,7 @@
   // ---------- Input ----------
   stage.addEventListener('click', (e) => {
     const flagForm = e.target.closest('[data-flagform]');
-    if (flagForm) { layer.innerHTML = V.flagModal(steps()[index].flagTarget); layer.hidden = false; return; }
+    if (flagForm) { layer.innerHTML = V.flagModal(steps()[index].flagTarget); layer.hidden = false; tally('prototype/opened/flag-form'); return; }
     const said = e.target.closest('[data-toast]');
     if (said) { e.preventDefault(); toast(said.dataset.toast); return; }
     // Opening the other Teams chat changes only what is on screen, not where the story is.
@@ -245,7 +250,8 @@
       return;
     }
     const rule = e.target.closest('[data-rule]');
-    if (rule) { layer.innerHTML = V.ruleModal(S.rules[rule.dataset.rule]); layer.hidden = false; return; }
+    if (rule) { layer.innerHTML = V.ruleModal(S.rules[rule.dataset.rule]); layer.hidden = false; tally(`prototype/opened/rule-${rule.dataset.rule}`); return; }
+    if (e.target.closest('a[target="kade-deck"]')) tally('prototype/back-to-deck');
     const reset = e.target.closest('[data-reset]');
     if (reset) {
       const root = reset.closest('.trail-main');
@@ -319,6 +325,7 @@
   const opening = el('#opening');
   let openTimer = null;
   function play() {
+    tally('prototype/play');
     intro.classList.add('gone');
     screen.innerHTML = '';
     shown = null;

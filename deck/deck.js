@@ -29,6 +29,7 @@
     const notes = slides[current].querySelector('.notes');
     notesPanel.innerHTML = `<h4>Notes · slide ${current + 1}</h4>${notes ? notes.innerHTML : '<p>No notes.</p>'}`;
     history.replaceState(null, '', `#${current + 1}`);
+    if (window.count) window.count(`deck/slide-${current + 1}`);
   }
 
   // The deck's tab has a name, so the prototype's "Back to the deck" link can switch to it
@@ -49,7 +50,7 @@
         e.preventDefault(); show(current - 1); break;
       case 'Home': show(0); break;
       case 'End': show(total - 1); break;
-      case 'n': case 'N': notesPanel.classList.toggle('open'); break;
+      case 'n': case 'N': (notesPanel.classList.toggle('open') && window.count && window.count('deck/notes-opened')); break;
       case 'f': case 'F':
         if (document.fullscreenElement) document.exitFullscreen();
         else document.documentElement.requestFullscreen?.();
@@ -68,7 +69,7 @@
 
   document.querySelector('[data-nav="prev"]').addEventListener('click', () => show(current - 1));
   document.querySelector('[data-nav="next"]').addEventListener('click', () => show(current + 1));
-  document.querySelector('[data-nav="notes"]').addEventListener('click', () => notesPanel.classList.toggle('open'));
+  document.querySelector('[data-nav="notes"]').addEventListener('click', () => (notesPanel.classList.toggle('open') && window.count && window.count('deck/notes-opened')));
   window.addEventListener('resize', fit);
   window.addEventListener('hashchange', () => show(fromHash()));
 

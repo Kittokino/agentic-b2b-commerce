@@ -43,6 +43,7 @@ Vision idea for the "Next" or "Later" stage: the agent suggests changes the cust
 - Main story: 16 scenes (#scene-1 to #scene-16). Priya's price approval and the agent's confirmation are one scene (#scene-14): `priceApproved` has `merged: true`, so it plays on the same screen without a scene number of its own. The Old Town call is one scene (#scene-8, `callNoted` in order.js). Side branches: #what-if-accepted-n and #what-if-more-options-n. Follow-on: #after-the-order-1 to 4 (Tom flags a suggestion; Maheep publishes version 2 of the substitution rule).
 - The closing cards of the main story and of "After the order" have "Back to the deck", which switches to the deck's tab on slide 9.
 - Decided not to build: the full Sana navigation (Orders, Customers and the other tabs).
+- Visit counting: `count.js` at the top of the repository sends visits and events (slides, scenes, pop-ups) to GoatCounter (no cookies; only the author sees them). The start page, the deck and the prototype load it. Opening any page with `?me` stops counting that browser; `?me=off` turns it back on.
 - Testing: Playwright scripts click through every path and open every link and pop-up; run them after any change to order.js, render.js or app.js.
 
 ## The deck
