@@ -28,6 +28,8 @@
     .part .go { margin-left: auto; font-size: 22px; color: var(--ink-2); }
     p { font-size: 16px; line-height: 1.55; color: var(--ink-2); margin: 12px 0 0; }
     .reel { color: var(--ink); }
+    /* Each stop stays on one line; lines break only between stops. */
+    .reel span { white-space: nowrap; }
     ul { margin: 12px 0 0; padding-left: 20px; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
     li + li { margin-top: 6px; }
     li b { color: var(--ink); font-weight: 600; }
@@ -52,7 +54,7 @@
       <span><b>1. The deck</b><small>About 10 minutes</small></span>
       <span class="go" aria-hidden="true">↗</span>
     </a>
-    <p class="reel">The challenge&nbsp;— guiding principles&nbsp;— the places and the people&nbsp;— a day in their lives&nbsp;— the situation&nbsp;— the agent's decisions&nbsp;— the journey&nbsp;— the platform&nbsp;— the design system&nbsp;— the vision.</p>
+    <p class="reel"><span>The challenge&nbsp;—</span> <span>guiding principles&nbsp;—</span> <span>the places and the people&nbsp;—</span> <span>a day in their lives&nbsp;—</span> <span>the situation&nbsp;—</span> <span>the agent's decisions&nbsp;—</span> <span>the journey&nbsp;—</span> <span>the platform&nbsp;—</span> <span>the design system&nbsp;—</span> <span>the vision.</span></p>
     <p class="keys">Move with <kbd>←</kbd> <kbd>→</kbd> or the buttons at the bottom right. Press <kbd>N</kbd> for the speaker notes, which tell the story behind each slide.</p>
   </section>
 
