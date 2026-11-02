@@ -248,6 +248,13 @@ p { margin: 0; }
 .s-appendix { justify-content: center; }
 .s-appendix h2 { color: var(--ink-3); }
 
+/* ---------- 14 · Thank you ---------- */
+/* The red dot echoes the agent's stop: here the talk stops and people take over. */
+.s-thanks { justify-content: center; }
+.s-thanks h1 { font-size: 80px; }
+.s-thanks .stop-dot { display: inline-block; width: 16px; height: 16px; margin-left: 6px; border-radius: 50%; background: var(--red); }
+.s-thanks .slide-footer span:first-child { visibility: hidden; }
+
 /* ---------- Chrome (outside the scaled deck) ---------- */
 .progress { position: fixed; left: 0; top: 0; height: 3px; background: var(--red); transition: width .25s ease; z-index: 5; }
 .controls { position: fixed; right: 16px; bottom: 14px; display: flex; align-items: center; gap: 6px; z-index: 5; opacity: 0; transition: opacity .2s; }
