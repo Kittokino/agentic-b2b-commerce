@@ -29,6 +29,8 @@
     li + li { margin-top: 6px; }
     li b { color: var(--ink); font-weight: 600; }
     kbd { font-family: var(--font); font-size: 13px; padding: 1px 6px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--ink); }
+    /* No single word left alone on a paragraph's last line, where the browser supports it. */
+    p, li { text-wrap: pretty; }
     footer { margin-top: 36px; font-size: 14px; color: var(--ink-3); }
     @media (max-width: 560px) { main { padding-top: 40px; } h1 { font-size: 40px; } }
   </style>
@@ -43,7 +45,7 @@
     <ul>
       <li>View it on a laptop or desktop, in full screen.</li>
       <li>It has two parts. The deck takes about 10 minutes, and the prototype about 15.</li>
-      <li>Slide 9 of the deck opens the prototype, so you can start with the deck and follow it from there.</li>
+      <li>Start with the deck. Slide 9 opens the prototype.</li>
     </ul>
   </section>
 
