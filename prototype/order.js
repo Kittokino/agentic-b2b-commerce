@@ -240,7 +240,7 @@
       log(s, '07:45', 'agent', 'Updated the order before Tom started on the case', { rule: 'changes' });
       log(s, '07:45', 'system', 'Updated case CS-3391 to 14 bottles', { change: ['Quantity', '24', '14'], open: 'Open case' });
       log(s, '07:45', 'agent', 'Messaged Nigel that Old Town is sending 10 bottles', { source: 'WhatsApp', open: 'Open message' });
-      log(s, '07:46', 'agent', 'Checked Kade’s partner suppliers for 14 bottles of Sauvignon Blanc', { detail: 'Two have it in stock: Northgate Wines (14 bottles) and Riverside Cellars (8 bottles). Tom decides which one to use.', open: 'Open case' });
+      log(s, '07:46', 'agent', 'Checked Kade’s inventory and partner suppliers for 14 bottles of Sauvignon Blanc', { detail: 'None is in stock in Kade’s warehouses. Two partner suppliers have it in stock: Northgate Wines (14 bottles) and Riverside Cellars (8 bottles). Tom decides which one to use.', open: 'Open case' });
       log(s, '07:46', 'priya', 'Priya approved the salmon', { detail: 'She accepted going €180 over Harbour Front’s fish budget.', source: 'Teams, chat with Kade Foodservice', open: 'Open approval', approves: 'salmon' });
       log(s, '07:46', 'agent', 'Confirmed the salmon', { change: ['Status', 'Waiting on Priya', 'Confirmed'] });
       s.order.status = 'With Kade';

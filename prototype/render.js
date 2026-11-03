@@ -224,11 +224,12 @@
           <p class="muted">${esc(op.when)}</p>
           ${act(op.action ? { action: op.action, label: 'Use this supplier' } : { action: 'other-supplier', label: 'Use this supplier', toastText: op.toast }, ctx, 'btn sm ghost')}
         </div>`).join('')}
-      </div>` : '';
+      </div>
+      <div class="option-more"><button class="btn sm ghost" data-toast="This opens a search for Sauvignon Blanc in Kade’s webshop, which is not part of this prototype.">${icon('search')}Search Kade’s webshop</button></div>` : '';
     // The case's history, newest first.
     const history = [
       ['Thursday 29 October, 08:05', 'tom', 'Tom · Service rep', 'Opened the case and started work', ''],
-      c.options && ['Thursday 29 October, 07:46', 'agent', 'AI order agent', 'Prepared two supplier options for 14 bottles of Sauvignon Blanc', `<p class="ch-text">The agent checked Kade’s partner suppliers. Tom decides which one to use.</p>${options}`],
+      c.options && ['Thursday 29 October, 07:46', 'agent', 'AI order agent', 'Prepared two supplier options for 14 bottles of Sauvignon Blanc', `<p class="ch-text">The agent checked Kade’s own inventory in every warehouse, where none is in stock, and Kade’s partner suppliers. Two suppliers can deliver in time, and Tom decides which one to use.</p>${options}`],
       c.changed && ['Thursday 29 October, 07:45', 'priya', 'Priya · Buyer · via Teams', 'Changed the quantity from 24 to 14 bottles', `<p class="ch-text">Old Town, one of The Olive Tree’s restaurants, is sending the other 10 bottles to Harbour Front.</p><p class="chg">Quantity: <s>24</s> → <b>14</b></p>`],
       ['Wednesday 28 October, 22:51', 'agent', 'AI order agent', 'Created the case and assigned it to Tom', `<p class="ch-text">Nigel declined the suggested Pinot Grigio, and no other allowed option was left. The full conversation with Nigel and Priya is attached.</p><button class="rule" data-rule="handover">${icon('rule')}Rule: ${esc(window.STORY.rules.handover.name)} · v${window.STORY.rules.handover.version}</button>`],
     ].filter(Boolean).map(([when, who, label, text, body]) => `
@@ -261,13 +262,12 @@
             <dl class="case-facts">
               <div><dt>Needed by</dt><dd>${esc(c.needBy[0])}<span>${esc(c.needBy[1])}</span></dd></div>
               <div><dt>Delivery</dt><dd>${esc(c.delivery[0])}<span>${esc(c.delivery[1])}</span></dd></div>
-              <div><dt>Private dinner</dt><dd>${esc(c.occasion[0])}<span>${esc(c.occasion[1])}</span></dd></div>
             </dl>
           </div>
         </header>
         <div class="case-page">
           <section class="case-history">
-            <h3 class="case-h">Case history</h3>
+            <h3 class="case-h">Case history <span class="case-order">Newest first</span></h3>
             <ol>${history}</ol>
           </section>
           <aside class="summary history">

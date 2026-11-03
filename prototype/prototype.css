@@ -544,3 +544,7 @@ ul, ol { padding: 0; list-style: none; }
 .t-replying .t-quote { margin: 0; }
 /* After an order's status: the step it is waiting for next, such as delivery. */
 .status-next { margin-left: -6px; font-size: var(--t-small); color: var(--ink-3); }
+/* Tom's case: two facts in the header, the history's order, and his own search under the agent's options. */
+.case-head .case-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.case-h .case-order { margin-left: 8px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--ink-3); }
+.option-more { margin-top: 10px; }
