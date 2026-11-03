@@ -546,5 +546,10 @@ ul, ol { padding: 0; list-style: none; }
 .status-next { margin-left: -6px; font-size: var(--t-small); color: var(--ink-3); }
 /* Tom's case: two facts in the header, the history's order, and his own search under the agent's options. */
 .case-head .case-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.case-h .case-order { margin-left: 8px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--ink-3); }
+.case-h .case-dot { margin: 0 8px; font-weight: 700; }
+.case-h .case-order { padding: 0; border: 0; background: none; font: inherit; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--ink-3); cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.case-h .case-order:hover { color: var(--ink); }
 .option-more { margin-top: 10px; }
+/* The case header: a wide description, and the two dates beside it without a box, so it reads calmly. */
+.case-head-body { grid-template-columns: minmax(0, 1fr) auto; gap: 56px; }
+.case-head .case-facts { grid-template-columns: repeat(2, auto); gap: 4px 40px; margin-top: 0; padding: 0; border: 0; border-radius: 0; background: none; }

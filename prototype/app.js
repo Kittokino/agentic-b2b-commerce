@@ -238,6 +238,14 @@
   stage.addEventListener('click', (e) => {
     const flagForm = e.target.closest('[data-flagform]');
     if (flagForm) { layer.innerHTML = V.flagModal(steps()[index].flagTarget); layer.hidden = false; tally('prototype/opened/flag-form'); return; }
+    // Tom's case history: newest first or oldest first.
+    const sort = e.target.closest('[data-sort]');
+    if (sort) {
+      const ol = sort.closest('.case-history').querySelector('ol');
+      ol.append(...[...ol.children].reverse());
+      sort.textContent = sort.textContent === 'Newest first' ? 'Oldest first' : 'Newest first';
+      return;
+    }
     const said = e.target.closest('[data-toast]');
     if (said) { e.preventDefault(); toast(said.dataset.toast); return; }
     // Opening the other Teams chat changes only what is on screen, not where the story is.
