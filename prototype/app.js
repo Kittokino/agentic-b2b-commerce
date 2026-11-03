@@ -243,7 +243,9 @@
     if (sort) {
       const ol = sort.closest('.case-history').querySelector('ol');
       ol.append(...[...ol.children].reverse());
-      sort.textContent = sort.textContent === 'Newest first' ? 'Oldest first' : 'Newest first';
+      const label = sort.querySelector('span');
+      label.textContent = label.textContent === 'Newest first' ? 'Oldest first' : 'Newest first';
+      sort.classList.toggle('up', label.textContent === 'Oldest first');
       return;
     }
     const said = e.target.closest('[data-toast]');

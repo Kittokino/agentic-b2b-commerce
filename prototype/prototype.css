@@ -553,3 +553,7 @@ ul, ol { padding: 0; list-style: none; }
 /* The case header: a wide description, and the two dates beside it without a box, so it reads calmly. */
 .case-head-body { grid-template-columns: minmax(0, 1fr) auto; gap: 56px; }
 .case-head .case-facts { grid-template-columns: repeat(2, auto); gap: 4px 40px; margin-top: 0; padding: 0; border: 0; border-radius: 0; background: none; }
+/* The sort switch's chevron points down for newest first and up for oldest first. */
+.case-h .case-order { display: inline-flex; align-items: center; gap: 4px; }
+.case-h .case-order .ico { width: 12px; height: 12px; transform: rotate(90deg); transition: transform .2s; }
+.case-h .case-order.up .ico { transform: rotate(-90deg); }
