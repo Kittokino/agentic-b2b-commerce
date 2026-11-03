@@ -471,7 +471,9 @@ ul, ol { padding: 0; list-style: none; }
 .check p + p { margin-top: 6px; }
 .rule-actions { display: flex; gap: 10px; margin-top: 12px; }
 .rule-history { margin-top: 12px; font-size: var(--t-small); color: var(--ink-3); }
-.toast { white-space: normal; }
+/* The toast grows to its full width before it wraps (as an absolutely placed box it would otherwise stop at
+   about 570px), and a longer one wraps into even lines, so no word is left alone on the last line. */
+.toast { white-space: normal; width: max-content; max-width: 760px; text-wrap: balance; }
 
 /* An item waiting for the viewer: its status on the name line, the buttons under it, both right-aligned. */
 .o-side.with-actions { flex-direction: column; align-items: flex-end; gap: 8px; }
