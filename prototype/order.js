@@ -100,7 +100,7 @@
 
   const handToTom = (s) => {
     set(s, 'wine', { status: 'handed', owner: 'tom', note: 'Tom will look for it from 08:00' });
-    s.caseFile = { id: 'CS-3391', title: 'Find 24 bottles of Sauvignon Blanc', status: 'Starts at 08:00', task: 'For Harbour Front’s private dinner on Saturday. Nigel needs Sauvignon Blanc for the menu, so a different wine won’t do.',
+    s.caseFile = { id: 'CS-3391', title: 'Find 24 bottles of Sauvignon Blanc', status: 'Starts at 08:00', task: 'For Harbour Front’s private dinner on Saturday. Nigel, the head chef, needs Sauvignon Blanc for the menu, so a different wine won’t do.',
       needBy: ['Thursday 29 October', 'by 17:00'], delivery: ['Friday 30 October', '07:00–09:00'], occasion: ['Saturday 31 October', '120 guests'] };
     wa(s, '22:51', 'agent', s.more
       ? 'There is no other Sauvignon Blanc in your contract. *Tom* from our customer service team will look for 24 bottles elsewhere when he starts work *tomorrow at 08:00*. We will message you here on WhatsApp with what he finds. You don’t need to do anything until then.'
@@ -207,7 +207,7 @@
       s.compose = '';
       s.kade.push({ time: '07:45', kind: 'text', who: 'priya', text: 'Our Old Town restaurant is sending 10 bottles of Sauvignon Blanc to Harbour Front. Please find the other 14.', replyTo: 'card' });
       set(s, 'wine', { qty: '24 bottles · 10 from Old Town, 14 to source', note: '10 bottles come from Old Town' });
-      s.caseFile = { ...s.caseFile, title: 'Find 14 bottles of Sauvignon Blanc', task: 'For Harbour Front’s private dinner on Saturday. Nigel needs Sauvignon Blanc for the menu, so a different wine won’t do.', changed: 'Priya changed this at 07:45. Old Town is sending 10 bottles, so Kade only needs to find 14.' };
+      s.caseFile = { ...s.caseFile, title: 'Find 14 bottles of Sauvignon Blanc', task: 'For Harbour Front’s private dinner on Saturday. Nigel, the head chef, needs Sauvignon Blanc for the menu, so a different wine won’t do.', changed: 'Priya changed this at 07:45. Old Town is sending 10 bottles, so Kade only needs to find 14.' };
       s.kade.push({ time: '07:45', kind: 'text', who: 'agent', text: 'Thanks, Priya. I have changed order KD-24817, so Kade will now find 14 bottles of Sauvignon Blanc instead of 24. Tom from our customer service team has the update. The 18 kg of salmon is still waiting for your approval in the order card above.' });
       wa(s, '07:45', 'agent', 'Priya has arranged *10 bottles* of Sauvignon Blanc from your Old Town restaurant, so I have changed order KD-24817. Kade will find the other *14 bottles*, and we will message you here when we have them.');
     },
