@@ -216,7 +216,7 @@
     const c = s.caseFile;
     const o = s.order;
     const recent = s.trail.slice(-4).map(e => `<li><span class="t">${esc(e.time)}</span>${avatar(e.who)}<p>${esc(e.text)}</p></li>`).join('');
-    // Tom picks a supplier with the radio buttons, then sends that supplier's price to Priya.
+    // Tom picks a supplier with the radio buttons, then sends that supplier's price for approval.
     // The agent's best match (the one that covers all 14 bottles) is selected to start with.
     const options = c.options ? `
       <div class="option-cards">${c.options.map(op => `
@@ -226,7 +226,8 @@
           <p class="muted">${esc(op.when)}</p>
         </label>`).join('')}
       </div>
-      <div class="option-more">${act({ action: 'quote', label: 'Send price to Priya' }, ctx, 'btn sm send-price')}<button class="btn sm ghost" data-toast="This opens Kade’s webshop, which is not part of this prototype.">${icon('search')}Search Kade’s webshop</button></div>` : '';
+      ${c.approver ? `<p class="send-note">${esc(c.approver)}</p>` : ''}
+      <div class="option-more">${act({ action: 'quote', label: 'Send for approval' }, ctx, 'btn sm send-price')}<button class="btn sm ghost" data-toast="This opens Kade’s webshop, which is not part of this prototype.">${icon('search')}Search webshop</button></div>` : '';
     // The case's history, newest first.
     const history = [
       ['Thursday 29 October, 08:05', 'tom', 'Tom · Service rep', 'Changed the status to In progress', ''],
@@ -562,7 +563,7 @@
               <div class="check"><h4>Test</h4><p>${esc(ch.test)}</p></div>
             </div>
             ${live ? `<p class="rule-history">Version history: ${history.map(([v, d]) => `${v}, ${d}`).join(' · ')}</p>`
-              : `<div class="rule-actions">${act({ action: 'publish', label: 'Publish version 2' }, ctx, 'btn')}${act({ action: 'discard', label: 'Discard draft', toast: 'alt' }, ctx, 'btn ghost')}</div>`}
+              : `<div class="rule-actions">${act({ action: 'publish', label: 'Publish' }, ctx, 'btn')}${act({ action: 'discard', label: 'Discard draft', toast: 'alt' }, ctx, 'btn ghost')}</div>`}
           </section>
         </div>
       </div>`;

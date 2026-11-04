@@ -564,3 +564,5 @@ label.option.on { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
 .option-name input { width: 16px; height: 16px; margin: 0; accent-color: var(--ink); cursor: pointer; }
 .option-name + p, .option-name ~ p { margin-left: 24px; }
 .option-more { display: flex; gap: 10px; }
+.send-note { margin-top: 10px; font-size: var(--t-small); color: var(--ink-2); }
+.send-note + .option-more { margin-top: 8px; }

@@ -152,6 +152,15 @@ Meet WCAG 2.2 at level AA in every channel and in both light and dark mode.
 - A colon may introduce a complete sentence or a question; the next word then starts with a capital letter.
 - Use the status words in section 3 exactly as written.
 
+### Button labels
+
+Button labels are short and the same for every customer; the specifics go in the text next to the button.
+
+- A label starts with a verb and has one to three words: "Send for approval", "Approve", "Search webshop", "Publish".
+- A label never holds a person's name, a company's name, a quantity, a price or a version number. Customers have different approvers, names grow long, and a fixed label is learnt once, documented once and translated once.
+- Who, what and why go in a full sentence next to the button, written from the record's data and the customer's rules: "Priya, the buyer at The Olive Tree, approves prices outside the contract." With two approvers, the sentence names both; the button stays the same.
+- Exception: Reply buttons in a chat, such as WhatsApp, may name the item ("Accept Pinot Grigio"). When the person taps one, its label is posted into the chat as their reply, and "Accept" alone would leave the conversation unclear.
+
 ### One chat, and record numbers in every reply
 
 A customer has one conversation with a supplier in each channel: one WhatsApp chat and one Teams chat with Kade, never one per order, case or ticket. Every extra chat adds to the customer's channel fatigue. Orders, problems and questions all come back into that one chat, each tied to its record number.
@@ -230,6 +239,7 @@ Owner: the design lead of this project. Change this file through a reviewed comm
 | 1 November 2026 | A missed deadline stops only the item that is waiting; the rest of the order goes ahead. |
 | 1 November 2026 | Delivery statuses: Pending delivery and Delivered for items; Partly delivered (counted in items) and Delivered for the whole order. |
 | 1 November 2026 | A confirmed order shows the step it still waits for: "✓ Confirmed · Pending delivery". |
+| 4 November 2026 | Button labels: short, verb first, the same for every customer, with no names or values; the specifics go in the sentence next to the button. Chat reply buttons may name the item. |
 | 1 November 2026 | One chat per customer and channel, never one per order. How the agent matches a message to its record, and record numbers, linked, in every reply that creates, changes or confirms a record. |
 | 1 November 2026 | Added dark mode, accessibility, every person's own language and formats, and the patterns for a missed deadline and for undoing. Email listed as a channel, with its rules left open on purpose. |
 | 1 November 2026 | Red words use `--red-text` (#c40e35) to pass AA contrast; shapes keep `--red`. |

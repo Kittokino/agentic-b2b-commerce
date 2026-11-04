@@ -4,6 +4,8 @@
 
 All copy (prototype screens, messages, activity entries, deck slides and notes) is written in complete, plain sentences that someone seeing it for the first time can follow without context.
 
+Button labels are the exception: they are short, start with a verb and are the same for every customer (DESIGN.md, "Button labels"). The footer buttons of the prototype narrate the story and may say more.
+
 - Say who does what, to which item, and why. Name things in full: "24 bottles of Sauvignon Blanc", not "the wine".
 - No telegraphic "Label: fragment" phrasing ("Wine: handed over to Tom"), no colon-compressed clauses, and no clever shorthand ("Overnight, nothing moved").
 - A colon may introduce a complete sentence or a direct question, after a complete clause (not after "which is"). The first word after the colon then starts with a capital letter, and a question ends with a question mark: "I chose one challenge to solve: How do restaurants order their supplies from a wholesaler?", "Note: These are assumptions."

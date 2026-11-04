@@ -256,7 +256,8 @@
     cta: 'Use Northgate Wines and send the price to Priya',
     choices: [{ action: 'quote' }],
     apply(s) {
-      s.caseFile = { ...s.caseFile, status: 'In progress', options: [
+      // Who approves comes from The Olive Tree's rules, so the button label never needs a name.
+      s.caseFile = { ...s.caseFile, status: 'In progress', approver: 'Priya, the buyer at The Olive Tree, approves prices outside the contract.', options: [
         { name: 'Northgate Wines', stock: '14 bottles in stock', price: '€11.80 a bottle', when: 'Can deliver to Kade by Thursday 15:00', action: 'quote' },
         { name: 'Riverside Cellars', stock: '8 bottles in stock', price: '€10.90 a bottle', when: 'Can deliver to Kade by Thursday 16:00', toast: 'Riverside Cellars has only 8 bottles, so it cannot cover the 14 on its own.' },
       ] };
