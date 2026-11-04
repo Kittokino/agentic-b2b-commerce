@@ -557,3 +557,10 @@ ul, ol { padding: 0; list-style: none; }
 .case-h .case-order { display: inline-flex; align-items: center; gap: 4px; }
 .case-h .case-order .ico { width: 12px; height: 12px; transform: rotate(90deg); transition: transform .2s; }
 .case-h .case-order.up .ico { transform: rotate(-90deg); }
+/* Tom's supplier choice: a radio button before each name; the chosen card has a navy border. */
+label.option { cursor: pointer; }
+label.option.on { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.option-name { display: flex; align-items: center; gap: 8px; }
+.option-name input { width: 16px; height: 16px; margin: 0; accent-color: var(--ink); cursor: pointer; }
+.option-name + p, .option-name ~ p { margin-left: 24px; }
+.option-more { display: flex; gap: 10px; }

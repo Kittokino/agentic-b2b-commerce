@@ -218,6 +218,14 @@
   }
   stage.addEventListener('change', (e) => {
     if (e.target.matches('[data-channel-filter]')) applyFilters(e.target.closest('.trail-main'));
+    // Tom's choice of supplier: the chosen card is marked, and a supplier that cannot cover the
+    // order makes "Send price to Priya" explain why instead of sending.
+    if (e.target.name === 'supplier') {
+      const cards = e.target.closest('.option-cards');
+      cards.querySelectorAll('.option').forEach(o => o.classList.toggle('on', o.contains(e.target)));
+      const send = cards.parentElement.querySelector('.send-price');
+      if (send) { if (e.target.dataset.cannot) send.dataset.toast = e.target.dataset.cannot; else delete send.dataset.toast; }
+    }
   });
 
   // A short note above the footer, for a button the story does not use at this point.
