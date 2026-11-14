@@ -23,7 +23,7 @@
         { id: 'wine', name: 'Sauvignon Blanc', qty: '24 bottles', status: 'received' },
       ],
     },
-    trail: [],      // the order's activity in Kade's Sana: append only
+    trail: [],      // the order's activity in Kade's commerce platform: append only
     wa: [],         // Nigel's WhatsApp chat with Kade
     assistant: [],  // Priya's chat with her own AI purchasing assistant (Teams)
     kade: [],       // Priya's chat with Kade's app (Teams)

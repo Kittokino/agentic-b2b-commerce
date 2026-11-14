@@ -95,14 +95,14 @@ ul, ol { padding: 0; list-style: none; }
 .frame { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: var(--bg);
   box-shadow: 0 0 0 1px #c8c3bb, 0 30px 60px -16px rgba(21, 15, 51, .26), 0 6px 18px rgba(21, 15, 51, .07); }
 
-/* ---------- Sana (Kade) ---------- */
-.sana-top { flex: none; height: 54px; display: flex; align-items: stretch; gap: 40px; padding: 0 24px; background: var(--surface); border-bottom: 1px solid var(--line); }
+/* ---------- The commerce platform (Kade) ---------- */
+.platform-top { flex: none; height: 54px; display: flex; align-items: stretch; gap: 40px; padding: 0 24px; background: var(--surface); border-bottom: 1px solid var(--line); }
 .brand .logo { width: 26px; height: 26px; }
 .brand { display: flex; align-items: center; gap: 10px; font-size: var(--t-body); }
 .brand .on { font-size: var(--t-label); color: var(--ink-3); }
-.sana-top nav { display: flex; gap: 26px; font-size: var(--t-body); color: var(--ink-3); }
-.sana-top nav span { display: flex; align-items: center; }
-.sana-top nav .on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--ink); }
+.platform-top nav { display: flex; gap: 26px; font-size: var(--t-body); color: var(--ink-3); }
+.platform-top nav span { display: flex; align-items: center; }
+.platform-top nav .on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--ink); }
 .trail-page { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 330px; gap: 24px; padding: 14px 24px 0; }
 .order-head { flex: none; padding: 14px 24px 0; background: var(--surface); border-bottom: 1px solid var(--line); }
 .order-title { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
@@ -429,7 +429,7 @@ ul, ol { padding: 0; list-style: none; }
 .option .btn:not(.live):not(:disabled):hover { background: var(--person-soft); filter: none; }
 
 /* Who is signed in, at the right of Kade's header. */
-.sana-top .me { margin-left: auto; display: flex; align-items: center; }
+.platform-top .me { margin-left: auto; display: flex; align-items: center; }
 .face.someone { background: var(--person-soft); border: 0; color: var(--ink-2); font-size: 18px; }
 
 /* A flag on each of the agent's entries: quiet, at the end of the label line. */

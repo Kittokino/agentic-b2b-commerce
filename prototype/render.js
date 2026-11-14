@@ -4,13 +4,13 @@
   const esc = (t) => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const icon = (id) => `<svg class="ico"><use href="#i-${id}"/></svg>`;
 
-  const PEOPLE = { nigel: 'Nigel', priya: 'Priya', tom: 'Tom', maheep: 'Maheep', agent: 'Order agent', system: 'Sana' };
+  const PEOPLE = { nigel: 'Nigel', priya: 'Priya', tom: 'Tom', maheep: 'Maheep', agent: 'Order agent', system: 'System' };
 
   // Whose screen we are looking at, for the left column.
   const VIEWPOINT = {
-    trail: [null, 'Kade’s order screen, in Sana'],
-    rules: ['maheep', 'Agent rules in Kade’s Sana, as Maheep sees it'],
-    desk: ['tom', 'Tom’s case screen, in Sana'],
+    trail: [null, 'Kade’s order screen'],
+    rules: ['maheep', 'Maheep’s agent rules screen'],
+    desk: ['tom', 'Tom’s case screen'],
     lock: ['nigel', 'Nigel’s phone'],
     whatsapp: ['nigel', 'Nigel’s phone, WhatsApp'],
     teams: ['priya', 'Priya’s laptop, Teams'],
@@ -111,11 +111,11 @@
       </div>`;
   }
 
-  // ---------- Kade's order in Sana: its Activity tab ----------
+  // ---------- Kade's order in the commerce platform: its Activity tab ----------
   // Who is signed in: Tom on his own case; on the order screen, a generic colleague.
-  const sanaTop = (on, who) => `
-    <header class="sana-top">
-      <div class="brand"><img class="logo" src="../assets/kade-logo.png" alt=""><b>Kade Foodservice</b><span class="on">on Sana</span></div>
+  const platformTop = (on, who) => `
+    <header class="platform-top">
+      <div class="brand"><img class="logo" src="../assets/kade-logo.png" alt=""><b>Kade Foodservice</b><span class="on">Commerce platform</span></div>
       <nav>${['Orders', 'Cases', 'Customers', 'Agent rules'].map(n => `<span class="${n === on ? 'on' : ''}">${n}</span>`).join('')}</nav>
       <span class="me" title="${who ? `Signed in as ${PEOPLE[who]}` : 'Signed in as a Kade colleague'}">${who ? avatar(who, 'sm') : `<span class="face sm someone">${icon('person')}</span>`}</span>
     </header>`;
@@ -175,7 +175,7 @@
     const cls = o.status === 'Confirmed' ? 'done' : 'handed';
     return `
       <div class="frame">
-        ${sanaTop('Orders', scene.viewer)}
+        ${platformTop('Orders', scene.viewer)}
         <div class="order-head">
           <div class="crumb">Orders <span>/</span> ${esc(o.id)}</div>
           <div class="order-title">
@@ -204,7 +204,7 @@
       </div>`;
   }
 
-  // ---------- Tom's case, in Sana ----------
+  // ---------- Tom's case, in the commerce platform ----------
   // Laid out like a case in a service tool: a full-width header with the key facts and actions,
   // then the case's own history (newest first) beside the related order.
   const CASE_TOASTS = {
@@ -245,7 +245,7 @@
       </li>`).join('');
     return `
       <div class="frame">
-        ${sanaTop('Cases', 'tom')}
+        ${platformTop('Cases', 'tom')}
         <header class="case-head">
           <div class="case-head-top">
             <div>
@@ -530,7 +530,7 @@
       </div>`;
   }
 
-  // ---------- Agent rules, in Kade's Sana: Maheep's screen ----------
+  // ---------- Agent rules, in Kade's commerce platform: Maheep's screen ----------
   function rules(s, scene, ctx) {
     const ch = window.STORY.ruleChange;
     const r = window.STORY.rules[ch.rule];
@@ -539,7 +539,7 @@
     const history = live ? [ch.v2, ...r.history] : r.history;
     return `
       <div class="frame">
-        ${sanaTop('Agent rules', 'maheep')}
+        ${platformTop('Agent rules', 'maheep')}
         <div class="rules-page">
           <aside class="flags">
             <h3>Flags to review <span>${live ? 0 : 1}</span></h3>

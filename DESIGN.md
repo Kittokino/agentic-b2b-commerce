@@ -1,6 +1,6 @@
 # DESIGN.md
 
-The design system for Kade's AI order agent, which runs on Sana. It describes how one order looks and reads in every channel: WhatsApp, Microsoft Teams, Kade's own screens in Sana, and any channel added later.
+The design system for Kade's AI order agent, which runs on a B2B commerce platform. It describes how one order looks and reads in every channel: WhatsApp, Microsoft Teams, Kade's own screens in the commerce platform, and any channel added later.
 
 **For people:** read this before designing a screen or writing a message. **For AI tools:** follow this file when you generate a screen, a card or a message for this project. Use only the values, components and words defined here. When something you need is missing, say so instead of inventing it.
 
@@ -106,7 +106,7 @@ One line per item: the item named in full with its quantity ("18 kg of salmon fi
 ### Approval request
 The order item, plus at most three actions. The person who owns the decision sees "Approve" and "Decline"; nobody else sees buttons. After a choice, every button in that message is disabled, as a record of what happened.
 
-### Activity entry (Kade's screen in Sana)
+### Activity entry (Kade's screen in the commerce platform)
 One entry per thing that happened, in this order: the time; who did it (a face or the agent symbol); what happened, as a full sentence ("Stopped the salmon and asked Priya to approve it"); the evidence; the change ("Status: Received → Waiting on Priya"); the rule and its version; the channel it came from. Entries are never edited. A person can flag one for review.
 
 ### Hand-over case
@@ -137,7 +137,7 @@ Meet WCAG 2.2 at level AA in every channel and in both light and dark mode.
 | --- | --- | --- |
 | **WhatsApp** | Plain messages, one item per message when a decision is needed. Bold (`*text*`) for the item and the outcome. | At most three reply buttons per message; up to ten options as a list. Outside 24 hours after the customer's last message, only a pre-approved template may start a conversation. |
 | **Microsoft Teams** | One order card per order, in the customer's one chat with the supplier, with every item and its status. Only the item that needs this person has buttons. | Keep a card to one order; at most three actions per item. |
-| **Kade's screens in Sana** | The order's full activity, with every entry, rule and version, and filters. | None; this is the complete record. |
+| **Kade's screens in the commerce platform** | The order's full activity, with every entry, rule and version, and filters. | None; this is the complete record. |
 | **Voice** | The agent reads the order back in the same words it would write. | Ask about one item at a time. |
 | **Email** | A needed channel. Its rules are deliberately not written yet: render it from the principles, foundations, components and words in this file, and the checklist in section 7. | Write it so it works in dark mode and in plain text. |
 | **A new channel** | Follow section 7. | |

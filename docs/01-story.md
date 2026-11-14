@@ -13,8 +13,8 @@ On Wednesday night, Nigel orders three things in one voice note. Kade's AI order
 | Place | What it is |
 |---|---|
 | **The Olive Tree** | A restaurant chain in Rotterdam: a head office (Priya) and 3 outlets: **Harbour Front** (Nigel's kitchen), **Old Town** (sends 10 bottles of Sauvignon Blanc), Riverside |
-| **Kade Foodservice** ("Kade" = quay in Dutch) | A food & beverage wholesaler running on Sana: the AI order agent, Tom's customer service team, Maheep's admin |
-| **Sana** | The platform under Kade; it serves many wholesalers in many industries |
+| **Kade Foodservice** ("Kade" = quay in Dutch) | A food & beverage wholesaler running on a B2B commerce platform: the AI order agent, Tom's customer service team, Maheep's admin |
+| **The commerce platform** | The platform under Kade; it serves many wholesalers in many industries |
 | **Northgate Wines, Riverside Cellars** | Two of Kade's partner suppliers. Northgate has 14 bottles of Sauvignon Blanc at €11.80 a bottle; Riverside Cellars has only 8, at €10.90. |
 
 ## Cast (5)
@@ -24,9 +24,9 @@ On Wednesday night, Nigel orders three things in one voice note. Kade's AI order
 | **Chef Nigel**, head chef, Harbour Front | The Olive Tree | **WhatsApp** (voice note, replies) |
 | **The AI order agent** | Kade | Reads WhatsApp, posts to Teams |
 | **Tom**, from Kade's customer service team | Kade | His case on his desktop |
-| **Maheep**, commerce admin | Kade | Sana admin (sets the rules) |
+| **Maheep**, commerce admin | Kade | Platform admin (sets the rules) |
 
-**The purchasing assistant (a tool, not a cast member):** The Olive Tree's own AI assistant, Priya's, not Kade's or Sana's. It summarises supplier updates for Priya and finds things for her, for example inventory across her outlets. It reads Kade's order data through an API / MCP server that Sana offers. It does **not** order, negotiate or change Kade's order: it tells Priya what to tell Kade. Shown as an outlined sparkle, unlike Kade's agent.
+**The purchasing assistant (a tool, not a cast member):** The Olive Tree's own AI assistant, Priya's, not Kade's or the platform's. It summarises supplier updates for Priya and finds things for her, for example inventory across her outlets. It reads Kade's order data through an API / MCP server that the commerce platform offers. It does **not** order, negotiate or change Kade's order: it tells Priya what to tell Kade. Shown as an outlined sparkle, unlike Kade's agent.
 
 ## Rules (set at Kade by Maheep; budgets and limits from Priya)
 Every rule is versioned. Each decision in the order's activity records the rule and the version it was made under.
@@ -88,7 +88,7 @@ Every decision on an item affects only that item. A decline never cancels the wh
 ## Where this is heading (vision slide, not the prototype)
 - **Today:** Kade's agent takes orders, stops and hands over; people decide the exceptions.
 - **Next:** buyers' assistants (like Priya's) summarise and find, reading suppliers' data.
-- **Later:** buyers' agents order within mandates; people set the mandates and handle disputes and relationships. Risk for merchants: competing on price alone. Sana's role: help merchants win in agent-mediated buying.
+- **Later:** buyers' agents order within mandates; people set the mandates and handle disputes and relationships. Risk for merchants: competing on price alone. The platform's role: help merchants win in agent-mediated buying.
 
 ## Parked
 Delivery delay · damaged crate · waste insight · month-end summary · drifting account.
